@@ -28,6 +28,7 @@ Rectangle {
             }
             Label {
                 Layout.fillWidth: true
+                visible: monitor.events.length > 0
                 text: qsTr("%n changes", "", monitor.events.length)
                 color: theme.muted
                 font.pixelSize: Math.round(12 * log.u)

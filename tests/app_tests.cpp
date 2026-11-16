@@ -4,6 +4,9 @@
 #include "capture.h"
 #include "monitor.h"
 #include "names.h"
+#include "flows.h"
+#include "graph.h"
+#include "report.h"
 
 #include <QJSEngine>
 #include <QSignalSpy>
@@ -246,6 +249,67 @@ private slots:
         QCOMPARE(resolved.count(), 1); // only a found name redraws
         names.warm({"192.0.2.1", "2001:db8::1"});
         QCOMPARE(asked.size(), 2); // a miss is remembered too
+    }
+
+    void monitorRecordsWhatAppearedAndStopped() {
+        Capture first, second;
+        QString error;
+        QVERIFY(loadCapture(SNOOPY_FIXTURES "/watch-before", &first, &error));
+        QVERIFY(loadCapture(SNOOPY_FIXTURES "/watch-after", &second, &error));
+        const QJsonObject before = buildReport(first), after = buildReport(second);
+
+        Monitor monitor;
+        QSignalSpy events(&monitor, &Monitor::eventsChanged);
+        monitor.relay(before);
+        // The first sample is the baseline.
+        QCOMPARE(monitor.status(), QString("live"));
+        QCOMPARE(monitor.samples(), 1);
+        QVERIFY(monitor.events().isEmpty());
+        QCOMPARE(QJsonArray::fromVariantList(monitor.graph()),
+                 graphFrom(projectReport(before).value("flows").toArray(), projectReport(before).value("apps").toArray()));
+
+        // What the second sample should record, worked out here from the flows.
+        auto keys = [](const QJsonObject &report) {
+            QStringList list;
+            for (const QJsonValue &flow : projectReport(report).value("flows").toArray()) {
+                const QJsonObject f = flow.toObject();
+                list.append(QStringList{f.value("kind").toString(), f.value("source").toString(), f.value("destination").toString(),
+                                        f.value("information").toString(), f.value("via").toString()}.join('|'));
+            }
+            return QSet<QString>(list.begin(), list.end());
+        };
+        const QSet<QString> a = keys(before), b = keys(after);
+        const int appeared = int((b - a).size()), stopped = int((a - b).size());
+        QVERIFY2(appeared > 0 && stopped > 0, "the watch fixtures should differ both ways");
+
+        monitor.relay(after);
+        QCOMPARE(monitor.samples(), 2);
+        int seenAppeared = 0, seenStopped = 0;
+        for (const QVariant &event : monitor.events())
+            (event.toMap().value("change") == "appeared" ? seenAppeared : seenStopped)++;
+        QCOMPARE(seenAppeared, appeared);
+        QCOMPARE(seenStopped, stopped);
+        // Newest first; within a sample, appeared before stopped.
+        QCOMPARE(monitor.events().first().toMap().value("change").toString(), QString("appeared"));
+
+        // The same sample again changes nothing.
+        const int count = int(monitor.events().size());
+        monitor.relay(after);
+        QCOMPARE(monitor.events().size(), count);
+    }
+
+    void monitorKeepsTheLastSampleWhileWaiting() {
+        Capture capture;
+        QString error;
+        QVERIFY(loadCapture(SNOOPY_FIXTURES "/demo", &capture, &error));
+        Monitor monitor;
+        monitor.relay(buildReport(capture));
+        const QVariantList graph = monitor.graph();
+        QVERIFY(!graph.isEmpty());
+        monitor.setWaiting("No Android device is connected.");
+        QCOMPARE(monitor.status(), QString("waiting"));
+        QCOMPARE(monitor.graph(), graph);
+        QCOMPARE(monitor.device().value("model").toString(), QString("Pixel 8"));
     }
 
     void monitorWaitsWhenThePhoneCantBeRead() {
