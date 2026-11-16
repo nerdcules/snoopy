@@ -5,6 +5,7 @@
 #include "graph.h"
 #include "names.h"
 #include "report.h"
+#include "wireless.h"
 
 #include <QSet>
 #include <QtConcurrent>
@@ -15,6 +16,14 @@ Sample adbSample(const QString &serial) {
     Sample sample;
     try {
         Adb adb(serial);
+        // No phone ready: a phone paired for wireless debugging may be
+        // announcing itself on the network; connect to it and go on.
+        try {
+            adb.resolveSerial();
+        } catch (const AdbError &) {
+            if (connectAnnounced(adb) == 0)
+                throw;
+        }
         sample.capture = collectSnapshot(adb);
         sample.serial = adb.serial();
         sample.report = buildReport(sample.capture);
@@ -80,6 +89,11 @@ void Monitor::sampleNow() {
     const Sampler sampler = m_sampler;
     m_watcher.setFuture(QtConcurrent::run([sampler, serial] { return sampler(serial); }));
     emit busyChanged();
+}
+
+QString Monitor::transport() const {
+    const QString current = serial();
+    return current.isEmpty() ? QString() : isWireless(current) ? QStringLiteral("wifi") : QStringLiteral("usb");
 }
 
 void Monitor::finished() {

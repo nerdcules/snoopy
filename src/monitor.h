@@ -43,6 +43,8 @@ class Monitor : public QObject {
     Q_PROPERTY(bool busy READ busy NOTIFY busyChanged)
     Q_PROPERTY(bool paused READ paused WRITE setPaused NOTIFY pausedChanged)
     Q_PROPERTY(int interval READ interval WRITE setInterval NOTIFY intervalChanged)
+    // "usb" or "wifi" for the phone the last sample read, "" before one.
+    Q_PROPERTY(QString transport READ transport NOTIFY changed)
 
 public:
     using Sampler = std::function<Sample(const QString &serial)>;
@@ -67,6 +69,7 @@ public:
     int interval() const { return m_interval; }
     // The serial of the phone the last sample read, for the icon reader.
     QString serial() const;
+    QString transport() const;
 
     void setPaused(bool paused);
     void setInterval(int seconds);

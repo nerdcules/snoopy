@@ -19,14 +19,25 @@ ApplicationWindow {
     Material.roundedScale: theme.radius
 
     property bool helpVisible: false
+    property bool wirelessVisible: false
     property bool logVisible: true
     readonly property real u: theme.fontScale
     // Narrow or tiled windows put the inspector under the graph.
     readonly property bool wide: width >= 1100 * u
 
     // Esc steps back one thing at a time: help, the filter, the selection.
+    function showWireless(show) {
+        if (show && !wirelessVisible)
+            pairing.start()
+        else if (!show)
+            pairing.cancel()
+        wirelessVisible = show
+    }
+
     function stepBack() {
-        if (helpVisible)
+        if (wirelessVisible)
+            showWireless(false)
+        else if (helpVisible)
             helpVisible = false
         else if (filter.activeFocus || filter.text !== "") {
             filter.text = ""
@@ -47,6 +58,7 @@ ApplicationWindow {
     Shortcut { sequences: ["H", "Left"]; context: Qt.ApplicationShortcut; onActivated: graph.side(-1) }
     Shortcut { sequences: ["L", "Right"]; context: Qt.ApplicationShortcut; onActivated: graph.side(1) }
     Shortcut { sequence: "E"; context: Qt.ApplicationShortcut; onActivated: win.logVisible = !win.logVisible }
+    Shortcut { sequence: "W"; context: Qt.ApplicationShortcut; onActivated: win.showWireless(!win.wirelessVisible) }
     Shortcut { sequence: "C"; context: Qt.ApplicationShortcut; onActivated: monitor.clearEvents() }
     Shortcut { sequences: ["+", "="]; context: Qt.ApplicationShortcut; onActivated: monitor.interval = monitor.interval - 5 }
     Shortcut { sequence: "-"; context: Qt.ApplicationShortcut; onActivated: monitor.interval = monitor.interval + 5 }
@@ -83,6 +95,23 @@ ApplicationWindow {
                     text: d.android ? qsTr("%1 · Android %2").arg(d.model).arg(d.android) : (d.model || "")
                     color: theme.text
                     font.pixelSize: Math.round(13 * win.u)
+                }
+
+                Rectangle {
+                    visible: monitor.transport !== ""
+                    width: transportLabel.implicitWidth + 16
+                    height: Math.round(22 * win.u)
+                    radius: Math.min(4, theme.radius)
+                    color: "transparent"
+                    border.color: theme.panelBorder
+                    border.width: 1
+                    Label {
+                        id: transportLabel
+                        anchors.centerIn: parent
+                        text: monitor.transport === "wifi" ? qsTr("Wi-Fi") : qsTr("USB")
+                        color: theme.muted
+                        font.pixelSize: Math.round(11 * win.u)
+                    }
                 }
 
                 Item { Layout.fillWidth: true }
@@ -204,7 +233,7 @@ ApplicationWindow {
 
             Label {
                 Layout.fillWidth: true
-                text: qsTr("Space pause · R sample · / filter · J/K H/L select · E changes · +/- rate · ? help · Q quit")
+                text: qsTr("Space pause · R sample · / filter · J/K H/L select · E changes · W Wi-Fi · ? help · Q quit")
                 color: theme.muted
                 font.pixelSize: Math.round(12 * win.u)
                 elide: Text.ElideRight
@@ -215,6 +244,12 @@ ApplicationWindow {
             anchors.fill: parent
             visible: win.helpVisible
             onClosed: win.helpVisible = false
+        }
+
+        WirelessOverlay {
+            anchors.fill: parent
+            visible: win.wirelessVisible
+            onClosed: win.showWireless(false)
         }
     }
 }

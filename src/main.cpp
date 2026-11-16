@@ -14,8 +14,10 @@
 #include "icons.h"
 #include "monitor.h"
 #include "names.h"
+#include "qrimage.h"
 #include "theme.h"
 #include "translator.h"
+#include "wireless.h"
 
 int main(int argc, char *argv[]) {
     QStringList arguments;
@@ -54,13 +56,18 @@ int main(int argc, char *argv[]) {
     Names names;
     Monitor monitor(serial, {}, &names);
     IconSource icons;
+    Pairing pairing;
+    // A phone that just connected over Wi-Fi is sampled at once.
+    QObject::connect(&pairing, &Pairing::connected, &monitor, &Monitor::sampleNow);
 
     QQmlApplicationEngine engine;
     QObject::connect(&translator, &Translator::changed, &engine, &QQmlEngine::retranslate);
     engine.addImageProvider("appicon", new IconProvider(&icons, [&monitor] { return monitor.serial(); }));
     engine.rootContext()->setContextProperty("translator", &translator);
     engine.rootContext()->setContextProperty("theme", &theme);
+    engine.addImageProvider("qr", new QrProvider);
     engine.rootContext()->setContextProperty("monitor", &monitor);
+    engine.rootContext()->setContextProperty("pairing", &pairing);
     engine.load(QUrl("qrc:/Main.qml"));
     if (engine.rootObjects().isEmpty())
         return 1;

@@ -7,6 +7,7 @@
         <file alias="Inspector.qml">Inspector.qml</file>
         <file alias="EventLog.qml">EventLog.qml</file>
         <file alias="HelpOverlay.qml">HelpOverlay.qml</file>
+        <file alias="WirelessOverlay.qml">WirelessOverlay.qml</file>
         <file alias="graph.js">graph.js</file>
         <file alias="kinds.js">kinds.js</file>
         <file alias="i18n/en.json">i18n/en.json</file>

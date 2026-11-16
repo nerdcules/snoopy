@@ -12,10 +12,12 @@ HEADERS += \
     $$PWD/monitor.h \
     $$PWD/names.h \
     $$PWD/parsers.h \
+    $$PWD/qrimage.h \
     $$PWD/render.h \
     $$PWD/report.h \
     $$PWD/theme.h \
-    $$PWD/translator.h
+    $$PWD/translator.h \
+    $$PWD/wireless.h
 
 SOURCES += \
     $$PWD/adb.cpp \
@@ -30,10 +32,13 @@ SOURCES += \
     $$PWD/monitor.cpp \
     $$PWD/names.cpp \
     $$PWD/parsers.cpp \
+    $$PWD/qrimage.cpp \
     $$PWD/render.cpp \
     $$PWD/report.cpp \
     $$PWD/theme.cpp \
-    $$PWD/translator.cpp
+    $$PWD/translator.cpp \
+    $$PWD/wireless.cpp
 
 # Raw deflate for APK entries (icons). Qt itself links the same zlib.
-LIBS += -lz
+# libqrencode draws the wireless pairing code.
+LIBS += -lz -lqrencode

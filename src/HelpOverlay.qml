@@ -47,6 +47,7 @@ Rectangle {
                     ["Esc", qsTr("Clear the selection")],
                     ["E", qsTr("Show or hide the changes")],
                     ["C", qsTr("Clear the changes")],
+                    ["W", qsTr("Connect the phone over Wi-Fi (wireless debugging)")],
                     ["+ / -", qsTr("Sample more or less often")],
                     ["Ctrl + / -", qsTr("Make the text larger or smaller")],
                     ["?", qsTr("Show this help")],

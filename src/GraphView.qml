@@ -183,6 +183,6 @@ Item {
                 ? qsTr("No app has an open connection or a recent read in this sample.")
                 : monitor.status === "starting" && monitor.busy
                   ? qsTr("Reading the phone…")
-                  : qsTr("Plug the phone in and accept USB debugging. Apps show up here on their own.")
+                  : qsTr("Plug the phone in and accept USB debugging, or press W to connect over Wi-Fi. Apps show up here on their own.")
     }
 }

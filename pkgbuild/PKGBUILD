@@ -6,7 +6,7 @@ arch=('x86_64' 'aarch64')
 license=('MIT')
 # qt6-imageformats decodes WebP launcher icons. adb comes from android-tools
 # or from Google's platform-tools unpacked in ~/.local/opt/android-platform-tools.
-depends=('qt6-base' 'qt6-declarative' 'qt6-svg' 'qt6-imageformats' 'qt6-wayland')
+depends=('qt6-base' 'qt6-declarative' 'qt6-svg' 'qt6-imageformats' 'qt6-wayland' 'qrencode')
 optdepends=('android-tools: adb, unless Google platform-tools is in ~/.local/opt/android-platform-tools')
 makedepends=('gcc' 'make')
 source=()

@@ -38,7 +38,19 @@ Item {
         border.color: root.selected ? theme.accent : root.lit ? root.tint : Qt.alpha(root.tint, 0.55)
         border.width: (root.selected ? 3 : root.lit ? 2 : 1.5) * root.u
 
+        // The app's initial until its icon arrives: reading one from the
+        // phone takes about two seconds, and several queue up.
+        Label {
+            visible: root.node.type === "app" && icon.status !== Image.Ready
+            anchors.centerIn: parent
+            text: root.node.type === "app" ? (root.node.label || "?").trim().charAt(0).toUpperCase() : ""
+            color: theme.muted
+            font.pixelSize: Math.round(root.r * 0.8)
+            font.weight: Font.DemiBold
+        }
+
         Image {
+            id: icon
             visible: root.node.type === "app"
             anchors.centerIn: parent
             width: parent.width * 0.72

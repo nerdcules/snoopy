@@ -1,5 +1,7 @@
 #include "adb.h"
 
+#include "wireless.h"
+
 #include <QDir>
 #include <QElapsedTimer>
 #include <QFileInfo>
@@ -114,6 +116,20 @@ QString Adb::resolveSerial() {
         else
             other.append(QString("%1 (%2)").arg(serial, state));
     }
+    // One phone on both the cable and Wi-Fi is one phone; the cable is
+    // faster, so it wins.
+    QStringList phones;
+    QStringList chosen;
+    for (const QString &serial : ready) {
+        const int at = int(phones.indexOf(phoneOf(serial)));
+        if (at < 0) {
+            phones.append(phoneOf(serial));
+            chosen.append(serial);
+        } else if (isWireless(chosen.at(at)) && !isWireless(serial)) {
+            chosen[at] = serial;
+        }
+    }
+    ready = chosen;
     if (ready.size() == 1) {
         m_serial = ready.first();
         return m_serial;

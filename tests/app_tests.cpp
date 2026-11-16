@@ -4,6 +4,8 @@
 #include "capture.h"
 #include "monitor.h"
 #include "names.h"
+#include "qrimage.h"
+#include "wireless.h"
 #include "flows.h"
 #include "graph.h"
 #include "report.h"
@@ -41,6 +43,59 @@ struct FakeAdb {
         answers.insert(key, result);
     }
 };
+
+// A fake phone for pairing: it announces the pairing service under
+// whatever name `announced` holds, accepts `password`, then announces
+// its connect service.
+struct FakeWirelessPhone {
+    QMutex mutex;
+    QString announced;
+    QString password;
+    bool paired = false;
+    bool refuse = false;
+    QStringList calls;
+
+    Runner runner() {
+        return [this](const QString &, const QStringList &arguments, int) {
+            QMutexLocker lock(&mutex);
+            const QString command = arguments.join(' ');
+            calls.append(command);
+            ProcessResult result;
+            result.started = true;
+            result.code = 0;
+            if (command == "mdns services") {
+                QString out = "List of discovered mdns services\n";
+                if (!announced.isEmpty() && !paired)
+                    out += announced + "\t_adb-tls-pairing._tcp\t192.0.2.5:41231\n";
+                if (paired)
+                    out += "adb-PHONE1-ab12\t_adb-tls-connect._tcp\t192.0.2.5:36115\n";
+                result.out = out.toUtf8();
+            } else if (arguments.value(0) == "pair") {
+                paired = !refuse && arguments.value(2) == password;
+                if (paired) {
+                    result.out = "Successfully paired to 192.0.2.5:41231 [guid=adb-PHONE1-ab12]\n";
+                } else {
+                    result.code = 1;
+                    result.err = "Failed: Wrong password or connection was dropped.\n";
+                }
+            } else if (command == "devices -l") {
+                result.out = "List of devices attached\n";
+            } else if (arguments.value(0) == "connect") {
+                result.out = "connected to 192.0.2.5:36115\n";
+            }
+            return result;
+        };
+    }
+
+    // What the phone reads from the QR code.
+    void scan(const QString &qr) {
+        QMutexLocker lock(&mutex);
+        announced = qr.section("S:", 1).section(';', 0, 0);
+        if (password.isEmpty())
+            password = qr.section("P:", 1).section(';', 0, 0);
+    }
+};
+
 
 class AppTests : public QObject {
     Q_OBJECT
@@ -310,6 +365,103 @@ private slots:
         QCOMPARE(monitor.status(), QString("waiting"));
         QCOMPARE(monitor.graph(), graph);
         QCOMPARE(monitor.device().value("model").toString(), QString("Pixel 8"));
+    }
+
+    void readsAdbMdnsServices() {
+        const QList<MdnsService> found = parseMdnsServices(
+            "List of discovered mdns services\n"
+            "adb-0A1B2C3D-Xk4Q2z\t_adb-tls-connect._tcp\t192.168.8.83:36115\n"
+            "snoopy-abc123\t_adb-tls-pairing._tcp\t192.168.8.83:41231\n"
+            "garbage line\n");
+        QCOMPARE(found.size(), 2);
+        QCOMPARE(found.at(0).instance, QString("adb-0A1B2C3D-Xk4Q2z"));
+        QCOMPARE(found.at(1).type, QString("_adb-tls-pairing._tcp"));
+        QCOMPARE(found.at(1).address, QString("192.168.8.83:41231"));
+    }
+
+    void namesPhonesBehindSerials() {
+        QCOMPARE(phoneOf("adb-0A1B2C3D-Xk4Q2z._adb-tls-connect._tcp"), QString("0A1B2C3D"));
+        QCOMPARE(phoneOf("0A1B2C3D"), QString("0A1B2C3D"));
+        QVERIFY(isWireless("adb-0A1B2C3D-Xk4Q2z._adb-tls-connect._tcp"));
+        QVERIFY(isWireless("192.168.8.83:36115"));
+        QVERIFY(!isWireless("0A1B2C3D"));
+        QVERIFY(!isWireless("emulator-5554"));
+    }
+
+    void pairingCodeScans() {
+        QCOMPARE(pairingQrText("snoopy-abc123", "pw"), QString("WIFI:T:ADB;S:snoopy-abc123;P:pw;;"));
+        const QImage code = qrImage(pairingQrText("snoopy-abc123", "k3y9mx2pqa"), 4);
+        QVERIFY(!code.isNull());
+        QCOMPARE(code.width(), code.height());
+        // Quiet zone light, the finder pattern's corner dark.
+        QCOMPARE(code.pixel(0, 0), qRgb(255, 255, 255));
+        QCOMPARE(code.pixel(4 * 4, 4 * 4), qRgb(0, 0, 0));
+    }
+
+    void cablePreferredForOnePhone() {
+        FakeAdb fake;
+        fake.answer("devices -l", "List of devices attached\n"
+                                  "adb-0A1B2C3D-Xk4Q2z._adb-tls-connect._tcp device product:husky\n"
+                                  "0A1B2C3D device usb:2-1\n");
+        Adb adb({}, fake.runner(), "/usr/bin/adb");
+        QCOMPARE(adb.resolveSerial(), QString("0A1B2C3D"));
+        // Two different phones are still two.
+        FakeAdb two;
+        two.answer("devices -l", "List of devices attached\nAAA device\nadb-BBB-x1._adb-tls-connect._tcp device\n");
+        Adb both({}, two.runner(), "/usr/bin/adb");
+        QVERIFY_THROWS_EXCEPTION(AdbError, both.resolveSerial());
+    }
+
+    void pairsAndConnectsOverWifi() {
+        FakeWirelessPhone phone;
+        Pairing pairing(phone.runner(), "/usr/bin/adb");
+        pairing.setPollInterval(20);
+        QSignalSpy connected(&pairing, &Pairing::connected);
+        pairing.start();
+        QCOMPARE(pairing.state(), QString("waiting"));
+        const QString qr = pairing.qrText();
+        QVERIFY(qr.section("S:", 1).startsWith("snoopy-"));
+        QCOMPARE(qr.section("P:", 1).section(';', 0, 0).size(), 10);
+        // Nothing happens until the phone scans the code.
+        QTest::qWait(100);
+        QCOMPARE(pairing.state(), QString("waiting"));
+        phone.scan(qr);
+        QVERIFY(connected.wait(5000));
+        QCOMPARE(pairing.state(), QString("connected"));
+        QCOMPARE(pairing.serial(), QString("192.0.2.5:36115"));
+        QMutexLocker lock(&phone.mutex);
+        QVERIFY(phone.calls.contains("pair 192.0.2.5:41231 " + phone.password));
+        QVERIFY(phone.calls.contains("connect 192.0.2.5:36115"));
+    }
+
+    void pairingReportsARefusal() {
+        FakeWirelessPhone phone;
+        phone.refuse = true;
+        Pairing pairing(phone.runner(), "/usr/bin/adb");
+        pairing.setPollInterval(20);
+        pairing.start();
+        phone.scan(pairing.qrText());
+        QTRY_COMPARE_WITH_TIMEOUT(pairing.state(), QString("failed"), 5000);
+        QVERIFY2(pairing.message().contains("Wrong password"), qPrintable(pairing.message()));
+        // Starting again makes a new name and password.
+        const QString before = pairing.qrText();
+        pairing.start();
+        QVERIFY(pairing.qrText() != before);
+        pairing.cancel();
+        QCOMPARE(pairing.state(), QString("idle"));
+    }
+
+    void reconnectsAnnouncedPhones() {
+        FakeAdb fake;
+        fake.answer("devices -l", "List of devices attached\n");
+        fake.answer("mdns services", "List of discovered mdns services\n"
+                                     "adb-PHONE1-ab12\t_adb-tls-connect._tcp\t192.0.2.5:36115\n"
+                                     "other-thing\t_adb-tls-pairing._tcp\t192.0.2.9:4000\n");
+        fake.answer("connect 192.0.2.5:36115", "connected to 192.0.2.5:36115\n");
+        Adb adb({}, fake.runner(), "/usr/bin/adb");
+        QCOMPARE(connectAnnounced(adb), 1);
+        QVERIFY(fake.calls.contains("connect 192.0.2.5:36115"));
+        QVERIFY(!fake.calls.contains("connect 192.0.2.9:4000"));
     }
 
     void monitorWaitsWhenThePhoneCantBeRead() {
