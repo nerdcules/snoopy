@@ -75,9 +75,6 @@ Rectangle {
         anchors.margins: 16 * inspector.u
         contentWidth: availableWidth
         clip: true
-        // Always shown when the text runs past the panel, so a cut-off list
-        // doesn't read as the end of it.
-        ScrollBar.vertical.policy: contentHeight > height ? ScrollBar.AlwaysOn : ScrollBar.AsNeeded
 
         ColumnLayout {
             width: scroll.availableWidth
@@ -243,6 +240,30 @@ Rectangle {
                     }
                 }
             }
+        }
+    }
+
+    // A fade over the bottom edge while there is more below, so a cut-off
+    // list doesn't read as the end of it.
+    Rectangle {
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.bottom: parent.bottom
+        anchors.margins: 1
+        height: 36 * inspector.u
+        radius: theme.radius
+        visible: !scroll.contentItem.atYEnd
+        gradient: Gradient {
+            GradientStop { position: 0; color: Qt.alpha(theme.panel, 0) }
+            GradientStop { position: 1; color: theme.panel }
+        }
+        Label {
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: 2
+            text: "⌄"
+            color: theme.muted
+            font.pixelSize: Math.round(16 * inspector.u)
         }
     }
 }
