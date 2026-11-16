@@ -2,6 +2,8 @@
 Type=Application
 Name=Snoopy
 Comment=See what apps on a connected Android phone read, and where they connect
+Name[da]=Snoopy
+Comment[da]=Se, hvad apps på en tilsluttet Android-telefon læser, og hvor de forbinder til
 Exec=snoopy
 Icon=snoopy
 Terminal=false
