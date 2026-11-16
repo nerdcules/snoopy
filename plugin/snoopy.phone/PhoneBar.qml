@@ -107,7 +107,7 @@ BarWidget {
       spacing: Style.spaceReal(5)
       scale: button.pressScale
 
-      Label {
+      Text {
         text: ""
         elide: Text.ElideNone
         color: root.tone === "bad" ? Commons.Color.urgent : root.tone === "warn" ? "#ffb547" : button.foreground
@@ -116,7 +116,7 @@ BarWidget {
         font.pixelSize: button.fontSize
         renderType: Text.NativeRendering
       }
-      Label {
+      Text {
         visible: root.alerts > 0 || root.newCount > 0
         text: String(root.alerts > 0 ? root.alerts : root.newCount)
         elide: Text.ElideNone
