@@ -72,6 +72,25 @@ Checked on the same Pixel 8 Pro (Android 17, toybox 0.8.13), 2026-11-16:
 
 Five apps before and after these changes: 16,251 to 72,728 ms per icon with
 3 of 5 missing, then 2,602 to 3,353 ms with 1 missing (Outlook, whose icon
-is vector XML only). Over 20 third-party apps from one sample: 10 real icons,
-8 vector-only (all-XML chains, no bitmap to show), 2 with no icon attribute
-found in the manifest (cause not known); 710 to 6,533 ms each, mean 2,273 ms.
+was vector XML only).
+
+- **XML icons** (beyond icons.py, which could only return a bitmap). Adaptive
+  icons, vector drawables (group transforms, clip paths, strokes, linear and
+  radial gradients, colours through the table and colour state lists),
+  layer lists, insets, selectors and shapes are drawn to a 192 x 192 PNG: the
+  108 dp canvas's middle 72 dp, rounded. Not drawn: vector tint, trim paths,
+  theme (`?attr`) colours, framework resources other than white, black and
+  transparent. Resource lookups now check the package id (eBay's
+  `@android:color/white` had matched the app's own entry with the same
+  type and index; icons.py has the same gap).
+- **Bigger tables.** Zoom's and OneDrive's resources.arsc are 23,805,656 and
+  27,647,204 bytes; with byte-offset reads, tables up to 32,000,000 bytes
+  are copied (Zoom's: 4,980 and 4,127 ms over Wi-Fi).
+
+Over all 126 third-party apps on the Pixel 8 Pro (Wi-Fi, 2026-11-16):
+93 icons and 33 letters before, 126 icons after. The 33 now drawn took
+1,382 to 7,601 ms each (median 2,583). Eight apps that had an icon now get
+the whole adaptive icon instead of one layer (for example a plain white
+square before, for two of them). Measured and checked by eye by the
+subagent that wrote the code (contact sheets of all 34 changed icons); one
+rechecked here: eBay, white background, 3,956 ms.
