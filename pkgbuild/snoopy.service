@@ -1,0 +1,15 @@
+[Unit]
+Description=Snoopy: check the connected Android phone in the background
+Documentation=https://github.com/nerdcules/snoopy
+After=graphical-session.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/snoopy daemon --interval 300
+Restart=on-failure
+RestartSec=30
+# Reading the phone is mostly waiting on adb; keep it out of the way.
+Nice=10
+
+[Install]
+WantedBy=default.target

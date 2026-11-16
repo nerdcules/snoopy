@@ -5,6 +5,7 @@ HEADERS += \
     $$PWD/capture.h \
     $$PWD/catalog.h \
     $$PWD/cli.h \
+    $$PWD/desktop.h \
     $$PWD/flows.h \
     $$PWD/graph.h \
     $$PWD/iconprovider.h \
@@ -26,6 +27,7 @@ SOURCES += \
     $$PWD/capture.cpp \
     $$PWD/catalog.cpp \
     $$PWD/cli.cpp \
+    $$PWD/desktop.cpp \
     $$PWD/flows.cpp \
     $$PWD/graph.cpp \
     $$PWD/iconprovider.cpp \

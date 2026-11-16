@@ -5,6 +5,7 @@
 #include "graph.h"
 #include "names.h"
 #include "report.h"
+#include "desktop.h"
 #include "watch.h"
 #include "wireless.h"
 
@@ -12,9 +13,7 @@
 #include <QSettings>
 #include <QtConcurrent>
 
-namespace {
-
-Sample adbSample(const QString &serial, const QString &link) {
+Sample takeSample(const QString &serial, const QString &link) {
     Sample sample;
     try {
         Adb adb(serial);
@@ -44,6 +43,8 @@ Sample adbSample(const QString &serial, const QString &link) {
     return sample;
 }
 
+namespace {
+
 // The same identity android-diagnoser's relay gave a flow, so a socket that
 // stays open from one sample to the next is not reported again.
 QString flowKey(const QJsonObject &flow) {
@@ -63,7 +64,7 @@ QStringList strings(const QJsonValue &value) {
 } // namespace
 
 Monitor::Monitor(const QString &serial, Sampler sampler, Names *names, QObject *parent)
-    : QObject(parent), m_sampler(sampler ? sampler : Sampler(adbSample)), m_names(names),
+    : QObject(parent), m_sampler(sampler ? sampler : Sampler(takeSample)), m_names(names),
       m_requestedSerial(serial) {
     m_timer.setSingleShot(true);
     connect(&m_timer, &QTimer::timeout, this, &Monitor::sampleNow);
@@ -130,8 +131,15 @@ void Monitor::finished() {
         }
         relay(sample.report);
         applyFindings(sample.phone, sample.findings);
+        // The window (not tests) keeps the bar widget's status current and
+        // notifies what is new, as the daemon does while it is closed.
+        if (m_persistLink)
+            desktop::publish(m_phone, true, transport(), QJsonObject::fromVariantMap(m_device),
+                             QJsonArray::fromVariantList(m_findings), QString(), "window");
     } else {
         setWaiting(sample.error);
+        if (m_persistLink)
+            desktop::publish(QString(), false, QString(), {}, {}, sample.error, "window");
     }
     emit busyChanged();
     emit sampled();

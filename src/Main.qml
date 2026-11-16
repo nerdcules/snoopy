@@ -20,7 +20,18 @@ ApplicationWindow {
 
     property bool helpVisible: false
     property bool wirelessVisible: false
-    property int page: 0
+    property int page: initialPage
+
+    // `snoopy open --page P` from the bar widget or a notification.
+    Connections {
+        target: remote
+        function onShowPage(which) {
+            if (which === "watch") win.page = 1
+            else if (which === "graph") win.page = 0
+            win.raise()
+            win.requestActivate()
+        }
+    }
     property bool logVisible: true
     readonly property real u: theme.fontScale
     // Narrow or tiled windows put the inspector under the graph.

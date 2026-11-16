@@ -112,6 +112,31 @@ logs older than the buffer. A quiet page doesn't prove a phone is clean.
 On the Pixel 8 Pro over Wi-Fi (2026-11-16) one check took 10,099 ms and found no
 alerts, 16 warnings and 44 info lines.
 
+## On the desktop
+
+```sh
+snoopy desktop install
+```
+
+puts a phone in Omarchy's bar (the `snoopy.phone` widget, left section) and
+turns on `snoopy.service`, which samples the phone every 5 minutes while the
+window is closed (over the link the window last used, cable or Wi-Fi):
+
+- **Bar:** the phone glyph is dim with no phone or no sample in 15 minutes,
+  red with a count when the Watch page has alerts, amber with a count when
+  something new is worth a look. Hover for the details; click opens Snoopy
+  (on Watch when there is something new), right-click opens Watch.
+- **Notifications:** a new alert or warning is notified once, by whichever of
+  the window or the service saw it first (more than three at once become one
+  summary). Clicking one opens the Watch page.
+- **Super + Alt + N** opens Snoopy, or brings the open window forward:
+  `snoopy open [--page watch|graph]` hands over to a running window.
+
+The service steps aside while the window is open, so the phone is never
+read twice. Both write `~/.local/state/snoopy/status.json`, which the bar
+widget watches. `systemctl --user disable --now snoopy` turns the service
+off; `omarchy plugin disable snoopy.phone` takes the widget out of the bar.
+
 ## Commands
 
 Each exits 0, or 1 with the problem on stderr (no adb, no phone, the phone
@@ -122,6 +147,9 @@ snoopy scan [--json] [--all] [--package P]... [--out DIR] [--serial S]
 snoopy watch [--interval 5] [--count 12] [--package P]... [--serial S]
 snoopy report --capture DIR [--json] [--all] [--package P]...
 snoopy check [--json] [--all] [--serial S | --capture DIR]
+snoopy daemon [--interval 300]
+snoopy desktop install
+snoopy open [--page watch|graph]
 snoopy icon PACKAGE [--out FILE] [--fresh] [--json] [--serial S]
 snoopy skill install
 ```

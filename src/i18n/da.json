@@ -225,5 +225,18 @@
   "Watch (%n new)": {
     "one": "Opsyn (%n ny)",
     "other": "Opsyn (%n nye)"
-  }
+  },
+  "%n new on your phone": {
+    "one": "%n ny på din telefon",
+    "other": "%n nye på din telefon"
+  },
+  "and %n more on the Watch page": {
+    "one": "og %n mere på siden Opsyn",
+    "other": "og %n mere på siden Opsyn"
+  },
+  "omarchy plugin validate refused %1": "omarchy plugin validate afviste %1",
+  "Couldn't turn the bar widget on; try: omarchy plugin enable snoopy.phone": "Kunne ikke slå bjælkewidgetten til; prøv: omarchy plugin enable snoopy.phone",
+  "Bar widget installed in %1": "Bjælkewidget installeret i %1",
+  "Couldn't start snoopy.service; is the package installed? Try: systemctl --user status snoopy": "Kunne ikke starte snoopy.service; er pakken installeret? Prøv: systemctl --user status snoopy",
+  "snoopy.service is on: the phone is checked every few minutes, also with the window closed.": "snoopy.service er slået til: telefonen tjekkes med få minutters mellemrum, også når vinduet er lukket."
 }

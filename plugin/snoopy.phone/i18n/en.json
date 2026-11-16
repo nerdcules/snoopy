@@ -1,0 +1,21 @@
+{
+  "none": "Snoopy hasn't read a phone yet.",
+  "stale": "No recent sample: open Snoopy or turn on its daemon (snoopy desktop install).",
+  "noPhone": "No phone.",
+  "overCable": "%1 over the cable",
+  "overWifi": "%1 over Wi-Fi",
+  "alerts": {
+    "one": "%1 alert",
+    "other": "%1 alerts"
+  },
+  "warnings": {
+    "one": "%1 warning",
+    "other": "%1 warnings"
+  },
+  "new": {
+    "one": "%1 new since last marked seen",
+    "other": "%1 new since last marked seen"
+  },
+  "quiet": "Nothing to look at.",
+  "hint": "Click: open Snoopy · right-click: Watch"
+}

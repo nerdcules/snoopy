@@ -1,4 +1,4 @@
-QT += core gui qml quick quickcontrols2 svg concurrent testlib
+QT += core gui qml quick quickcontrols2 svg concurrent dbus network testlib
 CONFIG += c++17 testcase
 TARGET = snoopy_tests
 TEMPLATE = app

@@ -14,5 +14,9 @@
         <file alias="i18n/en.json">i18n/en.json</file>
         <file alias="i18n/da.json">i18n/da.json</file>
         <file alias="skill/SKILL.md">skill/SKILL.md</file>
+        <file alias="plugin/snoopy.phone/PhoneBar.qml">../plugin/snoopy.phone/PhoneBar.qml</file>
+        <file alias="plugin/snoopy.phone/i18n/da.json">../plugin/snoopy.phone/i18n/da.json</file>
+        <file alias="plugin/snoopy.phone/i18n/en.json">../plugin/snoopy.phone/i18n/en.json</file>
+        <file alias="plugin/snoopy.phone/manifest.json">../plugin/snoopy.phone/manifest.json</file>
     </qresource>
 </RCC>

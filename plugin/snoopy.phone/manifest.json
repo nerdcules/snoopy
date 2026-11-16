@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "id": "snoopy.phone",
+  "name": "Snoopy",
+  "version": "0.1.0",
+  "author": "nerdcules",
+  "license": "MIT",
+  "description": "The connected Android phone at a glance: cable or Wi-Fi, and Snoopy's Watch alerts. Click opens Snoopy.",
+  "kinds": [
+    "bar-widget"
+  ],
+  "entryPoints": {
+    "barWidget": "PhoneBar.qml"
+  },
+  "barWidget": {
+    "displayName": "Snoopy",
+    "description": "The phone Snoopy reads, and what on it is new or worth a look; click opens Snoopy",
+    "category": "System",
+    "defaultSection": "left",
+    "allowMultiple": false
+  }
+}

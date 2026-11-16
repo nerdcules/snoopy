@@ -4,11 +4,15 @@
 #include "capture.h"
 #include "icons.h"
 #include "watch.h"
+#include "desktop.h"
+#include "monitor.h"
 #include "wireless.h"
 #include "render.h"
 #include "report.h"
 
 #include <QDir>
+#include <QLockFile>
+#include <QSettings>
 #include <QElapsedTimer>
 #include <QJsonObject>
 #include <QSaveFile>
@@ -23,7 +27,7 @@
 
 namespace {
 
-const QStringList kCommands{"scan", "watch", "report", "check", "icon", "skill", "help", "--help", "-h"};
+const QStringList kCommands{"scan", "watch", "report", "check", "icon", "daemon", "desktop", "skill", "help", "--help", "-h"};
 
 void usage(QTextStream &out) {
     out << "snoopy - what each app on a connected Android phone reads, and where it is connected\n\n"
@@ -40,6 +44,11 @@ void usage(QTextStream &out) {
            "                               (alerts and warnings; --all adds the info lines)\n"
            "  snoopy icon PACKAGE [--out FILE] [--fresh] [--json] [--serial S]\n"
            "                               an app's launcher icon from the phone (--fresh skips the cache)\n"
+           "  snoopy daemon [--interval 300]\n"
+           "                               sample the phone in the background (what snoopy.service runs): keeps\n"
+           "                               the Watch baseline, the bar widget's status and notifications going\n"
+           "                               while the window is closed\n"
+           "  snoopy desktop install       put the bar widget in Omarchy's bar and turn on snoopy.service\n"
            "  snoopy skill install         install the agent skill into ~/.claude/skills/snoopy\n\n"
            "The phone is read over adb (USB debugging on, this computer accepted).\n"
            "HTTPS message bodies stay encrypted: a connection shows its address, not its contents.\n"
@@ -270,6 +279,60 @@ int icon(const QStringList &arguments, const Options &options, QTextStream &out,
     return 0;
 }
 
+// The window holds this lock while it runs; the daemon stays out of the
+// way then, so the phone isn't sampled twice.
+QString windowLockPath() {
+    return desktop::stateDirectory() + "/window.lock";
+}
+
+int runDaemon(const Options &options, QTextStream &out, QTextStream &err) {
+    bool ok = true;
+    const int interval = options.values.value("--interval", "300").toInt(&ok);
+    if (!ok || interval < 30) {
+        err << "--interval must be 30 seconds or more\n";
+        return 1;
+    }
+    QDir().mkpath(desktop::stateDirectory());
+    std::signal(SIGINT, [](int) { g_interrupted = 1; });
+    std::signal(SIGTERM, [](int) { g_interrupted = 1; });
+    out << "Sampling every " << interval << " s; stepping aside while the Snoopy window is open.\n";
+    out.flush();
+    while (!g_interrupted) {
+        QLockFile probe(windowLockPath());
+        const bool windowOpen = !probe.tryLock(0);
+        if (!windowOpen) {
+            probe.unlock();
+            const QString link = QSettings("snoopy", "snoopy").value("link", "usb").toString() == "wifi" ? "wifi" : "usb";
+            const Sample sample = takeSample(QString(), link);
+            if (sample.error.isEmpty()) {
+                const QJsonArray findings =
+                    WatchBaseline().apply(sample.phone, sample.findings, QDateTime::currentDateTime());
+                desktop::publish(sample.phone, true, isWireless(sample.serial) ? "wifi" : "usb",
+                                 sample.report.value("device").toObject(), findings, QString(), "daemon");
+                out << QTime::currentTime().toString("HH:mm:ss ") << "sampled " << sample.serial << ", "
+                    << findings.size() << " findings\n";
+            } else {
+                desktop::publish(QString(), false, QString(), {}, {}, sample.error, "daemon");
+                out << QTime::currentTime().toString("HH:mm:ss ") << sample.error << "\n";
+            }
+            out.flush();
+        }
+        for (int waited = 0; waited < interval * 10 && !g_interrupted; ++waited)
+            QThread::msleep(100);
+    }
+    return 0;
+}
+
+int desktopInstall(QTextStream &out, QTextStream &err) {
+    bool good = true;
+    auto report = [&](const QString &line) { out << line << "\n"; out.flush(); };
+    good = desktop::installPlugin(report) && good;
+    good = desktop::enableDaemon(report) && good;
+    if (!good)
+        err << "Some steps didn't finish; see above.\n";
+    return good ? 0 : 1;
+}
+
 int installSkill(QTextStream &out, QTextStream &err) {
     QFile source(":/skill/SKILL.md");
     if (!source.open(QIODevice::ReadOnly)) {
@@ -303,6 +366,12 @@ int runCli(const QStringList &arguments) {
         usage(out);
         return 0;
     }
+    if (command == "desktop") {
+        if (arguments.size() > 2 && arguments.at(2) == "install")
+            return desktopInstall(out, err);
+        err << "Usage: snoopy desktop install\n";
+        return 1;
+    }
     if (command == "skill") {
         if (arguments.size() > 2 && arguments.at(2) == "install")
             return installSkill(out, err);
@@ -315,6 +384,8 @@ int runCli(const QStringList &arguments) {
         options = parse(arguments, {"--serial", "--package", "--out"}, {"--json", "--all"});
     else if (command == "watch")
         options = parse(arguments, {"--serial", "--package", "--interval", "--count"}, {});
+    else if (command == "daemon")
+        options = parse(arguments, {"--interval"}, {});
     else if (command == "check")
         options = parse(arguments, {"--serial", "--capture"}, {"--json", "--all"});
     else if (command == "icon")
@@ -335,6 +406,8 @@ int runCli(const QStringList &arguments) {
             return icon(arguments, options, out, err);
         if (command == "check")
             return check(options, out, err);
+        if (command == "daemon")
+            return runDaemon(options, out, err);
         return report(options, out, err);
     } catch (const AdbError &error) {
         out.flush();

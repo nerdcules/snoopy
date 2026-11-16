@@ -27,6 +27,12 @@ struct Sample {
     QString phone;
 };
 
+// One sample over adb: the snapshot, its report, the Watch findings and the
+// phone's hardware serial, or the problem that stopped it. link is "usb" or
+// "wifi". Blocking; the window runs it on a worker thread, the daemon in
+// its own loop.
+Sample takeSample(const QString &serial, const QString &link);
+
 // Samples the phone on a worker thread every interval seconds, keeps the
 // latest flows and graph, and records which flows appeared or stopped since
 // the sample before. The first sample is the baseline and records nothing.

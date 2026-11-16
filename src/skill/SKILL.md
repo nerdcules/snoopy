@@ -32,6 +32,10 @@ problem on stderr (no adb, no phone, phone not authorized, two phones: pass
   notification access, device admin and similar; outside is apps not from
   Google Play. A finding is a reason to look, not proof.
 
+If `snoopy.service` runs, `~/.local/state/snoopy/status.json` holds the
+last sample's summary (connected, transport, model, alerts, warnings,
+newCount, updatedAt) without touching the phone.
+
 What the data can and can't say:
 - A socket belongs to a Linux uid; on Android that is usually one app.
 - HTTPS and QUIC bodies stay encrypted: the address, port and byte totals

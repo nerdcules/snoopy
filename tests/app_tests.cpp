@@ -6,6 +6,7 @@
 #include "names.h"
 #include "qrimage.h"
 #include "wireless.h"
+#include "desktop.h"
 #include "flows.h"
 #include "graph.h"
 #include "report.h"
@@ -534,6 +535,76 @@ private slots:
         QVERIFY(sampled.wait(5000));
         QMutexLocker lock(&mutex);
         QCOMPARE(links, QStringList({"usb", "wifi", "usb"}));
+    }
+
+    void statusCountsWhatTheBarShows() {
+        const QJsonArray findings{
+            QJsonObject{{"key", "a"}, {"level", "alert"}, {"new", true}},
+            QJsonObject{{"key", "b"}, {"level", "warn"}},
+            QJsonObject{{"key", "c"}, {"level", "warn"}, {"new", true}},
+            QJsonObject{{"key", "d"}, {"level", "info"}, {"new", true}},
+        };
+        const QJsonObject status = desktop::status(true, "wifi", {{"model", "Pixel 8"}}, findings, {}, "daemon");
+        QCOMPARE(status.value("alerts").toInt(), 1);
+        QCOMPARE(status.value("warnings").toInt(), 2);
+        QCOMPARE(status.value("newCount").toInt(), 2); // info lines aren't counted
+        QCOMPARE(status.value("newAlerts").toInt(), 1);
+        QCOMPARE(status.value("model").toString(), QString("Pixel 8"));
+        QTemporaryDir directory;
+        desktop::writeStatus(status, directory.path());
+        QFile file(directory.filePath("status.json"));
+        QVERIFY(file.open(QIODevice::ReadOnly));
+        QCOMPARE(QJsonDocument::fromJson(file.readAll()).object().value("transport").toString(), QString("wifi"));
+    }
+
+    void notifiesEachNewFindingOnce() {
+        QTemporaryDir directory;
+        const QJsonArray findings{
+            QJsonObject{{"key", "a"}, {"level", "alert"}, {"new", true}, {"title", "A"}},
+            QJsonObject{{"key", "b"}, {"level", "warn"}, {"title", "B"}},
+            QJsonObject{{"key", "d"}, {"level", "info"}, {"new", true}, {"title", "D"}},
+        };
+        const QJsonArray first = desktop::takeUnnotified("PHONE1", findings, directory.path());
+        QCOMPARE(first.size(), 1);
+        QCOMPARE(first.first().toObject().value("key").toString(), QString("a"));
+        // The window and the daemon share the record: nobody tells it twice.
+        QCOMPARE(desktop::takeUnnotified("PHONE1", findings, directory.path()).size(), 0);
+        QCOMPARE(desktop::takeUnnotified("PHONE2", findings, directory.path()).size(), 1);
+        QCOMPARE(desktop::takeUnnotified(QString(), findings, directory.path()).size(), 0);
+    }
+
+    void notificationsSayWhatAndOpenWatch() {
+        QJsonArray few{QJsonObject{{"level", "alert"}, {"title", "Spy accessed the microphone"}, {"detail", "a <b> c"}}};
+        const auto single = desktop::notificationsFor(few);
+        QCOMPARE(single.size(), 1);
+        QCOMPARE(single.first().summary, QString("Spy accessed the microphone"));
+        QCOMPARE(single.first().body, QString("a &lt;b&gt; c")); // the toast body is rich text
+        QCOMPARE(single.first().urgency, 2);
+        QCOMPARE(single.first().clickArgv.mid(1), (QStringList{"open", "--page", "watch"}));
+        QJsonArray many;
+        for (int i = 0; i < 5; ++i)
+            many.append(QJsonObject{{"level", "warn"}, {"title", QString("T%1").arg(i)}});
+        const auto summary = desktop::notificationsFor(many);
+        QCOMPARE(summary.size(), 1);
+        QCOMPARE(summary.first().summary, QString("5 new on your phone"));
+        QVERIFY(summary.first().body.contains("T2"));
+        QVERIFY(!summary.first().body.contains("T3"));
+        QVERIFY(summary.first().body.contains("2 more"));
+        QCOMPARE(summary.first().urgency, 1);
+    }
+
+    void laterLaunchesTalkToTheWindow() {
+        qputenv("SNOOPY_INSTANCE", QByteArray("snoopy-test-") + QByteArray::number(QCoreApplication::applicationPid()));
+        QVERIFY(!desktop::Remote::sendToRunning("watch")); // nobody listening yet
+        desktop::Remote remote;
+        QVERIFY(remote.listen());
+        QSignalSpy pages(&remote, &desktop::Remote::showPage);
+        desktop::Remote second;
+        QVERIFY(!second.listen()); // one window
+        QVERIFY(desktop::Remote::sendToRunning("watch"));
+        QTRY_COMPARE(pages.count(), 1);
+        QCOMPARE(pages.first().first().toString(), QString("watch"));
+        qunsetenv("SNOOPY_INSTANCE");
     }
 
     void monitorWaitsWhenThePhoneCantBeRead() {

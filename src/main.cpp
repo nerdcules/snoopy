@@ -2,6 +2,9 @@
 // is connected.
 
 #include <QCoreApplication>
+#include <QDir>
+#include <QLockFile>
+#include <QProcess>
 #include <QGuiApplication>
 #include <QIcon>
 #include <QQmlApplicationEngine>
@@ -10,6 +13,7 @@
 #include <QUrl>
 
 #include "cli.h"
+#include "desktop.h"
 #include "iconprovider.h"
 #include "icons.h"
 #include "monitor.h"
@@ -36,6 +40,19 @@ int main(int argc, char *argv[]) {
         return runCli(arguments);
     }
 
+    // `snoopy open --page watch` (the bar widget, a notification) goes to
+    // the window that is already open, if there is one.
+    const int pageAt = arguments.indexOf("--page");
+    const QString page = pageAt > 0 ? arguments.value(pageAt + 1) : QString();
+    {
+        QCoreApplication probe(argc, argv);
+        if (desktop::Remote::sendToRunning(page)) {
+            if (!qEnvironmentVariableIsEmpty("HYPRLAND_INSTANCE_SIGNATURE"))
+                QProcess::execute("hyprctl", {"dispatch", "focuswindow", "class:^(snoopy)$"});
+            return 0;
+        }
+    }
+
     QGuiApplication app(argc, argv);
     app.setApplicationName("snoopy");
     app.setApplicationVersion("0.1.0");
@@ -56,6 +73,13 @@ int main(int argc, char *argv[]) {
     Translator translator;
     app.installTranslator(&translator);
 
+    // While this window runs, snoopy.service leaves the phone to it.
+    QDir().mkpath(desktop::stateDirectory());
+    QLockFile windowLock(desktop::stateDirectory() + "/window.lock");
+    windowLock.tryLock(0);
+    desktop::Remote remote;
+    remote.listen();
+
     Theme theme;
     Names names;
     Monitor monitor(serial, {}, &names);
@@ -75,6 +99,8 @@ int main(int argc, char *argv[]) {
     engine.addImageProvider("qr", new QrProvider);
     engine.rootContext()->setContextProperty("monitor", &monitor);
     engine.rootContext()->setContextProperty("pairing", &pairing);
+    engine.rootContext()->setContextProperty("remote", &remote);
+    engine.rootContext()->setContextProperty("initialPage", page == "watch" ? 1 : 0);
     engine.load(QUrl("qrc:/Main.qml"));
     if (engine.rootObjects().isEmpty())
         return 1;

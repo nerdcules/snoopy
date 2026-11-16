@@ -1,0 +1,21 @@
+{
+  "none": "Snoopy har ikke læst en telefon endnu.",
+  "stale": "Ingen ny måling: åbn Snoopy, eller slå dens dæmon til (snoopy desktop install).",
+  "noPhone": "Ingen telefon.",
+  "overCable": "%1 via kablet",
+  "overWifi": "%1 via Wi-Fi",
+  "alerts": {
+    "one": "%1 alarm",
+    "other": "%1 alarmer"
+  },
+  "warnings": {
+    "one": "%1 advarsel",
+    "other": "%1 advarsler"
+  },
+  "new": {
+    "one": "%1 ny siden sidst markeret som set",
+    "other": "%1 nye siden sidst markeret som set"
+  },
+  "quiet": "Intet at se på.",
+  "hint": "Klik: åbn Snoopy · højreklik: Opsyn"
+}

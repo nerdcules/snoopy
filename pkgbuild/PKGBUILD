@@ -23,4 +23,5 @@ package() {
   install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
   install -Dm644 "$startdir/snoopy.svg" "$pkgdir/usr/share/icons/hicolor/scalable/apps/snoopy.svg"
   install -Dm644 "$startdir/snoopy.desktop" "$pkgdir/usr/share/applications/snoopy.desktop"
+  install -Dm644 "$startdir/snoopy.service" "$pkgdir/usr/lib/systemd/user/snoopy.service"
 }

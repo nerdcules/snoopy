@@ -1,4 +1,4 @@
-QT += core gui qml quick quickcontrols2 svg concurrent
+QT += core gui qml quick quickcontrols2 svg concurrent dbus network
 
 CONFIG += c++17 release
 TARGET = snoopy

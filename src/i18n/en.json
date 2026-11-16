@@ -34,5 +34,13 @@
   "Watch (%n new)": {
     "one": "Watch (%n new)",
     "other": "Watch (%n new)"
+  },
+  "%n new on your phone": {
+    "one": "%n new on your phone",
+    "other": "%n new on your phone"
+  },
+  "and %n more on the Watch page": {
+    "one": "and %n more on the Watch page",
+    "other": "and %n more on the Watch page"
   }
 }
