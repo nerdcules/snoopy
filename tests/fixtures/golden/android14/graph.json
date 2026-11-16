@@ -1,0 +1,486 @@
+[
+  {
+    "destinations": [
+      {
+        "count": 1,
+        "detail": "Encrypted connection to 192.0.2.60:443. 1 socket. The address is visible. The contents are not.",
+        "endpoint": "192.0.2.60:443",
+        "host": "192.0.2.60",
+        "kind": "Encrypted",
+        "label": "192.0.2.60",
+        "name": "",
+        "relation": "connects"
+      },
+      {
+        "count": 1,
+        "detail": "UDP \u00b7 port 547 to [ff02::1:2]:547. 1 socket.",
+        "endpoint": "[ff02::1:2]:547",
+        "host": "[ff02::1:2]",
+        "kind": "UDP \u00b7 port 547",
+        "label": "[ff02:\u2026:2]",
+        "name": "",
+        "relation": "connects"
+      }
+    ],
+    "name": "Android system (3 packages)",
+    "package": "",
+    "reads": [],
+    "rx_bytes": 1099511627776,
+    "tx_bytes": 5
+  },
+  {
+    "destinations": [
+      {
+        "count": 1,
+        "detail": "Encrypted connection to 142.250.180.14:443. 1 socket. The address is visible. The contents are not.",
+        "endpoint": "142.250.180.14:443",
+        "host": "142.250.180.14",
+        "kind": "Encrypted",
+        "label": "142.250.180.14",
+        "name": "",
+        "relation": "connects"
+      },
+      {
+        "count": 1,
+        "detail": "TCP \u00b7 port 80 to 203.0.113.10:80. 1 socket.",
+        "endpoint": "203.0.113.10:80",
+        "host": "203.0.113.10",
+        "kind": "TCP \u00b7 port 80",
+        "label": "203.0.113.10",
+        "name": "",
+        "relation": "connects"
+      },
+      {
+        "count": 1,
+        "detail": "Encrypted connection to 203.0.113.11:443. 1 socket. The address is visible. The contents are not.",
+        "endpoint": "203.0.113.11:443",
+        "host": "203.0.113.11",
+        "kind": "Encrypted",
+        "label": "203.0.113.11",
+        "name": "",
+        "relation": "connects"
+      },
+      {
+        "count": 1,
+        "detail": "Encrypted connection to [2001:4860:4860::8844]:443. 1 socket. The address is visible. The contents are not.",
+        "endpoint": "[2001:4860:4860::8844]:443",
+        "host": "[2001:4860:4860::8844]",
+        "kind": "Encrypted",
+        "label": "[2001:\u2026:8844]",
+        "name": "",
+        "relation": "connects"
+      },
+      {
+        "count": 1,
+        "detail": "TCP \u00b7 port 8443 to [2001:db8::1:0:0:1]:8443. 1 socket.",
+        "endpoint": "[2001:db8::1:0:0:1]:8443",
+        "host": "[2001:db8::1:0:0:1]",
+        "kind": "TCP \u00b7 port 8443",
+        "label": "[2001:\u2026:1]",
+        "name": "",
+        "relation": "connects"
+      },
+      {
+        "count": 1,
+        "detail": "TCP \u00b7 port 80 to [::1.2.3.4]:80. 1 socket.",
+        "endpoint": "[::1.2.3.4]:80",
+        "host": "[::1.2.3.4]",
+        "kind": "TCP \u00b7 port 80",
+        "label": "[::1.2.3.4]",
+        "name": "",
+        "relation": "connects"
+      }
+    ],
+    "name": "App",
+    "package": "com.maps.app",
+    "reads": [
+      {
+        "detail": "Where the phone is. GPS, 30 seconds ago. Wi-Fi scan, 1 minute ago. Precise location, 2 minutes ago. High-power location, 23 hours ago.",
+        "label": "Location"
+      }
+    ],
+    "rx_bytes": 3221225472,
+    "tx_bytes": 1610612736
+  },
+  {
+    "destinations": [
+      {
+        "count": 2,
+        "detail": "Encrypted connection to 142.250.180.14:443. 2 sockets. The address is visible. The contents are not.",
+        "endpoint": "142.250.180.14:443",
+        "host": "142.250.180.14",
+        "kind": "Encrypted",
+        "label": "142.250.180.14",
+        "name": "",
+        "relation": "connects"
+      },
+      {
+        "count": 1,
+        "detail": "Encrypted connection to 142.250.200.4:443. 1 socket. The address is visible. The contents are not.",
+        "endpoint": "142.250.200.4:443",
+        "host": "142.250.200.4",
+        "kind": "Encrypted",
+        "label": "142.250.200.4",
+        "name": "",
+        "relation": "connects"
+      },
+      {
+        "count": 2,
+        "detail": "Encrypted connection to 157.240.22.35:443. 2 sockets. The address is visible. The contents are not.",
+        "endpoint": "157.240.22.35:443",
+        "host": "157.240.22.35",
+        "kind": "Encrypted",
+        "label": "157.240.22.35",
+        "name": "",
+        "relation": "connects"
+      },
+      {
+        "count": 1,
+        "detail": "TCP \u00b7 port 5222 to 157.240.22.35:5222. 1 socket.",
+        "endpoint": "157.240.22.35:5222",
+        "host": "157.240.22.35",
+        "kind": "TCP \u00b7 port 5222",
+        "label": "157.240.22.35",
+        "name": "",
+        "relation": "connects"
+      },
+      {
+        "count": 1,
+        "detail": "UDP \u00b7 port 3478 to 192.0.2.70:3478. 1 socket.",
+        "endpoint": "192.0.2.70:3478",
+        "host": "192.0.2.70",
+        "kind": "UDP \u00b7 port 3478",
+        "label": "192.0.2.70",
+        "name": "",
+        "relation": "connects"
+      },
+      {
+        "count": 1,
+        "detail": "Encrypted connection to [2a03:2880:f12f:83:face:b00c:0:25de]:443. 1 socket. The address is visible. The contents are not.",
+        "endpoint": "[2a03:2880:f12f:83:face:b00c:0:25de]:443",
+        "host": "[2a03:2880:f12f:83:face:b00c:0:25de]",
+        "kind": "Encrypted",
+        "label": "[2a03:\u2026:25de]",
+        "name": "",
+        "relation": "connects"
+      }
+    ],
+    "name": "WhatsApp",
+    "package": "com.whatsapp",
+    "reads": [
+      {
+        "detail": "Where the phone is. Photo locations, 1 hour ago.",
+        "label": "Location"
+      },
+      {
+        "detail": "Images or video from the camera. Camera, 5 seconds ago.",
+        "label": "Camera"
+      },
+      {
+        "detail": "Audio from the microphone or from playback. Microphone, 40 minutes ago.",
+        "label": "Microphone"
+      },
+      {
+        "detail": "Names and numbers from the address book. Contacts, 1 minute ago. Contacts, 2 minutes ago.",
+        "label": "Contacts"
+      },
+      {
+        "detail": "Photos, videos, or shared files. Audio files, 1 hour ago. Files, 1 hour ago. Photos, 1 hour ago. Videos, 1 hour ago.",
+        "label": "Photos & files"
+      },
+      {
+        "detail": "Text or images copied on the phone. Clipboard, 2 seconds ago.",
+        "label": "Clipboard"
+      },
+      {
+        "detail": "Phone, account, or advertising identifiers. Phone number, 5 minutes ago.",
+        "label": "Identity"
+      },
+      {
+        "detail": "Texts or call history. Call history, 5 minutes ago. SMS messages, 5 minutes ago.",
+        "label": "Messages"
+      }
+    ],
+    "rx_bytes": 53479424,
+    "tx_bytes": 7865344
+  },
+  {
+    "destinations": [
+      {
+        "count": 1,
+        "detail": "Encrypted connection to 192.0.2.61:443. 1 socket. The address is visible. The contents are not.",
+        "endpoint": "192.0.2.61:443",
+        "host": "192.0.2.61",
+        "kind": "Encrypted",
+        "label": "192.0.2.61",
+        "name": "",
+        "relation": "connects"
+      },
+      {
+        "count": 1,
+        "detail": "TCP \u00b7 port 5228 to 192.0.2.62:5228. 1 socket.",
+        "endpoint": "192.0.2.62:5228",
+        "host": "192.0.2.62",
+        "kind": "TCP \u00b7 port 5228",
+        "label": "192.0.2.62",
+        "name": "",
+        "relation": "connects"
+      },
+      {
+        "count": 1,
+        "detail": "DNS lookup for mtalk.google.com.",
+        "endpoint": "mtalk.google.com",
+        "host": "mtalk.google.com",
+        "kind": "DNS",
+        "label": "mtalk.google.com",
+        "name": "",
+        "relation": "lookup"
+      }
+    ],
+    "name": "Android system (2 packages)",
+    "package": "",
+    "reads": [
+      {
+        "detail": "Motion sensor readings. significant motion, in this sample.",
+        "label": "Motion"
+      }
+    ],
+    "rx_bytes": 8192,
+    "tx_bytes": 8192
+  },
+  {
+    "destinations": [
+      {
+        "count": 1,
+        "detail": "TCP \u00b7 port 853 to 192.0.2.50:853. 1 socket.",
+        "endpoint": "192.0.2.50:853",
+        "host": "192.0.2.50",
+        "kind": "TCP \u00b7 port 853",
+        "label": "192.0.2.50",
+        "name": "",
+        "relation": "connects"
+      },
+      {
+        "count": 1,
+        "detail": "DNS lookup for time.android.com.",
+        "endpoint": "time.android.com",
+        "host": "time.android.com",
+        "kind": "DNS",
+        "label": "time.android.com",
+        "name": "",
+        "relation": "lookup"
+      }
+    ],
+    "name": "System",
+    "package": "",
+    "reads": [],
+    "rx_bytes": 4096,
+    "tx_bytes": 4096
+  },
+  {
+    "destinations": [
+      {
+        "count": 1,
+        "detail": "TCP \u00b7 port 993 to 203.0.113.12:993. 1 socket.",
+        "endpoint": "203.0.113.12:993",
+        "host": "203.0.113.12",
+        "kind": "TCP \u00b7 port 993",
+        "label": "203.0.113.12",
+        "name": "",
+        "relation": "connects"
+      },
+      {
+        "count": 1,
+        "detail": "UDP \u00b7 port 53 to 8.8.8.8:53. 1 socket.",
+        "endpoint": "8.8.8.8:53",
+        "host": "8.8.8.8",
+        "kind": "UDP \u00b7 port 53",
+        "label": "8.8.8.8",
+        "name": "",
+        "relation": "connects"
+      },
+      {
+        "count": 1,
+        "detail": "Encrypted connection to [2001:4860:4860::8888]:443. 1 socket. The address is visible. The contents are not.",
+        "endpoint": "[2001:4860:4860::8888]:443",
+        "host": "[2001:4860:4860::8888]",
+        "kind": "Encrypted",
+        "label": "[2001:\u2026:8888]",
+        "name": "",
+        "relation": "connects"
+      },
+      {
+        "count": 1,
+        "detail": "Encrypted connection to [2001:db8:aa::1]:443. 1 socket. The address is visible. The contents are not.",
+        "endpoint": "[2001:db8:aa::1]:443",
+        "host": "[2001:db8:aa::1]",
+        "kind": "Encrypted",
+        "label": "[2001:\u2026:1]",
+        "name": "",
+        "relation": "connects"
+      },
+      {
+        "count": 1,
+        "detail": "Encrypted connection to [2001:db8:aa::2]:443. 1 socket. The address is visible. The contents are not.",
+        "endpoint": "[2001:db8:aa::2]:443",
+        "host": "[2001:db8:aa::2]",
+        "kind": "Encrypted",
+        "label": "[2001:\u2026:2]",
+        "name": "",
+        "relation": "connects"
+      },
+      {
+        "count": 1,
+        "detail": "Encrypted connection to [2001:db8:aa::3]:443. 1 socket. The address is visible. The contents are not.",
+        "endpoint": "[2001:db8:aa::3]:443",
+        "host": "[2001:db8:aa::3]",
+        "kind": "Encrypted",
+        "label": "[2001:\u2026:3]",
+        "name": "",
+        "relation": "connects"
+      }
+    ],
+    "name": "App",
+    "package": "com.weather.app",
+    "reads": [],
+    "rx_bytes": 512,
+    "tx_bytes": 1023
+  },
+  {
+    "destinations": [
+      {
+        "count": 1,
+        "detail": "DNS lookup for sync.notes.example.",
+        "endpoint": "sync.notes.example",
+        "host": "sync.notes.example",
+        "kind": "DNS",
+        "label": "sync.notes.example",
+        "name": "",
+        "relation": "lookup"
+      }
+    ],
+    "name": "Plain",
+    "package": "com.notes.plain",
+    "reads": [],
+    "rx_bytes": 1,
+    "tx_bytes": 0
+  },
+  {
+    "destinations": [
+      {
+        "count": 1,
+        "detail": "TCP \u00b7 port 8080 to 127.0.0.1:8080. 1 socket.",
+        "endpoint": "127.0.0.1:8080",
+        "host": "127.0.0.1",
+        "kind": "TCP \u00b7 port 8080",
+        "label": "127.0.0.1",
+        "name": "",
+        "relation": "connects"
+      }
+    ],
+    "name": "App",
+    "package": "com.ghost.app",
+    "reads": [
+      {
+        "detail": "Where the phone is. Approximate location, 5 minutes ago.",
+        "label": "Location"
+      }
+    ],
+    "rx_bytes": 0,
+    "tx_bytes": 0
+  },
+  {
+    "destinations": [
+      {
+        "count": 1,
+        "detail": "Encrypted connection to 198.51.100.8:443. 1 socket. The address is visible. The contents are not.",
+        "endpoint": "198.51.100.8:443",
+        "host": "198.51.100.8",
+        "kind": "Encrypted",
+        "label": "198.51.100.8",
+        "name": "",
+        "relation": "connects"
+      },
+      {
+        "count": 1,
+        "detail": "DNS lookup for ads.mopub.example.doubleclick.net. Google Ads is a known tracker in that name.",
+        "endpoint": "ads.mopub.example.doubleclick.net",
+        "host": "ads.mopub.example.doubleclick.net",
+        "kind": "Google Ads",
+        "label": "ads.mopub.example.doubleclick.net",
+        "name": "",
+        "relation": "lookup"
+      }
+    ],
+    "name": "Puzzle",
+    "package": "com.game.puzzle",
+    "reads": [
+      {
+        "detail": "Where the phone is. Photo locations, 3 minutes ago.",
+        "label": "Location"
+      },
+      {
+        "detail": "Phone, account, or advertising identifiers. Hardware identifiers, 4 minutes ago.",
+        "label": "Identity"
+      }
+    ],
+    "rx_bytes": 0,
+    "tx_bytes": 0
+  },
+  {
+    "destinations": [],
+    "name": "Snap",
+    "package": "com.cam.snap",
+    "reads": [
+      {
+        "detail": "Images or video from the camera. Camera, in this sample.",
+        "label": "Camera"
+      }
+    ],
+    "rx_bytes": 0,
+    "tx_bytes": 0
+  },
+  {
+    "destinations": [
+      {
+        "count": 1,
+        "detail": "DNS lookup for settings.crashlytics.com. Firebase Crashlytics is a known tracker in that name.",
+        "endpoint": "settings.crashlytics.com",
+        "host": "settings.crashlytics.com",
+        "kind": "Firebase Crashlytics",
+        "label": "settings.crashlytics.com",
+        "name": "",
+        "relation": "lookup"
+      }
+    ],
+    "name": "Tracker",
+    "package": "com.fit.tracker",
+    "reads": [
+      {
+        "detail": "Motion sensor readings. accelerometer, in this sample. heart rate, in this sample. step counter, in this sample.",
+        "label": "Motion"
+      }
+    ],
+    "rx_bytes": 0,
+    "tx_bytes": 0
+  },
+  {
+    "destinations": [
+      {
+        "count": 1,
+        "detail": "DNS lookup for wallpaper.example.org.",
+        "endpoint": "wallpaper.example.org",
+        "host": "wallpaper.example.org",
+        "kind": "DNS",
+        "label": "wallpaper.example.org",
+        "name": "",
+        "relation": "lookup"
+      }
+    ],
+    "name": "Wallpaper",
+    "package": "com.idle.wallpaper",
+    "reads": [],
+    "rx_bytes": 0,
+    "tx_bytes": 0
+  }
+]

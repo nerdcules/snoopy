@@ -1,0 +1,50 @@
+{
+  "apps": [
+    {
+      "doing": [],
+      "name": "com.example.indented",
+      "packages": [
+        "com.example.indented"
+      ],
+      "rx_bytes": 0,
+      "tx_bytes": 0
+    },
+    {
+      "doing": [],
+      "name": "com.example.second",
+      "packages": [
+        "com.example.second"
+      ],
+      "rx_bytes": 0,
+      "tx_bytes": 0
+    }
+  ],
+  "flows": [
+    {
+      "destination": "com.example.indented",
+      "detail": "last access [top-s] 2025-03-01 12:00:00.000 (-1h0m0s0ms). Images and video from the camera.",
+      "information": "Images and video from the camera.",
+      "kind": "collection",
+      "source": "Camera",
+      "via": "read"
+    },
+    {
+      "count": 1,
+      "destination": "192.0.2.12:443",
+      "detail": "",
+      "information": "TCP ESTABLISHED",
+      "kind": "transmission",
+      "source": "com.example.second",
+      "via": "10.0.0.21:40961"
+    },
+    {
+      "count": 1,
+      "destination": "192.0.2.13:80",
+      "detail": "",
+      "information": "TCP CLOSING",
+      "kind": "transmission",
+      "source": "com.example.second",
+      "via": "10.0.0.21:40964"
+    }
+  ]
+}

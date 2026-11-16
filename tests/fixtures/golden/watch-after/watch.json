@@ -1,0 +1,106 @@
+{
+  "connections": [
+    {
+      "packages": [
+        "com.watch.one"
+      ],
+      "proto": "TCP",
+      "remote": "192.0.2.100:443",
+      "state": "ESTABLISHED",
+      "uid": 10401
+    },
+    {
+      "packages": [
+        "com.watch.shared",
+        "com.watch.two"
+      ],
+      "proto": "TCP",
+      "remote": "192.0.2.101:443",
+      "state": "CLOSE_WAIT",
+      "uid": 10402
+    },
+    {
+      "packages": [
+        "com.watch.three"
+      ],
+      "proto": "TCP",
+      "remote": "192.0.2.102:80",
+      "state": "ESTABLISHED",
+      "uid": 10403
+    },
+    {
+      "packages": [],
+      "proto": "TCP",
+      "remote": "192.0.2.103:443",
+      "state": "ESTABLISHED",
+      "uid": 10499
+    },
+    {
+      "packages": [
+        "com.watch.one"
+      ],
+      "proto": "TCP",
+      "remote": "[2001:db8:ff::1]:443",
+      "state": "ESTABLISHED",
+      "uid": 10401
+    },
+    {
+      "packages": [
+        "com.watch.shared",
+        "com.watch.two"
+      ],
+      "proto": "UDP",
+      "remote": "192.0.2.104:443",
+      "state": "ESTABLISHED",
+      "uid": 10402
+    }
+  ],
+  "focus": [
+    "com.watch.three/.Feed",
+    "com.watch.two/.Chat"
+  ],
+  "ops": [
+    {
+      "last_access": "[top] 2024-11-14 18:09:00.000 (-10s)",
+      "last_reject": null,
+      "op": "CAMERA",
+      "package": "com.watch.one"
+    },
+    {
+      "last_access": "[top] 2024-11-14 18:09:30.000 (-1s)",
+      "last_reject": null,
+      "op": "RECORD_AUDIO",
+      "package": "com.watch.one"
+    },
+    {
+      "last_access": null,
+      "last_reject": "[bg] 2024-11-14 17:00:00.000 (-1h)",
+      "op": "FINE_LOCATION",
+      "package": "com.watch.two"
+    },
+    {
+      "last_access": "+2m ago",
+      "last_reject": null,
+      "op": "READ_CONTACTS",
+      "package": "com.watch.two"
+    },
+    {
+      "last_access": null,
+      "last_reject": "[bg] 2024-11-14 18:08:00.000 (-2m)",
+      "op": "COARSE_LOCATION",
+      "package": "com.watch.two"
+    },
+    {
+      "last_access": "+1s ago",
+      "last_reject": null,
+      "op": "READ_CLIPBOARD",
+      "package": "com.watch.three"
+    },
+    {
+      "last_access": null,
+      "last_reject": null,
+      "op": "CAMERA",
+      "package": "com.watch.three"
+    }
+  ]
+}

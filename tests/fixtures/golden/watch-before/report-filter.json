@@ -1,0 +1,88 @@
+{
+  "declared_only": [],
+  "device": {
+    "android": "",
+    "captured_at": "2024-11-14T18:05:00Z",
+    "model": "",
+    "sdk": "",
+    "serial": ""
+  },
+  "errors": {},
+  "limits": [
+    "Network sockets belong to a Linux uid. On Android that uid is usually one app.",
+    "Transmission shown here is destination, size, and DNS name. HTTPS message bodies stay encrypted.",
+    "Tracker SDK rows are components shipped inside the app and the kind of data that SDK is built to collect."
+  ],
+  "live": [
+    {
+      "attempted": [],
+      "declared": [],
+      "doing": [
+        "On screen: com.watch.one/.Main"
+      ],
+      "observed": [
+        {
+          "category": "Camera",
+          "detail": "Images and video from the camera.",
+          "last_access": "[top] 2024-11-14 18:00:00.000 (-5m)",
+          "last_reject": null,
+          "mode": "allow",
+          "op": "CAMERA",
+          "package": "com.watch.one",
+          "uid": 10401
+        }
+      ],
+      "packages": [
+        "com.watch.one"
+      ],
+      "permitted_unseen": [
+        {
+          "category": "Microphone",
+          "detail": "Audio from the microphone.",
+          "last_access": null,
+          "last_reject": null,
+          "mode": "allow",
+          "op": "RECORD_AUDIO",
+          "package": "com.watch.one",
+          "uid": 10401
+        }
+      ],
+      "trackers": [],
+      "transmitted": {
+        "connections": [
+          {
+            "local": "10.0.0.5:45000",
+            "proto": "TCP",
+            "remote": "192.0.2.100:443",
+            "state": "ESTABLISHED",
+            "uid": 10401
+          }
+        ],
+        "dns": [],
+        "network_permission": false,
+        "rx_bytes": 0,
+        "tx_bytes": 0
+      },
+      "uid": 10401,
+      "uid_packages": [
+        "com.watch.one"
+      ],
+      "versions": {}
+    }
+  ],
+  "sources": [
+    "dumpsys appops",
+    "dumpsys package",
+    "dumpsys activity",
+    "dumpsys jobscheduler",
+    "dumpsys power",
+    "dumpsys location",
+    "dumpsys sensorservice",
+    "dumpsys clipboard",
+    "dumpsys netstats",
+    "/proc/net/tcp",
+    "/proc/net/udp",
+    "logcat DNS"
+  ],
+  "unattributed_dns": []
+}

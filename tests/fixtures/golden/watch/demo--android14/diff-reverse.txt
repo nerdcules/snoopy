@@ -1,0 +1,11 @@
+On screen: com.tracker.demo/.Main
+Left screen: com.maps.app/com.maps.app.MainActivity
+Left screen: com.unlisted.app/.Splash
+Left screen: com.whatsapp/.HomeActivity
+com.tracker.demo TCP ESTABLISHED -> 192.168.8.8:443
+com.tracker.demo UDP ESTABLISHED -> 8.8.8.8:53
+com.tracker.demo COARSE_LOCATION [top] 2024-11-14 18:01:02.123 (-5m ago)
+com.tracker.demo FINE_LOCATION [top] 2024-11-14 18:01:02.123 (-5m ago) duration=+2s
+com.tracker.demo CAMERA [fgsvc] 2024-11-14 12:00:00.000 (-6h ago)
+com.tracker.demo RECORD_AUDIO [top] 2024-11-14 11:00:00.000 (-7h ago)
+com.tracker.demo READ_CLIPBOARD +30s ago

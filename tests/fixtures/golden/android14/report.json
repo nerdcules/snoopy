@@ -1,0 +1,1663 @@
+{
+  "declared_only": [
+    {
+      "categories": [
+        "Installed apps"
+      ],
+      "package": "com.sideloaded.tool",
+      "uid": 10310
+    }
+  ],
+  "device": {
+    "android": "14",
+    "captured_at": "2024-11-14T18:05:00Z",
+    "model": "Fixture Phone 14",
+    "sdk": "34",
+    "serial": "FIXTURE14"
+  },
+  "errors": {
+    "clipboard": "command exited 1",
+    "sensors": "Permission Denial: can't dump SensorService"
+  },
+  "limits": [
+    "Network sockets belong to a Linux uid. On Android that uid is usually one app.",
+    "Transmission shown here is destination, size, and DNS name. HTTPS message bodies stay encrypted.",
+    "Tracker SDK rows are components shipped inside the app and the kind of data that SDK is built to collect."
+  ],
+  "live": [
+    {
+      "attempted": [],
+      "declared": [
+        {
+          "category": "Camera",
+          "detail": "Images and video from the camera.",
+          "package": "com.whatsapp",
+          "permission": "android.permission.CAMERA"
+        },
+        {
+          "category": "Microphone",
+          "detail": "Audio from the microphone.",
+          "package": "com.whatsapp",
+          "permission": "android.permission.RECORD_AUDIO"
+        },
+        {
+          "category": "Contacts",
+          "detail": "Names, phone numbers, and emails in the address book.",
+          "package": "com.whatsapp",
+          "permission": "android.permission.READ_CONTACTS"
+        },
+        {
+          "category": "Contacts",
+          "detail": "Changes to the address book.",
+          "package": "com.whatsapp",
+          "permission": "android.permission.WRITE_CONTACTS"
+        },
+        {
+          "category": "Phone number",
+          "detail": "The device phone number.",
+          "package": "com.whatsapp",
+          "permission": "android.permission.READ_PHONE_NUMBERS"
+        },
+        {
+          "category": "Accounts",
+          "detail": "Account names on the device.",
+          "package": "com.whatsapp",
+          "permission": "android.permission.GET_ACCOUNTS"
+        },
+        {
+          "category": "Photos",
+          "detail": "Images in shared storage.",
+          "package": "com.whatsapp",
+          "permission": "android.permission.READ_MEDIA_IMAGES"
+        },
+        {
+          "category": "Videos",
+          "detail": "Videos in shared storage.",
+          "package": "com.whatsapp",
+          "permission": "android.permission.READ_MEDIA_VIDEO"
+        }
+      ],
+      "doing": [
+        "On screen: com.whatsapp/.HomeActivity",
+        "Process com.whatsapp pid 5100 (on screen)",
+        "Service com.whatsapp/.messaging.MessageService",
+        "Wakelock Doze (DOZE_WAKE_LOCK)",
+        "Owns the current clipboard contents"
+      ],
+      "observed": [
+        {
+          "category": "Camera",
+          "detail": "Images and video from the camera.",
+          "last_access": "[top-s] 2024-11-14 18:04:55.000 (-5s0ms)",
+          "last_reject": null,
+          "mode": "allow",
+          "op": "CAMERA",
+          "package": "com.whatsapp",
+          "uid": 10304
+        },
+        {
+          "category": "Microphone",
+          "detail": "Audio from the microphone.",
+          "last_access": "[top-s] 2024-11-14 17:25:00.000 (-40m0s0ms)",
+          "last_reject": null,
+          "mode": "allow",
+          "op": "RECORD_AUDIO",
+          "package": "com.whatsapp",
+          "uid": 10304
+        },
+        {
+          "category": "Contacts",
+          "detail": "Names, phone numbers, and emails in the address book.",
+          "last_access": "[top-s] 2024-11-14 18:04:00.000 (-1m0s0ms)",
+          "last_reject": null,
+          "mode": "allow",
+          "op": "READ_CONTACTS",
+          "package": "com.whatsapp",
+          "uid": 10304
+        },
+        {
+          "category": "Contacts",
+          "detail": "Changes to the address book.",
+          "last_access": "[top-s] 2024-11-14 18:03:00.000 (-2m0s0ms)",
+          "last_reject": null,
+          "mode": "allow",
+          "op": "WRITE_CONTACTS",
+          "package": "com.whatsapp",
+          "uid": 10304
+        },
+        {
+          "category": "Call history",
+          "detail": "Numbers called and received, and when.",
+          "last_access": "[top-s] 2024-11-14 18:00:00.000 (-5m0s0ms)",
+          "last_reject": null,
+          "mode": "allow",
+          "op": "READ_CALL_LOG",
+          "package": "com.whatsapp",
+          "uid": 10304
+        },
+        {
+          "category": "SMS messages",
+          "detail": "Text message contents.",
+          "last_access": "[top-s] 2024-11-14 18:00:00.000 (-5m0s0ms)",
+          "last_reject": null,
+          "mode": "allow",
+          "op": "READ_SMS",
+          "package": "com.whatsapp",
+          "uid": 10304
+        },
+        {
+          "category": "Clipboard",
+          "detail": "Text and images currently copied on the device.",
+          "last_access": "[top-s] 2024-11-14 18:04:58.000 (-2s0ms)",
+          "last_reject": null,
+          "mode": "allow",
+          "op": "READ_CLIPBOARD",
+          "package": "com.whatsapp",
+          "uid": 10304
+        },
+        {
+          "category": "Phone number",
+          "detail": "The device phone number.",
+          "last_access": "[top-s] 2024-11-14 18:00:00.000 (-5m0s0ms)",
+          "last_reject": null,
+          "mode": "allow",
+          "op": "READ_PHONE_NUMBERS",
+          "package": "com.whatsapp",
+          "uid": 10304
+        },
+        {
+          "category": "Photos",
+          "detail": "Images in shared storage.",
+          "last_access": "[top-s] 2024-11-14 17:05:00.000 (-1h0m0s0ms)",
+          "last_reject": null,
+          "mode": "allow",
+          "op": "READ_MEDIA_IMAGES",
+          "package": "com.whatsapp",
+          "uid": 10304
+        },
+        {
+          "category": "Videos",
+          "detail": "Videos in shared storage.",
+          "last_access": "[top-s] 2024-11-14 17:04:00.000 (-1h1m0s0ms)",
+          "last_reject": null,
+          "mode": "allow",
+          "op": "READ_MEDIA_VIDEO",
+          "package": "com.whatsapp",
+          "uid": 10304
+        },
+        {
+          "category": "Audio files",
+          "detail": "Audio files in shared storage.",
+          "last_access": "[top-s] 2024-11-14 17:03:00.000 (-1h2m0s0ms)",
+          "last_reject": null,
+          "mode": "allow",
+          "op": "READ_MEDIA_AUDIO",
+          "package": "com.whatsapp",
+          "uid": 10304
+        },
+        {
+          "category": "Photo locations",
+          "detail": "Location tags embedded in photos.",
+          "last_access": "[top-s] 2024-11-14 17:01:00.000 (-1h4m0s0ms)",
+          "last_reject": null,
+          "mode": "allow",
+          "op": "ACCESS_MEDIA_LOCATION",
+          "package": "com.whatsapp",
+          "uid": 10304
+        },
+        {
+          "category": "Files",
+          "detail": "Shared files on the device.",
+          "last_access": "[top-s] 2024-11-14 17:02:00.000 (-1h3m0s0ms)",
+          "last_reject": null,
+          "mode": "allow",
+          "op": "READ_EXTERNAL_STORAGE",
+          "package": "com.whatsapp",
+          "uid": 10304
+        }
+      ],
+      "packages": [
+        "com.whatsapp"
+      ],
+      "permitted_unseen": [],
+      "trackers": [
+        {
+          "collects": "App events, device info, and advertising ID.",
+          "name": "Facebook App Events",
+          "package": "com.whatsapp",
+          "prefix": "com.facebook.appevents"
+        },
+        {
+          "collects": "Advertising ID and ad interactions.",
+          "name": "Facebook Audience Network",
+          "package": "com.whatsapp",
+          "prefix": "com.facebook.ads"
+        },
+        {
+          "collects": "Facebook identity when the user signs in, plus app events.",
+          "name": "Facebook Login",
+          "package": "com.whatsapp",
+          "prefix": "com.facebook.FacebookActivity"
+        }
+      ],
+      "transmitted": {
+        "connections": [
+          {
+            "local": "10.0.0.23:40001",
+            "proto": "TCP",
+            "remote": "142.250.180.14:443",
+            "state": "ESTABLISHED",
+            "uid": 10304
+          },
+          {
+            "local": "10.0.0.23:40002",
+            "proto": "TCP",
+            "remote": "157.240.22.35:443",
+            "state": "ESTABLISHED",
+            "uid": 10304
+          },
+          {
+            "local": "10.0.0.23:40003",
+            "proto": "TCP",
+            "remote": "157.240.22.35:443",
+            "state": "ESTABLISHED",
+            "uid": 10304
+          },
+          {
+            "local": "10.0.0.23:40004",
+            "proto": "TCP",
+            "remote": "157.240.22.35:5222",
+            "state": "ESTABLISHED",
+            "uid": 10304
+          },
+          {
+            "local": "[2001:db8:1::23]:40101",
+            "proto": "TCP",
+            "remote": "[2a03:2880:f12f:83:face:b00c:0:25de]:443",
+            "state": "ESTABLISHED",
+            "uid": 10304
+          },
+          {
+            "local": "[::ffff:10.0.0.23]:40100",
+            "proto": "TCP",
+            "remote": "[::ffff:142.250.200.4]:443",
+            "state": "ESTABLISHED",
+            "uid": 10304
+          },
+          {
+            "local": "10.0.0.23:41000",
+            "proto": "UDP",
+            "remote": "142.250.180.14:443",
+            "state": "ESTABLISHED",
+            "uid": 10304
+          },
+          {
+            "local": "10.0.0.23:41002",
+            "proto": "UDP",
+            "remote": "192.0.2.70:3478",
+            "state": "ESTABLISHED",
+            "uid": 10304
+          }
+        ],
+        "dns": [
+          {
+            "host": "g.whatsapp.net",
+            "tracker": null,
+            "uid": 10304
+          },
+          {
+            "host": "graph.facebook.com",
+            "tracker": "Facebook",
+            "uid": 10304
+          }
+        ],
+        "network_permission": true,
+        "rx_bytes": 53479424,
+        "tx_bytes": 7865344
+      },
+      "uid": 10304,
+      "uid_packages": [
+        "com.whatsapp"
+      ],
+      "versions": {
+        "com.whatsapp": "2.24.22.79"
+      }
+    },
+    {
+      "attempted": [],
+      "declared": [
+        {
+          "category": "Precise location",
+          "detail": "GPS-level location of the device.",
+          "package": "com.maps.app",
+          "permission": "android.permission.ACCESS_FINE_LOCATION"
+        },
+        {
+          "category": "Approximate location",
+          "detail": "Cell and Wi-Fi location of the device.",
+          "package": "com.maps.app",
+          "permission": "android.permission.ACCESS_COARSE_LOCATION"
+        },
+        {
+          "category": "Advertising ID",
+          "detail": "The resettable advertising identifier.",
+          "package": "com.maps.app",
+          "permission": "com.google.android.gms.permission.AD_ID"
+        }
+      ],
+      "doing": [
+        "On screen: com.maps.app/com.maps.app.MainActivity",
+        "Process com.maps.app pid 5500",
+        "Foreground service com.maps.app/com.maps.app.NavigationService",
+        "Scheduled job 5ab9c1d",
+        "Location request: @+1s0ms HIGH_ACCURACY, minUpdateDistance=0.0"
+      ],
+      "observed": [
+        {
+          "category": "Precise location",
+          "detail": "GPS-level location of the device.",
+          "last_access": "[top-s] 2024-11-14 18:03:00.000 (-2m0s0ms) duration=+1s12ms",
+          "last_reject": "[bg-s] 2024-11-14 17:00:00.000 (-1h5m0s0ms)",
+          "mode": "allow",
+          "op": "FINE_LOCATION",
+          "package": "com.maps.app",
+          "uid": 10301
+        },
+        {
+          "category": "Approximate location",
+          "detail": "Cell and Wi-Fi location of the device.",
+          "last_access": "[fg-s] 2024-11-11 09:00:00.000 (-3d9h5m0s0ms) duration=+40ms",
+          "last_reject": null,
+          "mode": "foreground",
+          "op": "COARSE_LOCATION",
+          "package": "com.maps.app",
+          "uid": 10301
+        },
+        {
+          "category": "GPS",
+          "detail": "Satellite location fixes.",
+          "last_access": "[top-s] 2024-11-14 18:04:30.000 (-30s0ms)",
+          "last_reject": null,
+          "mode": "allow",
+          "op": "GPS",
+          "package": "com.maps.app",
+          "uid": 10301
+        },
+        {
+          "category": "Continuous location",
+          "detail": "Ongoing location monitoring.",
+          "last_access": "[bg-s] 2024-11-13 12:00:00.000 (-30h5m0s0ms) duration=+2h",
+          "last_reject": null,
+          "mode": "allow",
+          "op": "MONITOR_LOCATION",
+          "package": "com.maps.app",
+          "uid": 10301
+        },
+        {
+          "category": "High-power location",
+          "detail": "High-accuracy location that keeps extra hardware awake.",
+          "last_access": "[top-s] 2024-11-13 19:00:00.000 (-23h5m0s0ms) duration=+20m",
+          "last_reject": null,
+          "mode": "allow",
+          "op": "MONITOR_HIGH_POWER_LOCATION",
+          "package": "com.maps.app",
+          "uid": 10301
+        },
+        {
+          "category": "Wi-Fi scan",
+          "detail": "Nearby network names and signal strength, which can locate the device.",
+          "last_access": "[top-s] 2024-11-14 18:04:00.000 (-1m0s0ms)",
+          "last_reject": null,
+          "mode": "allow",
+          "op": "WIFI_SCAN",
+          "package": "com.maps.app",
+          "uid": 10301
+        }
+      ],
+      "packages": [
+        "com.maps.app"
+      ],
+      "permitted_unseen": [],
+      "trackers": [
+        {
+          "collects": "An app-scoped installation identifier.",
+          "name": "Firebase Installations",
+          "package": "com.maps.app",
+          "prefix": "com.google.firebase.installations"
+        },
+        {
+          "collects": "Analytics events and device properties.",
+          "name": "Google Measurement",
+          "package": "com.maps.app",
+          "prefix": "com.google.android.gms.measurement"
+        },
+        {
+          "collects": "Advertising ID, ad interactions, and IP address.",
+          "name": "Google Mobile Ads",
+          "package": "com.maps.app",
+          "prefix": "com.google.android.gms.ads"
+        }
+      ],
+      "transmitted": {
+        "connections": [
+          {
+            "local": "10.0.0.23:40005",
+            "proto": "TCP",
+            "remote": "203.0.113.10:80",
+            "state": "TIME_WAIT",
+            "uid": 10301
+          },
+          {
+            "local": "10.0.0.23:40006",
+            "proto": "TCP",
+            "remote": "203.0.113.11:443",
+            "state": "CLOSE_WAIT",
+            "uid": 10301
+          },
+          {
+            "local": "[2001:db8:1::23]:40102",
+            "proto": "TCP",
+            "remote": "[2001:db8::1:0:0:1]:8443",
+            "state": "ESTABLISHED",
+            "uid": 10301
+          },
+          {
+            "local": "[2001:db8:1::23]:40103",
+            "proto": "TCP",
+            "remote": "[::1.2.3.4]:80",
+            "state": "ESTABLISHED",
+            "uid": 10301
+          },
+          {
+            "local": "[2001:db8:1::23]:41101",
+            "proto": "UDP",
+            "remote": "[2001:4860:4860::8844]:443",
+            "state": "ESTABLISHED",
+            "uid": 10301
+          },
+          {
+            "local": "[::ffff:10.0.0.23]:41100",
+            "proto": "UDP",
+            "remote": "[::ffff:142.250.180.14]:443",
+            "state": "ESTABLISHED",
+            "uid": 10301
+          }
+        ],
+        "dns": [
+          {
+            "host": "app-measurement.com",
+            "tracker": "Firebase Analytics",
+            "uid": 10301
+          },
+          {
+            "host": "firebaseinstallations.googleapis.com",
+            "tracker": "Firebase Installations",
+            "uid": 10301
+          },
+          {
+            "host": "region1.app-measurement.com",
+            "tracker": "Firebase Analytics",
+            "uid": 10301
+          }
+        ],
+        "network_permission": true,
+        "rx_bytes": 3221225472,
+        "tx_bytes": 1610612736
+      },
+      "uid": 10301,
+      "uid_packages": [
+        "com.maps.app"
+      ],
+      "versions": {
+        "com.maps.app": "11.118.0101"
+      }
+    },
+    {
+      "attempted": [],
+      "declared": [
+        {
+          "category": "Advertising ID",
+          "detail": "The resettable advertising identifier.",
+          "package": "com.game.puzzle",
+          "permission": "com.google.android.gms.permission.AD_ID"
+        }
+      ],
+      "doing": [],
+      "observed": [
+        {
+          "category": "Hardware identifiers",
+          "detail": "Non-resettable identifiers such as an IMEI or serial number.",
+          "last_access": "[top-s] 2024-11-14 18:01:00.000 (-4m0s0ms)",
+          "last_reject": null,
+          "mode": "allow",
+          "op": "READ_DEVICE_IDENTIFIERS",
+          "package": "com.game.puzzle",
+          "uid": 10305
+        },
+        {
+          "category": "Calendar",
+          "detail": "Calendar events.",
+          "last_access": "[top-s] 2024-11-14 18:02:00.000 (-3m0s0ms)",
+          "last_reject": null,
+          "mode": "default",
+          "op": "READ_CALENDAR",
+          "package": "com.game.puzzle",
+          "uid": 10305
+        },
+        {
+          "category": "Photo locations",
+          "detail": "Location tags embedded in photos.",
+          "last_access": "[top-s] 2024-11-14 18:02:00.000 (-3m0s0ms)",
+          "last_reject": null,
+          "mode": "ask",
+          "op": "ACCESS_MEDIA_LOCATION",
+          "package": "com.game.puzzle",
+          "uid": 10305
+        },
+        {
+          "category": "Body sensors",
+          "detail": "Heart rate and similar body-sensor readings.",
+          "last_access": "[top-s] 2024-11-14 18:02:00.000 (-3m0s0ms)",
+          "last_reject": null,
+          "mode": "switch BODY_SENSORS=allow",
+          "op": "BODY_SENSORS",
+          "package": "com.game.puzzle",
+          "uid": 10305
+        }
+      ],
+      "packages": [
+        "com.game.puzzle"
+      ],
+      "permitted_unseen": [
+        {
+          "category": "Accounts",
+          "detail": "Account names on the device.",
+          "last_access": null,
+          "last_reject": null,
+          "mode": "allow",
+          "op": "GET_ACCOUNTS",
+          "package": "com.game.puzzle",
+          "uid": 10305
+        }
+      ],
+      "trackers": [
+        {
+          "collects": "Engagement events and device properties.",
+          "name": "Adobe Marketing",
+          "package": "com.game.puzzle",
+          "prefix": "com.adobe.marketing"
+        },
+        {
+          "collects": "Advertising ID and ad interactions.",
+          "name": "Amazon Ads",
+          "package": "com.game.puzzle",
+          "prefix": "com.amazon.device.ads"
+        },
+        {
+          "collects": "Product analytics events and device properties.",
+          "name": "Amplitude",
+          "package": "com.game.puzzle",
+          "prefix": "com.amplitude"
+        },
+        {
+          "collects": "Advertising ID and ad interactions.",
+          "name": "AppLovin",
+          "package": "com.game.puzzle",
+          "prefix": "com.applovin"
+        },
+        {
+          "collects": "Analytics events, device identifiers, and location if the app can read it.",
+          "name": "AppMetrica",
+          "package": "com.game.puzzle",
+          "prefix": "io.appmetrica"
+        },
+        {
+          "collects": "Engagement events and device properties.",
+          "name": "Braze",
+          "package": "com.game.puzzle",
+          "prefix": "com.braze"
+        },
+        {
+          "collects": "Crash traces and device state.",
+          "name": "Bugsnag",
+          "package": "com.game.puzzle",
+          "prefix": "com.bugsnag"
+        },
+        {
+          "collects": "Advertising ID and ad interactions.",
+          "name": "Chartboost",
+          "package": "com.game.puzzle",
+          "prefix": "com.chartboost"
+        },
+        {
+          "collects": "Engagement events and device properties.",
+          "name": "CleverTap",
+          "package": "com.game.puzzle",
+          "prefix": "com.clevertap"
+        },
+        {
+          "collects": "Analytics events and device properties.",
+          "name": "Flurry",
+          "package": "com.game.puzzle",
+          "prefix": "com.flurry"
+        },
+        {
+          "collects": "Advertising ID, ad interactions, and IP address.",
+          "name": "Google Mobile Ads",
+          "package": "com.game.puzzle",
+          "prefix": "com.google.android.gms.ads"
+        },
+        {
+          "collects": "Advertising ID and ad interactions.",
+          "name": "Huawei Ads",
+          "package": "com.game.puzzle",
+          "prefix": "com.huawei.hms.ads"
+        },
+        {
+          "collects": "Advertising ID and ad interactions.",
+          "name": "InMobi",
+          "package": "com.game.puzzle",
+          "prefix": "com.inmobi"
+        },
+        {
+          "collects": "Advertising ID and ad interactions.",
+          "name": "IronSource",
+          "package": "com.game.puzzle",
+          "prefix": "com.ironsource"
+        },
+        {
+          "collects": "Attribution identifiers and IP address.",
+          "name": "Kochava",
+          "package": "com.game.puzzle",
+          "prefix": "com.kochava"
+        },
+        {
+          "collects": "Product analytics events and device properties.",
+          "name": "Mixpanel",
+          "package": "com.game.puzzle",
+          "prefix": "com.mixpanel"
+        },
+        {
+          "collects": "Engagement events and device properties.",
+          "name": "MoEngage",
+          "package": "com.game.puzzle",
+          "prefix": "com.moengage"
+        },
+        {
+          "collects": "Performance traces and device state.",
+          "name": "New Relic",
+          "package": "com.game.puzzle",
+          "prefix": "com.newrelic.agent"
+        },
+        {
+          "collects": "Push token and device properties.",
+          "name": "OneSignal",
+          "package": "com.game.puzzle",
+          "prefix": "com.onesignal"
+        },
+        {
+          "collects": "Engagement events and contact keys the app sets.",
+          "name": "Salesforce Marketing Cloud",
+          "package": "com.game.puzzle",
+          "prefix": "com.salesforce.marketingcloud"
+        },
+        {
+          "collects": "Event routing and device properties.",
+          "name": "Segment",
+          "package": "com.game.puzzle",
+          "prefix": "com.segment.analytics"
+        },
+        {
+          "collects": "Attribution identifiers and IP address.",
+          "name": "Singular",
+          "package": "com.game.puzzle",
+          "prefix": "com.singular"
+        },
+        {
+          "collects": "Advertising ID and, on older SDKs, installed-app signals.",
+          "name": "Start.io",
+          "package": "com.game.puzzle",
+          "prefix": "com.startapp"
+        },
+        {
+          "collects": "Analytics events and device identifiers.",
+          "name": "Umeng",
+          "package": "com.game.puzzle",
+          "prefix": "com.umeng"
+        },
+        {
+          "collects": "Advertising ID and ad interactions.",
+          "name": "Unity Ads",
+          "package": "com.game.puzzle",
+          "prefix": "com.unity3d.ads"
+        },
+        {
+          "collects": "Advertising ID and ad interactions.",
+          "name": "Vungle",
+          "package": "com.game.puzzle",
+          "prefix": "com.vungle"
+        },
+        {
+          "collects": "Analytics events and device identifiers.",
+          "name": "Yandex Metrica",
+          "package": "com.game.puzzle",
+          "prefix": "com.yandex.metrica"
+        },
+        {
+          "collects": "Event routing, device properties, and advertising ID.",
+          "name": "mParticle",
+          "package": "com.game.puzzle",
+          "prefix": "com.mparticle"
+        }
+      ],
+      "transmitted": {
+        "connections": [
+          {
+            "local": "10.0.0.23:40007",
+            "proto": "TCP",
+            "remote": "198.51.100.7:6789",
+            "state": "ESTABLISHED",
+            "uid": 10305
+          },
+          {
+            "local": "10.0.0.23:40008",
+            "proto": "TCP",
+            "remote": "198.51.100.8:443",
+            "state": "SYN_SENT",
+            "uid": 10305
+          }
+        ],
+        "dns": [
+          {
+            "host": "ads.mopub.example.doubleclick.net",
+            "tracker": "Google Ads",
+            "uid": 10305
+          }
+        ],
+        "network_permission": true,
+        "rx_bytes": 0,
+        "tx_bytes": 0
+      },
+      "uid": 10305,
+      "uid_packages": [
+        "com.game.puzzle"
+      ],
+      "versions": {
+        "com.game.puzzle": "1.0"
+      }
+    },
+    {
+      "attempted": [],
+      "declared": [
+        {
+          "category": "Camera",
+          "detail": "Images and video from the camera.",
+          "package": "com.android.systemui",
+          "permission": "android.permission.CAMERA"
+        },
+        {
+          "category": "Screen overlay",
+          "detail": "Windows drawn on top of other apps.",
+          "package": "com.android.systemui",
+          "permission": "android.permission.SYSTEM_ALERT_WINDOW"
+        }
+      ],
+      "doing": [
+        "Sensor android.sensor.light (pid 2100)"
+      ],
+      "observed": [
+        {
+          "category": "Camera",
+          "detail": "Images and video from the camera.",
+          "last_access": "[pers-s] 2024-11-14 18:03:00.000 (-2m0s0ms)",
+          "last_reject": null,
+          "mode": "allow",
+          "op": "CAMERA",
+          "package": "com.android.systemui",
+          "uid": 10150
+        },
+        {
+          "category": "Clipboard",
+          "detail": "Text and images currently copied on the device.",
+          "last_access": "[pers-s] 2024-11-14 18:03:30.000 (-1m30s0ms)",
+          "last_reject": null,
+          "mode": "allow",
+          "op": "READ_CLIPBOARD",
+          "package": "com.android.systemui",
+          "uid": 10150
+        }
+      ],
+      "packages": [
+        "com.android.systemui"
+      ],
+      "permitted_unseen": [],
+      "trackers": [],
+      "transmitted": {
+        "connections": [],
+        "dns": [],
+        "network_permission": true,
+        "rx_bytes": 0,
+        "tx_bytes": 0
+      },
+      "uid": 10150,
+      "uid_packages": [
+        "com.android.systemui"
+      ],
+      "versions": {
+        "com.android.systemui": "14"
+      }
+    },
+    {
+      "attempted": [
+        {
+          "category": "Approximate location",
+          "detail": "Cell and Wi-Fi location of the device.",
+          "last_access": null,
+          "last_reject": "[bg-s] 2024-11-12 08:00:00.000 (-2d10h5m0s0ms)",
+          "mode": "allow",
+          "op": "COARSE_LOCATION",
+          "package": "com.fit.tracker",
+          "uid": 10302
+        },
+        {
+          "category": "Contacts",
+          "detail": "Names, phone numbers, and emails in the address book.",
+          "last_access": null,
+          "last_reject": "[top-s] 2024-11-14 17:05:00.000 (-1h0m0s0ms)",
+          "mode": "deny",
+          "op": "READ_CONTACTS",
+          "package": "com.fit.tracker",
+          "uid": 10302
+        },
+        {
+          "category": "Body sensors",
+          "detail": "Heart rate and similar body-sensor readings.",
+          "last_access": null,
+          "last_reject": null,
+          "mode": "ignore",
+          "op": "BODY_SENSORS",
+          "package": "com.fit.tracker",
+          "uid": 10302
+        }
+      ],
+      "declared": [
+        {
+          "category": "Contacts",
+          "detail": "Names, phone numbers, and emails in the address book.",
+          "package": "com.fit.tracker",
+          "permission": "android.permission.READ_CONTACTS"
+        },
+        {
+          "category": "Physical activity",
+          "detail": "Walking, driving, and similar motion.",
+          "package": "com.fit.tracker",
+          "permission": "android.permission.ACTIVITY_RECOGNITION"
+        }
+      ],
+      "doing": [
+        "Process com.fit.tracker:workout pid 5200 (foreground service)",
+        "Foreground service com.fit.tracker/.workout.TrackingService",
+        "Wakelock TrackingService:workout (PARTIAL_WAKE_LOCK)",
+        "Sensor android.sensor.step_counter (pid 5200)",
+        "Sensor android.sensor.heart_rate (pid 5200)",
+        "Sensor android.sensor.accelerometer (pid 5200)",
+        "Location request: @+10s0ms BALANCED"
+      ],
+      "observed": [
+        {
+          "category": "Physical activity",
+          "detail": "Walking, driving, and similar motion.",
+          "last_access": "[fgsvc-s] 2024-11-14 17:55:00.000 (-10m0s0ms)",
+          "last_reject": null,
+          "mode": "allow",
+          "op": "ACTIVITY_RECOGNITION",
+          "package": "com.fit.tracker",
+          "uid": 10302
+        }
+      ],
+      "packages": [
+        "com.fit.tracker"
+      ],
+      "permitted_unseen": [],
+      "trackers": [
+        {
+          "collects": "Crash traces, device model, OS version, and app state at the crash.",
+          "name": "Firebase Crashlytics",
+          "package": "com.fit.tracker",
+          "prefix": "com.google.firebase.crashlytics"
+        },
+        {
+          "collects": "Crash traces and device state.",
+          "name": "Sentry",
+          "package": "com.fit.tracker",
+          "prefix": "io.sentry"
+        }
+      ],
+      "transmitted": {
+        "connections": [],
+        "dns": [
+          {
+            "host": "settings.crashlytics.com",
+            "tracker": "Firebase Crashlytics",
+            "uid": 10302
+          }
+        ],
+        "network_permission": true,
+        "rx_bytes": 0,
+        "tx_bytes": 0
+      },
+      "uid": 10302,
+      "uid_packages": [
+        "com.fit.tracker"
+      ],
+      "versions": {
+        "com.fit.tracker": "3.2"
+      }
+    },
+    {
+      "attempted": [
+        {
+          "category": "Microphone",
+          "detail": "Audio from the microphone.",
+          "last_access": null,
+          "last_reject": "[cch-s] 2024-11-14 17:00:00.000 (-1h5m0s0ms)",
+          "mode": "foreground",
+          "op": "RECORD_AUDIO",
+          "package": "com.cam.snap",
+          "uid": 10307
+        }
+      ],
+      "declared": [
+        {
+          "category": "Camera",
+          "detail": "Images and video from the camera.",
+          "package": "com.cam.snap",
+          "permission": "android.permission.CAMERA"
+        }
+      ],
+      "doing": [],
+      "observed": [
+        {
+          "category": "Camera",
+          "detail": "Images and video from the camera.",
+          "last_access": "[top-s] 2024-11-14 18:00:00.000",
+          "last_reject": null,
+          "mode": "allow",
+          "op": "CAMERA",
+          "package": "com.cam.snap",
+          "uid": 10307
+        }
+      ],
+      "packages": [
+        "com.cam.snap"
+      ],
+      "permitted_unseen": [],
+      "trackers": [],
+      "transmitted": {
+        "connections": [],
+        "dns": [],
+        "network_permission": true,
+        "rx_bytes": 0,
+        "tx_bytes": 0
+      },
+      "uid": 10307,
+      "uid_packages": [
+        "com.cam.snap"
+      ],
+      "versions": {}
+    },
+    {
+      "attempted": [],
+      "declared": [],
+      "doing": [],
+      "observed": [
+        {
+          "category": "Approximate location",
+          "detail": "Cell and Wi-Fi location of the device.",
+          "last_access": "[top-s] 2024-11-14 18:00:00.000 (-5m0s0ms)",
+          "last_reject": null,
+          "mode": "allow",
+          "op": "COARSE_LOCATION",
+          "package": "com.ghost.app",
+          "uid": 10399
+        }
+      ],
+      "packages": [
+        "com.ghost.app"
+      ],
+      "permitted_unseen": [],
+      "trackers": [],
+      "transmitted": {
+        "connections": [
+          {
+            "local": "127.0.0.1:40013",
+            "proto": "TCP",
+            "remote": "127.0.0.1:8080",
+            "state": "ESTABLISHED",
+            "uid": 10399
+          }
+        ],
+        "dns": [],
+        "network_permission": false,
+        "rx_bytes": 0,
+        "tx_bytes": 0
+      },
+      "uid": 10399,
+      "uid_packages": [
+        "com.ghost.app"
+      ],
+      "versions": {
+        "com.ghost.app": "0.1"
+      }
+    },
+    {
+      "attempted": [],
+      "declared": [
+        {
+          "category": "Approximate location",
+          "detail": "Cell and Wi-Fi location of the device.",
+          "package": "com.weather.app",
+          "permission": "android.permission.ACCESS_COARSE_LOCATION"
+        },
+        {
+          "category": "Advertising ID",
+          "detail": "The resettable advertising identifier.",
+          "package": "com.weather.app",
+          "permission": "com.google.android.gms.permission.AD_ID"
+        }
+      ],
+      "doing": [
+        "Scheduled job com.weather.app/.WidgetRefreshJob",
+        "Location request: PASSIVE , interval=60000",
+        "Location request"
+      ],
+      "observed": [],
+      "packages": [
+        "com.weather.app"
+      ],
+      "permitted_unseen": [
+        {
+          "category": "Approximate location",
+          "detail": "Cell and Wi-Fi location of the device.",
+          "last_access": null,
+          "last_reject": null,
+          "mode": "allow",
+          "op": "COARSE_LOCATION",
+          "package": "com.weather.app",
+          "uid": 10303
+        },
+        {
+          "category": "Advertising ID",
+          "detail": "The resettable advertising identifier.",
+          "last_access": null,
+          "last_reject": null,
+          "mode": "allow",
+          "op": "ACCESS_ADSERVICES_AD_ID",
+          "package": "com.weather.app",
+          "uid": 10303
+        },
+        {
+          "category": "Wi-Fi scan",
+          "detail": "Nearby network names and signal strength, which can locate the device.",
+          "last_access": null,
+          "last_reject": null,
+          "mode": "foreground",
+          "op": "WIFI_SCAN",
+          "package": "com.weather.app",
+          "uid": 10303
+        }
+      ],
+      "trackers": [
+        {
+          "collects": "Install attribution, advertising ID, and IP address.",
+          "name": "Adjust",
+          "package": "com.weather.app",
+          "prefix": "com.adjust.sdk"
+        },
+        {
+          "collects": "Attribution identifiers and which link was opened.",
+          "name": "Branch",
+          "package": "com.weather.app",
+          "prefix": "io.branch"
+        }
+      ],
+      "transmitted": {
+        "connections": [
+          {
+            "local": "[2001:db8:1::23]:40105",
+            "proto": "TCP",
+            "remote": "[2001:4860:4860::8888]:443",
+            "state": "ESTABLISHED",
+            "uid": 10303
+          },
+          {
+            "local": "[2001:db8:1::23]:40107",
+            "proto": "TCP",
+            "remote": "[2001:db8:aa::1]:443",
+            "state": "ESTABLISHED",
+            "uid": 10303
+          },
+          {
+            "local": "[2001:db8:1::23]:40108",
+            "proto": "TCP",
+            "remote": "[2001:db8:aa::2]:443",
+            "state": "ESTABLISHED",
+            "uid": 10303
+          },
+          {
+            "local": "[2001:db8:1::23]:40109",
+            "proto": "TCP",
+            "remote": "[2001:db8:aa::3]:443",
+            "state": "ESTABLISHED",
+            "uid": 10303
+          },
+          {
+            "local": "[2001:db8:1::23]:40110",
+            "proto": "TCP",
+            "remote": "[2001:db8:aa::4]:443",
+            "state": "ESTABLISHED",
+            "uid": 10303
+          },
+          {
+            "local": "[2001:db8:1::23]:40111",
+            "proto": "TCP",
+            "remote": "[2001:db8:aa::5]:443",
+            "state": "ESTABLISHED",
+            "uid": 10303
+          },
+          {
+            "local": "[::ffff:10.0.0.23]:40104",
+            "proto": "TCP",
+            "remote": "[::ffff:203.0.113.12]:993",
+            "state": "ESTABLISHED",
+            "uid": 10303
+          },
+          {
+            "local": "[2001:db8:1::23]:40106",
+            "proto": "TCP",
+            "remote": "[fe80::1]:22",
+            "state": "FIN_WAIT1",
+            "uid": 10303
+          },
+          {
+            "local": "10.0.0.23:41001",
+            "proto": "UDP",
+            "remote": "8.8.8.8:53",
+            "state": "ESTABLISHED",
+            "uid": 10303
+          }
+        ],
+        "dns": [
+          {
+            "host": "api2.branch.io",
+            "tracker": "Branch",
+            "uid": 10303
+          },
+          {
+            "host": "notbranch.io",
+            "tracker": null,
+            "uid": 10303
+          }
+        ],
+        "network_permission": true,
+        "rx_bytes": 512,
+        "tx_bytes": 1023
+      },
+      "uid": 10303,
+      "uid_packages": [
+        "com.weather.app"
+      ],
+      "versions": {
+        "com.weather.app": "7.0.1"
+      }
+    },
+    {
+      "attempted": [],
+      "declared": [],
+      "doing": [
+        "Process system pid 1500",
+        "Scheduled job com.android.settings/.backup.BackupJob",
+        "Wakelock *job*/com.maps.app/.sync.OfflineMapsJob (PARTIAL_WAKE_LOCK)",
+        "Wakelock WindowManager (SCREEN_BRIGHT_WAKE_LOCK)"
+      ],
+      "observed": [],
+      "packages": [
+        "android",
+        "com.android.bluetoothmidiservice",
+        "com.android.settings"
+      ],
+      "permitted_unseen": [],
+      "trackers": [],
+      "transmitted": {
+        "connections": [
+          {
+            "local": "10.0.0.23:40010",
+            "proto": "TCP",
+            "remote": "192.0.2.60:443",
+            "state": "ESTABLISHED",
+            "uid": 1000
+          },
+          {
+            "local": "10.0.0.23:68",
+            "proto": "UDP",
+            "remote": "10.0.0.1:67",
+            "state": "ESTABLISHED",
+            "uid": 1000
+          },
+          {
+            "local": "[fe80::23]:546",
+            "proto": "UDP",
+            "remote": "[ff02::1:2]:547",
+            "state": "ESTABLISHED",
+            "uid": 1000
+          }
+        ],
+        "dns": [],
+        "network_permission": false,
+        "rx_bytes": 1099511627776,
+        "tx_bytes": 5
+      },
+      "uid": 1000,
+      "uid_packages": [
+        "android",
+        "com.android.bluetoothmidiservice",
+        "com.android.settings"
+      ],
+      "versions": {
+        "com.android.settings": "13"
+      }
+    },
+    {
+      "attempted": [],
+      "declared": [
+        {
+          "category": "Precise location",
+          "detail": "GPS-level location of the device.",
+          "package": "com.google.android.gms",
+          "permission": "android.permission.ACCESS_FINE_LOCATION"
+        },
+        {
+          "category": "Nearby Bluetooth devices",
+          "detail": "Devices found by a Bluetooth scan.",
+          "package": "com.google.android.gms",
+          "permission": "android.permission.BLUETOOTH_SCAN"
+        },
+        {
+          "category": "Nearby Wi-Fi devices",
+          "detail": "Devices seen over nearby Wi-Fi.",
+          "package": "com.google.android.gms",
+          "permission": "android.permission.NEARBY_WIFI_DEVICES"
+        }
+      ],
+      "doing": [
+        "Process com.google.android.gms.persistent pid 5300",
+        "Service com.google.android.gms/.chimera.PersistentApiService",
+        "Sensor android.sensor.significant_motion (pid 5300)",
+        "Location request"
+      ],
+      "observed": [],
+      "packages": [
+        "com.google.android.gms",
+        "com.google.android.gsf"
+      ],
+      "permitted_unseen": [],
+      "trackers": [],
+      "transmitted": {
+        "connections": [
+          {
+            "local": "10.0.0.23:40011",
+            "proto": "TCP",
+            "remote": "192.0.2.61:443",
+            "state": "ESTABLISHED",
+            "uid": 10120
+          },
+          {
+            "local": "10.0.0.23:40012",
+            "proto": "TCP",
+            "remote": "192.0.2.62:5228",
+            "state": "ESTABLISHED",
+            "uid": 10120
+          }
+        ],
+        "dns": [
+          {
+            "host": "mtalk.google.com",
+            "tracker": null,
+            "uid": 10120
+          }
+        ],
+        "network_permission": true,
+        "rx_bytes": 8192,
+        "tx_bytes": 8192
+      },
+      "uid": 10120,
+      "uid_packages": [
+        "com.google.android.gms",
+        "com.google.android.gsf"
+      ],
+      "versions": {
+        "com.google.android.gms": "24.45.33"
+      }
+    },
+    {
+      "attempted": [],
+      "declared": [],
+      "doing": [],
+      "observed": [],
+      "packages": [],
+      "permitted_unseen": [],
+      "trackers": [],
+      "transmitted": {
+        "connections": [
+          {
+            "local": "10.0.0.23:40009",
+            "proto": "TCP",
+            "remote": "192.0.2.50:853",
+            "state": "ESTABLISHED",
+            "uid": 0
+          }
+        ],
+        "dns": [
+          {
+            "host": "time.android.com",
+            "tracker": null,
+            "uid": 0
+          }
+        ],
+        "network_permission": false,
+        "rx_bytes": 4096,
+        "tx_bytes": 4096
+      },
+      "uid": 0,
+      "uid_packages": [],
+      "versions": {}
+    },
+    {
+      "attempted": [],
+      "declared": [],
+      "doing": [
+        "Sensor android.sensor.gyroscope (pid 7000)",
+        "Sensor android.sensor.proximity (pid 7000)"
+      ],
+      "observed": [],
+      "packages": [],
+      "permitted_unseen": [],
+      "trackers": [],
+      "transmitted": {
+        "connections": [],
+        "dns": [],
+        "network_permission": false,
+        "rx_bytes": 0,
+        "tx_bytes": 0
+      },
+      "uid": 10555,
+      "uid_packages": [],
+      "versions": {}
+    },
+    {
+      "attempted": [],
+      "declared": [],
+      "doing": [],
+      "observed": [],
+      "packages": [],
+      "permitted_unseen": [],
+      "trackers": [],
+      "transmitted": {
+        "connections": [],
+        "dns": [],
+        "network_permission": false,
+        "rx_bytes": 5,
+        "tx_bytes": 5
+      },
+      "uid": 10019,
+      "uid_packages": [],
+      "versions": {}
+    },
+    {
+      "attempted": [],
+      "declared": [],
+      "doing": [],
+      "observed": [],
+      "packages": [],
+      "permitted_unseen": [],
+      "trackers": [],
+      "transmitted": {
+        "connections": [],
+        "dns": [],
+        "network_permission": false,
+        "rx_bytes": 5,
+        "tx_bytes": 5
+      },
+      "uid": 10011,
+      "uid_packages": [],
+      "versions": {}
+    },
+    {
+      "attempted": [],
+      "declared": [],
+      "doing": [],
+      "observed": [],
+      "packages": [],
+      "permitted_unseen": [],
+      "trackers": [],
+      "transmitted": {
+        "connections": [],
+        "dns": [],
+        "network_permission": false,
+        "rx_bytes": 5,
+        "tx_bytes": 5
+      },
+      "uid": 1035,
+      "uid_packages": [],
+      "versions": {}
+    },
+    {
+      "attempted": [],
+      "declared": [],
+      "doing": [],
+      "observed": [],
+      "packages": [],
+      "permitted_unseen": [],
+      "trackers": [],
+      "transmitted": {
+        "connections": [],
+        "dns": [],
+        "network_permission": false,
+        "rx_bytes": 5,
+        "tx_bytes": 5
+      },
+      "uid": 10027,
+      "uid_packages": [],
+      "versions": {}
+    },
+    {
+      "attempted": [],
+      "declared": [],
+      "doing": [],
+      "observed": [],
+      "packages": [],
+      "permitted_unseen": [],
+      "trackers": [],
+      "transmitted": {
+        "connections": [],
+        "dns": [],
+        "network_permission": false,
+        "rx_bytes": 3000,
+        "tx_bytes": 3000
+      },
+      "uid": 1073,
+      "uid_packages": [],
+      "versions": {}
+    },
+    {
+      "attempted": [],
+      "declared": [],
+      "doing": [],
+      "observed": [],
+      "packages": [],
+      "permitted_unseen": [],
+      "trackers": [],
+      "transmitted": {
+        "connections": [],
+        "dns": [],
+        "network_permission": false,
+        "rx_bytes": 5,
+        "tx_bytes": 5
+      },
+      "uid": 1043,
+      "uid_packages": [],
+      "versions": {}
+    },
+    {
+      "attempted": [],
+      "declared": [],
+      "doing": [],
+      "observed": [],
+      "packages": [],
+      "permitted_unseen": [],
+      "trackers": [],
+      "transmitted": {
+        "connections": [],
+        "dns": [],
+        "network_permission": false,
+        "rx_bytes": 700,
+        "tx_bytes": 900
+      },
+      "uid": 1051,
+      "uid_packages": [],
+      "versions": {}
+    },
+    {
+      "attempted": [],
+      "declared": [],
+      "doing": [],
+      "observed": [],
+      "packages": [
+        "com.idle.wallpaper"
+      ],
+      "permitted_unseen": [],
+      "trackers": [],
+      "transmitted": {
+        "connections": [],
+        "dns": [
+          {
+            "host": "wallpaper.example.org",
+            "tracker": null,
+            "uid": 10308
+          }
+        ],
+        "network_permission": false,
+        "rx_bytes": 0,
+        "tx_bytes": 0
+      },
+      "uid": 10308,
+      "uid_packages": [
+        "com.idle.wallpaper"
+      ],
+      "versions": {
+        "com.idle.wallpaper": "1.1"
+      }
+    },
+    {
+      "attempted": [],
+      "declared": [
+        {
+          "category": "Contacts",
+          "detail": "Names, phone numbers, and emails in the address book.",
+          "package": "com.notes.plain",
+          "permission": "android.permission.READ_CONTACTS"
+        },
+        {
+          "category": "Files",
+          "detail": "Shared files on the device.",
+          "package": "com.notes.plain",
+          "permission": "android.permission.READ_EXTERNAL_STORAGE"
+        }
+      ],
+      "doing": [],
+      "observed": [],
+      "packages": [
+        "com.notes.plain"
+      ],
+      "permitted_unseen": [
+        {
+          "category": "Contacts",
+          "detail": "Names, phone numbers, and emails in the address book.",
+          "last_access": null,
+          "last_reject": null,
+          "mode": "allow",
+          "op": "READ_CONTACTS",
+          "package": "com.notes.plain",
+          "uid": 10306
+        },
+        {
+          "category": "Files",
+          "detail": "Shared files on the device.",
+          "last_access": null,
+          "last_reject": null,
+          "mode": "allow",
+          "op": "READ_EXTERNAL_STORAGE",
+          "package": "com.notes.plain",
+          "uid": 10306
+        }
+      ],
+      "trackers": [],
+      "transmitted": {
+        "connections": [],
+        "dns": [
+          {
+            "host": "sync.notes.example",
+            "tracker": null,
+            "uid": 10306
+          }
+        ],
+        "network_permission": false,
+        "rx_bytes": 1,
+        "tx_bytes": 0
+      },
+      "uid": 10306,
+      "uid_packages": [
+        "com.notes.plain"
+      ],
+      "versions": {
+        "com.notes.plain": "4.0"
+      }
+    }
+  ],
+  "sources": [
+    "dumpsys appops",
+    "dumpsys package",
+    "dumpsys activity",
+    "dumpsys jobscheduler",
+    "dumpsys power",
+    "dumpsys location",
+    "dumpsys sensorservice",
+    "dumpsys clipboard",
+    "dumpsys netstats",
+    "/proc/net/tcp",
+    "/proc/net/udp",
+    "logcat DNS"
+  ],
+  "unattributed_dns": [
+    {
+      "host": "api.weather.example",
+      "tracker": null,
+      "uid": null
+    },
+    {
+      "host": "app.adjust.com",
+      "tracker": "Adjust",
+      "uid": null
+    },
+    {
+      "host": "cdn.example.net",
+      "tracker": null,
+      "uid": 10999
+    },
+    {
+      "host": "o12345.ingest.sentry.io",
+      "tracker": "Sentry",
+      "uid": null
+    }
+  ]
+}

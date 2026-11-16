@@ -1,0 +1,11 @@
+ACTIVITY MANAGER ACTIVITIES (dumpsys activity activities)
+Display #0 (activities from top to bottom):
+  * Task{8a1 #12 type=standard A=10304:com.whatsapp}
+    topResumedActivity=ActivityRecord{1a2b3c u0 com.whatsapp/.HomeActivity t12}
+    * Hist  #0: ActivityRecord{1a2b3c u0 com.whatsapp/.HomeActivity t12}
+  * Task{8a2 #9 type=standard A=10301:com.maps.app}
+    mLastPausedActivity: ActivityRecord{4d5e6f u0 com.maps.app/com.maps.app.MainActivity t9}
+  ResumedActivity: ActivityRecord{1a2b3c u0 com.whatsapp/.HomeActivity t12}
+  mLastResumedActivity: ActivityRecord{4d5e6f u0 com.maps.app/com.maps.app.MainActivity t9}
+  Resumed: ActivityRecord{7a8b9c u10 com.unlisted.app/.Splash t30}
+  mResumedActivity: none

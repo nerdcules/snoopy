@@ -1,0 +1,105 @@
+{
+  "declared_only": [],
+  "device": {
+    "android": "14",
+    "captured_at": "2025-03-01T13:00:00Z",
+    "model": "",
+    "sdk": "",
+    "serial": "INDENT"
+  },
+  "errors": {},
+  "limits": [
+    "Network sockets belong to a Linux uid. On Android that uid is usually one app.",
+    "Transmission shown here is destination, size, and DNS name. HTTPS message bodies stay encrypted.",
+    "Tracker SDK rows are components shipped inside the app and the kind of data that SDK is built to collect."
+  ],
+  "live": [
+    {
+      "attempted": [],
+      "declared": [],
+      "doing": [],
+      "observed": [
+        {
+          "category": "Camera",
+          "detail": "Images and video from the camera.",
+          "last_access": "[top-s] 2025-03-01 12:00:00.000 (-1h0m0s0ms)",
+          "last_reject": null,
+          "mode": "allow",
+          "op": "CAMERA",
+          "package": "com.example.indented",
+          "uid": 10601
+        }
+      ],
+      "packages": [
+        "com.example.indented"
+      ],
+      "permitted_unseen": [],
+      "trackers": [],
+      "transmitted": {
+        "connections": [],
+        "dns": [],
+        "network_permission": false,
+        "rx_bytes": 0,
+        "tx_bytes": 0
+      },
+      "uid": 10601,
+      "uid_packages": [
+        "com.example.indented"
+      ],
+      "versions": {}
+    },
+    {
+      "attempted": [],
+      "declared": [],
+      "doing": [],
+      "observed": [],
+      "packages": [
+        "com.example.second"
+      ],
+      "permitted_unseen": [],
+      "trackers": [],
+      "transmitted": {
+        "connections": [
+          {
+            "local": "10.0.0.21:40961",
+            "proto": "TCP",
+            "remote": "192.0.2.12:443",
+            "state": "ESTABLISHED",
+            "uid": 10602
+          },
+          {
+            "local": "10.0.0.21:40964",
+            "proto": "TCP",
+            "remote": "192.0.2.13:80",
+            "state": "CLOSING",
+            "uid": 10602
+          }
+        ],
+        "dns": [],
+        "network_permission": false,
+        "rx_bytes": 0,
+        "tx_bytes": 0
+      },
+      "uid": 10602,
+      "uid_packages": [
+        "com.example.second"
+      ],
+      "versions": {}
+    }
+  ],
+  "sources": [
+    "dumpsys appops",
+    "dumpsys package",
+    "dumpsys activity",
+    "dumpsys jobscheduler",
+    "dumpsys power",
+    "dumpsys location",
+    "dumpsys sensorservice",
+    "dumpsys clipboard",
+    "dumpsys netstats",
+    "/proc/net/tcp",
+    "/proc/net/udp",
+    "logcat DNS"
+  ],
+  "unattributed_dns": []
+}

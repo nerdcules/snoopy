@@ -1,0 +1,4 @@
+package:com.watch.one uid:10401
+package:com.watch.two uid:10402
+package:com.watch.shared uid:10402
+package:com.watch.three uid:10403

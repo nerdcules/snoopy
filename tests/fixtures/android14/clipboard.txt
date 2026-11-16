@@ -1,0 +1,4 @@
+CLIPBOARD SERVICE (dumpsys clipboard)
+  User 0:
+    mPrimaryClipOwnerPackage=com.whatsapp
+    mPrimaryClipOwner: com.android.systemui

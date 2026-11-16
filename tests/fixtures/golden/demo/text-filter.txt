@@ -1,0 +1,17 @@
+Android diagnoser
+Device: Pixel 8, Android 14 (SDK 34), serial fixture
+Captured: 2024-11-14T18:05:00Z
+Sources: dumpsys appops, dumpsys package, dumpsys activity, dumpsys jobscheduler, dumpsys power, dumpsys location, dumpsys sensorservice, dumpsys clipboard, dumpsys netstats, /proc/net/tcp, /proc/net/udp, logcat DNS
+
+Network sockets belong to a Linux uid. On Android that uid is usually one app.
+Transmission shown here is destination, size, and DNS name. HTTPS message bodies stay encrypted.
+Tracker SDK rows are components shipped inside the app and the kind of data that SDK is built to collect.
+
+## What each app is doing, tracking, and transmitting
+No app showed live activity, sensitive access, tracker components, or network traffic in this snapshot.
+
+## Declared sensitive access with no live evidence in this snapshot
+- com.quiet.notes (uid 10299): Contacts
+
+## DNS names not tied to an app uid
+- app-measurement.com — tracker Firebase Analytics

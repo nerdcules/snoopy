@@ -1,0 +1,267 @@
+Android diagnoser
+Device: Fixture Phone 17, Android 17 (SDK 37)
+Captured: 2026-11-14T18:12:00Z
+Sources: dumpsys appops, dumpsys package, dumpsys activity, dumpsys jobscheduler, dumpsys power, dumpsys location, dumpsys sensorservice, dumpsys clipboard, dumpsys netstats, /proc/net/tcp, /proc/net/udp, logcat DNS
+
+Network sockets belong to a Linux uid. On Android that uid is usually one app.
+Transmission shown here is destination, size, and DNS name. HTTPS message bodies stay encrypted.
+Tracker SDK rows are components shipped inside the app and the kind of data that SDK is built to collect.
+
+## What each app is doing, tracking, and transmitting
+
+### uid 10500  com.android.providers.contacts, com.sync.contacts
+Version: com.android.providers.contacts 17, com.sync.contacts 5.1
+Doing:
+  - Nothing running, scheduled, or holding a sensor, location request, or the clipboard.
+Information tracked:
+  Observed by the OS:
+    - Contacts — READ_CONTACTS, allowed, last access [bg-s] 2026-11-14 18:00:00.000 (-12m0s0ms) duration=+3s. Names, phone numbers, and emails in the address book.
+    - Contacts — READ_CONTACTS, allowed, last access [pers-s] 2026-11-14 18:10:00.000 (-2m0s0ms). Names, phone numbers, and emails in the address book.
+    - Accounts — GET_ACCOUNTS, allowed, last access [bg-s] 2026-11-14 18:00:00.000 (-12m0s0ms). Account names on the device.
+  Granted permissions:
+    - Contacts — android.permission.READ_CONTACTS. Names, phone numbers, and emails in the address book.
+    - Contacts — android.permission.READ_CONTACTS. Names, phone numbers, and emails in the address book.
+    - Contacts — android.permission.WRITE_CONTACTS. Changes to the address book.
+    - Call history — android.permission.READ_CALL_LOG. Numbers called and received, and when.
+    - Accounts — android.permission.GET_ACCOUNTS. Account names on the device.
+Transmitted:
+  Sockets and byte counts belong to uid 10500 (com.android.providers.contacts, com.sync.contacts).
+  Sent 2.0 KB, received 4.0 KB.
+  Network permission: granted.
+  - TCP ESTABLISHED 10.1.1.5:50001 -> 192.0.2.80:443
+
+### uid 10501  com.a.one, com.a.two, com.android.x
+Version: com.a.one 1.0.0, com.a.two 1.0.1
+Doing:
+  - Nothing running, scheduled, or holding a sensor, location request, or the clipboard.
+Information tracked:
+  Observed by the OS:
+    - Camera — CAMERA, allowed, last access [top-s] 2026-11-14 18:11:00.000 (-1m0s0ms). Images and video from the camera.
+  Attempted and denied:
+    - Microphone — RECORD_AUDIO, denied. Audio from the microphone.
+  Permitted, with no access time recorded:
+    - Calendar — READ_CALENDAR, allowed
+  Granted permissions:
+    - Camera — android.permission.CAMERA. Images and video from the camera.
+    - Calendar — android.permission.READ_CALENDAR. Calendar events.
+    - Calendar — android.permission.READ_CALENDAR. Calendar events.
+  Tracker components shipped in the app:
+    - Mixpanel (com.mixpanel). Product analytics events and device properties.
+Transmitted:
+  Sockets and byte counts belong to uid 10501 (com.a.one, com.a.two, com.android.x).
+  Sent 111 B, received 999 B.
+  Network permission: granted.
+  - TCP ESTABLISHED 10.1.1.5:50002 -> 192.0.2.81:443
+  - DNS api.mixpanel.com — tracker Mixpanel
+
+### uid 10502  com.b.five, com.b.four, com.b.one, com.b.three, com.b.two
+Version: com.b.three 3
+Doing:
+  - On screen: com.b.three/.MapActivity
+Information tracked:
+  Observed by the OS:
+    - Precise location — FINE_LOCATION, allowed, last access [top-s] 2026-11-14 18:11:30.000 (-30s0ms). GPS-level location of the device.
+  Attempted and denied:
+    - SMS sending — SEND_SMS, allowed, last reject [top-s] 2026-11-14 18:11:30.000 (-30s0ms). Text messages the app sends.
+  Granted permissions:
+    - Precise location — android.permission.ACCESS_FINE_LOCATION. GPS-level location of the device.
+  Tracker components shipped in the app:
+    - Kochava (com.kochava). Attribution identifiers and IP address.
+    - Segment (com.segment.analytics). Event routing and device properties.
+Transmitted:
+  Sockets and byte counts belong to uid 10502 (com.b.five, com.b.four, com.b.one, com.b.three, com.b.two).
+  Sent 0 B, received 0 B.
+  Network permission: granted.
+  - TCP ESTABLISHED 10.1.1.5:50003 -> 192.0.2.82:80
+  - DNS api.segment.io — tracker Segment
+  - DNS cdn.segment.com — tracker Segment
+
+### uid 1000  android, com.android.settings
+Version: com.android.settings 17
+Doing:
+  - Nothing running, scheduled, or holding a sensor, location request, or the clipboard.
+Information tracked:
+  Observed by the OS:
+    - Bluetooth connections — BLUETOOTH_CONNECT, allowed, last access [pers-s] 2026-11-14 18:09:00.000 (-3m0s0ms). Identity of connected Bluetooth devices.
+  Granted permissions:
+    - Bluetooth connections — android.permission.BLUETOOTH_CONNECT. Identity of connected Bluetooth devices.
+Transmitted:
+  Sockets and byte counts belong to uid 1000 (android, com.android.settings).
+  Sent 1.0 MB, received 1024.0 KB.
+  Network permission: granted.
+  - TCP ESTABLISHED 10.1.1.5:50004 -> 192.0.2.83:443
+
+### uid 2000  com.android.shell
+Version: com.android.shell 17
+Doing:
+  - Nothing running, scheduled, or holding a sensor, location request, or the clipboard.
+Information tracked:
+  Observed by the OS:
+    - Phone identity — READ_PHONE_STATE, allowed, last access [top-s] 2026-11-14 18:12:00.000 (-1s0ms). Call state and, on older Android versions, hardware identifiers.
+  Granted permissions:
+    - Phone identity — android.permission.READ_PHONE_STATE. Call state and, on older Android versions, hardware identifiers.
+    - App usage — android.permission.PACKAGE_USAGE_STATS. Which apps are used and when.
+Transmitted:
+  Sent 0 B, received 0 B.
+  - No active socket with a remote address.
+  - DNS adb.example.org
+
+### uid 10504  com.c.one, com.c.three, com.c.two
+Doing:
+  - Sensor android.sensor.rotation_vector (pid 9002)
+Information tracked:
+  Observed by the OS:
+    - Microphone — RECORD_AUDIO, allowed, last access [top-s] 2026-11-14 18:09:00.000 (-3m0s0ms). Audio from the microphone.
+  Granted permissions:
+    - Microphone — android.permission.RECORD_AUDIO. Audio from the microphone.
+  Tracker components shipped in the app:
+    - Adobe Marketing (com.adobe.marketing). Engagement events and device properties.
+Transmitted:
+  Sockets and byte counts belong to uid 10504 (com.c.one, com.c.three, com.c.two).
+  Sent 400 B, received 300 B.
+  Network permission: granted.
+  - No active socket with a remote address.
+  - DNS bam.nr-data.net — tracker New Relic
+  - DNS dpm.demdex.net — tracker Adobe Audience Manager
+  - DNS metrics.omtrdc.net — tracker Adobe Analytics
+
+### uid 10778  (no package mapped to this uid)
+Doing:
+  - Nothing running, scheduled, or holding a sensor, location request, or the clipboard.
+Information tracked:
+  - No sensitive grant, app-op, or tracker component in this snapshot.
+Transmitted:
+  Sent 0 B, received 0 B.
+  - TCP ESTABLISHED 10.1.1.5:50007 -> 192.0.2.86:443
+  - TCP ESTABLISHED 10.1.1.5:52009 -> 203.0.113.10:8080
+  - TCP ESTABLISHED 10.1.1.5:52010 -> 203.0.113.11:443
+  - TCP ESTABLISHED 10.1.1.5:52011 -> 203.0.113.12:443
+  - TCP ESTABLISHED 10.1.1.5:52012 -> 203.0.113.13:8080
+  - TCP ESTABLISHED 10.1.1.5:52013 -> 203.0.113.14:443
+  - TCP ESTABLISHED 10.1.1.5:52014 -> 203.0.113.15:443
+  - TCP ESTABLISHED 10.1.1.5:52015 -> 203.0.113.16:8080
+  - TCP ESTABLISHED 10.1.1.5:52016 -> 203.0.113.17:443
+  - TCP ESTABLISHED 10.1.1.5:52017 -> 203.0.113.18:443
+  - TCP ESTABLISHED 10.1.1.5:52018 -> 203.0.113.19:8080
+  - TCP ESTABLISHED 10.1.1.5:52000 -> 203.0.113.1:8080
+  - TCP ESTABLISHED 10.1.1.5:52019 -> 203.0.113.20:443
+  - TCP ESTABLISHED 10.1.1.5:52020 -> 203.0.113.21:443
+  - TCP ESTABLISHED 10.1.1.5:52021 -> 203.0.113.22:8080
+  - TCP ESTABLISHED 10.1.1.5:52022 -> 203.0.113.23:443
+  - TCP ESTABLISHED 10.1.1.5:52023 -> 203.0.113.24:443
+  - TCP ESTABLISHED 10.1.1.5:52024 -> 203.0.113.25:8080
+  - TCP ESTABLISHED 10.1.1.5:52025 -> 203.0.113.26:443
+  - TCP ESTABLISHED 10.1.1.5:52026 -> 203.0.113.27:443
+  - TCP ESTABLISHED 10.1.1.5:52027 -> 203.0.113.28:8080
+  - TCP ESTABLISHED 10.1.1.5:52028 -> 203.0.113.29:443
+  - TCP ESTABLISHED 10.1.1.5:52001 -> 203.0.113.2:443
+  - TCP ESTABLISHED 10.1.1.5:52029 -> 203.0.113.30:443
+  - TCP ESTABLISHED 10.1.1.5:52030 -> 203.0.113.31:8080
+  - TCP ESTABLISHED 10.1.1.5:52031 -> 203.0.113.32:443
+  - TCP ESTABLISHED 10.1.1.5:52032 -> 203.0.113.33:443
+  - TCP ESTABLISHED 10.1.1.5:52033 -> 203.0.113.34:8080
+  - TCP ESTABLISHED 10.1.1.5:52034 -> 203.0.113.35:443
+  - TCP ESTABLISHED 10.1.1.5:52035 -> 203.0.113.36:443
+  - TCP ESTABLISHED 10.1.1.5:52036 -> 203.0.113.37:8080
+  - TCP ESTABLISHED 10.1.1.5:52037 -> 203.0.113.38:443
+  - TCP ESTABLISHED 10.1.1.5:52038 -> 203.0.113.39:443
+  - TCP ESTABLISHED 10.1.1.5:52002 -> 203.0.113.3:443
+  - TCP ESTABLISHED 10.1.1.5:52039 -> 203.0.113.40:8080
+  - TCP ESTABLISHED 10.1.1.5:52040 -> 203.0.113.41:443
+  - TCP ESTABLISHED 10.1.1.5:52041 -> 203.0.113.42:443
+  - TCP ESTABLISHED 10.1.1.5:52042 -> 203.0.113.43:8080
+  - TCP ESTABLISHED 10.1.1.5:52043 -> 203.0.113.44:443
+  - TCP ESTABLISHED 10.1.1.5:52044 -> 203.0.113.45:443
+  - 6 more sockets
+  - DNS n00.bulk.example.com
+  - DNS n01.bulk.example.com
+  - DNS n02.bulk.example.com
+  - DNS n03.bulk.example.com
+  - DNS n04.bulk.example.com
+  - DNS n05.bulk.example.com
+  - DNS n06.bulk.example.com
+  - DNS n07.bulk.example.com
+  - DNS n08.bulk.example.com
+  - DNS n09.bulk.example.com
+  - DNS n10.bulk.example.com
+  - DNS n11.bulk.example.com
+  - DNS n12.bulk.example.com
+  - DNS n13.bulk.example.com
+  - DNS n14.bulk.example.com
+  - DNS n15.bulk.example.com
+  - DNS n16.bulk.example.com
+  - DNS n17.bulk.example.com
+  - DNS n18.bulk.example.com
+  - DNS n19.bulk.example.com
+  - DNS n20.bulk.example.com
+  - DNS n21.bulk.example.com
+  - DNS n22.bulk.example.com
+  - DNS n23.bulk.example.com
+  - DNS n24.bulk.example.com
+  - DNS n25.bulk.example.com
+  - DNS n26.bulk.example.com
+  - DNS n27.bulk.example.com
+  - DNS n28.bulk.example.com
+  - DNS n29.bulk.example.com
+  - DNS n30.bulk.example.com
+  - DNS n31.bulk.example.com
+  - DNS n32.bulk.example.com
+  - DNS n33.bulk.example.com
+  - DNS n34.bulk.example.com
+  - DNS n35.bulk.example.com
+  - DNS n36.bulk.example.com
+  - DNS n37.bulk.example.com
+  - DNS n38.bulk.example.com
+  - DNS n39.bulk.example.com
+  - 3 more DNS names
+
+### uid 10503  com.android.networkstack, com.google.android.ext.services
+Doing:
+  - Nothing running, scheduled, or holding a sensor, location request, or the clipboard.
+Information tracked:
+  - No sensitive grant, app-op, or tracker component in this snapshot.
+Transmitted:
+  Sockets and byte counts belong to uid 10503 (com.android.networkstack, com.google.android.ext.services).
+  Sent 0 B, received 0 B.
+  - TCP ESTABLISHED [::ffff:10.1.1.5]:50100 -> [::ffff:192.0.2.90]:443
+  - TCP ESTABLISHED [::ffff:10.1.1.5]:50101 -> [::ffff:192.0.2.90]:443
+  - TCP ESTABLISHED [::ffff:10.1.1.5]:50102 -> [::ffff:192.0.2.91]:25
+  - UDP ESTABLISHED 10.1.1.5:68 -> 10.1.1.1:67
+  - UDP ESTABLISHED 10.1.1.5:51000 -> 192.0.2.92:443
+  - DNS e.crashlytics.com — tracker Firebase Crashlytics
+
+### uid 10777  (no package mapped to this uid)
+Doing:
+  - Sensor android.sensor.gyroscope_uncalibrated (pid 9001)
+Information tracked:
+  - No sensitive grant, app-op, or tracker component in this snapshot.
+Transmitted:
+  Sent 60 B, received 50 B.
+  - TCP ESTABLISHED 10.1.1.5:50006 -> 192.0.2.85:443
+  - DNS unknown-owner.example.com
+
+### uid 0  (no package mapped to this uid)
+Doing:
+  - Nothing running, scheduled, or holding a sensor, location request, or the clipboard.
+Information tracked:
+  - No sensitive grant, app-op, or tracker component in this snapshot.
+Transmitted:
+  Sent 100 B, received 100 B.
+  - TCP ESTABLISHED 10.1.1.5:50005 -> 192.0.2.84:443
+  - DNS connectivitycheck.gstatic.com
+
+### uid 20001  (no package mapped to this uid)
+Doing:
+  - Nothing running, scheduled, or holding a sensor, location request, or the clipboard.
+Information tracked:
+  - No sensitive grant, app-op, or tracker component in this snapshot.
+Transmitted:
+  Sent 7 B, received 7 B.
+  - No active socket with a remote address.
+
+## Declared sensitive access with no live evidence in this snapshot
+None.
+
+## DNS names not tied to an app uid
+- t.appsflyer.com — tracker AppsFlyer
+- t.appsflyer.com — tracker AppsFlyer

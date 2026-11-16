@@ -1,0 +1,39 @@
+Current AppOps Service state:
+  Settings:
+    top_state_settle_time=+30s0ms
+  Uid u10a77:
+    state=top
+      COARSE_LOCATION: mode=foreground
+    Package com.old.messenger:
+      READ_SMS: allow; time=+1h2m3s123ms ago; duration=+120ms
+      RECEIVE_SMS: allow; time=+5m ago
+      CAMERA: ignore; rejectTime=+3m ago
+      RECORD_AUDIO: deny
+      READ_CLIPBOARD: allow; rejectTime=+2h ago; time=+10s ago
+      FINE_LOCATION: foreground; time=+1d2h ago
+      COARSE_LOCATION: mode=allow; time=+2m ago
+      READ_PHONE_STATE: default
+      GET_ACCOUNTS: allow; foreground
+      SEND_SMS: time=+4m ago; allow
+      WRITE_CALL_LOG: Allow; time=
+      READ_CALL_LOG: errored; time=+0s ago; rejectTime=+1s ago
+      READ_CALENDAR: ASK
+      TAKE_AUDIO_FOCUS: allow; time=+1s ago
+      PLAY_AUDIO: allow; time=+1s ago
+  Uid u0a78:
+    Package com.old.browser:
+      RECORD_AUDIO_OUTPUT (allow): time=+20s ago
+      READ_EXTERNAL_STORAGE (allow): rejectTime=+20s ago
+      FINE_LOCATION (ignore): time=+3m ago
+      CAMERA (foreground):
+          Access: [top] 2019-05-01 10:00:00 (+1m ago)
+          Access: [top] 2019-05-01 09:00:00 (+61m ago)
+      BLUETOOTH_SCAN
+      NEARBY_WIFI_DEVICES (allow)
+  Uid u0a79:
+    Package com.old.backup:
+      READ_EXTERNAL_STORAGE: allow
+      READ_MEDIA_IMAGES: allow
+  Uid u0s1001:
+    Package com.android.phone:
+      READ_PHONE_NUMBERS: allow; time=+1m ago

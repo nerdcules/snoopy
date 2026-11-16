@@ -1,0 +1,119 @@
+[
+  {
+    "destinations": [
+      {
+        "count": 1,
+        "detail": "Encrypted connection to 198.51.100.20:443. 1 socket. The address is visible. The contents are not.",
+        "endpoint": "198.51.100.20:443",
+        "host": "198.51.100.20",
+        "kind": "Encrypted",
+        "label": "198.51.100.20",
+        "name": "",
+        "relation": "connects"
+      },
+      {
+        "count": 1,
+        "detail": "DNS lookup for api.old-messenger.example.",
+        "endpoint": "api.old-messenger.example",
+        "host": "api.old-messenger.example",
+        "kind": "DNS",
+        "label": "api.old-messenger.example",
+        "name": "",
+        "relation": "lookup"
+      }
+    ],
+    "name": "Messenger",
+    "package": "com.old.messenger",
+    "reads": [
+      {
+        "detail": "Where the phone is. Approximate location, in this sample. Precise location, in this sample.",
+        "label": "Location"
+      },
+      {
+        "detail": "Text or images copied on the phone. Clipboard, in this sample.",
+        "label": "Clipboard"
+      },
+      {
+        "detail": "Texts or call history. Call history, in this sample. Incoming SMS, in this sample. SMS messages, in this sample. SMS sending, in this sample.",
+        "label": "Messages"
+      },
+      {
+        "detail": "Motion sensor readings. light, in this sample. proximity, in this sample.",
+        "label": "Motion"
+      }
+    ],
+    "rx_bytes": 4096,
+    "tx_bytes": 2048
+  },
+  {
+    "destinations": [
+      {
+        "count": 1,
+        "detail": "TCP \u00b7 port 80 to 198.51.100.21:80. 1 socket.",
+        "endpoint": "198.51.100.21:80",
+        "host": "198.51.100.21",
+        "kind": "TCP \u00b7 port 80",
+        "label": "198.51.100.21",
+        "name": "",
+        "relation": "connects"
+      },
+      {
+        "count": 1,
+        "detail": "Encrypted connection to 198.51.100.22:443. 1 socket. The address is visible. The contents are not.",
+        "endpoint": "198.51.100.22:443",
+        "host": "198.51.100.22",
+        "kind": "Encrypted",
+        "label": "198.51.100.22",
+        "name": "",
+        "relation": "connects"
+      },
+      {
+        "count": 1,
+        "detail": "DNS lookup for www.google-analytics.com. Google Analytics is a known tracker in that name.",
+        "endpoint": "www.google-analytics.com",
+        "host": "www.google-analytics.com",
+        "kind": "Google Analytics",
+        "label": "www.google-analytics.com",
+        "name": "",
+        "relation": "lookup"
+      }
+    ],
+    "name": "Browser",
+    "package": "com.old.browser",
+    "reads": [
+      {
+        "detail": "Where the phone is. Precise location, in this sample.",
+        "label": "Location"
+      },
+      {
+        "detail": "Images or video from the camera. Camera, in this sample.",
+        "label": "Camera"
+      },
+      {
+        "detail": "Audio from the microphone or from playback. Playback audio, in this sample.",
+        "label": "Microphone"
+      }
+    ],
+    "rx_bytes": 1536,
+    "tx_bytes": 0
+  },
+  {
+    "destinations": [
+      {
+        "count": 1,
+        "detail": "DNS lookup for sub.onelink.me. AppsFlyer is a known tracker in that name.",
+        "endpoint": "sub.onelink.me",
+        "host": "sub.onelink.me",
+        "kind": "AppsFlyer",
+        "label": "sub.onelink.me",
+        "name": "",
+        "relation": "lookup"
+      }
+    ],
+    "name": "Backup",
+    "package": "com.old.backup",
+    "reads": [],
+    "rx_bytes": 0,
+    "tx_bytes": 0
+  }
+]

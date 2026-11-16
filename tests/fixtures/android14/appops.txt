@@ -1,0 +1,179 @@
+Current AppOps Service state:
+  Settings:
+    top_state_settle_time=+5s0ms
+  Current mode overrides:
+  Uid u0a301:
+    state=top
+    capability=LCMNF
+    appWidgetVisible=false
+      LEGACY_STORAGE: mode=allow
+    Package com.maps.app:
+      FINE_LOCATION (allow):
+        null=[
+          Access: [top-s] 2024-11-14 18:03:00.000 (-2m0s0ms) duration=+1s12ms
+        ]
+        navigation=[
+          Reject: [bg-s] 2024-11-14 17:00:00.000 (-1h5m0s0ms)
+        ]
+      COARSE_LOCATION (foreground):
+        null=[
+          Access: [fg-s] 2024-11-11 09:00:00.000 (-3d9h5m0s0ms) duration=+40ms
+        ]
+      MONITOR_LOCATION (allow):
+        null=[
+          Access: [bg-s] 2024-11-13 12:00:00.000 (-30h5m0s0ms) duration=+2h
+        ]
+      MONITOR_HIGH_POWER_LOCATION (allow):
+        null=[
+          Access: [top-s] 2024-11-13 19:00:00.000 (-23h5m0s0ms) duration=+20m
+        ]
+      GPS (allow):
+        null=[
+          Access: [top-s] 2024-11-14 18:04:30.000 (-30s0ms)
+        ]
+      WIFI_SCAN (allow):
+        null=[
+          Access: [top-s] 2024-11-14 18:04:00.000 (-1m0s0ms)
+        ]
+      WAKE_LOCK (allow):
+        null=[
+          Access: [top-s] 2024-11-14 18:04:00.000 (-1m0s0ms)
+        ]
+      FINE_LOCATION (allow):
+        null=[
+          Reject: [bg-s] 2024-11-14 16:00:00.000 (-2h5m0s0ms)
+        ]
+  Uid u0a302:
+    state=fgsvc
+    Package com.fit.tracker:
+      ACTIVITY_RECOGNITION (allow):
+        null=[
+          Access: [fgsvc-s] 2024-11-14 17:55:00.000 (-10m0s0ms)
+        ]
+      BODY_SENSORS (ignore):
+      READ_CONTACTS (deny):
+        null=[
+          Reject: [top-s] 2024-11-14 17:05:00.000 (-1h0m0s0ms)
+        ]
+      COARSE_LOCATION (allow):
+        null=[
+          Reject: [bg-s] 2024-11-12 08:00:00.000 (-2d10h5m0s0ms)
+        ]
+  Uid u0a303:
+    Package com.weather.app:
+      COARSE_LOCATION (allow):
+      WIFI_SCAN (foreground):
+      READ_PHONE_STATE (default):
+      ACCESS_ADSERVICES_AD_ID (allow):
+  Uid u0a304:
+    state=top
+    Package com.whatsapp:
+      READ_CONTACTS (allow):
+        null=[
+          Access: [top-s] 2024-11-14 18:04:00.000 (-1m0s0ms)
+        ]
+      WRITE_CONTACTS (allow):
+        null=[
+          Access: [top-s] 2024-11-14 18:03:00.000 (-2m0s0ms)
+        ]
+      CAMERA (allow):
+        null=[
+          Access: [top-s] 2024-11-14 18:04:55.000 (-5s0ms)
+        ]
+      RECORD_AUDIO (allow):
+        null=[
+          Access: [top-s] 2024-11-14 17:25:00.000 (-40m0s0ms)
+        ]
+      RECORD_AUDIO_HOTWORD (errored):
+      READ_MEDIA_IMAGES (allow):
+        null=[
+          Access: [top-s] 2024-11-14 17:05:00.000 (-1h0m0s0ms)
+        ]
+      READ_MEDIA_VIDEO (allow):
+        null=[
+          Access: [top-s] 2024-11-14 17:04:00.000 (-1h1m0s0ms)
+        ]
+      READ_MEDIA_AUDIO (allow):
+        null=[
+          Access: [top-s] 2024-11-14 17:03:00.000 (-1h2m0s0ms)
+        ]
+      READ_EXTERNAL_STORAGE (allow):
+        null=[
+          Access: [top-s] 2024-11-14 17:02:00.000 (-1h3m0s0ms)
+        ]
+      ACCESS_MEDIA_LOCATION (allow):
+        null=[
+          Access: [top-s] 2024-11-14 17:01:00.000 (-1h4m0s0ms)
+        ]
+      READ_CLIPBOARD (allow):
+        null=[
+          Access: [top-s] 2024-11-14 18:04:58.000 (-2s0ms)
+        ]
+      READ_PHONE_NUMBERS (allow):
+        null=[
+          Access: [top-s] 2024-11-14 18:00:00.000 (-5m0s0ms)
+        ]
+      READ_SMS (allow):
+        null=[
+          Access: [top-s] 2024-11-14 18:00:00.000 (-5m0s0ms)
+        ]
+      READ_CALL_LOG (allow):
+        null=[
+          Access: [top-s] 2024-11-14 18:00:00.000 (-5m0s0ms)
+        ]
+  Uid u0a150:
+    Package com.android.systemui:
+      CAMERA (allow):
+        null=[
+          Access: [pers-s] 2024-11-14 18:03:00.000 (-2m0s0ms)
+        ]
+      READ_CLIPBOARD (allow):
+        null=[
+          Access: [pers-s] 2024-11-14 18:03:30.000 (-1m30s0ms)
+        ]
+  Uid u0a305:
+    Package com.game.puzzle:
+      ACCESS_MEDIA_LOCATION (ask):
+        null=[
+          Access: [top-s] 2024-11-14 18:02:00.000 (-3m0s0ms)
+        ]
+      READ_EXTERNAL_STORAGE (errored):
+      READ_CALENDAR (default):
+        null=[
+          Access: [top-s] 2024-11-14 18:02:00.000 (-3m0s0ms)
+        ]
+      BODY_SENSORS (switch BODY_SENSORS=allow):
+        null=[
+          Access: [top-s] 2024-11-14 18:02:00.000 (-3m0s0ms)
+        ]
+      GET_ACCOUNTS (allow):
+      READ_DEVICE_IDENTIFIERS (allow):
+        null=[
+          Access: [top-s] 2024-11-14 18:01:00.000 (-4m0s0ms)
+        ]
+  Uid u0a307:
+    Package com.cam.snap:
+      CAMERA (allow):
+        null=[
+          Access: [top-s] 2024-11-14 18:00:00.000
+        ]
+      RECORD_AUDIO (foreground):
+        null=[
+          Reject: [cch-s] 2024-11-14 17:00:00.000 (-1h5m0s0ms)
+        ]
+  Uid u0a399:
+    Package com.ghost.app:
+      COARSE_LOCATION (allow):
+        null=[
+          Access: [top-s] 2024-11-14 18:00:00.000 (-5m0s0ms)
+        ]
+  Uid weird:
+    Package com.unknown.uid:
+      CAMERA (allow):
+        null=[
+          Access: [top-s] 2024-11-14 18:00:00.000 (-5m0s0ms)
+        ]
+  Uid u0a306:
+    Package com.notes.plain:
+      READ_EXTERNAL_STORAGE (allow):
+      READ_CONTACTS (allow):

@@ -1,0 +1,6 @@
+05-01 10:00:00.000  500  600 D NetdEventListenerService: DNS Requested by 3001, 1010077(com.old.messenger)
+05-01 10:00:01.000  500  600 D resolv  : getaddrinfo: hostname=api.old-messenger.example uid=1010077
+05-01 10:00:02.000  500  600 D resolv  : resolving www.google-analytics.com for uid 10078
+05-01 10:00:03.000  500  600 D resolv  : res_nquery: qname=ssl.google-analytics.com
+05-01 10:00:04.000  500  600 D resolv  : lookup example.invalid
+05-01 10:00:05.000  500  600 D resolv  : getaddrinfo: host=sub.onelink.me uid=10079

@@ -1,0 +1,9 @@
+POWER MANAGER (dumpsys power)
+Wake Locks: size=4
+  PARTIAL_WAKE_LOCK              'TrackingService:workout' ACQ=-12m3s (uid=10302 pid=5200 ws=WorkSource{10302 com.fit.tracker})
+  PARTIAL_WAKE_LOCK              '*job*/com.maps.app/.sync.OfflineMapsJob' ACQ=-5s (uid=1000 pid=1500 ws=WorkSource{10301 com.maps.app})
+  SCREEN_BRIGHT_WAKE_LOCK        'WindowManager' ON_AFTER_RELEASE ACQ=-1m (uid=1000 pid=1500)
+  DOZE_WAKE_LOCK                 'Doze' ACQ=-1s WorkSource{10304 com.whatsapp}
+  FULL_WAKE_LOCK                 'NoOwner' ACQ=-1s
+Suspend Blockers: size=4
+  PowerManagerService.WakeLocks: ref count=1

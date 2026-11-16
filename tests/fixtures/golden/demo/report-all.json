@@ -1,0 +1,272 @@
+{
+  "declared_only": [],
+  "device": {
+    "android": "14",
+    "captured_at": "2024-11-14T18:05:00Z",
+    "model": "Pixel 8",
+    "sdk": "34",
+    "serial": "fixture"
+  },
+  "errors": {},
+  "limits": [
+    "Network sockets belong to a Linux uid. On Android that uid is usually one app.",
+    "Transmission shown here is destination, size, and DNS name. HTTPS message bodies stay encrypted.",
+    "Tracker SDK rows are components shipped inside the app and the kind of data that SDK is built to collect."
+  ],
+  "live": [
+    {
+      "attempted": [
+        {
+          "category": "Microphone",
+          "detail": "Audio from the microphone.",
+          "last_access": null,
+          "last_reject": "[top] 2024-11-14 11:00:00.000 (-7h ago)",
+          "mode": "ignore",
+          "op": "RECORD_AUDIO",
+          "package": "com.tracker.demo",
+          "uid": 10245
+        }
+      ],
+      "declared": [
+        {
+          "category": "Precise location",
+          "detail": "GPS-level location of the device.",
+          "package": "com.tracker.demo",
+          "permission": "android.permission.ACCESS_FINE_LOCATION"
+        },
+        {
+          "category": "Approximate location",
+          "detail": "Cell and Wi-Fi location of the device.",
+          "package": "com.tracker.demo",
+          "permission": "android.permission.ACCESS_COARSE_LOCATION"
+        },
+        {
+          "category": "Camera",
+          "detail": "Images and video from the camera.",
+          "package": "com.tracker.demo",
+          "permission": "android.permission.CAMERA"
+        },
+        {
+          "category": "Contacts",
+          "detail": "Names, phone numbers, and emails in the address book.",
+          "package": "com.tracker.demo",
+          "permission": "android.permission.READ_CONTACTS"
+        },
+        {
+          "category": "Advertising ID",
+          "detail": "The resettable advertising identifier.",
+          "package": "com.tracker.demo",
+          "permission": "com.google.android.gms.permission.AD_ID"
+        }
+      ],
+      "doing": [
+        "On screen: com.tracker.demo/.Main",
+        "Process com.tracker.demo pid 4321 (on screen, foreground service)",
+        "Foreground service com.tracker.demo/.UploadService",
+        "Scheduled job com.tracker.demo/.sync.SyncJob",
+        "Wakelock UploadLock (PARTIAL_WAKE_LOCK)",
+        "Sensor android.sensor.accelerometer (pid 4321)",
+        "Location request: HIGH_ACCURACY, interval=1000, provider=fused",
+        "Owns the current clipboard contents"
+      ],
+      "observed": [
+        {
+          "category": "Precise location",
+          "detail": "GPS-level location of the device.",
+          "last_access": "[top] 2024-11-14 18:01:02.123 (-5m ago) duration=+2s",
+          "last_reject": "[bg] 2024-11-14 17:00:00.000 (-1h ago)",
+          "mode": "foreground",
+          "op": "FINE_LOCATION",
+          "package": "com.tracker.demo",
+          "uid": 10245
+        },
+        {
+          "category": "Approximate location",
+          "detail": "Cell and Wi-Fi location of the device.",
+          "last_access": "[top] 2024-11-14 18:01:02.123 (-5m ago)",
+          "last_reject": null,
+          "mode": "allow",
+          "op": "COARSE_LOCATION",
+          "package": "com.tracker.demo",
+          "uid": 10245
+        },
+        {
+          "category": "Camera",
+          "detail": "Images and video from the camera.",
+          "last_access": "[fgsvc] 2024-11-14 12:00:00.000 (-6h ago)",
+          "last_reject": null,
+          "mode": "allow",
+          "op": "CAMERA",
+          "package": "com.tracker.demo",
+          "uid": 10245
+        },
+        {
+          "category": "Clipboard",
+          "detail": "Text and images currently copied on the device.",
+          "last_access": "+30s ago",
+          "last_reject": null,
+          "mode": "allow",
+          "op": "READ_CLIPBOARD",
+          "package": "com.tracker.demo",
+          "uid": 10245
+        }
+      ],
+      "packages": [
+        "com.tracker.demo"
+      ],
+      "permitted_unseen": [
+        {
+          "category": "Contacts",
+          "detail": "Names, phone numbers, and emails in the address book.",
+          "last_access": null,
+          "last_reject": null,
+          "mode": "allow",
+          "op": "READ_CONTACTS",
+          "package": "com.tracker.demo",
+          "uid": 10245
+        }
+      ],
+      "trackers": [
+        {
+          "collects": "Advertising ID and ad interactions.",
+          "name": "Facebook Audience Network",
+          "package": "com.tracker.demo",
+          "prefix": "com.facebook.ads"
+        },
+        {
+          "collects": "Usage events, device model, and the advertising ID when the app shares it.",
+          "name": "Firebase Analytics",
+          "package": "com.tracker.demo",
+          "prefix": "com.google.firebase.analytics"
+        }
+      ],
+      "transmitted": {
+        "connections": [
+          {
+            "local": "127.0.0.1:54321",
+            "proto": "TCP",
+            "remote": "192.168.8.8:443",
+            "state": "ESTABLISHED",
+            "uid": 10245
+          },
+          {
+            "local": "127.0.0.1:50012",
+            "proto": "UDP",
+            "remote": "8.8.8.8:53",
+            "state": "ESTABLISHED",
+            "uid": 10245
+          }
+        ],
+        "dns": [
+          {
+            "host": "example.com",
+            "tracker": null,
+            "uid": 10245
+          },
+          {
+            "host": "graph.facebook.com",
+            "tracker": "Facebook",
+            "uid": 10245
+          }
+        ],
+        "network_permission": true,
+        "rx_bytes": 81536,
+        "tx_bytes": 12512
+      },
+      "uid": 10245,
+      "uid_packages": [
+        "com.tracker.demo"
+      ],
+      "versions": {
+        "com.tracker.demo": "1.2.3"
+      }
+    },
+    {
+      "attempted": [],
+      "declared": [],
+      "doing": [],
+      "observed": [],
+      "packages": [
+        "com.android.hidden"
+      ],
+      "permitted_unseen": [],
+      "trackers": [],
+      "transmitted": {
+        "connections": [],
+        "dns": [],
+        "network_permission": false,
+        "rx_bytes": 0,
+        "tx_bytes": 0
+      },
+      "uid": 1000,
+      "uid_packages": [
+        "com.android.hidden"
+      ],
+      "versions": {}
+    },
+    {
+      "attempted": [],
+      "declared": [
+        {
+          "category": "Contacts",
+          "detail": "Names, phone numbers, and emails in the address book.",
+          "package": "com.quiet.notes",
+          "permission": "android.permission.READ_CONTACTS"
+        }
+      ],
+      "doing": [],
+      "observed": [],
+      "packages": [
+        "com.quiet.notes"
+      ],
+      "permitted_unseen": [
+        {
+          "category": "Contacts",
+          "detail": "Names, phone numbers, and emails in the address book.",
+          "last_access": null,
+          "last_reject": null,
+          "mode": "allow",
+          "op": "READ_CONTACTS",
+          "package": "com.quiet.notes",
+          "uid": 10299
+        }
+      ],
+      "trackers": [],
+      "transmitted": {
+        "connections": [],
+        "dns": [],
+        "network_permission": false,
+        "rx_bytes": 0,
+        "tx_bytes": 0
+      },
+      "uid": 10299,
+      "uid_packages": [
+        "com.quiet.notes"
+      ],
+      "versions": {
+        "com.quiet.notes": "4.0"
+      }
+    }
+  ],
+  "sources": [
+    "dumpsys appops",
+    "dumpsys package",
+    "dumpsys activity",
+    "dumpsys jobscheduler",
+    "dumpsys power",
+    "dumpsys location",
+    "dumpsys sensorservice",
+    "dumpsys clipboard",
+    "dumpsys netstats",
+    "/proc/net/tcp",
+    "/proc/net/udp",
+    "logcat DNS"
+  ],
+  "unattributed_dns": [
+    {
+      "host": "app-measurement.com",
+      "tracker": "Firebase Analytics",
+      "uid": null
+    }
+  ]
+}

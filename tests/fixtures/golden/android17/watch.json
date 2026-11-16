@@ -1,0 +1,506 @@
+{
+  "connections": [
+    {
+      "packages": [
+        "com.android.providers.contacts",
+        "com.sync.contacts"
+      ],
+      "proto": "TCP",
+      "remote": "192.0.2.80:443",
+      "state": "ESTABLISHED",
+      "uid": 10500
+    },
+    {
+      "packages": [
+        "com.a.one",
+        "com.a.two",
+        "com.android.x"
+      ],
+      "proto": "TCP",
+      "remote": "192.0.2.81:443",
+      "state": "ESTABLISHED",
+      "uid": 10501
+    },
+    {
+      "packages": [
+        "com.b.five",
+        "com.b.four",
+        "com.b.one",
+        "com.b.one",
+        "com.b.three",
+        "com.b.two"
+      ],
+      "proto": "TCP",
+      "remote": "192.0.2.82:80",
+      "state": "ESTABLISHED",
+      "uid": 10502
+    },
+    {
+      "packages": [
+        "android",
+        "com.android.settings"
+      ],
+      "proto": "TCP",
+      "remote": "192.0.2.83:443",
+      "state": "ESTABLISHED",
+      "uid": 1000
+    },
+    {
+      "packages": [],
+      "proto": "TCP",
+      "remote": "192.0.2.84:443",
+      "state": "ESTABLISHED",
+      "uid": 0
+    },
+    {
+      "packages": [],
+      "proto": "TCP",
+      "remote": "192.0.2.85:443",
+      "state": "ESTABLISHED",
+      "uid": 10777
+    },
+    {
+      "packages": [],
+      "proto": "TCP",
+      "remote": "192.0.2.86:443",
+      "state": "ESTABLISHED",
+      "uid": 10778
+    },
+    {
+      "packages": [],
+      "proto": "TCP",
+      "remote": "203.0.113.1:8080",
+      "state": "ESTABLISHED",
+      "uid": 10778
+    },
+    {
+      "packages": [],
+      "proto": "TCP",
+      "remote": "203.0.113.2:443",
+      "state": "ESTABLISHED",
+      "uid": 10778
+    },
+    {
+      "packages": [],
+      "proto": "TCP",
+      "remote": "203.0.113.3:443",
+      "state": "ESTABLISHED",
+      "uid": 10778
+    },
+    {
+      "packages": [],
+      "proto": "TCP",
+      "remote": "203.0.113.4:8080",
+      "state": "ESTABLISHED",
+      "uid": 10778
+    },
+    {
+      "packages": [],
+      "proto": "TCP",
+      "remote": "203.0.113.5:443",
+      "state": "ESTABLISHED",
+      "uid": 10778
+    },
+    {
+      "packages": [],
+      "proto": "TCP",
+      "remote": "203.0.113.6:443",
+      "state": "ESTABLISHED",
+      "uid": 10778
+    },
+    {
+      "packages": [],
+      "proto": "TCP",
+      "remote": "203.0.113.7:8080",
+      "state": "ESTABLISHED",
+      "uid": 10778
+    },
+    {
+      "packages": [],
+      "proto": "TCP",
+      "remote": "203.0.113.8:443",
+      "state": "ESTABLISHED",
+      "uid": 10778
+    },
+    {
+      "packages": [],
+      "proto": "TCP",
+      "remote": "203.0.113.9:443",
+      "state": "ESTABLISHED",
+      "uid": 10778
+    },
+    {
+      "packages": [],
+      "proto": "TCP",
+      "remote": "203.0.113.10:8080",
+      "state": "ESTABLISHED",
+      "uid": 10778
+    },
+    {
+      "packages": [],
+      "proto": "TCP",
+      "remote": "203.0.113.11:443",
+      "state": "ESTABLISHED",
+      "uid": 10778
+    },
+    {
+      "packages": [],
+      "proto": "TCP",
+      "remote": "203.0.113.12:443",
+      "state": "ESTABLISHED",
+      "uid": 10778
+    },
+    {
+      "packages": [],
+      "proto": "TCP",
+      "remote": "203.0.113.13:8080",
+      "state": "ESTABLISHED",
+      "uid": 10778
+    },
+    {
+      "packages": [],
+      "proto": "TCP",
+      "remote": "203.0.113.14:443",
+      "state": "ESTABLISHED",
+      "uid": 10778
+    },
+    {
+      "packages": [],
+      "proto": "TCP",
+      "remote": "203.0.113.15:443",
+      "state": "ESTABLISHED",
+      "uid": 10778
+    },
+    {
+      "packages": [],
+      "proto": "TCP",
+      "remote": "203.0.113.16:8080",
+      "state": "ESTABLISHED",
+      "uid": 10778
+    },
+    {
+      "packages": [],
+      "proto": "TCP",
+      "remote": "203.0.113.17:443",
+      "state": "ESTABLISHED",
+      "uid": 10778
+    },
+    {
+      "packages": [],
+      "proto": "TCP",
+      "remote": "203.0.113.18:443",
+      "state": "ESTABLISHED",
+      "uid": 10778
+    },
+    {
+      "packages": [],
+      "proto": "TCP",
+      "remote": "203.0.113.19:8080",
+      "state": "ESTABLISHED",
+      "uid": 10778
+    },
+    {
+      "packages": [],
+      "proto": "TCP",
+      "remote": "203.0.113.20:443",
+      "state": "ESTABLISHED",
+      "uid": 10778
+    },
+    {
+      "packages": [],
+      "proto": "TCP",
+      "remote": "203.0.113.21:443",
+      "state": "ESTABLISHED",
+      "uid": 10778
+    },
+    {
+      "packages": [],
+      "proto": "TCP",
+      "remote": "203.0.113.22:8080",
+      "state": "ESTABLISHED",
+      "uid": 10778
+    },
+    {
+      "packages": [],
+      "proto": "TCP",
+      "remote": "203.0.113.23:443",
+      "state": "ESTABLISHED",
+      "uid": 10778
+    },
+    {
+      "packages": [],
+      "proto": "TCP",
+      "remote": "203.0.113.24:443",
+      "state": "ESTABLISHED",
+      "uid": 10778
+    },
+    {
+      "packages": [],
+      "proto": "TCP",
+      "remote": "203.0.113.25:8080",
+      "state": "ESTABLISHED",
+      "uid": 10778
+    },
+    {
+      "packages": [],
+      "proto": "TCP",
+      "remote": "203.0.113.26:443",
+      "state": "ESTABLISHED",
+      "uid": 10778
+    },
+    {
+      "packages": [],
+      "proto": "TCP",
+      "remote": "203.0.113.27:443",
+      "state": "ESTABLISHED",
+      "uid": 10778
+    },
+    {
+      "packages": [],
+      "proto": "TCP",
+      "remote": "203.0.113.28:8080",
+      "state": "ESTABLISHED",
+      "uid": 10778
+    },
+    {
+      "packages": [],
+      "proto": "TCP",
+      "remote": "203.0.113.29:443",
+      "state": "ESTABLISHED",
+      "uid": 10778
+    },
+    {
+      "packages": [],
+      "proto": "TCP",
+      "remote": "203.0.113.30:443",
+      "state": "ESTABLISHED",
+      "uid": 10778
+    },
+    {
+      "packages": [],
+      "proto": "TCP",
+      "remote": "203.0.113.31:8080",
+      "state": "ESTABLISHED",
+      "uid": 10778
+    },
+    {
+      "packages": [],
+      "proto": "TCP",
+      "remote": "203.0.113.32:443",
+      "state": "ESTABLISHED",
+      "uid": 10778
+    },
+    {
+      "packages": [],
+      "proto": "TCP",
+      "remote": "203.0.113.33:443",
+      "state": "ESTABLISHED",
+      "uid": 10778
+    },
+    {
+      "packages": [],
+      "proto": "TCP",
+      "remote": "203.0.113.34:8080",
+      "state": "ESTABLISHED",
+      "uid": 10778
+    },
+    {
+      "packages": [],
+      "proto": "TCP",
+      "remote": "203.0.113.35:443",
+      "state": "ESTABLISHED",
+      "uid": 10778
+    },
+    {
+      "packages": [],
+      "proto": "TCP",
+      "remote": "203.0.113.36:443",
+      "state": "ESTABLISHED",
+      "uid": 10778
+    },
+    {
+      "packages": [],
+      "proto": "TCP",
+      "remote": "203.0.113.37:8080",
+      "state": "ESTABLISHED",
+      "uid": 10778
+    },
+    {
+      "packages": [],
+      "proto": "TCP",
+      "remote": "203.0.113.38:443",
+      "state": "ESTABLISHED",
+      "uid": 10778
+    },
+    {
+      "packages": [],
+      "proto": "TCP",
+      "remote": "203.0.113.39:443",
+      "state": "ESTABLISHED",
+      "uid": 10778
+    },
+    {
+      "packages": [],
+      "proto": "TCP",
+      "remote": "203.0.113.40:8080",
+      "state": "ESTABLISHED",
+      "uid": 10778
+    },
+    {
+      "packages": [],
+      "proto": "TCP",
+      "remote": "203.0.113.41:443",
+      "state": "ESTABLISHED",
+      "uid": 10778
+    },
+    {
+      "packages": [],
+      "proto": "TCP",
+      "remote": "203.0.113.42:443",
+      "state": "ESTABLISHED",
+      "uid": 10778
+    },
+    {
+      "packages": [],
+      "proto": "TCP",
+      "remote": "203.0.113.43:8080",
+      "state": "ESTABLISHED",
+      "uid": 10778
+    },
+    {
+      "packages": [],
+      "proto": "TCP",
+      "remote": "203.0.113.44:443",
+      "state": "ESTABLISHED",
+      "uid": 10778
+    },
+    {
+      "packages": [],
+      "proto": "TCP",
+      "remote": "203.0.113.45:443",
+      "state": "ESTABLISHED",
+      "uid": 10778
+    },
+    {
+      "packages": [
+        "com.android.networkstack",
+        "com.google.android.ext.services"
+      ],
+      "proto": "TCP",
+      "remote": "[::ffff:192.0.2.90]:443",
+      "state": "ESTABLISHED",
+      "uid": 10503
+    },
+    {
+      "packages": [
+        "com.android.networkstack",
+        "com.google.android.ext.services"
+      ],
+      "proto": "TCP",
+      "remote": "[::ffff:192.0.2.90]:443",
+      "state": "ESTABLISHED",
+      "uid": 10503
+    },
+    {
+      "packages": [
+        "com.android.networkstack",
+        "com.google.android.ext.services"
+      ],
+      "proto": "TCP",
+      "remote": "[::ffff:192.0.2.91]:25",
+      "state": "ESTABLISHED",
+      "uid": 10503
+    },
+    {
+      "packages": [
+        "com.android.networkstack",
+        "com.google.android.ext.services"
+      ],
+      "proto": "UDP",
+      "remote": "192.0.2.92:443",
+      "state": "ESTABLISHED",
+      "uid": 10503
+    },
+    {
+      "packages": [
+        "com.android.networkstack",
+        "com.google.android.ext.services"
+      ],
+      "proto": "UDP",
+      "remote": "10.1.1.1:67",
+      "state": "ESTABLISHED",
+      "uid": 10503
+    }
+  ],
+  "focus": [
+    "com.b.three/.MapActivity"
+  ],
+  "ops": [
+    {
+      "last_access": "[bg-s] 2026-11-14 18:00:00.000 (-12m0s0ms) duration=+3s",
+      "last_reject": null,
+      "op": "READ_CONTACTS",
+      "package": "com.sync.contacts"
+    },
+    {
+      "last_access": "[bg-s] 2026-11-14 18:00:00.000 (-12m0s0ms)",
+      "last_reject": null,
+      "op": "GET_ACCOUNTS",
+      "package": "com.sync.contacts"
+    },
+    {
+      "last_access": "[pers-s] 2026-11-14 18:10:00.000 (-2m0s0ms)",
+      "last_reject": null,
+      "op": "READ_CONTACTS",
+      "package": "com.android.providers.contacts"
+    },
+    {
+      "last_access": "[top-s] 2026-11-14 18:11:00.000 (-1m0s0ms)",
+      "last_reject": null,
+      "op": "CAMERA",
+      "package": "com.a.one"
+    },
+    {
+      "last_access": null,
+      "last_reject": null,
+      "op": "RECORD_AUDIO",
+      "package": "com.a.two"
+    },
+    {
+      "last_access": null,
+      "last_reject": null,
+      "op": "READ_CALENDAR",
+      "package": "com.a.two"
+    },
+    {
+      "last_access": "[top-s] 2026-11-14 18:11:30.000 (-30s0ms)",
+      "last_reject": null,
+      "op": "FINE_LOCATION",
+      "package": "com.b.three"
+    },
+    {
+      "last_access": null,
+      "last_reject": "[top-s] 2026-11-14 18:11:30.000 (-30s0ms)",
+      "op": "SEND_SMS",
+      "package": "com.b.three"
+    },
+    {
+      "last_access": "[top-s] 2026-11-14 18:09:00.000 (-3m0s0ms)",
+      "last_reject": null,
+      "op": "RECORD_AUDIO",
+      "package": "com.c.two"
+    },
+    {
+      "last_access": "[pers-s] 2026-11-14 18:09:00.000 (-3m0s0ms)",
+      "last_reject": null,
+      "op": "BLUETOOTH_CONNECT",
+      "package": "com.android.settings"
+    },
+    {
+      "last_access": "[top-s] 2026-11-14 18:12:00.000 (-1s0ms)",
+      "last_reject": null,
+      "op": "READ_PHONE_STATE",
+      "package": "com.android.shell"
+    }
+  ]
+}

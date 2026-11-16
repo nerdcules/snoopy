@@ -1,0 +1,205 @@
+Database versions:
+  Internal:
+    sdkVersion=34 databaseVersion=3
+Package [com.maps.app] (4f1a2b3):
+  userId=10301
+  pkg=Package{9c8d7e6 com.maps.app}
+  codePath=/data/app/~~AbC1==/com.maps.app-XyZ1==
+  versionCode=118 minSdk=26 targetSdk=34
+  versionName=11.118.0101 (beta)
+  requested permissions:
+      android.permission.INTERNET
+      android.permission.ACCESS_FINE_LOCATION
+      android.permission.ACCESS_COARSE_LOCATION
+      android.permission.ACCESS_BACKGROUND_LOCATION
+      android.permission.ACCESS_NETWORK_STATE
+  install permissions:
+      android.permission.INTERNET: granted=true
+      android.permission.ACCESS_NETWORK_STATE: granted=true
+      com.google.android.gms.permission.AD_ID: granted=true
+  runtime permissions:
+      android.permission.ACCESS_FINE_LOCATION: granted=true, flags=[ USER_SENSITIVE_WHEN_GRANTED|USER_SENSITIVE_WHEN_DENIED]
+      android.permission.ACCESS_COARSE_LOCATION: granted=true, flags=[ USER_SENSITIVE_WHEN_GRANTED|USER_SENSITIVE_WHEN_DENIED]
+      android.permission.ACCESS_BACKGROUND_LOCATION: granted=false, flags=[ USER_SENSITIVE_WHEN_GRANTED|USER_SENSITIVE_WHEN_DENIED|RESTRICTION_INSTALLER_EXEMPT]
+  Activity Resolver Table:
+      com.google.android.gms.ads.AdActivity
+      com.appsflyerx.lookalike.Receiver
+  Service Resolver Table:
+      com.google.android.gms.measurement.AppMeasurementService
+      com.google.firebase.installations.FirebaseInstallationsRegistrar
+
+Package [com.fit.tracker] (5a6b7c8):
+  userId=10302
+  versionName=3.2
+  requested permissions:
+      android.permission.INTERNET
+      android.permission.ACTIVITY_RECOGNITION
+      android.permission.BODY_SENSORS
+      android.permission.READ_CONTACTS
+  install permissions:
+      android.permission.INTERNET: granted=true
+  User 0: ceDataInode=1234 installed=true hidden=false
+      runtime permissions:
+        android.permission.ACTIVITY_RECOGNITION: granted=true, flags=[ USER_SET|USER_SENSITIVE_WHEN_GRANTED]
+        android.permission.BODY_SENSORS: granted=false, flags=[ USER_SET]
+        android.permission.READ_CONTACTS: granted = true, flags=[ USER_SET]
+  Receiver Resolver Table:
+	com.google.firebase.crashlytics.CrashlyticsRegistrar
+	io.sentry.android.core.SentryInitProvider
+
+Package [com.weather.app] (6b7c8d9):
+  userId=10303
+  versionName=7.0.1
+  requested permissions:
+      android.permission.INTERNET
+      android.permission.ACCESS_COARSE_LOCATION
+      com.google.android.gms.permission.AD_ID
+  install permissions:
+      android.permission.INTERNET: granted=true
+      com.google.android.gms.permission.AD_ID: granted=true
+  runtime permissions:
+      android.permission.ACCESS_COARSE_LOCATION: granted=true
+  Provider Resolver Table:
+      com.adjust.sdk.SystemLifecycleContentProvider
+      io.branch.referral.InstallListener
+
+Package [com.whatsapp] (7c8d9e0):
+  userId=10304
+  versionName=2.24.22.79
+  requested permissions:
+      android.permission.INTERNET
+      android.permission.READ_CONTACTS
+      android.permission.WRITE_CONTACTS
+      android.permission.CAMERA
+      android.permission.RECORD_AUDIO
+      android.permission.READ_MEDIA_IMAGES
+      android.permission.READ_MEDIA_VIDEO
+      android.permission.READ_PHONE_NUMBERS
+      android.permission.READ_SMS
+      android.permission.GET_ACCOUNTS
+  install permissions:
+      android.permission.INTERNET: granted=true
+      android.permission.GET_ACCOUNTS: granted=true
+  runtime permissions:
+      android.permission.READ_CONTACTS: granted=true
+      android.permission.WRITE_CONTACTS: granted=true
+      android.permission.CAMERA: granted=true
+      android.permission.RECORD_AUDIO: granted=true
+      android.permission.READ_MEDIA_IMAGES: granted=true
+      android.permission.READ_MEDIA_VIDEO: granted=true
+      android.permission.READ_PHONE_NUMBERS: granted=true
+      android.permission.READ_SMS: granted=false
+  Activity Resolver Table:
+      com.facebook.FacebookActivity
+      com.facebook.appevents.internal.ActivityLifecycleTracker
+      com.facebook.ads.AudienceNetworkActivity
+
+Package [com.game.puzzle] (8d9e0f1):
+  userId=10305
+  versionName=1.0
+  install permissions:
+      android.permission.INTERNET: granted=true
+      com.google.android.gms.permission.AD_ID: granted=true
+  Activity Resolver Table:
+      com.unity3d.ads.adunit.AdUnitActivity
+      com.applovin.adview.AppLovinFullscreenActivity
+      com.ironsource.sdk.controller.ControllerActivity
+      com.vungle.warren.ui.VungleActivity
+      com.chartboost.sdk.CBImpressionActivity
+      com.startapp.sdk.adsbase.activities.OverlayActivity
+      com.inmobi.ads.rendering.InMobiAdActivity
+      com.google.android.gms.ads.AdActivity
+      com.mixpanel.android.takeoverinapp.TakeoverInAppActivity
+      com.amplitude.api.AmplitudeClient
+      com.flurry.android.FlurryFullscreenTakeoverActivity
+      com.onesignal.NotificationOpenedActivity
+      com.braze.push.BrazePushReceiver
+      com.bugsnag.android.BugsnagReactNativePlugin
+      com.newrelic.agent.android.NewRelic
+      io.appmetrica.analytics.internal.AppMetricaService
+      com.yandex.metrica.MetricaService
+      com.umeng.analytics.MobclickAgent
+      com.huawei.hms.ads.HwAds
+      com.clevertap.android.sdk.CleverTapAPI
+      com.moengage.core.MoEngage
+      com.kochava.tracker.Tracker
+      com.singular.sdk.Singular
+      com.mparticle.MParticle
+      com.segment.analytics.Analytics
+      com.adobe.marketing.mobile.MobileCore
+      com.salesforce.marketingcloud.MarketingCloudSdk
+      com.amazon.device.ads.AdActivity
+
+Package [com.notes.plain] (9e0f1a2):
+  userId=10306
+  versionName=4.0
+  requested permissions:
+      android.permission.READ_CONTACTS
+      android.permission.READ_EXTERNAL_STORAGE
+  runtime permissions:
+      android.permission.READ_CONTACTS: granted=true
+      android.permission.READ_EXTERNAL_STORAGE: granted=true
+
+Package [com.cam.snap] (a0f1a2b):
+  userId=10307
+  versionName=
+  requested permissions:
+      android.permission.INTERNET
+      android.permission.CAMERA
+      android.permission.RECORD_AUDIO
+  install permissions:
+      android.permission.INTERNET: granted=true
+  runtime permissions:
+      android.permission.CAMERA: granted=true
+      android.permission.RECORD_AUDIO: granted=false
+
+Package [com.idle.wallpaper] (b1a2b3c):
+  userId=10308
+  versionName=1.1
+
+Package [com.sideloaded.tool] (c2b3c4d):
+  userId=10310
+  versionName=0.9
+  install permissions:
+      android.permission.INTERNET: granted=true
+      android.permission.QUERY_ALL_PACKAGES: granted=true
+
+Package [com.nouid.pkg] (d3c4d5e):
+  versionName=2.0
+  install permissions:
+      android.permission.INTERNET: granted=true
+
+Package [com.android.systemui] (e4d5e6f):
+  userId=10150
+  versionName=14
+  install permissions:
+      android.permission.INTERNET: granted=true
+      android.permission.SYSTEM_ALERT_WINDOW: granted=true
+  runtime permissions:
+      android.permission.CAMERA: granted=true
+
+Package [com.android.settings] (f5e6f7a):
+  userId=1000
+  versionName=14
+  install permissions:
+      android.permission.INTERNET: granted=true
+
+Package [com.google.android.gms] (a6f7a8b):
+  userId=10120
+  versionName=24.45.33 (190400-693505712)
+  install permissions:
+      android.permission.INTERNET: granted=true
+  runtime permissions:
+      android.permission.ACCESS_FINE_LOCATION: granted=true
+      android.permission.BLUETOOTH_SCAN: granted=true
+      android.permission.NEARBY_WIFI_DEVICES: granted=true
+
+Hidden system packages:
+Package [com.android.settings] (b7a8b9c):
+  userId=1000
+  versionName=13
+  install permissions:
+      android.permission.WRITE_SETTINGS: granted=true
+
+Package [com.ghost.app] (c8b9c0d):
+  versionName=0.1

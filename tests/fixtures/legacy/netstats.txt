@@ -1,0 +1,15 @@
+UID stats:
+  Pending bytes: 0
+  ident=[[type=WIFI, subType=COMBINED, networkId="lan"]] uid=1010077 set=DEFAULT tag=0x0
+    NetworkStatsHistory: bucketDuration=3600
+      st=1557000000 rb=2048 rp=4 tb=1024 tp=2 op=0
+      st=1557003600 rb=2048 rp=4 tb=1024 tp=2 op=0
+  ident=[[type=WIFI, subType=COMBINED, networkId="lan"]] uid=10078 set=DEFAULT tag=0x0
+    NetworkStatsHistory: bucketDuration=3600
+      st=1557000000 rb=1536 rp=4 tb=0 tp=0 op=0
+  ident=[[type=WIFI]] uid=10079 set=DEFAULT tag=0x0
+    NetworkStatsHistory: bucketDuration=3600
+      bucketStart=1557000000000 activeTime=1 rxBytes=0 rxPackets=0 txBytes=0 txPackets=0 operations=0
+UID tag stats:
+  ident=[[type=WIFI]] uid=10078 set=DEFAULT tag=0x1
+      st=1557000000 rb=55555 rp=4 tb=55555 tp=2 op=0

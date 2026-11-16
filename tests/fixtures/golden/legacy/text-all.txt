@@ -1,0 +1,146 @@
+Android diagnoser
+Device: Fixture Legacy, Android 9 (SDK 28), serial LEGACY01
+Captured: 2019-05-01T10:05:00Z
+Sources: dumpsys appops, dumpsys package, dumpsys activity, dumpsys jobscheduler, dumpsys power, dumpsys location, dumpsys sensorservice, dumpsys clipboard, dumpsys netstats, /proc/net/tcp, /proc/net/udp, logcat DNS
+
+Network sockets belong to a Linux uid. On Android that uid is usually one app.
+Transmission shown here is destination, size, and DNS name. HTTPS message bodies stay encrypted.
+Tracker SDK rows are components shipped inside the app and the kind of data that SDK is built to collect.
+
+## What each app is doing, tracking, and transmitting
+
+### uid 1010077  com.old.messenger
+Version: com.old.messenger 9.0
+Doing:
+  - On screen: com.old.messenger/.ui.ConversationList
+  - Process com.old.messenger pid 3001 (on screen)
+  - Foreground service com.old.messenger/.sync.SmsSyncService
+  - Scheduled job com.old.messenger/.CleanupJob
+  - Wakelock SmsSync (PARTIAL_WAKE_LOCK)
+  - Sensor android.sensor.light (pid 3001)
+  - Sensor android.sensor.proximity (pid 3001)
+  - Location request: POWER_LOW network requested=+30m fastest=+30m
+Information tracked:
+  Observed by the OS:
+    - Precise location — FINE_LOCATION, allowed only while the app is in use, last access +1d2h ago. GPS-level location of the device.
+    - Approximate location — COARSE_LOCATION, mode unrecorded, last access +2m ago. Cell and Wi-Fi location of the device.
+    - Call history — READ_CALL_LOG, errored, last access +0s ago, last reject +1s ago. Numbers called and received, and when.
+    - SMS messages — READ_SMS, allowed, last access +1h2m3s123ms ago. Text message contents.
+    - Incoming SMS — RECEIVE_SMS, allowed, last access +5m ago. Text messages as they arrive.
+    - SMS sending — SEND_SMS, allowed, last access +4m ago. Text messages the app sends.
+    - Clipboard — READ_CLIPBOARD, allowed, last access +10s ago, last reject +2h ago. Text and images currently copied on the device.
+  Attempted and denied:
+    - Camera — CAMERA, denied, last reject +3m ago. Images and video from the camera.
+    - Microphone — RECORD_AUDIO, denied. Audio from the microphone.
+  Permitted, with no access time recorded:
+    - Call history — WRITE_CALL_LOG, allowed
+    - Accounts — GET_ACCOUNTS, allowed
+  Granted permissions:
+    - Call history — android.permission.READ_CALL_LOG. Numbers called and received, and when.
+    - SMS messages — android.permission.READ_SMS. Text message contents.
+    - Incoming SMS — android.permission.RECEIVE_SMS. Text messages as they arrive.
+  Tracker components shipped in the app:
+    - Firebase Analytics (com.google.firebase.analytics). Usage events, device model, and the advertising ID when the app shares it.
+    - Firebase Cloud Messaging (com.google.firebase.messaging). A push token. Delivery metadata goes to Google.
+    - Flurry (com.flurry). Analytics events and device properties.
+Transmitted:
+  Sent 2.0 KB, received 4.0 KB.
+  Network permission: granted.
+  - TCP ESTABLISHED 192.168.1.20:33000 -> 198.51.100.20:443
+  - DNS api.old-messenger.example
+
+### uid 10078  com.old.browser
+Version: com.old.browser 68.0.3440.91
+Doing:
+  - On screen: com.old.browser/org.chromium.Main
+  - Location request: ACCURACY_FINE gps requested=+5s fastest=+5s
+Information tracked:
+  Observed by the OS:
+    - Precise location — FINE_LOCATION, denied, last access +3m ago. GPS-level location of the device.
+    - Camera — CAMERA, allowed only while the app is in use, last access [top] 2019-05-01 10:00:00 (+1m ago). Images and video from the camera.
+    - Playback audio — RECORD_AUDIO_OUTPUT, allowed, last access +20s ago. Audio being played on the device.
+  Attempted and denied:
+    - Files — READ_EXTERNAL_STORAGE, allowed, last reject +20s ago. Shared files on the device.
+  Permitted, with no access time recorded:
+    - Nearby Wi-Fi devices — NEARBY_WIFI_DEVICES, allowed
+  Granted permissions:
+    - Precise location — android.permission.ACCESS_FINE_LOCATION. GPS-level location of the device.
+    - Camera — android.permission.CAMERA. Images and video from the camera.
+    - Files — android.permission.READ_EXTERNAL_STORAGE. Shared files on the device.
+Transmitted:
+  Sent 0 B, received 1.5 KB.
+  Network permission: granted.
+  - TCP ESTABLISHED 192.168.1.20:33001 -> 198.51.100.21:80
+  - UDP ESTABLISHED 192.168.1.20:34000 -> 198.51.100.22:443
+  - DNS www.google-analytics.com — tracker Google Analytics
+
+### uid 1001  com.android.phone
+Doing:
+  - Nothing running, scheduled, or holding a sensor, location request, or the clipboard.
+Information tracked:
+  Observed by the OS:
+    - Phone number — READ_PHONE_NUMBERS, allowed, last access +1m ago. The device phone number.
+Transmitted:
+  Sent 0 B, received 0 B.
+  - No active socket with a remote address.
+
+### uid 99005  (no package mapped to this uid)
+Doing:
+  - Process com.old.browser:sandboxed_process0 pid 3002
+Information tracked:
+  - No sensitive grant, app-op, or tracker component in this snapshot.
+Transmitted:
+  Sent 0 B, received 0 B.
+  - No active socket with a remote address.
+
+### uid 10082  com.dup.entry
+Version: com.dup.entry 1
+Doing:
+  - Nothing running, scheduled, or holding a sensor, location request, or the clipboard.
+Information tracked:
+  Granted permissions:
+    - Camera — android.permission.CAMERA. Images and video from the camera.
+Transmitted:
+  Sent 0 B, received 0 B.
+  - No active socket with a remote address.
+
+### uid 10079  com.old.backup
+Version: com.old.backup 2
+Doing:
+  - Process com.old.backup pid 3003 (foreground service)
+  - Service com.old.backup/.BackupService
+  - Scheduled job c5
+  - Wakelock BackupJob (PARTIAL_WAKE_LOCK)
+Information tracked:
+  Permitted, with no access time recorded:
+    - Photos — READ_MEDIA_IMAGES, allowed
+    - Files — READ_EXTERNAL_STORAGE, allowed
+  Granted permissions:
+    - Photos — android.permission.READ_MEDIA_IMAGES. Images in shared storage.
+    - Videos — android.permission.READ_MEDIA_VIDEO. Videos in shared storage.
+    - Audio files — android.permission.READ_MEDIA_AUDIO. Audio files in shared storage.
+    - Files — android.permission.READ_EXTERNAL_STORAGE. Shared files on the device.
+Transmitted:
+  Sent 0 B, received 0 B.
+  - No active socket with a remote address.
+  - DNS sub.onelink.me — tracker AppsFlyer
+
+### uid 10080  com.padded.entry
+Doing:
+  - Nothing running, scheduled, or holding a sensor, location request, or the clipboard.
+Information tracked:
+  Granted permissions:
+    - Nearby Bluetooth devices — android.permission.BLUETOOTH_SCAN. Devices found by a Bluetooth scan.
+Transmitted:
+  Sent 0 B, received 0 B.
+  - No active socket with a remote address.
+
+## Declared sensitive access with no live evidence in this snapshot
+None.
+
+## DNS names not tied to an app uid
+- example.invalid
+- ssl.google-analytics.com — tracker Google Analytics
+
+## Capture gaps
+- dns: logcat: Unable to open log device '/dev/log/main': No such file or directory

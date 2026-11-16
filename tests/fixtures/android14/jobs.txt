@@ -1,0 +1,9 @@
+JOB SCHEDULER (dumpsys jobscheduler)
+Registered 4 jobs:
+  JOB #u0a301/77: 5ab9c1d com.maps.app/.sync.OfflineMapsJob
+    u0a301 tag=*job*/com.maps.app/.sync.OfflineMapsJob
+    Source: uid=u0a301 user=0 pkg=com.maps.app
+  JOB #u0a303/12: 1001 com.weather.app/.WidgetRefreshJob
+    Source: uid=u0a303 user=0 pkg=com.weather.app
+  JOB #1000/5: com.android.settings/.backup.BackupJob
+  JOB #u0a999/1: 22 com.orphan.app/.Job

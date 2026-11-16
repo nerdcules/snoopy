@@ -1,0 +1,22 @@
+ACTIVITY MANAGER SERVICES (dumpsys activity services)
+  User 0 active services:
+  * ServiceRecord{11aa u0 com.fit.tracker/.workout.TrackingService}
+    intent={cmp=com.fit.tracker/.workout.TrackingService}
+    packageName=com.fit.tracker
+    processName=com.fit.tracker
+    isForeground=true foregroundId=7 types=0x00000100
+  * ServiceRecord{22bb u0 com.maps.app/com.maps.app.NavigationService}
+    packageName=com.maps.app
+    isForeground=false foregroundId=0
+    hasForegroundServices=true foreground=true
+  * ServiceRecord{33cc u0 com.whatsapp/.messaging.MessageService}
+    packageName=com.whatsapp
+    isForeground=false
+    notforeground=true
+  * ServiceRecord{44dd u0 com.google.android.gms/.chimera.PersistentApiService}
+    packageName=com.google.android.gms
+  * ServiceRecord{55ee u0 }
+    packageName=com.should.be.ignored
+    isForeground=true
+  * ServiceRecord{66ff u0 com.weather.app/.UpdateService}
+    packageName=com.weather.app.widget

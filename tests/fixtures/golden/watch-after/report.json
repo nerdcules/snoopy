@@ -1,0 +1,250 @@
+{
+  "declared_only": [],
+  "device": {
+    "android": "",
+    "captured_at": "2024-11-14T18:10:00Z",
+    "model": "",
+    "sdk": "",
+    "serial": ""
+  },
+  "errors": {
+    "dns": "command exited 1"
+  },
+  "limits": [
+    "Network sockets belong to a Linux uid. On Android that uid is usually one app.",
+    "Transmission shown here is destination, size, and DNS name. HTTPS message bodies stay encrypted.",
+    "Tracker SDK rows are components shipped inside the app and the kind of data that SDK is built to collect."
+  ],
+  "live": [
+    {
+      "attempted": [],
+      "declared": [],
+      "doing": [],
+      "observed": [
+        {
+          "category": "Camera",
+          "detail": "Images and video from the camera.",
+          "last_access": "[top] 2024-11-14 18:09:00.000 (-10s)",
+          "last_reject": null,
+          "mode": "allow",
+          "op": "CAMERA",
+          "package": "com.watch.one",
+          "uid": 10401
+        },
+        {
+          "category": "Microphone",
+          "detail": "Audio from the microphone.",
+          "last_access": "[top] 2024-11-14 18:09:30.000 (-1s)",
+          "last_reject": null,
+          "mode": "allow",
+          "op": "RECORD_AUDIO",
+          "package": "com.watch.one",
+          "uid": 10401
+        }
+      ],
+      "packages": [
+        "com.watch.one"
+      ],
+      "permitted_unseen": [],
+      "trackers": [],
+      "transmitted": {
+        "connections": [
+          {
+            "local": "10.0.0.5:45000",
+            "proto": "TCP",
+            "remote": "192.0.2.100:443",
+            "state": "ESTABLISHED",
+            "uid": 10401
+          },
+          {
+            "local": "[2001:db8::5]:45100",
+            "proto": "TCP",
+            "remote": "[2001:db8:ff::1]:443",
+            "state": "ESTABLISHED",
+            "uid": 10401
+          }
+        ],
+        "dns": [],
+        "network_permission": false,
+        "rx_bytes": 0,
+        "tx_bytes": 0
+      },
+      "uid": 10401,
+      "uid_packages": [
+        "com.watch.one"
+      ],
+      "versions": {}
+    },
+    {
+      "attempted": [
+        {
+          "category": "Precise location",
+          "detail": "GPS-level location of the device.",
+          "last_access": null,
+          "last_reject": "[bg] 2024-11-14 17:00:00.000 (-1h)",
+          "mode": "allow",
+          "op": "FINE_LOCATION",
+          "package": "com.watch.two",
+          "uid": 10402
+        },
+        {
+          "category": "Approximate location",
+          "detail": "Cell and Wi-Fi location of the device.",
+          "last_access": null,
+          "last_reject": "[bg] 2024-11-14 18:08:00.000 (-2m)",
+          "mode": "allow",
+          "op": "COARSE_LOCATION",
+          "package": "com.watch.two",
+          "uid": 10402
+        }
+      ],
+      "declared": [],
+      "doing": [
+        "On screen: com.watch.two/.Chat"
+      ],
+      "observed": [
+        {
+          "category": "Contacts",
+          "detail": "Names, phone numbers, and emails in the address book.",
+          "last_access": "+2m ago",
+          "last_reject": null,
+          "mode": "allow",
+          "op": "READ_CONTACTS",
+          "package": "com.watch.two",
+          "uid": 10402
+        }
+      ],
+      "packages": [
+        "com.watch.shared",
+        "com.watch.two"
+      ],
+      "permitted_unseen": [],
+      "trackers": [],
+      "transmitted": {
+        "connections": [
+          {
+            "local": "10.0.0.5:45001",
+            "proto": "TCP",
+            "remote": "192.0.2.101:443",
+            "state": "CLOSE_WAIT",
+            "uid": 10402
+          },
+          {
+            "local": "10.0.0.5:45200",
+            "proto": "UDP",
+            "remote": "192.0.2.104:443",
+            "state": "ESTABLISHED",
+            "uid": 10402
+          }
+        ],
+        "dns": [],
+        "network_permission": false,
+        "rx_bytes": 0,
+        "tx_bytes": 0
+      },
+      "uid": 10402,
+      "uid_packages": [
+        "com.watch.shared",
+        "com.watch.two"
+      ],
+      "versions": {}
+    },
+    {
+      "attempted": [
+        {
+          "category": "Camera",
+          "detail": "Images and video from the camera.",
+          "last_access": null,
+          "last_reject": null,
+          "mode": "deny",
+          "op": "CAMERA",
+          "package": "com.watch.three",
+          "uid": 10403
+        }
+      ],
+      "declared": [],
+      "doing": [
+        "On screen: com.watch.three/.Feed"
+      ],
+      "observed": [
+        {
+          "category": "Clipboard",
+          "detail": "Text and images currently copied on the device.",
+          "last_access": "+1s ago",
+          "last_reject": null,
+          "mode": "allow",
+          "op": "READ_CLIPBOARD",
+          "package": "com.watch.three",
+          "uid": 10403
+        }
+      ],
+      "packages": [
+        "com.watch.three"
+      ],
+      "permitted_unseen": [],
+      "trackers": [],
+      "transmitted": {
+        "connections": [
+          {
+            "local": "10.0.0.5:45002",
+            "proto": "TCP",
+            "remote": "192.0.2.102:80",
+            "state": "ESTABLISHED",
+            "uid": 10403
+          }
+        ],
+        "dns": [],
+        "network_permission": false,
+        "rx_bytes": 0,
+        "tx_bytes": 0
+      },
+      "uid": 10403,
+      "uid_packages": [
+        "com.watch.three"
+      ],
+      "versions": {}
+    },
+    {
+      "attempted": [],
+      "declared": [],
+      "doing": [],
+      "observed": [],
+      "packages": [],
+      "permitted_unseen": [],
+      "trackers": [],
+      "transmitted": {
+        "connections": [
+          {
+            "local": "10.0.0.5:45003",
+            "proto": "TCP",
+            "remote": "192.0.2.103:443",
+            "state": "ESTABLISHED",
+            "uid": 10499
+          }
+        ],
+        "dns": [],
+        "network_permission": false,
+        "rx_bytes": 0,
+        "tx_bytes": 0
+      },
+      "uid": 10499,
+      "uid_packages": [],
+      "versions": {}
+    }
+  ],
+  "sources": [
+    "dumpsys appops",
+    "dumpsys package",
+    "dumpsys activity",
+    "dumpsys jobscheduler",
+    "dumpsys power",
+    "dumpsys location",
+    "dumpsys sensorservice",
+    "dumpsys clipboard",
+    "dumpsys netstats",
+    "/proc/net/tcp",
+    "/proc/net/udp",
+    "logcat DNS"
+  ],
+  "unattributed_dns": []
+}

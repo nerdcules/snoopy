@@ -1,0 +1,9 @@
+Active sensors:
+Connection Number: 0
+  Operating Mode: NORMAL
+  com.ghost.sensorapp | WakeLockRefCount 0 | uid 10777 | pid 9001
+  Sensor: android.sensor.gyroscope_uncalibrated
+Connection Number: 1
+  Operating Mode: NORMAL
+  com.c.three | WakeLockRefCount 0 | uid 10504 | pid 9002
+  Sensor: android.sensor.rotation_vector

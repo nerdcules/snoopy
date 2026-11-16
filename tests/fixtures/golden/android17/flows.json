@@ -1,0 +1,1256 @@
+{
+  "apps": [
+    {
+      "doing": [],
+      "name": "com.sync.contacts",
+      "packages": [
+        "com.android.providers.contacts",
+        "com.sync.contacts"
+      ],
+      "rx_bytes": 4096,
+      "tx_bytes": 2048
+    },
+    {
+      "doing": [],
+      "name": "com.a.one, com.a.two",
+      "packages": [
+        "com.a.one",
+        "com.a.two",
+        "com.android.x"
+      ],
+      "rx_bytes": 999,
+      "tx_bytes": 111
+    },
+    {
+      "doing": [
+        "On screen: com.b.three/.MapActivity"
+      ],
+      "name": "com.b.five and 4 other packages",
+      "packages": [
+        "com.b.five",
+        "com.b.four",
+        "com.b.one",
+        "com.b.three",
+        "com.b.two"
+      ],
+      "rx_bytes": 0,
+      "tx_bytes": 0
+    },
+    {
+      "doing": [],
+      "name": "Android system (2 packages)",
+      "packages": [
+        "android",
+        "com.android.settings"
+      ],
+      "rx_bytes": 1048575,
+      "tx_bytes": 1048576
+    },
+    {
+      "doing": [],
+      "name": "com.android.shell",
+      "packages": [
+        "com.android.shell"
+      ],
+      "rx_bytes": 0,
+      "tx_bytes": 0
+    },
+    {
+      "doing": [
+        "Sensor android.sensor.rotation_vector (pid 9002)"
+      ],
+      "name": "com.c.one, com.c.three, com.c.two",
+      "packages": [
+        "com.c.one",
+        "com.c.three",
+        "com.c.two"
+      ],
+      "rx_bytes": 300,
+      "tx_bytes": 400
+    },
+    {
+      "doing": [],
+      "name": "uid 10778",
+      "packages": [],
+      "rx_bytes": 0,
+      "tx_bytes": 0
+    },
+    {
+      "doing": [],
+      "name": "Android system (2 packages)",
+      "packages": [
+        "com.android.networkstack",
+        "com.google.android.ext.services"
+      ],
+      "rx_bytes": 0,
+      "tx_bytes": 0
+    },
+    {
+      "doing": [
+        "Sensor android.sensor.gyroscope_uncalibrated (pid 9001)"
+      ],
+      "name": "uid 10777",
+      "packages": [],
+      "rx_bytes": 50,
+      "tx_bytes": 60
+    },
+    {
+      "doing": [],
+      "name": "uid 0",
+      "packages": [],
+      "rx_bytes": 100,
+      "tx_bytes": 100
+    },
+    {
+      "doing": [],
+      "name": "uid 20001",
+      "packages": [],
+      "rx_bytes": 7,
+      "tx_bytes": 7
+    }
+  ],
+  "flows": [
+    {
+      "destination": "com.sync.contacts",
+      "detail": "last access [bg-s] 2026-11-14 18:00:00.000 (-12m0s0ms). Account names on the device.",
+      "information": "Account names on the device.",
+      "kind": "collection",
+      "source": "Accounts",
+      "via": "read"
+    },
+    {
+      "destination": "com.android.settings",
+      "detail": "last access [pers-s] 2026-11-14 18:09:00.000 (-3m0s0ms). Identity of connected Bluetooth devices.",
+      "information": "Identity of connected Bluetooth devices.",
+      "kind": "collection",
+      "source": "Bluetooth connections",
+      "via": "read"
+    },
+    {
+      "destination": "com.a.one",
+      "detail": "last access [top-s] 2026-11-14 18:11:00.000 (-1m0s0ms). Images and video from the camera.",
+      "information": "Images and video from the camera.",
+      "kind": "collection",
+      "source": "Camera",
+      "via": "read"
+    },
+    {
+      "destination": "com.android.providers.contacts",
+      "detail": "last access [pers-s] 2026-11-14 18:10:00.000 (-2m0s0ms). Names, phone numbers, and emails in the address book.",
+      "information": "Names, phone numbers, and emails in the address book.",
+      "kind": "collection",
+      "source": "Contacts",
+      "via": "read"
+    },
+    {
+      "destination": "com.sync.contacts",
+      "detail": "last access [bg-s] 2026-11-14 18:00:00.000 (-12m0s0ms) duration=+3s. Names, phone numbers, and emails in the address book.",
+      "information": "Names, phone numbers, and emails in the address book.",
+      "kind": "collection",
+      "source": "Contacts",
+      "via": "read"
+    },
+    {
+      "destination": "com.a.two",
+      "detail": "Audio from the microphone.",
+      "information": "Audio from the microphone.",
+      "kind": "collection",
+      "source": "Microphone",
+      "via": "denied"
+    },
+    {
+      "destination": "com.c.two",
+      "detail": "last access [top-s] 2026-11-14 18:09:00.000 (-3m0s0ms). Audio from the microphone.",
+      "information": "Audio from the microphone.",
+      "kind": "collection",
+      "source": "Microphone",
+      "via": "read"
+    },
+    {
+      "destination": "com.android.shell",
+      "detail": "last access [top-s] 2026-11-14 18:12:00.000 (-1s0ms). Call state and, on older Android versions, hardware identifiers.",
+      "information": "Call state and, on older Android versions, hardware identifiers.",
+      "kind": "collection",
+      "source": "Phone identity",
+      "via": "read"
+    },
+    {
+      "destination": "com.b.three",
+      "detail": "last access [top-s] 2026-11-14 18:11:30.000 (-30s0ms). GPS-level location of the device.",
+      "information": "GPS-level location of the device.",
+      "kind": "collection",
+      "source": "Precise location",
+      "via": "read"
+    },
+    {
+      "destination": "com.b.three",
+      "detail": "last reject [top-s] 2026-11-14 18:11:30.000 (-30s0ms). Text messages the app sends.",
+      "information": "Text messages the app sends.",
+      "kind": "collection",
+      "source": "SMS sending",
+      "via": "denied"
+    },
+    {
+      "destination": "uid 10777",
+      "detail": "Sensor android.sensor.gyroscope_uncalibrated (pid 9001)",
+      "information": "Sensor reading",
+      "kind": "collection",
+      "source": "android.sensor.gyroscope_uncalibrated",
+      "via": "read"
+    },
+    {
+      "destination": "com.c.one, com.c.three, com.c.two",
+      "detail": "Sensor android.sensor.rotation_vector (pid 9002)",
+      "information": "Sensor reading",
+      "kind": "collection",
+      "source": "android.sensor.rotation_vector",
+      "via": "read"
+    },
+    {
+      "destination": "com.android.shell",
+      "detail": "",
+      "information": "Granted, with no use in this sample",
+      "kind": "declared",
+      "source": "App usage",
+      "via": "granted"
+    },
+    {
+      "destination": "com.a.two",
+      "detail": "",
+      "information": "Granted, with no use in this sample",
+      "kind": "declared",
+      "source": "Calendar",
+      "via": "granted"
+    },
+    {
+      "destination": "com.android.providers.contacts",
+      "detail": "",
+      "information": "Granted, with no use in this sample",
+      "kind": "declared",
+      "source": "Call history",
+      "via": "granted"
+    },
+    {
+      "destination": "Mixpanel",
+      "detail": "com.mixpanel",
+      "information": "Product analytics events and device properties.",
+      "kind": "tracker",
+      "source": "com.a.one",
+      "via": "SDK in the app"
+    },
+    {
+      "destination": "Kochava",
+      "detail": "com.kochava",
+      "information": "Attribution identifiers and IP address.",
+      "kind": "tracker",
+      "source": "com.b.three",
+      "via": "SDK in the app"
+    },
+    {
+      "destination": "Segment",
+      "detail": "com.segment.analytics",
+      "information": "Event routing and device properties.",
+      "kind": "tracker",
+      "source": "com.b.three",
+      "via": "SDK in the app"
+    },
+    {
+      "destination": "Adobe Marketing",
+      "detail": "com.adobe.marketing",
+      "information": "Engagement events and device properties.",
+      "kind": "tracker",
+      "source": "com.c.one",
+      "via": "SDK in the app"
+    },
+    {
+      "count": 1,
+      "destination": "10.1.1.1:67",
+      "detail": "",
+      "information": "UDP ESTABLISHED",
+      "kind": "transmission",
+      "source": "Android system (2 packages)",
+      "via": "10.1.1.5:68"
+    },
+    {
+      "count": 1,
+      "destination": "192.0.2.83:443",
+      "detail": "",
+      "information": "TCP ESTABLISHED",
+      "kind": "transmission",
+      "source": "Android system (2 packages)",
+      "via": "10.1.1.5:50004"
+    },
+    {
+      "count": 2,
+      "destination": "192.0.2.90:443",
+      "detail": "",
+      "information": "TCP ESTABLISHED",
+      "kind": "transmission",
+      "source": "Android system (2 packages)",
+      "via": "10.1.1.5:50100"
+    },
+    {
+      "count": 1,
+      "destination": "192.0.2.91:25",
+      "detail": "",
+      "information": "TCP ESTABLISHED",
+      "kind": "transmission",
+      "source": "Android system (2 packages)",
+      "via": "10.1.1.5:50102"
+    },
+    {
+      "count": 1,
+      "destination": "192.0.2.92:443",
+      "detail": "",
+      "information": "QUIC",
+      "kind": "transmission",
+      "source": "Android system (2 packages)",
+      "via": "10.1.1.5:51000"
+    },
+    {
+      "count": 1,
+      "destination": "e.crashlytics.com",
+      "detail": "Known tracker: Firebase Crashlytics",
+      "information": "DNS lookup",
+      "kind": "transmission",
+      "source": "Android system (2 packages)",
+      "via": "Firebase Crashlytics"
+    },
+    {
+      "count": 2,
+      "destination": "t.appsflyer.com",
+      "detail": "Known tracker: AppsFlyer",
+      "information": "DNS lookup",
+      "kind": "transmission",
+      "source": "Unknown app",
+      "via": "AppsFlyer"
+    },
+    {
+      "count": 1,
+      "destination": "192.0.2.81:443",
+      "detail": "",
+      "information": "TCP ESTABLISHED",
+      "kind": "transmission",
+      "source": "com.a.one, com.a.two",
+      "via": "10.1.1.5:50002"
+    },
+    {
+      "count": 1,
+      "destination": "api.mixpanel.com",
+      "detail": "Known tracker: Mixpanel",
+      "information": "DNS lookup",
+      "kind": "transmission",
+      "source": "com.a.one, com.a.two",
+      "via": "Mixpanel"
+    },
+    {
+      "count": 1,
+      "destination": "adb.example.org",
+      "detail": "",
+      "information": "DNS lookup",
+      "kind": "transmission",
+      "source": "com.android.shell",
+      "via": ""
+    },
+    {
+      "count": 1,
+      "destination": "192.0.2.82:80",
+      "detail": "",
+      "information": "TCP ESTABLISHED",
+      "kind": "transmission",
+      "source": "com.b.five and 4 other packages",
+      "via": "10.1.1.5:50003"
+    },
+    {
+      "count": 1,
+      "destination": "api.segment.io",
+      "detail": "Known tracker: Segment",
+      "information": "DNS lookup",
+      "kind": "transmission",
+      "source": "com.b.five and 4 other packages",
+      "via": "Segment"
+    },
+    {
+      "count": 1,
+      "destination": "cdn.segment.com",
+      "detail": "Known tracker: Segment",
+      "information": "DNS lookup",
+      "kind": "transmission",
+      "source": "com.b.five and 4 other packages",
+      "via": "Segment"
+    },
+    {
+      "count": 1,
+      "destination": "bam.nr-data.net",
+      "detail": "Known tracker: New Relic",
+      "information": "DNS lookup",
+      "kind": "transmission",
+      "source": "com.c.one, com.c.three, com.c.two",
+      "via": "New Relic"
+    },
+    {
+      "count": 1,
+      "destination": "dpm.demdex.net",
+      "detail": "Known tracker: Adobe Audience Manager",
+      "information": "DNS lookup",
+      "kind": "transmission",
+      "source": "com.c.one, com.c.three, com.c.two",
+      "via": "Adobe Audience Manager"
+    },
+    {
+      "count": 1,
+      "destination": "metrics.omtrdc.net",
+      "detail": "Known tracker: Adobe Analytics",
+      "information": "DNS lookup",
+      "kind": "transmission",
+      "source": "com.c.one, com.c.three, com.c.two",
+      "via": "Adobe Analytics"
+    },
+    {
+      "count": 1,
+      "destination": "192.0.2.80:443",
+      "detail": "",
+      "information": "TCP ESTABLISHED",
+      "kind": "transmission",
+      "source": "com.sync.contacts",
+      "via": "10.1.1.5:50001"
+    },
+    {
+      "count": 1,
+      "destination": "192.0.2.84:443",
+      "detail": "",
+      "information": "TCP ESTABLISHED",
+      "kind": "transmission",
+      "source": "uid 0",
+      "via": "10.1.1.5:50005"
+    },
+    {
+      "count": 1,
+      "destination": "connectivitycheck.gstatic.com",
+      "detail": "",
+      "information": "DNS lookup",
+      "kind": "transmission",
+      "source": "uid 0",
+      "via": ""
+    },
+    {
+      "count": 1,
+      "destination": "192.0.2.85:443",
+      "detail": "",
+      "information": "TCP ESTABLISHED",
+      "kind": "transmission",
+      "source": "uid 10777",
+      "via": "10.1.1.5:50006"
+    },
+    {
+      "count": 1,
+      "destination": "unknown-owner.example.com",
+      "detail": "",
+      "information": "DNS lookup",
+      "kind": "transmission",
+      "source": "uid 10777",
+      "via": ""
+    },
+    {
+      "count": 1,
+      "destination": "192.0.2.86:443",
+      "detail": "",
+      "information": "TCP ESTABLISHED",
+      "kind": "transmission",
+      "source": "uid 10778",
+      "via": "10.1.1.5:50007"
+    },
+    {
+      "count": 1,
+      "destination": "203.0.113.10:8080",
+      "detail": "",
+      "information": "TCP ESTABLISHED",
+      "kind": "transmission",
+      "source": "uid 10778",
+      "via": "10.1.1.5:52009"
+    },
+    {
+      "count": 1,
+      "destination": "203.0.113.11:443",
+      "detail": "",
+      "information": "TCP ESTABLISHED",
+      "kind": "transmission",
+      "source": "uid 10778",
+      "via": "10.1.1.5:52010"
+    },
+    {
+      "count": 1,
+      "destination": "203.0.113.12:443",
+      "detail": "",
+      "information": "TCP ESTABLISHED",
+      "kind": "transmission",
+      "source": "uid 10778",
+      "via": "10.1.1.5:52011"
+    },
+    {
+      "count": 1,
+      "destination": "203.0.113.13:8080",
+      "detail": "",
+      "information": "TCP ESTABLISHED",
+      "kind": "transmission",
+      "source": "uid 10778",
+      "via": "10.1.1.5:52012"
+    },
+    {
+      "count": 1,
+      "destination": "203.0.113.14:443",
+      "detail": "",
+      "information": "TCP ESTABLISHED",
+      "kind": "transmission",
+      "source": "uid 10778",
+      "via": "10.1.1.5:52013"
+    },
+    {
+      "count": 1,
+      "destination": "203.0.113.15:443",
+      "detail": "",
+      "information": "TCP ESTABLISHED",
+      "kind": "transmission",
+      "source": "uid 10778",
+      "via": "10.1.1.5:52014"
+    },
+    {
+      "count": 1,
+      "destination": "203.0.113.16:8080",
+      "detail": "",
+      "information": "TCP ESTABLISHED",
+      "kind": "transmission",
+      "source": "uid 10778",
+      "via": "10.1.1.5:52015"
+    },
+    {
+      "count": 1,
+      "destination": "203.0.113.17:443",
+      "detail": "",
+      "information": "TCP ESTABLISHED",
+      "kind": "transmission",
+      "source": "uid 10778",
+      "via": "10.1.1.5:52016"
+    },
+    {
+      "count": 1,
+      "destination": "203.0.113.18:443",
+      "detail": "",
+      "information": "TCP ESTABLISHED",
+      "kind": "transmission",
+      "source": "uid 10778",
+      "via": "10.1.1.5:52017"
+    },
+    {
+      "count": 1,
+      "destination": "203.0.113.19:8080",
+      "detail": "",
+      "information": "TCP ESTABLISHED",
+      "kind": "transmission",
+      "source": "uid 10778",
+      "via": "10.1.1.5:52018"
+    },
+    {
+      "count": 1,
+      "destination": "203.0.113.1:8080",
+      "detail": "",
+      "information": "TCP ESTABLISHED",
+      "kind": "transmission",
+      "source": "uid 10778",
+      "via": "10.1.1.5:52000"
+    },
+    {
+      "count": 1,
+      "destination": "203.0.113.20:443",
+      "detail": "",
+      "information": "TCP ESTABLISHED",
+      "kind": "transmission",
+      "source": "uid 10778",
+      "via": "10.1.1.5:52019"
+    },
+    {
+      "count": 1,
+      "destination": "203.0.113.21:443",
+      "detail": "",
+      "information": "TCP ESTABLISHED",
+      "kind": "transmission",
+      "source": "uid 10778",
+      "via": "10.1.1.5:52020"
+    },
+    {
+      "count": 1,
+      "destination": "203.0.113.22:8080",
+      "detail": "",
+      "information": "TCP ESTABLISHED",
+      "kind": "transmission",
+      "source": "uid 10778",
+      "via": "10.1.1.5:52021"
+    },
+    {
+      "count": 1,
+      "destination": "203.0.113.23:443",
+      "detail": "",
+      "information": "TCP ESTABLISHED",
+      "kind": "transmission",
+      "source": "uid 10778",
+      "via": "10.1.1.5:52022"
+    },
+    {
+      "count": 1,
+      "destination": "203.0.113.24:443",
+      "detail": "",
+      "information": "TCP ESTABLISHED",
+      "kind": "transmission",
+      "source": "uid 10778",
+      "via": "10.1.1.5:52023"
+    },
+    {
+      "count": 1,
+      "destination": "203.0.113.25:8080",
+      "detail": "",
+      "information": "TCP ESTABLISHED",
+      "kind": "transmission",
+      "source": "uid 10778",
+      "via": "10.1.1.5:52024"
+    },
+    {
+      "count": 1,
+      "destination": "203.0.113.26:443",
+      "detail": "",
+      "information": "TCP ESTABLISHED",
+      "kind": "transmission",
+      "source": "uid 10778",
+      "via": "10.1.1.5:52025"
+    },
+    {
+      "count": 1,
+      "destination": "203.0.113.27:443",
+      "detail": "",
+      "information": "TCP ESTABLISHED",
+      "kind": "transmission",
+      "source": "uid 10778",
+      "via": "10.1.1.5:52026"
+    },
+    {
+      "count": 1,
+      "destination": "203.0.113.28:8080",
+      "detail": "",
+      "information": "TCP ESTABLISHED",
+      "kind": "transmission",
+      "source": "uid 10778",
+      "via": "10.1.1.5:52027"
+    },
+    {
+      "count": 1,
+      "destination": "203.0.113.29:443",
+      "detail": "",
+      "information": "TCP ESTABLISHED",
+      "kind": "transmission",
+      "source": "uid 10778",
+      "via": "10.1.1.5:52028"
+    },
+    {
+      "count": 1,
+      "destination": "203.0.113.2:443",
+      "detail": "",
+      "information": "TCP ESTABLISHED",
+      "kind": "transmission",
+      "source": "uid 10778",
+      "via": "10.1.1.5:52001"
+    },
+    {
+      "count": 1,
+      "destination": "203.0.113.30:443",
+      "detail": "",
+      "information": "TCP ESTABLISHED",
+      "kind": "transmission",
+      "source": "uid 10778",
+      "via": "10.1.1.5:52029"
+    },
+    {
+      "count": 1,
+      "destination": "203.0.113.31:8080",
+      "detail": "",
+      "information": "TCP ESTABLISHED",
+      "kind": "transmission",
+      "source": "uid 10778",
+      "via": "10.1.1.5:52030"
+    },
+    {
+      "count": 1,
+      "destination": "203.0.113.32:443",
+      "detail": "",
+      "information": "TCP ESTABLISHED",
+      "kind": "transmission",
+      "source": "uid 10778",
+      "via": "10.1.1.5:52031"
+    },
+    {
+      "count": 1,
+      "destination": "203.0.113.33:443",
+      "detail": "",
+      "information": "TCP ESTABLISHED",
+      "kind": "transmission",
+      "source": "uid 10778",
+      "via": "10.1.1.5:52032"
+    },
+    {
+      "count": 1,
+      "destination": "203.0.113.34:8080",
+      "detail": "",
+      "information": "TCP ESTABLISHED",
+      "kind": "transmission",
+      "source": "uid 10778",
+      "via": "10.1.1.5:52033"
+    },
+    {
+      "count": 1,
+      "destination": "203.0.113.35:443",
+      "detail": "",
+      "information": "TCP ESTABLISHED",
+      "kind": "transmission",
+      "source": "uid 10778",
+      "via": "10.1.1.5:52034"
+    },
+    {
+      "count": 1,
+      "destination": "203.0.113.36:443",
+      "detail": "",
+      "information": "TCP ESTABLISHED",
+      "kind": "transmission",
+      "source": "uid 10778",
+      "via": "10.1.1.5:52035"
+    },
+    {
+      "count": 1,
+      "destination": "203.0.113.37:8080",
+      "detail": "",
+      "information": "TCP ESTABLISHED",
+      "kind": "transmission",
+      "source": "uid 10778",
+      "via": "10.1.1.5:52036"
+    },
+    {
+      "count": 1,
+      "destination": "203.0.113.38:443",
+      "detail": "",
+      "information": "TCP ESTABLISHED",
+      "kind": "transmission",
+      "source": "uid 10778",
+      "via": "10.1.1.5:52037"
+    },
+    {
+      "count": 1,
+      "destination": "203.0.113.39:443",
+      "detail": "",
+      "information": "TCP ESTABLISHED",
+      "kind": "transmission",
+      "source": "uid 10778",
+      "via": "10.1.1.5:52038"
+    },
+    {
+      "count": 1,
+      "destination": "203.0.113.3:443",
+      "detail": "",
+      "information": "TCP ESTABLISHED",
+      "kind": "transmission",
+      "source": "uid 10778",
+      "via": "10.1.1.5:52002"
+    },
+    {
+      "count": 1,
+      "destination": "203.0.113.40:8080",
+      "detail": "",
+      "information": "TCP ESTABLISHED",
+      "kind": "transmission",
+      "source": "uid 10778",
+      "via": "10.1.1.5:52039"
+    },
+    {
+      "count": 1,
+      "destination": "203.0.113.41:443",
+      "detail": "",
+      "information": "TCP ESTABLISHED",
+      "kind": "transmission",
+      "source": "uid 10778",
+      "via": "10.1.1.5:52040"
+    },
+    {
+      "count": 1,
+      "destination": "203.0.113.42:443",
+      "detail": "",
+      "information": "TCP ESTABLISHED",
+      "kind": "transmission",
+      "source": "uid 10778",
+      "via": "10.1.1.5:52041"
+    },
+    {
+      "count": 1,
+      "destination": "203.0.113.43:8080",
+      "detail": "",
+      "information": "TCP ESTABLISHED",
+      "kind": "transmission",
+      "source": "uid 10778",
+      "via": "10.1.1.5:52042"
+    },
+    {
+      "count": 1,
+      "destination": "203.0.113.44:443",
+      "detail": "",
+      "information": "TCP ESTABLISHED",
+      "kind": "transmission",
+      "source": "uid 10778",
+      "via": "10.1.1.5:52043"
+    },
+    {
+      "count": 1,
+      "destination": "203.0.113.45:443",
+      "detail": "",
+      "information": "TCP ESTABLISHED",
+      "kind": "transmission",
+      "source": "uid 10778",
+      "via": "10.1.1.5:52044"
+    },
+    {
+      "count": 1,
+      "destination": "203.0.113.4:8080",
+      "detail": "",
+      "information": "TCP ESTABLISHED",
+      "kind": "transmission",
+      "source": "uid 10778",
+      "via": "10.1.1.5:52003"
+    },
+    {
+      "count": 1,
+      "destination": "203.0.113.5:443",
+      "detail": "",
+      "information": "TCP ESTABLISHED",
+      "kind": "transmission",
+      "source": "uid 10778",
+      "via": "10.1.1.5:52004"
+    },
+    {
+      "count": 1,
+      "destination": "203.0.113.6:443",
+      "detail": "",
+      "information": "TCP ESTABLISHED",
+      "kind": "transmission",
+      "source": "uid 10778",
+      "via": "10.1.1.5:52005"
+    },
+    {
+      "count": 1,
+      "destination": "203.0.113.7:8080",
+      "detail": "",
+      "information": "TCP ESTABLISHED",
+      "kind": "transmission",
+      "source": "uid 10778",
+      "via": "10.1.1.5:52006"
+    },
+    {
+      "count": 1,
+      "destination": "203.0.113.8:443",
+      "detail": "",
+      "information": "TCP ESTABLISHED",
+      "kind": "transmission",
+      "source": "uid 10778",
+      "via": "10.1.1.5:52007"
+    },
+    {
+      "count": 1,
+      "destination": "203.0.113.9:443",
+      "detail": "",
+      "information": "TCP ESTABLISHED",
+      "kind": "transmission",
+      "source": "uid 10778",
+      "via": "10.1.1.5:52008"
+    },
+    {
+      "count": 1,
+      "destination": "n00.bulk.example.com",
+      "detail": "",
+      "information": "DNS lookup",
+      "kind": "transmission",
+      "source": "uid 10778",
+      "via": ""
+    },
+    {
+      "count": 1,
+      "destination": "n01.bulk.example.com",
+      "detail": "",
+      "information": "DNS lookup",
+      "kind": "transmission",
+      "source": "uid 10778",
+      "via": ""
+    },
+    {
+      "count": 1,
+      "destination": "n02.bulk.example.com",
+      "detail": "",
+      "information": "DNS lookup",
+      "kind": "transmission",
+      "source": "uid 10778",
+      "via": ""
+    },
+    {
+      "count": 1,
+      "destination": "n03.bulk.example.com",
+      "detail": "",
+      "information": "DNS lookup",
+      "kind": "transmission",
+      "source": "uid 10778",
+      "via": ""
+    },
+    {
+      "count": 1,
+      "destination": "n04.bulk.example.com",
+      "detail": "",
+      "information": "DNS lookup",
+      "kind": "transmission",
+      "source": "uid 10778",
+      "via": ""
+    },
+    {
+      "count": 1,
+      "destination": "n05.bulk.example.com",
+      "detail": "",
+      "information": "DNS lookup",
+      "kind": "transmission",
+      "source": "uid 10778",
+      "via": ""
+    },
+    {
+      "count": 1,
+      "destination": "n06.bulk.example.com",
+      "detail": "",
+      "information": "DNS lookup",
+      "kind": "transmission",
+      "source": "uid 10778",
+      "via": ""
+    },
+    {
+      "count": 1,
+      "destination": "n07.bulk.example.com",
+      "detail": "",
+      "information": "DNS lookup",
+      "kind": "transmission",
+      "source": "uid 10778",
+      "via": ""
+    },
+    {
+      "count": 1,
+      "destination": "n08.bulk.example.com",
+      "detail": "",
+      "information": "DNS lookup",
+      "kind": "transmission",
+      "source": "uid 10778",
+      "via": ""
+    },
+    {
+      "count": 1,
+      "destination": "n09.bulk.example.com",
+      "detail": "",
+      "information": "DNS lookup",
+      "kind": "transmission",
+      "source": "uid 10778",
+      "via": ""
+    },
+    {
+      "count": 1,
+      "destination": "n10.bulk.example.com",
+      "detail": "",
+      "information": "DNS lookup",
+      "kind": "transmission",
+      "source": "uid 10778",
+      "via": ""
+    },
+    {
+      "count": 1,
+      "destination": "n11.bulk.example.com",
+      "detail": "",
+      "information": "DNS lookup",
+      "kind": "transmission",
+      "source": "uid 10778",
+      "via": ""
+    },
+    {
+      "count": 1,
+      "destination": "n12.bulk.example.com",
+      "detail": "",
+      "information": "DNS lookup",
+      "kind": "transmission",
+      "source": "uid 10778",
+      "via": ""
+    },
+    {
+      "count": 1,
+      "destination": "n13.bulk.example.com",
+      "detail": "",
+      "information": "DNS lookup",
+      "kind": "transmission",
+      "source": "uid 10778",
+      "via": ""
+    },
+    {
+      "count": 1,
+      "destination": "n14.bulk.example.com",
+      "detail": "",
+      "information": "DNS lookup",
+      "kind": "transmission",
+      "source": "uid 10778",
+      "via": ""
+    },
+    {
+      "count": 1,
+      "destination": "n15.bulk.example.com",
+      "detail": "",
+      "information": "DNS lookup",
+      "kind": "transmission",
+      "source": "uid 10778",
+      "via": ""
+    },
+    {
+      "count": 1,
+      "destination": "n16.bulk.example.com",
+      "detail": "",
+      "information": "DNS lookup",
+      "kind": "transmission",
+      "source": "uid 10778",
+      "via": ""
+    },
+    {
+      "count": 1,
+      "destination": "n17.bulk.example.com",
+      "detail": "",
+      "information": "DNS lookup",
+      "kind": "transmission",
+      "source": "uid 10778",
+      "via": ""
+    },
+    {
+      "count": 1,
+      "destination": "n18.bulk.example.com",
+      "detail": "",
+      "information": "DNS lookup",
+      "kind": "transmission",
+      "source": "uid 10778",
+      "via": ""
+    },
+    {
+      "count": 1,
+      "destination": "n19.bulk.example.com",
+      "detail": "",
+      "information": "DNS lookup",
+      "kind": "transmission",
+      "source": "uid 10778",
+      "via": ""
+    },
+    {
+      "count": 1,
+      "destination": "n20.bulk.example.com",
+      "detail": "",
+      "information": "DNS lookup",
+      "kind": "transmission",
+      "source": "uid 10778",
+      "via": ""
+    },
+    {
+      "count": 1,
+      "destination": "n21.bulk.example.com",
+      "detail": "",
+      "information": "DNS lookup",
+      "kind": "transmission",
+      "source": "uid 10778",
+      "via": ""
+    },
+    {
+      "count": 1,
+      "destination": "n22.bulk.example.com",
+      "detail": "",
+      "information": "DNS lookup",
+      "kind": "transmission",
+      "source": "uid 10778",
+      "via": ""
+    },
+    {
+      "count": 1,
+      "destination": "n23.bulk.example.com",
+      "detail": "",
+      "information": "DNS lookup",
+      "kind": "transmission",
+      "source": "uid 10778",
+      "via": ""
+    },
+    {
+      "count": 1,
+      "destination": "n24.bulk.example.com",
+      "detail": "",
+      "information": "DNS lookup",
+      "kind": "transmission",
+      "source": "uid 10778",
+      "via": ""
+    },
+    {
+      "count": 1,
+      "destination": "n25.bulk.example.com",
+      "detail": "",
+      "information": "DNS lookup",
+      "kind": "transmission",
+      "source": "uid 10778",
+      "via": ""
+    },
+    {
+      "count": 1,
+      "destination": "n26.bulk.example.com",
+      "detail": "",
+      "information": "DNS lookup",
+      "kind": "transmission",
+      "source": "uid 10778",
+      "via": ""
+    },
+    {
+      "count": 1,
+      "destination": "n27.bulk.example.com",
+      "detail": "",
+      "information": "DNS lookup",
+      "kind": "transmission",
+      "source": "uid 10778",
+      "via": ""
+    },
+    {
+      "count": 1,
+      "destination": "n28.bulk.example.com",
+      "detail": "",
+      "information": "DNS lookup",
+      "kind": "transmission",
+      "source": "uid 10778",
+      "via": ""
+    },
+    {
+      "count": 1,
+      "destination": "n29.bulk.example.com",
+      "detail": "",
+      "information": "DNS lookup",
+      "kind": "transmission",
+      "source": "uid 10778",
+      "via": ""
+    },
+    {
+      "count": 1,
+      "destination": "n30.bulk.example.com",
+      "detail": "",
+      "information": "DNS lookup",
+      "kind": "transmission",
+      "source": "uid 10778",
+      "via": ""
+    },
+    {
+      "count": 1,
+      "destination": "n31.bulk.example.com",
+      "detail": "",
+      "information": "DNS lookup",
+      "kind": "transmission",
+      "source": "uid 10778",
+      "via": ""
+    },
+    {
+      "count": 1,
+      "destination": "n32.bulk.example.com",
+      "detail": "",
+      "information": "DNS lookup",
+      "kind": "transmission",
+      "source": "uid 10778",
+      "via": ""
+    },
+    {
+      "count": 1,
+      "destination": "n33.bulk.example.com",
+      "detail": "",
+      "information": "DNS lookup",
+      "kind": "transmission",
+      "source": "uid 10778",
+      "via": ""
+    },
+    {
+      "count": 1,
+      "destination": "n34.bulk.example.com",
+      "detail": "",
+      "information": "DNS lookup",
+      "kind": "transmission",
+      "source": "uid 10778",
+      "via": ""
+    },
+    {
+      "count": 1,
+      "destination": "n35.bulk.example.com",
+      "detail": "",
+      "information": "DNS lookup",
+      "kind": "transmission",
+      "source": "uid 10778",
+      "via": ""
+    },
+    {
+      "count": 1,
+      "destination": "n36.bulk.example.com",
+      "detail": "",
+      "information": "DNS lookup",
+      "kind": "transmission",
+      "source": "uid 10778",
+      "via": ""
+    },
+    {
+      "count": 1,
+      "destination": "n37.bulk.example.com",
+      "detail": "",
+      "information": "DNS lookup",
+      "kind": "transmission",
+      "source": "uid 10778",
+      "via": ""
+    },
+    {
+      "count": 1,
+      "destination": "n38.bulk.example.com",
+      "detail": "",
+      "information": "DNS lookup",
+      "kind": "transmission",
+      "source": "uid 10778",
+      "via": ""
+    },
+    {
+      "count": 1,
+      "destination": "n39.bulk.example.com",
+      "detail": "",
+      "information": "DNS lookup",
+      "kind": "transmission",
+      "source": "uid 10778",
+      "via": ""
+    },
+    {
+      "count": 1,
+      "destination": "n40.bulk.example.com",
+      "detail": "",
+      "information": "DNS lookup",
+      "kind": "transmission",
+      "source": "uid 10778",
+      "via": ""
+    },
+    {
+      "count": 1,
+      "destination": "n41.bulk.example.com",
+      "detail": "",
+      "information": "DNS lookup",
+      "kind": "transmission",
+      "source": "uid 10778",
+      "via": ""
+    },
+    {
+      "count": 1,
+      "destination": "n42.bulk.example.com",
+      "detail": "",
+      "information": "DNS lookup",
+      "kind": "transmission",
+      "source": "uid 10778",
+      "via": ""
+    }
+  ]
+}

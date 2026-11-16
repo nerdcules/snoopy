@@ -1,0 +1,2 @@
+CLIPBOARD SERVICE (dumpsys clipboard)
+    mPrimaryClipOwner=com.not.installed

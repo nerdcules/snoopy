@@ -1,0 +1,421 @@
+Android diagnoser
+Device: Fixture Phone 14, Android 14 (SDK 34), serial FIXTURE14
+Captured: 2024-11-14T18:05:00Z
+Sources: dumpsys appops, dumpsys package, dumpsys activity, dumpsys jobscheduler, dumpsys power, dumpsys location, dumpsys sensorservice, dumpsys clipboard, dumpsys netstats, /proc/net/tcp, /proc/net/udp, logcat DNS
+
+Network sockets belong to a Linux uid. On Android that uid is usually one app.
+Transmission shown here is destination, size, and DNS name. HTTPS message bodies stay encrypted.
+Tracker SDK rows are components shipped inside the app and the kind of data that SDK is built to collect.
+
+## What each app is doing, tracking, and transmitting
+
+### uid 10304  com.whatsapp
+Version: com.whatsapp 2.24.22.79
+Doing:
+  - On screen: com.whatsapp/.HomeActivity
+  - Process com.whatsapp pid 5100 (on screen)
+  - Service com.whatsapp/.messaging.MessageService
+  - Wakelock Doze (DOZE_WAKE_LOCK)
+  - Owns the current clipboard contents
+Information tracked:
+  Observed by the OS:
+    - Camera — CAMERA, allowed, last access [top-s] 2024-11-14 18:04:55.000 (-5s0ms). Images and video from the camera.
+    - Microphone — RECORD_AUDIO, allowed, last access [top-s] 2024-11-14 17:25:00.000 (-40m0s0ms). Audio from the microphone.
+    - Contacts — READ_CONTACTS, allowed, last access [top-s] 2024-11-14 18:04:00.000 (-1m0s0ms). Names, phone numbers, and emails in the address book.
+    - Contacts — WRITE_CONTACTS, allowed, last access [top-s] 2024-11-14 18:03:00.000 (-2m0s0ms). Changes to the address book.
+    - Call history — READ_CALL_LOG, allowed, last access [top-s] 2024-11-14 18:00:00.000 (-5m0s0ms). Numbers called and received, and when.
+    - SMS messages — READ_SMS, allowed, last access [top-s] 2024-11-14 18:00:00.000 (-5m0s0ms). Text message contents.
+    - Clipboard — READ_CLIPBOARD, allowed, last access [top-s] 2024-11-14 18:04:58.000 (-2s0ms). Text and images currently copied on the device.
+    - Phone number — READ_PHONE_NUMBERS, allowed, last access [top-s] 2024-11-14 18:00:00.000 (-5m0s0ms). The device phone number.
+    - Photos — READ_MEDIA_IMAGES, allowed, last access [top-s] 2024-11-14 17:05:00.000 (-1h0m0s0ms). Images in shared storage.
+    - Videos — READ_MEDIA_VIDEO, allowed, last access [top-s] 2024-11-14 17:04:00.000 (-1h1m0s0ms). Videos in shared storage.
+    - Audio files — READ_MEDIA_AUDIO, allowed, last access [top-s] 2024-11-14 17:03:00.000 (-1h2m0s0ms). Audio files in shared storage.
+    - Photo locations — ACCESS_MEDIA_LOCATION, allowed, last access [top-s] 2024-11-14 17:01:00.000 (-1h4m0s0ms). Location tags embedded in photos.
+    - Files — READ_EXTERNAL_STORAGE, allowed, last access [top-s] 2024-11-14 17:02:00.000 (-1h3m0s0ms). Shared files on the device.
+  Granted permissions:
+    - Camera — android.permission.CAMERA. Images and video from the camera.
+    - Microphone — android.permission.RECORD_AUDIO. Audio from the microphone.
+    - Contacts — android.permission.READ_CONTACTS. Names, phone numbers, and emails in the address book.
+    - Contacts — android.permission.WRITE_CONTACTS. Changes to the address book.
+    - Phone number — android.permission.READ_PHONE_NUMBERS. The device phone number.
+    - Accounts — android.permission.GET_ACCOUNTS. Account names on the device.
+    - Photos — android.permission.READ_MEDIA_IMAGES. Images in shared storage.
+    - Videos — android.permission.READ_MEDIA_VIDEO. Videos in shared storage.
+  Tracker components shipped in the app:
+    - Facebook App Events (com.facebook.appevents). App events, device info, and advertising ID.
+    - Facebook Audience Network (com.facebook.ads). Advertising ID and ad interactions.
+    - Facebook Login (com.facebook.FacebookActivity). Facebook identity when the user signs in, plus app events.
+Transmitted:
+  Sent 7.5 MB, received 51.0 MB.
+  Network permission: granted.
+  - TCP ESTABLISHED 10.0.0.23:40001 -> 142.250.180.14:443
+  - TCP ESTABLISHED 10.0.0.23:40002 -> 157.240.22.35:443
+  - TCP ESTABLISHED 10.0.0.23:40003 -> 157.240.22.35:443
+  - TCP ESTABLISHED 10.0.0.23:40004 -> 157.240.22.35:5222
+  - TCP ESTABLISHED [2001:db8:1::23]:40101 -> [2a03:2880:f12f:83:face:b00c:0:25de]:443
+  - TCP ESTABLISHED [::ffff:10.0.0.23]:40100 -> [::ffff:142.250.200.4]:443
+  - UDP ESTABLISHED 10.0.0.23:41000 -> 142.250.180.14:443
+  - UDP ESTABLISHED 10.0.0.23:41002 -> 192.0.2.70:3478
+  - DNS g.whatsapp.net
+  - DNS graph.facebook.com — tracker Facebook
+
+### uid 10301  com.maps.app
+Version: com.maps.app 11.118.0101
+Doing:
+  - On screen: com.maps.app/com.maps.app.MainActivity
+  - Process com.maps.app pid 5500
+  - Foreground service com.maps.app/com.maps.app.NavigationService
+  - Scheduled job 5ab9c1d
+  - Location request: @+1s0ms HIGH_ACCURACY, minUpdateDistance=0.0
+Information tracked:
+  Observed by the OS:
+    - Precise location — FINE_LOCATION, allowed, last access [top-s] 2024-11-14 18:03:00.000 (-2m0s0ms) duration=+1s12ms, last reject [bg-s] 2024-11-14 17:00:00.000 (-1h5m0s0ms). GPS-level location of the device.
+    - Approximate location — COARSE_LOCATION, allowed only while the app is in use, last access [fg-s] 2024-11-11 09:00:00.000 (-3d9h5m0s0ms) duration=+40ms. Cell and Wi-Fi location of the device.
+    - GPS — GPS, allowed, last access [top-s] 2024-11-14 18:04:30.000 (-30s0ms). Satellite location fixes.
+    - Continuous location — MONITOR_LOCATION, allowed, last access [bg-s] 2024-11-13 12:00:00.000 (-30h5m0s0ms) duration=+2h. Ongoing location monitoring.
+    - High-power location — MONITOR_HIGH_POWER_LOCATION, allowed, last access [top-s] 2024-11-13 19:00:00.000 (-23h5m0s0ms) duration=+20m. High-accuracy location that keeps extra hardware awake.
+    - Wi-Fi scan — WIFI_SCAN, allowed, last access [top-s] 2024-11-14 18:04:00.000 (-1m0s0ms). Nearby network names and signal strength, which can locate the device.
+  Granted permissions:
+    - Precise location — android.permission.ACCESS_FINE_LOCATION. GPS-level location of the device.
+    - Approximate location — android.permission.ACCESS_COARSE_LOCATION. Cell and Wi-Fi location of the device.
+    - Advertising ID — com.google.android.gms.permission.AD_ID. The resettable advertising identifier.
+  Tracker components shipped in the app:
+    - Firebase Installations (com.google.firebase.installations). An app-scoped installation identifier.
+    - Google Measurement (com.google.android.gms.measurement). Analytics events and device properties.
+    - Google Mobile Ads (com.google.android.gms.ads). Advertising ID, ad interactions, and IP address.
+Transmitted:
+  Sent 1.5 GB, received 3.0 GB.
+  Network permission: granted.
+  - TCP TIME_WAIT 10.0.0.23:40005 -> 203.0.113.10:80
+  - TCP CLOSE_WAIT 10.0.0.23:40006 -> 203.0.113.11:443
+  - TCP ESTABLISHED [2001:db8:1::23]:40102 -> [2001:db8::1:0:0:1]:8443
+  - TCP ESTABLISHED [2001:db8:1::23]:40103 -> [::1.2.3.4]:80
+  - UDP ESTABLISHED [2001:db8:1::23]:41101 -> [2001:4860:4860::8844]:443
+  - UDP ESTABLISHED [::ffff:10.0.0.23]:41100 -> [::ffff:142.250.180.14]:443
+  - DNS app-measurement.com — tracker Firebase Analytics
+  - DNS firebaseinstallations.googleapis.com — tracker Firebase Installations
+  - DNS region1.app-measurement.com — tracker Firebase Analytics
+
+### uid 10305  com.game.puzzle
+Version: com.game.puzzle 1.0
+Doing:
+  - Nothing running, scheduled, or holding a sensor, location request, or the clipboard.
+Information tracked:
+  Observed by the OS:
+    - Hardware identifiers — READ_DEVICE_IDENTIFIERS, allowed, last access [top-s] 2024-11-14 18:01:00.000 (-4m0s0ms). Non-resettable identifiers such as an IMEI or serial number.
+    - Calendar — READ_CALENDAR, left at the default mode, last access [top-s] 2024-11-14 18:02:00.000 (-3m0s0ms). Calendar events.
+    - Photo locations — ACCESS_MEDIA_LOCATION, requires a prompt, last access [top-s] 2024-11-14 18:02:00.000 (-3m0s0ms). Location tags embedded in photos.
+    - Body sensors — BODY_SENSORS, switch BODY_SENSORS=allow, last access [top-s] 2024-11-14 18:02:00.000 (-3m0s0ms). Heart rate and similar body-sensor readings.
+  Permitted, with no access time recorded:
+    - Accounts — GET_ACCOUNTS, allowed
+  Granted permissions:
+    - Advertising ID — com.google.android.gms.permission.AD_ID. The resettable advertising identifier.
+  Tracker components shipped in the app:
+    - Adobe Marketing (com.adobe.marketing). Engagement events and device properties.
+    - Amazon Ads (com.amazon.device.ads). Advertising ID and ad interactions.
+    - Amplitude (com.amplitude). Product analytics events and device properties.
+    - AppLovin (com.applovin). Advertising ID and ad interactions.
+    - AppMetrica (io.appmetrica). Analytics events, device identifiers, and location if the app can read it.
+    - Braze (com.braze). Engagement events and device properties.
+    - Bugsnag (com.bugsnag). Crash traces and device state.
+    - Chartboost (com.chartboost). Advertising ID and ad interactions.
+    - CleverTap (com.clevertap). Engagement events and device properties.
+    - Flurry (com.flurry). Analytics events and device properties.
+    - Google Mobile Ads (com.google.android.gms.ads). Advertising ID, ad interactions, and IP address.
+    - Huawei Ads (com.huawei.hms.ads). Advertising ID and ad interactions.
+    - InMobi (com.inmobi). Advertising ID and ad interactions.
+    - IronSource (com.ironsource). Advertising ID and ad interactions.
+    - Kochava (com.kochava). Attribution identifiers and IP address.
+    - Mixpanel (com.mixpanel). Product analytics events and device properties.
+    - MoEngage (com.moengage). Engagement events and device properties.
+    - New Relic (com.newrelic.agent). Performance traces and device state.
+    - OneSignal (com.onesignal). Push token and device properties.
+    - Salesforce Marketing Cloud (com.salesforce.marketingcloud). Engagement events and contact keys the app sets.
+    - Segment (com.segment.analytics). Event routing and device properties.
+    - Singular (com.singular). Attribution identifiers and IP address.
+    - Start.io (com.startapp). Advertising ID and, on older SDKs, installed-app signals.
+    - Umeng (com.umeng). Analytics events and device identifiers.
+    - Unity Ads (com.unity3d.ads). Advertising ID and ad interactions.
+    - Vungle (com.vungle). Advertising ID and ad interactions.
+    - Yandex Metrica (com.yandex.metrica). Analytics events and device identifiers.
+    - mParticle (com.mparticle). Event routing, device properties, and advertising ID.
+Transmitted:
+  Sent 0 B, received 0 B.
+  Network permission: granted.
+  - TCP ESTABLISHED 10.0.0.23:40007 -> 198.51.100.7:6789
+  - TCP SYN_SENT 10.0.0.23:40008 -> 198.51.100.8:443
+  - DNS ads.mopub.example.doubleclick.net — tracker Google Ads
+
+### uid 10150  com.android.systemui
+Version: com.android.systemui 14
+Doing:
+  - Sensor android.sensor.light (pid 2100)
+Information tracked:
+  Observed by the OS:
+    - Camera — CAMERA, allowed, last access [pers-s] 2024-11-14 18:03:00.000 (-2m0s0ms). Images and video from the camera.
+    - Clipboard — READ_CLIPBOARD, allowed, last access [pers-s] 2024-11-14 18:03:30.000 (-1m30s0ms). Text and images currently copied on the device.
+  Granted permissions:
+    - Camera — android.permission.CAMERA. Images and video from the camera.
+    - Screen overlay — android.permission.SYSTEM_ALERT_WINDOW. Windows drawn on top of other apps.
+Transmitted:
+  Sent 0 B, received 0 B.
+  Network permission: granted.
+  - No active socket with a remote address.
+
+### uid 10302  com.fit.tracker
+Version: com.fit.tracker 3.2
+Doing:
+  - Process com.fit.tracker:workout pid 5200 (foreground service)
+  - Foreground service com.fit.tracker/.workout.TrackingService
+  - Wakelock TrackingService:workout (PARTIAL_WAKE_LOCK)
+  - Sensor android.sensor.step_counter (pid 5200)
+  - Sensor android.sensor.heart_rate (pid 5200)
+  - Sensor android.sensor.accelerometer (pid 5200)
+  - Location request: @+10s0ms BALANCED
+Information tracked:
+  Observed by the OS:
+    - Physical activity — ACTIVITY_RECOGNITION, allowed, last access [fgsvc-s] 2024-11-14 17:55:00.000 (-10m0s0ms). Walking, driving, and similar motion.
+  Attempted and denied:
+    - Approximate location — COARSE_LOCATION, allowed, last reject [bg-s] 2024-11-12 08:00:00.000 (-2d10h5m0s0ms). Cell and Wi-Fi location of the device.
+    - Contacts — READ_CONTACTS, denied, last reject [top-s] 2024-11-14 17:05:00.000 (-1h0m0s0ms). Names, phone numbers, and emails in the address book.
+    - Body sensors — BODY_SENSORS, denied. Heart rate and similar body-sensor readings.
+  Granted permissions:
+    - Contacts — android.permission.READ_CONTACTS. Names, phone numbers, and emails in the address book.
+    - Physical activity — android.permission.ACTIVITY_RECOGNITION. Walking, driving, and similar motion.
+  Tracker components shipped in the app:
+    - Firebase Crashlytics (com.google.firebase.crashlytics). Crash traces, device model, OS version, and app state at the crash.
+    - Sentry (io.sentry). Crash traces and device state.
+Transmitted:
+  Sent 0 B, received 0 B.
+  Network permission: granted.
+  - No active socket with a remote address.
+  - DNS settings.crashlytics.com — tracker Firebase Crashlytics
+
+### uid 10307  com.cam.snap
+Doing:
+  - Nothing running, scheduled, or holding a sensor, location request, or the clipboard.
+Information tracked:
+  Observed by the OS:
+    - Camera — CAMERA, allowed, last access [top-s] 2024-11-14 18:00:00.000. Images and video from the camera.
+  Attempted and denied:
+    - Microphone — RECORD_AUDIO, allowed only while the app is in use, last reject [cch-s] 2024-11-14 17:00:00.000 (-1h5m0s0ms). Audio from the microphone.
+  Granted permissions:
+    - Camera — android.permission.CAMERA. Images and video from the camera.
+Transmitted:
+  Sent 0 B, received 0 B.
+  Network permission: granted.
+  - No active socket with a remote address.
+
+### uid 10399  com.ghost.app
+Version: com.ghost.app 0.1
+Doing:
+  - Nothing running, scheduled, or holding a sensor, location request, or the clipboard.
+Information tracked:
+  Observed by the OS:
+    - Approximate location — COARSE_LOCATION, allowed, last access [top-s] 2024-11-14 18:00:00.000 (-5m0s0ms). Cell and Wi-Fi location of the device.
+Transmitted:
+  Sent 0 B, received 0 B.
+  - TCP ESTABLISHED 127.0.0.1:40013 -> 127.0.0.1:8080
+
+### uid 10303  com.weather.app
+Version: com.weather.app 7.0.1
+Doing:
+  - Scheduled job com.weather.app/.WidgetRefreshJob
+  - Location request: PASSIVE , interval=60000
+  - Location request
+Information tracked:
+  Permitted, with no access time recorded:
+    - Approximate location — COARSE_LOCATION, allowed
+    - Advertising ID — ACCESS_ADSERVICES_AD_ID, allowed
+    - Wi-Fi scan — WIFI_SCAN, allowed only while the app is in use
+  Granted permissions:
+    - Approximate location — android.permission.ACCESS_COARSE_LOCATION. Cell and Wi-Fi location of the device.
+    - Advertising ID — com.google.android.gms.permission.AD_ID. The resettable advertising identifier.
+  Tracker components shipped in the app:
+    - Adjust (com.adjust.sdk). Install attribution, advertising ID, and IP address.
+    - Branch (io.branch). Attribution identifiers and which link was opened.
+Transmitted:
+  Sent 1023 B, received 512 B.
+  Network permission: granted.
+  - TCP ESTABLISHED [2001:db8:1::23]:40105 -> [2001:4860:4860::8888]:443
+  - TCP ESTABLISHED [2001:db8:1::23]:40107 -> [2001:db8:aa::1]:443
+  - TCP ESTABLISHED [2001:db8:1::23]:40108 -> [2001:db8:aa::2]:443
+  - TCP ESTABLISHED [2001:db8:1::23]:40109 -> [2001:db8:aa::3]:443
+  - TCP ESTABLISHED [2001:db8:1::23]:40110 -> [2001:db8:aa::4]:443
+  - TCP ESTABLISHED [2001:db8:1::23]:40111 -> [2001:db8:aa::5]:443
+  - TCP ESTABLISHED [::ffff:10.0.0.23]:40104 -> [::ffff:203.0.113.12]:993
+  - TCP FIN_WAIT1 [2001:db8:1::23]:40106 -> [fe80::1]:22
+  - UDP ESTABLISHED 10.0.0.23:41001 -> 8.8.8.8:53
+  - DNS api2.branch.io — tracker Branch
+  - DNS notbranch.io
+
+### uid 1000  android, com.android.bluetoothmidiservice, com.android.settings
+Version: com.android.settings 13
+Doing:
+  - Process system pid 1500
+  - Scheduled job com.android.settings/.backup.BackupJob
+  - Wakelock *job*/com.maps.app/.sync.OfflineMapsJob (PARTIAL_WAKE_LOCK)
+  - Wakelock WindowManager (SCREEN_BRIGHT_WAKE_LOCK)
+Information tracked:
+  - No sensitive grant, app-op, or tracker component in this snapshot.
+Transmitted:
+  Sockets and byte counts belong to uid 1000 (android, com.android.bluetoothmidiservice, com.android.settings).
+  Sent 5 B, received 1.0 TB.
+  - TCP ESTABLISHED 10.0.0.23:40010 -> 192.0.2.60:443
+  - UDP ESTABLISHED 10.0.0.23:68 -> 10.0.0.1:67
+  - UDP ESTABLISHED [fe80::23]:546 -> [ff02::1:2]:547
+
+### uid 10120  com.google.android.gms, com.google.android.gsf
+Version: com.google.android.gms 24.45.33
+Doing:
+  - Process com.google.android.gms.persistent pid 5300
+  - Service com.google.android.gms/.chimera.PersistentApiService
+  - Sensor android.sensor.significant_motion (pid 5300)
+  - Location request
+Information tracked:
+  Granted permissions:
+    - Precise location — android.permission.ACCESS_FINE_LOCATION. GPS-level location of the device.
+    - Nearby Bluetooth devices — android.permission.BLUETOOTH_SCAN. Devices found by a Bluetooth scan.
+    - Nearby Wi-Fi devices — android.permission.NEARBY_WIFI_DEVICES. Devices seen over nearby Wi-Fi.
+Transmitted:
+  Sockets and byte counts belong to uid 10120 (com.google.android.gms, com.google.android.gsf).
+  Sent 8.0 KB, received 8.0 KB.
+  Network permission: granted.
+  - TCP ESTABLISHED 10.0.0.23:40011 -> 192.0.2.61:443
+  - TCP ESTABLISHED 10.0.0.23:40012 -> 192.0.2.62:5228
+  - DNS mtalk.google.com
+
+### uid 0  (no package mapped to this uid)
+Doing:
+  - Nothing running, scheduled, or holding a sensor, location request, or the clipboard.
+Information tracked:
+  - No sensitive grant, app-op, or tracker component in this snapshot.
+Transmitted:
+  Sent 4.0 KB, received 4.0 KB.
+  - TCP ESTABLISHED 10.0.0.23:40009 -> 192.0.2.50:853
+  - DNS time.android.com
+
+### uid 10555  (no package mapped to this uid)
+Doing:
+  - Sensor android.sensor.gyroscope (pid 7000)
+  - Sensor android.sensor.proximity (pid 7000)
+Information tracked:
+  - No sensitive grant, app-op, or tracker component in this snapshot.
+Transmitted:
+  Sent 0 B, received 0 B.
+  - No active socket with a remote address.
+
+### uid 10019  (no package mapped to this uid)
+Doing:
+  - Nothing running, scheduled, or holding a sensor, location request, or the clipboard.
+Information tracked:
+  - No sensitive grant, app-op, or tracker component in this snapshot.
+Transmitted:
+  Sent 5 B, received 5 B.
+  - No active socket with a remote address.
+
+### uid 10011  (no package mapped to this uid)
+Doing:
+  - Nothing running, scheduled, or holding a sensor, location request, or the clipboard.
+Information tracked:
+  - No sensitive grant, app-op, or tracker component in this snapshot.
+Transmitted:
+  Sent 5 B, received 5 B.
+  - No active socket with a remote address.
+
+### uid 1035  (no package mapped to this uid)
+Doing:
+  - Nothing running, scheduled, or holding a sensor, location request, or the clipboard.
+Information tracked:
+  - No sensitive grant, app-op, or tracker component in this snapshot.
+Transmitted:
+  Sent 5 B, received 5 B.
+  - No active socket with a remote address.
+
+### uid 10027  (no package mapped to this uid)
+Doing:
+  - Nothing running, scheduled, or holding a sensor, location request, or the clipboard.
+Information tracked:
+  - No sensitive grant, app-op, or tracker component in this snapshot.
+Transmitted:
+  Sent 5 B, received 5 B.
+  - No active socket with a remote address.
+
+### uid 1073  (no package mapped to this uid)
+Doing:
+  - Nothing running, scheduled, or holding a sensor, location request, or the clipboard.
+Information tracked:
+  - No sensitive grant, app-op, or tracker component in this snapshot.
+Transmitted:
+  Sent 2.9 KB, received 2.9 KB.
+  - No active socket with a remote address.
+
+### uid 1043  (no package mapped to this uid)
+Doing:
+  - Nothing running, scheduled, or holding a sensor, location request, or the clipboard.
+Information tracked:
+  - No sensitive grant, app-op, or tracker component in this snapshot.
+Transmitted:
+  Sent 5 B, received 5 B.
+  - No active socket with a remote address.
+
+### uid 1051  (no package mapped to this uid)
+Doing:
+  - Nothing running, scheduled, or holding a sensor, location request, or the clipboard.
+Information tracked:
+  - No sensitive grant, app-op, or tracker component in this snapshot.
+Transmitted:
+  Sent 900 B, received 700 B.
+  - No active socket with a remote address.
+
+### uid 10308  com.idle.wallpaper
+Version: com.idle.wallpaper 1.1
+Doing:
+  - Nothing running, scheduled, or holding a sensor, location request, or the clipboard.
+Information tracked:
+  - No sensitive grant, app-op, or tracker component in this snapshot.
+Transmitted:
+  Sent 0 B, received 0 B.
+  - No active socket with a remote address.
+  - DNS wallpaper.example.org
+
+### uid 10306  com.notes.plain
+Version: com.notes.plain 4.0
+Doing:
+  - Nothing running, scheduled, or holding a sensor, location request, or the clipboard.
+Information tracked:
+  Permitted, with no access time recorded:
+    - Contacts — READ_CONTACTS, allowed
+    - Files — READ_EXTERNAL_STORAGE, allowed
+  Granted permissions:
+    - Contacts — android.permission.READ_CONTACTS. Names, phone numbers, and emails in the address book.
+    - Files — android.permission.READ_EXTERNAL_STORAGE. Shared files on the device.
+Transmitted:
+  Sent 0 B, received 1 B.
+  - No active socket with a remote address.
+  - DNS sync.notes.example
+
+### uid 10310  com.sideloaded.tool
+Version: com.sideloaded.tool 0.9
+Doing:
+  - Nothing running, scheduled, or holding a sensor, location request, or the clipboard.
+Information tracked:
+  Granted permissions:
+    - Installed apps — android.permission.QUERY_ALL_PACKAGES. The list of apps installed on the device.
+Transmitted:
+  Sent 0 B, received 0 B.
+  Network permission: granted.
+  - No active socket with a remote address.
+
+## Declared sensitive access with no live evidence in this snapshot
+None.
+
+## DNS names not tied to an app uid
+- api.weather.example
+- app.adjust.com — tracker Adjust
+- cdn.example.net
+- o12345.ingest.sentry.io — tracker Sentry
+
+## Capture gaps
+- clipboard: command exited 1
+- sensors: Permission Denial: can't dump SensorService

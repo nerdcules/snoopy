@@ -1,0 +1,2 @@
+package:/data/app/~~QrS==/com.example.indented-TuV==/base.apk=com.example.indented uid:10601
+package:/data/app/~~WxY==/com.example.second-Z==/base.apk=com.example.second uid:10602

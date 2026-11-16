@@ -3,6 +3,7 @@ HEADERS += \
     $$PWD/adb.h \
     $$PWD/apk.h \
     $$PWD/capture.h \
+    $$PWD/catalog.h \
     $$PWD/cli.h \
     $$PWD/flows.h \
     $$PWD/graph.h \
@@ -10,6 +11,7 @@ HEADERS += \
     $$PWD/icons.h \
     $$PWD/monitor.h \
     $$PWD/names.h \
+    $$PWD/parsers.h \
     $$PWD/render.h \
     $$PWD/report.h \
     $$PWD/theme.h \
@@ -19,12 +21,17 @@ SOURCES += \
     $$PWD/adb.cpp \
     $$PWD/apk.cpp \
     $$PWD/capture.cpp \
+    $$PWD/catalog.cpp \
     $$PWD/cli.cpp \
-    $$PWD/core_stubs.cpp \
+    $$PWD/flows.cpp \
+    $$PWD/graph.cpp \
     $$PWD/iconprovider.cpp \
     $$PWD/icons.cpp \
     $$PWD/monitor.cpp \
     $$PWD/names.cpp \
+    $$PWD/parsers.cpp \
+    $$PWD/render.cpp \
+    $$PWD/report.cpp \
     $$PWD/theme.cpp \
     $$PWD/translator.cpp
 

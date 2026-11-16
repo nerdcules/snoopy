@@ -1,0 +1,116 @@
+{
+  "declared_only": [],
+  "device": {
+    "android": "17",
+    "captured_at": "2026-11-14T18:12:00Z",
+    "model": "Fixture Phone 17",
+    "sdk": "37",
+    "serial": ""
+  },
+  "errors": {},
+  "limits": [
+    "Network sockets belong to a Linux uid. On Android that uid is usually one app.",
+    "Transmission shown here is destination, size, and DNS name. HTTPS message bodies stay encrypted.",
+    "Tracker SDK rows are components shipped inside the app and the kind of data that SDK is built to collect."
+  ],
+  "live": [
+    {
+      "attempted": [],
+      "declared": [
+        {
+          "category": "Camera",
+          "detail": "Images and video from the camera.",
+          "package": "com.a.one",
+          "permission": "android.permission.CAMERA"
+        },
+        {
+          "category": "Calendar",
+          "detail": "Calendar events.",
+          "package": "com.a.one",
+          "permission": "android.permission.READ_CALENDAR"
+        }
+      ],
+      "doing": [],
+      "observed": [
+        {
+          "category": "Camera",
+          "detail": "Images and video from the camera.",
+          "last_access": "[top-s] 2026-11-14 18:11:00.000 (-1m0s0ms)",
+          "last_reject": null,
+          "mode": "allow",
+          "op": "CAMERA",
+          "package": "com.a.one",
+          "uid": 10501
+        }
+      ],
+      "packages": [
+        "com.a.one"
+      ],
+      "permitted_unseen": [],
+      "trackers": [
+        {
+          "collects": "Product analytics events and device properties.",
+          "name": "Mixpanel",
+          "package": "com.a.one",
+          "prefix": "com.mixpanel"
+        }
+      ],
+      "transmitted": {
+        "connections": [
+          {
+            "local": "10.1.1.5:50002",
+            "proto": "TCP",
+            "remote": "192.0.2.81:443",
+            "state": "ESTABLISHED",
+            "uid": 10501
+          }
+        ],
+        "dns": [
+          {
+            "host": "api.mixpanel.com",
+            "tracker": "Mixpanel",
+            "uid": 10501
+          }
+        ],
+        "network_permission": true,
+        "rx_bytes": 999,
+        "tx_bytes": 111
+      },
+      "uid": 10501,
+      "uid_packages": [
+        "com.a.one",
+        "com.a.two",
+        "com.android.x"
+      ],
+      "versions": {
+        "com.a.one": "1.0.0"
+      }
+    }
+  ],
+  "sources": [
+    "dumpsys appops",
+    "dumpsys package",
+    "dumpsys activity",
+    "dumpsys jobscheduler",
+    "dumpsys power",
+    "dumpsys location",
+    "dumpsys sensorservice",
+    "dumpsys clipboard",
+    "dumpsys netstats",
+    "/proc/net/tcp",
+    "/proc/net/udp",
+    "logcat DNS"
+  ],
+  "unattributed_dns": [
+    {
+      "host": "t.appsflyer.com",
+      "tracker": "AppsFlyer",
+      "uid": 10888
+    },
+    {
+      "host": "t.appsflyer.com",
+      "tracker": "AppsFlyer",
+      "uid": null
+    }
+  ]
+}

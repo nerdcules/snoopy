@@ -1,0 +1,37 @@
+Android diagnoser
+Captured: 2024-11-14T18:05:00Z
+Sources: dumpsys appops, dumpsys package, dumpsys activity, dumpsys jobscheduler, dumpsys power, dumpsys location, dumpsys sensorservice, dumpsys clipboard, dumpsys netstats, /proc/net/tcp, /proc/net/udp, logcat DNS
+
+Network sockets belong to a Linux uid. On Android that uid is usually one app.
+Transmission shown here is destination, size, and DNS name. HTTPS message bodies stay encrypted.
+Tracker SDK rows are components shipped inside the app and the kind of data that SDK is built to collect.
+
+## What each app is doing, tracking, and transmitting
+
+### uid 10402  com.watch.shared, com.watch.two
+Doing:
+  - Nothing running, scheduled, or holding a sensor, location request, or the clipboard.
+Information tracked:
+  Observed by the OS:
+    - Contacts — READ_CONTACTS, allowed, last access +2m ago. Names, phone numbers, and emails in the address book.
+  Attempted and denied:
+    - Precise location — FINE_LOCATION, allowed, last reject [bg] 2024-11-14 17:00:00.000 (-1h). GPS-level location of the device.
+Transmitted:
+  Sockets and byte counts belong to uid 10402 (com.watch.shared, com.watch.two).
+  Sent 0 B, received 0 B.
+  - TCP ESTABLISHED 10.0.0.5:45001 -> 192.0.2.101:443
+
+### uid 10401  com.watch.one
+Doing:
+  - On screen: com.watch.one/.Main
+Information tracked:
+  Observed by the OS:
+    - Camera — CAMERA, allowed, last access [top] 2024-11-14 18:00:00.000 (-5m). Images and video from the camera.
+  Permitted, with no access time recorded:
+    - Microphone — RECORD_AUDIO, allowed
+Transmitted:
+  Sent 0 B, received 0 B.
+  - TCP ESTABLISHED 10.0.0.5:45000 -> 192.0.2.100:443
+
+## Declared sensitive access with no live evidence in this snapshot
+None.

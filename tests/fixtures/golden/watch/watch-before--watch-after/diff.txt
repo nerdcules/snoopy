@@ -1,0 +1,12 @@
+On screen: com.watch.three/.Feed
+On screen: com.watch.two/.Chat
+Left screen: com.watch.one/.Main
+com.watch.shared, com.watch.two TCP CLOSE_WAIT -> 192.0.2.101:443
+com.watch.three TCP ESTABLISHED -> 192.0.2.102:80
+uid 10499 TCP ESTABLISHED -> 192.0.2.103:443
+com.watch.one TCP ESTABLISHED -> [2001:db8:ff::1]:443
+com.watch.shared, com.watch.two UDP ESTABLISHED -> 192.0.2.104:443
+com.watch.one CAMERA [top] 2024-11-14 18:09:00.000 (-10s)
+com.watch.one RECORD_AUDIO [top] 2024-11-14 18:09:30.000 (-1s)
+com.watch.two COARSE_LOCATION [bg] 2024-11-14 18:08:00.000 (-2m)
+com.watch.three READ_CLIPBOARD +1s ago

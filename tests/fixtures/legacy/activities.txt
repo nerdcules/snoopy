@@ -1,0 +1,6 @@
+ACTIVITY MANAGER ACTIVITIES (dumpsys activity activities)
+  Stack #1: type=standard mode=fullscreen
+    mResumedActivity: ActivityRecord{9a u10 com.old.messenger/.ui.ConversationList t31}
+  mResumedActivity: ActivityRecord{9a u10 com.old.messenger/.ui.ConversationList t31}
+  mFocusedActivity: ActivityRecord{9b u0 com.old.browser/org.chromium.Main t32}
+  mLastResumedActivity Resumed: ActivityRecord{9b u0 com.old.browser/org.chromium.Main t32}

@@ -1,0 +1,11 @@
+{
+  "android": "14",
+  "captured_at": "2024-11-14T18:05:00Z",
+  "errors": {
+    "clipboard": "command exited 1",
+    "sensors": "Permission Denial: can't dump SensorService"
+  },
+  "model": "Fixture Phone 14",
+  "sdk": "34",
+  "serial": "FIXTURE14"
+}

@@ -1,0 +1,2 @@
+  topResumedActivity=ActivityRecord{bb u0 com.watch.two/.Chat t4}
+  ResumedActivity: ActivityRecord{cc u0 com.watch.three/.Feed t5}

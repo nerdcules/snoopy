@@ -1,0 +1,555 @@
+{
+  "connections": [
+    {
+      "packages": [
+        "com.whatsapp"
+      ],
+      "proto": "TCP",
+      "remote": "142.250.180.14:443",
+      "state": "ESTABLISHED",
+      "uid": 10304
+    },
+    {
+      "packages": [
+        "com.whatsapp"
+      ],
+      "proto": "TCP",
+      "remote": "157.240.22.35:443",
+      "state": "ESTABLISHED",
+      "uid": 10304
+    },
+    {
+      "packages": [
+        "com.whatsapp"
+      ],
+      "proto": "TCP",
+      "remote": "157.240.22.35:443",
+      "state": "ESTABLISHED",
+      "uid": 10304
+    },
+    {
+      "packages": [
+        "com.whatsapp"
+      ],
+      "proto": "TCP",
+      "remote": "157.240.22.35:5222",
+      "state": "ESTABLISHED",
+      "uid": 10304
+    },
+    {
+      "packages": [
+        "com.maps.app"
+      ],
+      "proto": "TCP",
+      "remote": "203.0.113.10:80",
+      "state": "TIME_WAIT",
+      "uid": 10301
+    },
+    {
+      "packages": [
+        "com.maps.app"
+      ],
+      "proto": "TCP",
+      "remote": "203.0.113.11:443",
+      "state": "CLOSE_WAIT",
+      "uid": 10301
+    },
+    {
+      "packages": [
+        "com.game.puzzle"
+      ],
+      "proto": "TCP",
+      "remote": "198.51.100.7:6789",
+      "state": "ESTABLISHED",
+      "uid": 10305
+    },
+    {
+      "packages": [
+        "com.game.puzzle"
+      ],
+      "proto": "TCP",
+      "remote": "198.51.100.8:443",
+      "state": "SYN_SENT",
+      "uid": 10305
+    },
+    {
+      "packages": [],
+      "proto": "TCP",
+      "remote": "192.0.2.50:853",
+      "state": "ESTABLISHED",
+      "uid": 0
+    },
+    {
+      "packages": [
+        "android",
+        "com.android.bluetoothmidiservice",
+        "com.android.settings"
+      ],
+      "proto": "TCP",
+      "remote": "192.0.2.60:443",
+      "state": "ESTABLISHED",
+      "uid": 1000
+    },
+    {
+      "packages": [
+        "com.google.android.gms",
+        "com.google.android.gsf"
+      ],
+      "proto": "TCP",
+      "remote": "192.0.2.61:443",
+      "state": "ESTABLISHED",
+      "uid": 10120
+    },
+    {
+      "packages": [
+        "com.google.android.gms",
+        "com.google.android.gsf"
+      ],
+      "proto": "TCP",
+      "remote": "192.0.2.62:5228",
+      "state": "ESTABLISHED",
+      "uid": 10120
+    },
+    {
+      "packages": [],
+      "proto": "TCP",
+      "remote": "127.0.0.1:8080",
+      "state": "ESTABLISHED",
+      "uid": 10399
+    },
+    {
+      "packages": [
+        "com.whatsapp"
+      ],
+      "proto": "TCP",
+      "remote": "[::ffff:142.250.200.4]:443",
+      "state": "ESTABLISHED",
+      "uid": 10304
+    },
+    {
+      "packages": [
+        "com.whatsapp"
+      ],
+      "proto": "TCP",
+      "remote": "[2a03:2880:f12f:83:face:b00c:0:25de]:443",
+      "state": "ESTABLISHED",
+      "uid": 10304
+    },
+    {
+      "packages": [
+        "com.maps.app"
+      ],
+      "proto": "TCP",
+      "remote": "[2001:db8::1:0:0:1]:8443",
+      "state": "ESTABLISHED",
+      "uid": 10301
+    },
+    {
+      "packages": [
+        "com.maps.app"
+      ],
+      "proto": "TCP",
+      "remote": "[::1.2.3.4]:80",
+      "state": "ESTABLISHED",
+      "uid": 10301
+    },
+    {
+      "packages": [
+        "com.weather.app"
+      ],
+      "proto": "TCP",
+      "remote": "[::ffff:203.0.113.12]:993",
+      "state": "ESTABLISHED",
+      "uid": 10303
+    },
+    {
+      "packages": [
+        "com.weather.app"
+      ],
+      "proto": "TCP",
+      "remote": "[2001:4860:4860::8888]:443",
+      "state": "ESTABLISHED",
+      "uid": 10303
+    },
+    {
+      "packages": [
+        "com.weather.app"
+      ],
+      "proto": "TCP",
+      "remote": "[fe80::1]:22",
+      "state": "FIN_WAIT1",
+      "uid": 10303
+    },
+    {
+      "packages": [
+        "com.weather.app"
+      ],
+      "proto": "TCP",
+      "remote": "[2001:db8:aa::1]:443",
+      "state": "ESTABLISHED",
+      "uid": 10303
+    },
+    {
+      "packages": [
+        "com.weather.app"
+      ],
+      "proto": "TCP",
+      "remote": "[2001:db8:aa::2]:443",
+      "state": "ESTABLISHED",
+      "uid": 10303
+    },
+    {
+      "packages": [
+        "com.weather.app"
+      ],
+      "proto": "TCP",
+      "remote": "[2001:db8:aa::3]:443",
+      "state": "ESTABLISHED",
+      "uid": 10303
+    },
+    {
+      "packages": [
+        "com.weather.app"
+      ],
+      "proto": "TCP",
+      "remote": "[2001:db8:aa::4]:443",
+      "state": "ESTABLISHED",
+      "uid": 10303
+    },
+    {
+      "packages": [
+        "com.weather.app"
+      ],
+      "proto": "TCP",
+      "remote": "[2001:db8:aa::5]:443",
+      "state": "ESTABLISHED",
+      "uid": 10303
+    },
+    {
+      "packages": [
+        "android",
+        "com.android.bluetoothmidiservice",
+        "com.android.settings"
+      ],
+      "proto": "UDP",
+      "remote": "10.0.0.1:67",
+      "state": "ESTABLISHED",
+      "uid": 1000
+    },
+    {
+      "packages": [
+        "com.whatsapp"
+      ],
+      "proto": "UDP",
+      "remote": "142.250.180.14:443",
+      "state": "ESTABLISHED",
+      "uid": 10304
+    },
+    {
+      "packages": [
+        "com.weather.app"
+      ],
+      "proto": "UDP",
+      "remote": "8.8.8.8:53",
+      "state": "ESTABLISHED",
+      "uid": 10303
+    },
+    {
+      "packages": [
+        "com.whatsapp"
+      ],
+      "proto": "UDP",
+      "remote": "192.0.2.70:3478",
+      "state": "ESTABLISHED",
+      "uid": 10304
+    },
+    {
+      "packages": [
+        "com.maps.app"
+      ],
+      "proto": "UDP",
+      "remote": "[::ffff:142.250.180.14]:443",
+      "state": "ESTABLISHED",
+      "uid": 10301
+    },
+    {
+      "packages": [
+        "com.maps.app"
+      ],
+      "proto": "UDP",
+      "remote": "[2001:4860:4860::8844]:443",
+      "state": "ESTABLISHED",
+      "uid": 10301
+    },
+    {
+      "packages": [
+        "android",
+        "com.android.bluetoothmidiservice",
+        "com.android.settings"
+      ],
+      "proto": "UDP",
+      "remote": "[ff02::1:2]:547",
+      "state": "ESTABLISHED",
+      "uid": 1000
+    }
+  ],
+  "focus": [
+    "com.maps.app/com.maps.app.MainActivity",
+    "com.unlisted.app/.Splash",
+    "com.whatsapp/.HomeActivity"
+  ],
+  "ops": [
+    {
+      "last_access": "[top-s] 2024-11-14 18:03:00.000 (-2m0s0ms) duration=+1s12ms",
+      "last_reject": "[bg-s] 2024-11-14 17:00:00.000 (-1h5m0s0ms)",
+      "op": "FINE_LOCATION",
+      "package": "com.maps.app"
+    },
+    {
+      "last_access": "[fg-s] 2024-11-11 09:00:00.000 (-3d9h5m0s0ms) duration=+40ms",
+      "last_reject": null,
+      "op": "COARSE_LOCATION",
+      "package": "com.maps.app"
+    },
+    {
+      "last_access": "[bg-s] 2024-11-13 12:00:00.000 (-30h5m0s0ms) duration=+2h",
+      "last_reject": null,
+      "op": "MONITOR_LOCATION",
+      "package": "com.maps.app"
+    },
+    {
+      "last_access": "[top-s] 2024-11-13 19:00:00.000 (-23h5m0s0ms) duration=+20m",
+      "last_reject": null,
+      "op": "MONITOR_HIGH_POWER_LOCATION",
+      "package": "com.maps.app"
+    },
+    {
+      "last_access": "[top-s] 2024-11-14 18:04:30.000 (-30s0ms)",
+      "last_reject": null,
+      "op": "GPS",
+      "package": "com.maps.app"
+    },
+    {
+      "last_access": "[top-s] 2024-11-14 18:04:00.000 (-1m0s0ms)",
+      "last_reject": null,
+      "op": "WIFI_SCAN",
+      "package": "com.maps.app"
+    },
+    {
+      "last_access": "[fgsvc-s] 2024-11-14 17:55:00.000 (-10m0s0ms)",
+      "last_reject": null,
+      "op": "ACTIVITY_RECOGNITION",
+      "package": "com.fit.tracker"
+    },
+    {
+      "last_access": null,
+      "last_reject": null,
+      "op": "BODY_SENSORS",
+      "package": "com.fit.tracker"
+    },
+    {
+      "last_access": null,
+      "last_reject": "[top-s] 2024-11-14 17:05:00.000 (-1h0m0s0ms)",
+      "op": "READ_CONTACTS",
+      "package": "com.fit.tracker"
+    },
+    {
+      "last_access": null,
+      "last_reject": "[bg-s] 2024-11-12 08:00:00.000 (-2d10h5m0s0ms)",
+      "op": "COARSE_LOCATION",
+      "package": "com.fit.tracker"
+    },
+    {
+      "last_access": null,
+      "last_reject": null,
+      "op": "COARSE_LOCATION",
+      "package": "com.weather.app"
+    },
+    {
+      "last_access": null,
+      "last_reject": null,
+      "op": "WIFI_SCAN",
+      "package": "com.weather.app"
+    },
+    {
+      "last_access": null,
+      "last_reject": null,
+      "op": "READ_PHONE_STATE",
+      "package": "com.weather.app"
+    },
+    {
+      "last_access": null,
+      "last_reject": null,
+      "op": "ACCESS_ADSERVICES_AD_ID",
+      "package": "com.weather.app"
+    },
+    {
+      "last_access": "[top-s] 2024-11-14 18:04:00.000 (-1m0s0ms)",
+      "last_reject": null,
+      "op": "READ_CONTACTS",
+      "package": "com.whatsapp"
+    },
+    {
+      "last_access": "[top-s] 2024-11-14 18:03:00.000 (-2m0s0ms)",
+      "last_reject": null,
+      "op": "WRITE_CONTACTS",
+      "package": "com.whatsapp"
+    },
+    {
+      "last_access": "[top-s] 2024-11-14 18:04:55.000 (-5s0ms)",
+      "last_reject": null,
+      "op": "CAMERA",
+      "package": "com.whatsapp"
+    },
+    {
+      "last_access": "[top-s] 2024-11-14 17:25:00.000 (-40m0s0ms)",
+      "last_reject": null,
+      "op": "RECORD_AUDIO",
+      "package": "com.whatsapp"
+    },
+    {
+      "last_access": null,
+      "last_reject": null,
+      "op": "RECORD_AUDIO_HOTWORD",
+      "package": "com.whatsapp"
+    },
+    {
+      "last_access": "[top-s] 2024-11-14 17:05:00.000 (-1h0m0s0ms)",
+      "last_reject": null,
+      "op": "READ_MEDIA_IMAGES",
+      "package": "com.whatsapp"
+    },
+    {
+      "last_access": "[top-s] 2024-11-14 17:04:00.000 (-1h1m0s0ms)",
+      "last_reject": null,
+      "op": "READ_MEDIA_VIDEO",
+      "package": "com.whatsapp"
+    },
+    {
+      "last_access": "[top-s] 2024-11-14 17:03:00.000 (-1h2m0s0ms)",
+      "last_reject": null,
+      "op": "READ_MEDIA_AUDIO",
+      "package": "com.whatsapp"
+    },
+    {
+      "last_access": "[top-s] 2024-11-14 17:02:00.000 (-1h3m0s0ms)",
+      "last_reject": null,
+      "op": "READ_EXTERNAL_STORAGE",
+      "package": "com.whatsapp"
+    },
+    {
+      "last_access": "[top-s] 2024-11-14 17:01:00.000 (-1h4m0s0ms)",
+      "last_reject": null,
+      "op": "ACCESS_MEDIA_LOCATION",
+      "package": "com.whatsapp"
+    },
+    {
+      "last_access": "[top-s] 2024-11-14 18:04:58.000 (-2s0ms)",
+      "last_reject": null,
+      "op": "READ_CLIPBOARD",
+      "package": "com.whatsapp"
+    },
+    {
+      "last_access": "[top-s] 2024-11-14 18:00:00.000 (-5m0s0ms)",
+      "last_reject": null,
+      "op": "READ_PHONE_NUMBERS",
+      "package": "com.whatsapp"
+    },
+    {
+      "last_access": "[top-s] 2024-11-14 18:00:00.000 (-5m0s0ms)",
+      "last_reject": null,
+      "op": "READ_SMS",
+      "package": "com.whatsapp"
+    },
+    {
+      "last_access": "[top-s] 2024-11-14 18:00:00.000 (-5m0s0ms)",
+      "last_reject": null,
+      "op": "READ_CALL_LOG",
+      "package": "com.whatsapp"
+    },
+    {
+      "last_access": "[pers-s] 2024-11-14 18:03:00.000 (-2m0s0ms)",
+      "last_reject": null,
+      "op": "CAMERA",
+      "package": "com.android.systemui"
+    },
+    {
+      "last_access": "[pers-s] 2024-11-14 18:03:30.000 (-1m30s0ms)",
+      "last_reject": null,
+      "op": "READ_CLIPBOARD",
+      "package": "com.android.systemui"
+    },
+    {
+      "last_access": "[top-s] 2024-11-14 18:02:00.000 (-3m0s0ms)",
+      "last_reject": null,
+      "op": "ACCESS_MEDIA_LOCATION",
+      "package": "com.game.puzzle"
+    },
+    {
+      "last_access": null,
+      "last_reject": null,
+      "op": "READ_EXTERNAL_STORAGE",
+      "package": "com.game.puzzle"
+    },
+    {
+      "last_access": "[top-s] 2024-11-14 18:02:00.000 (-3m0s0ms)",
+      "last_reject": null,
+      "op": "READ_CALENDAR",
+      "package": "com.game.puzzle"
+    },
+    {
+      "last_access": "[top-s] 2024-11-14 18:02:00.000 (-3m0s0ms)",
+      "last_reject": null,
+      "op": "BODY_SENSORS",
+      "package": "com.game.puzzle"
+    },
+    {
+      "last_access": null,
+      "last_reject": null,
+      "op": "GET_ACCOUNTS",
+      "package": "com.game.puzzle"
+    },
+    {
+      "last_access": "[top-s] 2024-11-14 18:01:00.000 (-4m0s0ms)",
+      "last_reject": null,
+      "op": "READ_DEVICE_IDENTIFIERS",
+      "package": "com.game.puzzle"
+    },
+    {
+      "last_access": "[top-s] 2024-11-14 18:00:00.000",
+      "last_reject": null,
+      "op": "CAMERA",
+      "package": "com.cam.snap"
+    },
+    {
+      "last_access": null,
+      "last_reject": "[cch-s] 2024-11-14 17:00:00.000 (-1h5m0s0ms)",
+      "op": "RECORD_AUDIO",
+      "package": "com.cam.snap"
+    },
+    {
+      "last_access": "[top-s] 2024-11-14 18:00:00.000 (-5m0s0ms)",
+      "last_reject": null,
+      "op": "COARSE_LOCATION",
+      "package": "com.ghost.app"
+    },
+    {
+      "last_access": "[top-s] 2024-11-14 18:00:00.000 (-5m0s0ms)",
+      "last_reject": null,
+      "op": "CAMERA",
+      "package": "com.unknown.uid"
+    },
+    {
+      "last_access": null,
+      "last_reject": null,
+      "op": "READ_EXTERNAL_STORAGE",
+      "package": "com.notes.plain"
+    },
+    {
+      "last_access": null,
+      "last_reject": null,
+      "op": "READ_CONTACTS",
+      "package": "com.notes.plain"
+    }
+  ]
+}

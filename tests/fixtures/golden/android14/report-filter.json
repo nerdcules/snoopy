@@ -1,0 +1,355 @@
+{
+  "declared_only": [],
+  "device": {
+    "android": "14",
+    "captured_at": "2024-11-14T18:05:00Z",
+    "model": "Fixture Phone 14",
+    "sdk": "34",
+    "serial": "FIXTURE14"
+  },
+  "errors": {
+    "clipboard": "command exited 1",
+    "sensors": "Permission Denial: can't dump SensorService"
+  },
+  "limits": [
+    "Network sockets belong to a Linux uid. On Android that uid is usually one app.",
+    "Transmission shown here is destination, size, and DNS name. HTTPS message bodies stay encrypted.",
+    "Tracker SDK rows are components shipped inside the app and the kind of data that SDK is built to collect."
+  ],
+  "live": [
+    {
+      "attempted": [],
+      "declared": [
+        {
+          "category": "Camera",
+          "detail": "Images and video from the camera.",
+          "package": "com.whatsapp",
+          "permission": "android.permission.CAMERA"
+        },
+        {
+          "category": "Microphone",
+          "detail": "Audio from the microphone.",
+          "package": "com.whatsapp",
+          "permission": "android.permission.RECORD_AUDIO"
+        },
+        {
+          "category": "Contacts",
+          "detail": "Names, phone numbers, and emails in the address book.",
+          "package": "com.whatsapp",
+          "permission": "android.permission.READ_CONTACTS"
+        },
+        {
+          "category": "Contacts",
+          "detail": "Changes to the address book.",
+          "package": "com.whatsapp",
+          "permission": "android.permission.WRITE_CONTACTS"
+        },
+        {
+          "category": "Phone number",
+          "detail": "The device phone number.",
+          "package": "com.whatsapp",
+          "permission": "android.permission.READ_PHONE_NUMBERS"
+        },
+        {
+          "category": "Accounts",
+          "detail": "Account names on the device.",
+          "package": "com.whatsapp",
+          "permission": "android.permission.GET_ACCOUNTS"
+        },
+        {
+          "category": "Photos",
+          "detail": "Images in shared storage.",
+          "package": "com.whatsapp",
+          "permission": "android.permission.READ_MEDIA_IMAGES"
+        },
+        {
+          "category": "Videos",
+          "detail": "Videos in shared storage.",
+          "package": "com.whatsapp",
+          "permission": "android.permission.READ_MEDIA_VIDEO"
+        }
+      ],
+      "doing": [
+        "On screen: com.whatsapp/.HomeActivity",
+        "Process com.whatsapp pid 5100 (on screen)",
+        "Service com.whatsapp/.messaging.MessageService",
+        "Wakelock Doze (DOZE_WAKE_LOCK)",
+        "Owns the current clipboard contents"
+      ],
+      "observed": [
+        {
+          "category": "Camera",
+          "detail": "Images and video from the camera.",
+          "last_access": "[top-s] 2024-11-14 18:04:55.000 (-5s0ms)",
+          "last_reject": null,
+          "mode": "allow",
+          "op": "CAMERA",
+          "package": "com.whatsapp",
+          "uid": 10304
+        },
+        {
+          "category": "Microphone",
+          "detail": "Audio from the microphone.",
+          "last_access": "[top-s] 2024-11-14 17:25:00.000 (-40m0s0ms)",
+          "last_reject": null,
+          "mode": "allow",
+          "op": "RECORD_AUDIO",
+          "package": "com.whatsapp",
+          "uid": 10304
+        },
+        {
+          "category": "Contacts",
+          "detail": "Names, phone numbers, and emails in the address book.",
+          "last_access": "[top-s] 2024-11-14 18:04:00.000 (-1m0s0ms)",
+          "last_reject": null,
+          "mode": "allow",
+          "op": "READ_CONTACTS",
+          "package": "com.whatsapp",
+          "uid": 10304
+        },
+        {
+          "category": "Contacts",
+          "detail": "Changes to the address book.",
+          "last_access": "[top-s] 2024-11-14 18:03:00.000 (-2m0s0ms)",
+          "last_reject": null,
+          "mode": "allow",
+          "op": "WRITE_CONTACTS",
+          "package": "com.whatsapp",
+          "uid": 10304
+        },
+        {
+          "category": "Call history",
+          "detail": "Numbers called and received, and when.",
+          "last_access": "[top-s] 2024-11-14 18:00:00.000 (-5m0s0ms)",
+          "last_reject": null,
+          "mode": "allow",
+          "op": "READ_CALL_LOG",
+          "package": "com.whatsapp",
+          "uid": 10304
+        },
+        {
+          "category": "SMS messages",
+          "detail": "Text message contents.",
+          "last_access": "[top-s] 2024-11-14 18:00:00.000 (-5m0s0ms)",
+          "last_reject": null,
+          "mode": "allow",
+          "op": "READ_SMS",
+          "package": "com.whatsapp",
+          "uid": 10304
+        },
+        {
+          "category": "Clipboard",
+          "detail": "Text and images currently copied on the device.",
+          "last_access": "[top-s] 2024-11-14 18:04:58.000 (-2s0ms)",
+          "last_reject": null,
+          "mode": "allow",
+          "op": "READ_CLIPBOARD",
+          "package": "com.whatsapp",
+          "uid": 10304
+        },
+        {
+          "category": "Phone number",
+          "detail": "The device phone number.",
+          "last_access": "[top-s] 2024-11-14 18:00:00.000 (-5m0s0ms)",
+          "last_reject": null,
+          "mode": "allow",
+          "op": "READ_PHONE_NUMBERS",
+          "package": "com.whatsapp",
+          "uid": 10304
+        },
+        {
+          "category": "Photos",
+          "detail": "Images in shared storage.",
+          "last_access": "[top-s] 2024-11-14 17:05:00.000 (-1h0m0s0ms)",
+          "last_reject": null,
+          "mode": "allow",
+          "op": "READ_MEDIA_IMAGES",
+          "package": "com.whatsapp",
+          "uid": 10304
+        },
+        {
+          "category": "Videos",
+          "detail": "Videos in shared storage.",
+          "last_access": "[top-s] 2024-11-14 17:04:00.000 (-1h1m0s0ms)",
+          "last_reject": null,
+          "mode": "allow",
+          "op": "READ_MEDIA_VIDEO",
+          "package": "com.whatsapp",
+          "uid": 10304
+        },
+        {
+          "category": "Audio files",
+          "detail": "Audio files in shared storage.",
+          "last_access": "[top-s] 2024-11-14 17:03:00.000 (-1h2m0s0ms)",
+          "last_reject": null,
+          "mode": "allow",
+          "op": "READ_MEDIA_AUDIO",
+          "package": "com.whatsapp",
+          "uid": 10304
+        },
+        {
+          "category": "Photo locations",
+          "detail": "Location tags embedded in photos.",
+          "last_access": "[top-s] 2024-11-14 17:01:00.000 (-1h4m0s0ms)",
+          "last_reject": null,
+          "mode": "allow",
+          "op": "ACCESS_MEDIA_LOCATION",
+          "package": "com.whatsapp",
+          "uid": 10304
+        },
+        {
+          "category": "Files",
+          "detail": "Shared files on the device.",
+          "last_access": "[top-s] 2024-11-14 17:02:00.000 (-1h3m0s0ms)",
+          "last_reject": null,
+          "mode": "allow",
+          "op": "READ_EXTERNAL_STORAGE",
+          "package": "com.whatsapp",
+          "uid": 10304
+        }
+      ],
+      "packages": [
+        "com.whatsapp"
+      ],
+      "permitted_unseen": [],
+      "trackers": [
+        {
+          "collects": "App events, device info, and advertising ID.",
+          "name": "Facebook App Events",
+          "package": "com.whatsapp",
+          "prefix": "com.facebook.appevents"
+        },
+        {
+          "collects": "Advertising ID and ad interactions.",
+          "name": "Facebook Audience Network",
+          "package": "com.whatsapp",
+          "prefix": "com.facebook.ads"
+        },
+        {
+          "collects": "Facebook identity when the user signs in, plus app events.",
+          "name": "Facebook Login",
+          "package": "com.whatsapp",
+          "prefix": "com.facebook.FacebookActivity"
+        }
+      ],
+      "transmitted": {
+        "connections": [
+          {
+            "local": "10.0.0.23:40001",
+            "proto": "TCP",
+            "remote": "142.250.180.14:443",
+            "state": "ESTABLISHED",
+            "uid": 10304
+          },
+          {
+            "local": "10.0.0.23:40002",
+            "proto": "TCP",
+            "remote": "157.240.22.35:443",
+            "state": "ESTABLISHED",
+            "uid": 10304
+          },
+          {
+            "local": "10.0.0.23:40003",
+            "proto": "TCP",
+            "remote": "157.240.22.35:443",
+            "state": "ESTABLISHED",
+            "uid": 10304
+          },
+          {
+            "local": "10.0.0.23:40004",
+            "proto": "TCP",
+            "remote": "157.240.22.35:5222",
+            "state": "ESTABLISHED",
+            "uid": 10304
+          },
+          {
+            "local": "[2001:db8:1::23]:40101",
+            "proto": "TCP",
+            "remote": "[2a03:2880:f12f:83:face:b00c:0:25de]:443",
+            "state": "ESTABLISHED",
+            "uid": 10304
+          },
+          {
+            "local": "[::ffff:10.0.0.23]:40100",
+            "proto": "TCP",
+            "remote": "[::ffff:142.250.200.4]:443",
+            "state": "ESTABLISHED",
+            "uid": 10304
+          },
+          {
+            "local": "10.0.0.23:41000",
+            "proto": "UDP",
+            "remote": "142.250.180.14:443",
+            "state": "ESTABLISHED",
+            "uid": 10304
+          },
+          {
+            "local": "10.0.0.23:41002",
+            "proto": "UDP",
+            "remote": "192.0.2.70:3478",
+            "state": "ESTABLISHED",
+            "uid": 10304
+          }
+        ],
+        "dns": [
+          {
+            "host": "g.whatsapp.net",
+            "tracker": null,
+            "uid": 10304
+          },
+          {
+            "host": "graph.facebook.com",
+            "tracker": "Facebook",
+            "uid": 10304
+          }
+        ],
+        "network_permission": true,
+        "rx_bytes": 53479424,
+        "tx_bytes": 7865344
+      },
+      "uid": 10304,
+      "uid_packages": [
+        "com.whatsapp"
+      ],
+      "versions": {
+        "com.whatsapp": "2.24.22.79"
+      }
+    }
+  ],
+  "sources": [
+    "dumpsys appops",
+    "dumpsys package",
+    "dumpsys activity",
+    "dumpsys jobscheduler",
+    "dumpsys power",
+    "dumpsys location",
+    "dumpsys sensorservice",
+    "dumpsys clipboard",
+    "dumpsys netstats",
+    "/proc/net/tcp",
+    "/proc/net/udp",
+    "logcat DNS"
+  ],
+  "unattributed_dns": [
+    {
+      "host": "api.weather.example",
+      "tracker": null,
+      "uid": null
+    },
+    {
+      "host": "app.adjust.com",
+      "tracker": "Adjust",
+      "uid": null
+    },
+    {
+      "host": "cdn.example.net",
+      "tracker": null,
+      "uid": 10999
+    },
+    {
+      "host": "o12345.ingest.sentry.io",
+      "tracker": "Sentry",
+      "uid": null
+    }
+  ]
+}

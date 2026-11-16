@@ -1,0 +1,60 @@
+Active interfaces:
+  iface=wlan0 ident=[{type=WIFI, ratType=COMBINED, metered=false}]
+Dev stats:
+  Pending bytes: 1024
+  History since boot:
+  ident=[{type=WIFI}] uid=-1 set=ALL tag=0x0
+    NetworkStatsHistory: bucketDuration=3600000
+      bucketStart=1700000000000 activeTime=3600000 rxBytes=99999999 rxPackets=1 txBytes=99999999 txPackets=1 operations=0
+Xt stats:
+  ident=[{type=WIFI}] uid=-1 set=ALL tag=0x0
+      st=1700000000 rb=12345678 rp=1 tb=12345678 tp=1 op=0
+UID stats:
+  Pending bytes: 4096
+  Complete history:
+  ident=[{type=WIFI, ratType=COMBINED, metered=false}] uid=10304 set=DEFAULT tag=0x0
+    NetworkStatsHistory: bucketDuration=7200000
+      bucketStart=1700000000000 activeTime=7200000 rxBytes=52428800 rxPackets=40000 txBytes=7340032 txPackets=9000 operations=0
+      bucketStart=1700007200000 activeTime=7200000 rxBytes=1048576 rxPackets=900 txBytes=524288 txPackets=400 operations=0
+  ident=[{type=MOBILE, ratType=COMBINED, metered=true}] uid=10304 set=FOREGROUND tag=0x0
+    NetworkStatsHistory: bucketDuration=7200000
+      bucketStart=1700000000000 activeTime=7200000 rxBytes=2048 rxPackets=2 txBytes=1024 txPackets=1 operations=0
+  ident=[{type=WIFI}] uid=10301 set=DEFAULT tag=0x0
+    NetworkStatsHistory: bucketDuration=7200000
+      bucketStart=1700000000000 activeTime=7200000 rxBytes=3221225472 rxPackets=1 txBytes=1610612736 txPackets=1 operations=0
+  ident=[{type=WIFI}] uid=10303 set=DEFAULT tag=0x0
+      st=1700000000 rb=512 rp=2 tb=1023 tp=2 op=0
+  ident=[{type=WIFI}] uid=10306 set=DEFAULT tag=0x0
+    NetworkStatsHistory: bucketDuration=7200000
+      bucketStart=1700000000000 activeTime=0 rxBytes=0 rxPackets=0 txBytes=0 txPackets=0 operations=0
+      st=1700000000 rb=1 rp=1 tb=0 tp=0 op=0
+  ident=[{type=WIFI}] uid=0 set=DEFAULT tag=0x0
+    NetworkStatsHistory: bucketDuration=7200000
+      bucketStart=1700000000000 activeTime=10 rxBytes=4096 rxPackets=4 txBytes=4096 txPackets=4 operations=0
+  ident=[{type=WIFI}] uid=1073 set=DEFAULT tag=0x0
+    NetworkStatsHistory: bucketDuration=7200000
+      bucketStart=1700000000000 activeTime=10 rxBytes=3000 rxPackets=3 txBytes=3000 txPackets=3 operations=0
+  ident=[{type=WIFI}] uid=1051 set=DEFAULT tag=0x0
+      st=1700000000 rb=700 rp=3 tb=900 tp=3 op=0
+  ident=[{type=WIFI}] uid=1000 set=DEFAULT tag=0x0
+    NetworkStatsHistory: bucketDuration=7200000
+      bucketStart=1700000000000 activeTime=10 rxBytes=1099511627776 rxPackets=4 txBytes=5 txPackets=4 operations=0
+  ident=[{type=WIFI}] uid=10120 set=DEFAULT tag=0x0
+    NetworkStatsHistory: bucketDuration=7200000
+      bucketStart=1700000000000 activeTime=10 rxBytes=8192 rxPackets=4 txBytes=8192 txPackets=4 operations=0
+  ident=[{type=WIFI}] uid=10011 set=DEFAULT tag=0x0
+      st=1700000000 rb=5 rp=1 tb=5 tp=1 op=0
+  ident=[{type=WIFI}] uid=10019 set=DEFAULT tag=0x0
+      st=1700000000 rb=5 rp=1 tb=5 tp=1 op=0
+  ident=[{type=WIFI}] uid=10027 set=DEFAULT tag=0x0
+      st=1700000000 rb=5 rp=1 tb=5 tp=1 op=0
+  ident=[{type=WIFI}] uid=1035 set=DEFAULT tag=0x0
+    NetworkStatsHistory: bucketDuration=7200000
+      bucketStart=1700000000000 activeTime=10 rxBytes=5 rxPackets=4 txBytes=5 txPackets=4 operations=0
+  ident=[{type=WIFI}] uid=1043 set=DEFAULT tag=0x0
+    NetworkStatsHistory: bucketDuration=7200000
+      bucketStart=1700000000000 activeTime=10 rxBytes=5 rxPackets=4 txBytes=5 txPackets=4 operations=0
+UID tag stats:
+  ident=[{type=WIFI}] uid=10304 set=DEFAULT tag=0xffffff01
+    NetworkStatsHistory: bucketDuration=7200000
+      bucketStart=1700000000000 activeTime=1 rxBytes=777777 rxPackets=1 txBytes=777777 txPackets=1 operations=0

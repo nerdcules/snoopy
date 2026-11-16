@@ -1,0 +1,58 @@
+[
+  {
+    "destinations": [
+      {
+        "count": 1,
+        "detail": "Encrypted connection to 192.0.2.100:443. 1 socket. The address is visible. The contents are not.",
+        "endpoint": "192.0.2.100:443",
+        "host": "192.0.2.100",
+        "kind": "Encrypted",
+        "label": "192.0.2.100",
+        "name": "",
+        "relation": "connects"
+      }
+    ],
+    "name": "One",
+    "package": "com.watch.one",
+    "reads": [
+      {
+        "detail": "Images or video from the camera. Camera, 5 minutes ago.",
+        "label": "Camera"
+      }
+    ],
+    "rx_bytes": 0,
+    "tx_bytes": 0
+  },
+  {
+    "destinations": [],
+    "name": "Two",
+    "package": "com.watch.two",
+    "reads": [
+      {
+        "detail": "Names and numbers from the address book. Contacts, in this sample.",
+        "label": "Contacts"
+      }
+    ],
+    "rx_bytes": 0,
+    "tx_bytes": 0
+  },
+  {
+    "destinations": [
+      {
+        "count": 1,
+        "detail": "Encrypted connection to 192.0.2.101:443. 1 socket. The address is visible. The contents are not.",
+        "endpoint": "192.0.2.101:443",
+        "host": "192.0.2.101",
+        "kind": "Encrypted",
+        "label": "192.0.2.101",
+        "name": "",
+        "relation": "connects"
+      }
+    ],
+    "name": "com.watch.shared, com.watch.two",
+    "package": "",
+    "reads": [],
+    "rx_bytes": 0,
+    "tx_bytes": 0
+  }
+]

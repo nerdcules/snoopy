@@ -1,0 +1,54 @@
+Current AppOps Service state:
+  Uid 10500:
+    state=bg
+    Package com.sync.contacts:
+      READ_CONTACTS (allow):
+        null=[
+          Access: [bg-s] 2026-11-14 18:00:00.000 (-12m0s0ms) duration=+3s
+        ]
+      GET_ACCOUNTS (allow):
+        null=[
+          Access: [bg-s] 2026-11-14 18:00:00.000 (-12m0s0ms)
+        ]
+    Package com.android.providers.contacts:
+      READ_CONTACTS (allow):
+        null=[
+          Access: [pers-s] 2026-11-14 18:10:00.000 (-2m0s0ms)
+        ]
+  Uid 10501:
+    Package com.a.one:
+      CAMERA (allow):
+        null=[
+          Access: [top-s] 2026-11-14 18:11:00.000 (-1m0s0ms)
+        ]
+    Package com.a.two:
+      RECORD_AUDIO (deny):
+      READ_CALENDAR (allow):
+  Uid 10502:
+    Package com.b.three:
+      FINE_LOCATION (allow):
+        null=[
+          Access: [top-s] 2026-11-14 18:11:30.000 (-30s0ms)
+        ]
+      SEND_SMS (allow):
+        null=[
+          Reject: [top-s] 2026-11-14 18:11:30.000 (-30s0ms)
+        ]
+  Uid 10504:
+    Package com.c.two:
+      RECORD_AUDIO (allow):
+        null=[
+          Access: [top-s] 2026-11-14 18:09:00.000 (-3m0s0ms)
+        ]
+  Uid 1000:
+    Package com.android.settings:
+      BLUETOOTH_CONNECT (allow):
+        null=[
+          Access: [pers-s] 2026-11-14 18:09:00.000 (-3m0s0ms)
+        ]
+  Uid 2000:
+    Package com.android.shell:
+      READ_PHONE_STATE (allow):
+        null=[
+          Access: [top-s] 2026-11-14 18:12:00.000 (-1s0ms)
+        ]
