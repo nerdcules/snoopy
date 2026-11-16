@@ -50,3 +50,28 @@ raises (C++ carries on), and Unicode corner cases in the patterns.
 Before item 1 was fixed, the Pixel 8 Pro capture gave identical reports
 from both programs, so the port matched on real data too. The other items
 are kept until a real capture shows they matter.
+
+## Icons (icons.py)
+
+Checked on the same Pixel 8 Pro (Android 17, toybox 0.8.13), 2026-11-16:
+
+- **Reads.** `dd bs=1` became `bs=65536 iflag=skip_bytes,count_bytes`
+  (200,000 bytes: 112 ms against 387 ms, same bytes), falling back to `bs=1`
+  for a phone that refuses the flag; a lookup no longer reads the same tail,
+  directory or size twice.
+- **Large tables.** The on-phone walker took 12,176 ms on YouTube's table and
+  returned nothing; with fast reads, tables up to 20,000,000 bytes are now
+  copied (8,000,000 bytes in 676 ms) and indexed here. The walker only runs
+  when the phone reads one byte per block.
+- **Sparse type chunks** (bug in icons.py). A sparse chunk's entry count is
+  its number of pairs, not the highest index; icons.py rejected any entry
+  index at or above it, so YouTube's icon (entry 15 of a 5-pair chunk) was
+  never found.
+- **Shrunk resource paths.** Bitmaps named without an extension (Edge:
+  `res/HxS`, `res/w5-`) are accepted; the bytes must still be PNG or WebP.
+
+Five apps before and after these changes: 16,251 to 72,728 ms per icon with
+3 of 5 missing, then 2,602 to 3,353 ms with 1 missing (Outlook, whose icon
+is vector XML only). Over 20 third-party apps from one sample: 10 real icons,
+8 vector-only (all-XML chains, no bitmap to show), 2 with no icon attribute
+found in the manifest (cause not known); 710 to 6,533 ms each, mean 2,273 ms.

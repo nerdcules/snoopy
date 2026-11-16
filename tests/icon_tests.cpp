@@ -349,6 +349,7 @@ public:
     QString state = "device"; // "device", "unauthorized", or "nostart"
     QSet<QString> failingReads;
     QString toyboxDir; // when set, `shell sh -c ...` runs here with a fake toybox
+    bool oldToybox = false; // refuses iflag=skip_bytes,count_bytes, as toybox before 0.8 may
     int delayMs = 0;
 
     void install(const QString &package, const QList<QPair<QString, QByteArray>> &apks) {
@@ -440,6 +441,23 @@ private:
                 return result;
             }
             result.out = files[path].mid(arguments.at(5).mid(5).toLongLong(), arguments.at(6).mid(6).toLongLong());
+            return result;
+        }
+        if (arguments.size() == 9 && arguments.mid(0, 3) == QStringList{"exec-out", "toybox", "dd"} &&
+            arguments.at(3).startsWith("if=") && arguments.at(4) == "bs=65536" &&
+            arguments.at(5) == "iflag=skip_bytes,count_bytes" && arguments.at(6).startsWith("skip=") &&
+            arguments.at(7).startsWith("count=") && arguments.at(8) == "status=none") {
+            const QString path = arguments.at(3).mid(3);
+            if (oldToybox) {
+                result.err = "dd: bad iflag skip_bytes\n";
+                result.code = 1;
+                return result;
+            }
+            if (!files.contains(path) || failingReads.contains(path)) {
+                result.code = 1;
+                return result;
+            }
+            result.out = files[path].mid(arguments.at(6).mid(5).toLongLong(), arguments.at(7).mid(6).toLongLong());
             return result;
         }
         if (arguments.size() == 9 && arguments.mid(0, 3) == QStringList{"shell", "sh", "-c"}) {
@@ -549,6 +567,9 @@ private slots:
                  QString("res/b.webp"));
         QCOMPARE(apk::bestImage({{480, "res/b.png"}, {480, "res/a.png"}}), QString("res/b.png"));
         QCOMPARE(apk::bestImage({{65535, "res/nodpi.png"}, {0, "res/x.xml"}}), QString());
+        // Shrunk resource paths without an extension (Edge, Android 17).
+        QCOMPARE(apk::bestImage({{160, "res/HxS"}, {640, "res/w5-"}, {65534, "res/xyc.xml"}}), QString("res/w5-"));
+        QCOMPARE(apk::bestImage({{640, "@7f080001"}, {640, "res/a.xml"}}), QString());
     }
 
     void mimeSniffing() {
@@ -616,6 +637,17 @@ private slots:
         // Cut short anywhere: no crash, and nothing beyond the cut.
         for (int cut = 0; cut < bytes.size(); cut += 7)
             QVERIFY(apk::resolveInTable(bytes.left(cut), kIcon).size() <= 4);
+    }
+
+    void sparseEntryPastThePairCount() {
+        // As YouTube's table on Android 17: entry 15 in a chunk of 5 pairs.
+        const QStringList strings = {"res/a.png", "res/b.png"};
+        QMap<int, Value> pairs;
+        for (int index : {2, 4, 9, 12, 15})
+            pairs.insert(index, {0x03, quint32(index == 15 ? 1 : 0)});
+        const QByteArray bytes = table(strings, {{0x0D, 480, Encoding::Sparse, 0, pairs}});
+        QCOMPARE(apk::resolveInTable(bytes, kIcon + 15), (apk::Found{{480, strings[1]}}));
+        QCOMPARE(apk::resolveInTable(bytes, kIcon + 14), apk::Found());
     }
 
     void manifestIconByNameOrResourceId() {
@@ -712,6 +744,46 @@ private slots:
         QVERIFY(phone.calls().isEmpty());
     }
 
+    void readsAreFastAndNotRepeated() {
+        FakePhone phone;
+        phone.install("com.demo.app", {{"base.apk", launcherApk()}});
+        IconSource source(m_cache, phone.runner(), "/fake/adb");
+        QString mime;
+        QCOMPARE(source.icon("com.demo.app", "SERIAL1", &mime), png("xxhdpi"));
+        QSet<QString> seen;
+        int lists = 0;
+        for (const auto &call : phone.calls()) {
+            if (call.arguments.value(0) == "shell" && call.arguments.value(1) == "ls")
+                ++lists;
+            if (call.arguments.value(2) != "dd")
+                continue;
+            // Byte offsets with a large block, never one byte at a time.
+            QCOMPARE(call.arguments.value(4), QString("bs=65536"));
+            const QString key = call.arguments.join(' ');
+            QVERIFY2(!seen.contains(key), qPrintable("read twice: " + key));
+            seen.insert(key);
+        }
+        QVERIFY(!seen.isEmpty());
+        QCOMPARE(lists, 1); // one APK, its size asked once
+    }
+
+    void oldToyboxFallsBackToOneByteBlocks() {
+        FakePhone phone;
+        phone.oldToybox = true;
+        phone.install("com.demo.app", {{"base.apk", launcherApk()}});
+        IconSource source(m_cache, phone.runner(), "/fake/adb");
+        QString mime;
+        QCOMPARE(source.icon("com.demo.app", "SERIAL1", &mime), png("xxhdpi"));
+        int fast = 0, slow = 0;
+        for (const auto &call : phone.calls()) {
+            if (call.arguments.value(2) != "dd")
+                continue;
+            (call.arguments.value(4) == "bs=1" ? slow : fast)++;
+        }
+        QCOMPARE(fast, 1); // refused once, then never asked again
+        QVERIFY(slow > 0);
+    }
+
     void launcherAcrossSplitsAndWebp() {
         FakePhone phone;
         phone.install("com.split.app",
@@ -785,6 +857,7 @@ private slots:
     }
 
     void largeTableWalkedOnPhone() {
+        // The walker only runs on a phone without byte-offset reads.
         // A stored resources.arsc over 1,500,000 bytes is not copied off: the
         // walker script runs "on the phone" (here: sh with toybox = coreutils).
         if (QStandardPaths::findExecutable("dd").isEmpty() || QStandardPaths::findExecutable("od").isEmpty())
@@ -819,6 +892,7 @@ private slots:
 
         FakePhone phone;
         phone.toyboxDir = bin;
+        phone.oldToybox = true;
         phone.files[path] = bytes;
         phone.packages["com.big.table"] = {path};
         IconSource source(m_cache, phone.runner(), "/fake/adb");
@@ -835,6 +909,17 @@ private slots:
         QCOMPARE(walks, 1);
         for (const auto &[skip, count] : phone.reads())
             QVERIFY2(count <= 1500000, qPrintable(QString::number(count)));
+
+        // With byte-offset reads the same table is copied and indexed here.
+        FakePhone fast;
+        fast.toyboxDir = bin;
+        fast.files[path] = bytes;
+        fast.packages["com.big.table"] = {path};
+        QTemporaryDir otherCache;
+        IconSource copying(otherCache.path(), fast.runner(), "/fake/adb");
+        QCOMPARE(copying.icon("com.big.table", {}, &mime), png("xxhdpi"));
+        for (const auto &call : fast.calls())
+            QVERIFY(call.arguments.mid(0, 3) != (QStringList{"shell", "sh", "-c"}));
     }
 
     void monogramAndMissWhenNothingResolves() {

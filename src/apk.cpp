@@ -23,7 +23,16 @@ QString baseName(const QString &name) { return name.mid(name.lastIndexOf('/') + 
 
 bool bitmapName(const QString &path) {
     const QString lower = path.toLower();
-    return (lower.endsWith(".png") || lower.endsWith(".webp")) && !lower.contains(".9.");
+    if ((lower.endsWith(".png") || lower.endsWith(".webp")) && !lower.contains(".9."))
+        return true;
+    // Shrunk resource paths drop the extension too: Edge's launcher bitmaps
+    // are res/HxS, res/6Y0 and so on (Android 17). A name without one may be
+    // an image; the bytes read are checked for PNG or WebP before use.
+    // A reference (@7f080001) is not a path.
+    if (!lower.startsWith("res/"))
+        return false;
+    const QString file = lower.section('/', -1);
+    return !file.isEmpty() && !file.contains('.');
 }
 
 // _ulen: a UTF-8 pool length, one byte or two with the high bit set.
@@ -70,7 +79,11 @@ Found typeHit(const QByteArray &table, qint64 pos, quint16 headerSize, quint32 i
     const quint8 flags = u8(table, pos + 9);
     const quint32 entryCount = u32(table, pos + 12);
     const quint32 entriesStart = u32(table, pos + 16);
-    if (index >= entryCount)
+    // A sparse chunk's count is the number of (index, offset) pairs it
+    // holds, not the highest index: YouTube's launcher icon is entry 15 of a
+    // 5-pair chunk (Android 17). icons.py stopped here for every sparse
+    // chunk and found no icon.
+    if (!(flags & 0x01) && index >= entryCount)
         return {};
     const int density = fits(table, pos + 34, 2) ? u16(table, pos + 34) : 0;
     const qint64 offset = entryOffset(table, pos, headerSize, flags, index, entryCount);

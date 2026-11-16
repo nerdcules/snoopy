@@ -181,6 +181,8 @@ Item {
               ? qsTr("No app matches “%1”.").arg(view.query)
               : monitor.status === "live"
                 ? qsTr("No app has an open connection or a recent read in this sample.")
-                : qsTr("Plug the phone in and accept USB debugging. Apps show up here on their own.")
+                : monitor.status === "starting" && monitor.busy
+                  ? qsTr("Reading the phone…")
+                  : qsTr("Plug the phone in and accept USB debugging. Apps show up here on their own.")
     }
 }

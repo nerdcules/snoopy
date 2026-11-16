@@ -1,13 +1,33 @@
 #include "adb.h"
 
 #include <QDir>
+#include <QElapsedTimer>
 #include <QFileInfo>
 #include <QObject>
 #include <QProcess>
 #include <QRegularExpression>
 #include <QStandardPaths>
 
+static ProcessResult runOnce(const QString &program, const QStringList &arguments, int timeoutMs);
+
+// SNOOPY_TRACE=1 prints every process with its time and output size to
+// stderr, to see where a slow sample or icon spends it.
 ProcessResult runProcess(const QString &program, const QStringList &arguments, int timeoutMs) {
+    static const bool trace = !qEnvironmentVariableIsEmpty("SNOOPY_TRACE");
+    if (!trace)
+        return runOnce(program, arguments, timeoutMs);
+    QElapsedTimer timer;
+    timer.start();
+    const ProcessResult result = runOnce(program, arguments, timeoutMs);
+    QString shown = arguments.join(' ');
+    if (shown.size() > 160)
+        shown = shown.left(157) + "...";
+    fprintf(stderr, "[%6lld ms] %8lld B  exit %d  %s\n", timer.elapsed(), qint64(result.out.size()), result.code,
+            qPrintable(shown));
+    return result;
+}
+
+static ProcessResult runOnce(const QString &program, const QStringList &arguments, int timeoutMs) {
     ProcessResult result;
     QProcess process;
     process.start(program, arguments);

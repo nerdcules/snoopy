@@ -2,10 +2,15 @@
 
 #include "adb.h"
 #include "capture.h"
+#include "icons.h"
 #include "render.h"
 #include "report.h"
 
 #include <QDir>
+#include <QElapsedTimer>
+#include <QJsonObject>
+#include <QSaveFile>
+#include <QTemporaryDir>
 #include <QFile>
 #include <QJsonDocument>
 #include <QSet>
@@ -16,7 +21,7 @@
 
 namespace {
 
-const QStringList kCommands{"scan", "watch", "report", "skill", "help", "--help", "-h"};
+const QStringList kCommands{"scan", "watch", "report", "icon", "skill", "help", "--help", "-h"};
 
 void usage(QTextStream &out) {
     out << "snoopy - what each app on a connected Android phone reads, and where it is connected\n\n"
@@ -27,6 +32,8 @@ void usage(QTextStream &out) {
            "                               print sockets, focus and app ops as they change (--count 0: until Ctrl+C)\n"
            "  snoopy report --capture DIR [--json] [--all] [--package P]...\n"
            "                               the report for a capture saved with scan --out\n"
+           "  snoopy icon PACKAGE [--out FILE] [--fresh] [--json] [--serial S]\n"
+           "                               an app's launcher icon from the phone (--fresh skips the cache)\n"
            "  snoopy skill install         install the agent skill into ~/.claude/skills/snoopy\n\n"
            "The phone is read over adb (USB debugging on, this computer accepted).\n"
            "HTTPS message bodies stay encrypted: a connection shows its address, not its contents.\n"
@@ -185,6 +192,39 @@ int watch(const Options &options, QTextStream &out, QTextStream &err) {
     return 0;
 }
 
+int icon(const QStringList &arguments, const Options &options, QTextStream &out, QTextStream &err) {
+    const QString package = arguments.value(2);
+    if (package.isEmpty() || package.startsWith("--")) {
+        err << "Usage: snoopy icon PACKAGE [--out FILE] [--fresh] [--json] [--serial S]\n";
+        return 1;
+    }
+    Adb adb(options.values.value("--serial"));
+    const QString serial = adb.resolveSerial();
+    QTemporaryDir fresh;
+    IconSource source(options.flags.contains("--fresh") ? fresh.path() : QString());
+    QElapsedTimer timer;
+    timer.start();
+    QString mime;
+    const QByteArray image = source.icon(package, serial, &mime);
+    const qint64 ms = timer.elapsed();
+    if (options.values.contains("--out")) {
+        QSaveFile file(options.values.value("--out"));
+        if (!file.open(QIODevice::WriteOnly) || file.write(image) != image.size() || !file.commit()) {
+            err << "Could not write " << options.values.value("--out") << "\n";
+            return 1;
+        }
+    }
+    // A monogram means the phone had no png or webp icon for the package.
+    const bool found = mime != "image/svg+xml";
+    if (options.flags.contains("--json"))
+        out << QJsonDocument(QJsonObject{{"package", package}, {"mime", mime}, {"bytes", image.size()},
+                                         {"found", found}, {"ms", ms}}).toJson(QJsonDocument::Compact) << "\n";
+    else
+        out << package << ": " << (found ? mime : QString("no icon on the phone, monogram")) << ", " << image.size()
+            << " bytes, " << ms << " ms\n";
+    return 0;
+}
+
 int installSkill(QTextStream &out, QTextStream &err) {
     QFile source(":/skill/SKILL.md");
     if (!source.open(QIODevice::ReadOnly)) {
@@ -230,6 +270,8 @@ int runCli(const QStringList &arguments) {
         options = parse(arguments, {"--serial", "--package", "--out"}, {"--json", "--all"});
     else if (command == "watch")
         options = parse(arguments, {"--serial", "--package", "--interval", "--count"}, {});
+    else if (command == "icon")
+        options = parse(arguments.mid(0, 2) + arguments.mid(3), {"--serial", "--out"}, {"--fresh", "--json"});
     else
         options = parse(arguments, {"--capture", "--package"}, {"--json", "--all"});
     if (!options.problem.isEmpty()) {
@@ -242,6 +284,8 @@ int runCli(const QStringList &arguments) {
             return scan(options, out, err);
         if (command == "watch")
             return watch(options, out, err);
+        if (command == "icon")
+            return icon(arguments, options, out, err);
         return report(options, out, err);
     } catch (const AdbError &error) {
         out.flush();

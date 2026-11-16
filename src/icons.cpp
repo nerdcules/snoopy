@@ -91,16 +91,39 @@ private:
 
     QString run(const QStringList &arguments) { return QString::fromUtf8(call(arguments, kRunTimeout).out); }
 
-    // _dd: count bytes from skip, one byte per block as icons.py reads them.
-    // A non-zero exit is a failure (check_output).
+    // _dd: count bytes from skip. Toybox 0.8.13 (Android 17) takes byte
+    // offsets with a large block (iflag=skip_bytes,count_bytes): a 200,000
+    // byte read took 112 ms against 387 ms at bs=1, same bytes. An older
+    // toybox that refuses the flag gets bs=1, as icons.py read it, from the
+    // first refusal on. One lookup reads the same tail and directory more
+    // than once, so every read is kept for the rest of it. A non-zero exit
+    // is a failure (check_output).
     QByteArray dd(const QString &path, qint64 skip, qint64 count) {
         if (count <= 0)
             return {};
+        const QString key = QString("%1\n%2\n%3").arg(path).arg(skip).arg(count);
+        if (const auto cached = m_reads.constFind(key); cached != m_reads.cend())
+            return cached.value();
+        if (m_fastReads != 0) {
+            const ProcessResult result =
+                call({"exec-out", "toybox", "dd", "if=" + path, "bs=65536", "iflag=skip_bytes,count_bytes",
+                      QString("skip=%1").arg(skip), QString("count=%1").arg(count), "status=none"},
+                     kRunTimeout);
+            if (result.code == 0) {
+                m_fastReads = 1;
+                m_reads.insert(key, result.out);
+                return result.out;
+            }
+            if (m_fastReads == 1)
+                throw Unavailable();
+            m_fastReads = 0;
+        }
         const ProcessResult result = call({"exec-out", "toybox", "dd", "if=" + path, "bs=1", QString("skip=%1").arg(skip),
                                            QString("count=%1").arg(count), "status=none"},
                                           kRunTimeout);
         if (result.code != 0)
             throw Unavailable();
+        m_reads.insert(key, result.out);
         return result.out;
     }
 
@@ -115,8 +138,16 @@ private:
         return paths;
     }
 
-    // _file_size: the fifth field of `ls -l`, or 0.
+    // _file_size: the fifth field of `ls -l`, or 0. Kept for the lookup.
     qint64 fileSize(const QString &path) {
+        if (const auto cached = m_sizes.constFind(path); cached != m_sizes.cend())
+            return cached.value();
+        const qint64 size = listedSize(path);
+        m_sizes.insert(path, size);
+        return size;
+    }
+
+    qint64 listedSize(const QString &path) {
         const QStringList parts = run({"shell", "ls", "-l", path}).split(QRegularExpression("\\s+"), Qt::SkipEmptyParts);
         if (parts.size() < 5)
             return 0;
@@ -277,7 +308,11 @@ private:
     }
 
     // _resolve_resource: tables up to 1,500,000 bytes are read and indexed
-    // here; larger ones (stored, up to 20,000,000) are walked on the phone.
+    // here; larger ones (stored, up to 20,000,000) were walked on the phone.
+    // With byte-offset reads a table comes across fast (8,000,000 bytes in
+    // 676 ms over USB, Pixel 8 Pro), while the walker took 12,176 ms on
+    // YouTube's table and found nothing, so it now only runs when the phone
+    // reads one byte per block.
     apk::Found resolveResource(const QStringList &paths, quint32 resourceId) {
         apk::Found found;
         QList<QPair<QString, qint64>> large;
@@ -287,7 +322,8 @@ private:
                 continue;
             if (located->method != 0 || located->compressedSize > 20000000)
                 continue;
-            if (located->compressedSize <= 1500000) {
+            const qint64 copyLimit = m_fastReads == 1 ? 20000000 : 1500000;
+            if (located->compressedSize <= copyLimit) {
                 const QByteArray table = dd(path, located->dataStart, located->compressedSize);
                 found += apk::resolveInTable(table, resourceId);
             } else {
@@ -317,6 +353,10 @@ private:
         return apk::parseWalkerOutput(QString::fromUtf8(result.out));
     }
 
+    // -1 not tried yet, 1 the phone's dd takes byte offsets, 0 it doesn't.
+    int m_fastReads = -1;
+    QHash<QString, QByteArray> m_reads;
+    QHash<QString, qint64> m_sizes;
     Adb m_adb;
     bool m_hasAdb;
 };
