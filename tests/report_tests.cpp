@@ -172,13 +172,99 @@ class ReportTests : public QObject {
     Q_OBJECT
 
 private:
+    // Captures whose golden files record android-diagnoser's output but
+    // where Snoopy now reads more on purpose (docs/parity.md). Their golden
+    // files stay as the record of the old reading; packageDumpReadsIndented
+    // checks the new one.
+    static QStringList leftParity() { return {QStringLiteral("real-indent")}; }
+
     void captureRows() {
         QTest::addColumn<QString>("capture");
         for (const QString &name : captureNames())
-            QTest::newRow(qPrintable(name)) << name;
+            if (!leftParity().contains(name))
+                QTest::newRow(qPrintable(name)) << name;
     }
 
 private slots:
+
+    // ------------------------------------------------------- left parity
+
+    void packageDumpReadsIndented() {
+        const QJsonObject report = buildReport(load(QStringLiteral("real-indent")));
+        QJsonObject byPackage;
+        for (const QJsonValue &card : report.value("live").toArray())
+            byPackage.insert(card.toObject().value("packages").toArray().first().toString(), card);
+        const QJsonObject indented = byPackage.value("com.example.indented").toObject();
+        QCOMPARE(indented.value("versions").toObject().value("com.example.indented").toString(), QString("4.2"));
+        // CAMERA is granted in "runtime permissions" under "User 0:".
+        QCOMPARE(indented.value("declared").toArray().first().toObject().value("permission").toString(),
+                 QString("android.permission.CAMERA"));
+        QVERIFY(indented.value("transmitted").toObject().value("network_permission").toBool());
+        const QJsonObject second = byPackage.value("com.example.second").toObject();
+        QCOMPARE(second.value("trackers").toArray().first().toObject().value("name").toString(), QString("AppsFlyer"));
+        // A package only under "Hidden system packages" is not read.
+        QVERIFY(!byPackage.contains("com.android.hidden"));
+    }
+
+    void packageDumpLikeAPhone() {
+        // The shape of `dumpsys package` on Android 17 (Pixel 8 Pro,
+        // 2026-11-16), with made-up packages: components only in the
+        // resolver tables, headers two spaces in, runtime permissions under
+        // "User 0:", and the factory copy of an updated app under "Hidden
+        // system packages".
+        const QString dump = QStringLiteral(
+            "Activity Resolver Table:\n"
+            "  Non-Data Actions:\n"
+            "      android.intent.action.MAIN:\n"
+            "        1a2b3c4 com.example.chat/.MainActivity filter 5d6e7f8\n"
+            "Receiver Resolver Table:\n"
+            "  Non-Data Actions:\n"
+            "      com.google.android.c2dm.intent.RECEIVE:\n"
+            "        2b3c4d5 com.example.chat/com.google.firebase.iid.FirebaseInstanceIdReceiver filter 6e7f8a9\n"
+            "        3c4d5e6 com.example.chat/com.facebook.appevents.AppEventsReceiver filter 7f8a9b0\n"
+            "\n"
+            "Packages:\n"
+            "  Package [com.example.chat] (4d5e6f7):\n"
+            "    appId=10305\n"
+            "    versionCode=244 minSdk=28 targetSdk=36\n"
+            "    versionName=2.26.1\n"
+            "    declared permissions:\n"
+            "      com.example.chat.permission.BROADCAST: prot=signature\n"
+            "    install permissions:\n"
+            "      android.permission.INTERNET: granted=true\n"
+            "    User 0: ceDataInode=4309 installed=true hidden=false\n"
+            "      overlay paths:\n"
+            "        /product/overlay/x.apk\n"
+            "      lastDisabledCaller: com.android.vending\n"
+            "      runtime permissions:\n"
+            "        android.permission.ACCESS_FINE_LOCATION: granted=true, flags=[ USER_SET ]\n"
+            "        android.permission.RECORD_AUDIO: granted=false, flags=[ USER_SET ]\n"
+            "      enabledComponents:\n"
+            "        com.example.chat.Hidden\n"
+            "  Package [com.example.maps] (5e6f7a8):\n"
+            "    appId=10406\n"
+            "    versionName=11.0\n"
+            "\n"
+            "Hidden system packages:\n"
+            "  Package [com.example.maps] (6f7a8b9):\n"
+            "    appId=10406\n"
+            "    versionName=1.0-factory\n"
+            "\n"
+            "Queries:\n"
+            "  system apps queryable: false\n");
+        const auto packages = parsePackageDump(dump);
+        QCOMPARE(packages.size(), qsizetype(2));
+        QVERIFY(packages.find(QStringLiteral("com.example.chat")) && packages.find(QStringLiteral("com.example.maps")));
+        const PackageDetails chat = *packages.find(QStringLiteral("com.example.chat"));
+        QCOMPARE(chat.versionName.value_or(QString()), QString("2.26.1"));
+        QCOMPARE(chat.userId.value_or(-1), qint64(10305));
+        QCOMPARE(chat.granted, QStringList({"android.permission.INTERNET", "android.permission.ACCESS_FINE_LOCATION"}));
+        // Components from the resolver tables, relative names made whole.
+        QVERIFY(chat.body.contains("com.example.chat.MainActivity"));
+        QVERIFY(chat.body.contains("com.facebook.appevents.AppEventsReceiver"));
+        // The live entry stays; the factory copy doesn't replace it.
+        QCOMPARE(packages.find(QStringLiteral("com.example.maps"))->versionName.value_or(QString()), QString("11.0"));
+    }
     // ------------------------------------------------------------ golden
 
     void fixturesAndGoldenFilesExist() {

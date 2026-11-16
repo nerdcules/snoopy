@@ -460,17 +460,71 @@ QList<PmPackage> parsePmList(const QString &text) {
     return packages;
 }
 
+namespace {
+
+int leadingWhitespace(const QString &line) {
+    int n = 0;
+    while (n < line.size() && (line.at(n) == u' ' || line.at(n) == u'\t'))
+        ++n;
+    return n;
+}
+
+// Every "package/Class" a resolver table names, by package, with relative
+// names (".MainActivity") made whole. Real dumps list an app's components
+// there, never inside its own Package block.
+QHash<QString, QStringList> componentsByPackage(const QString &text) {
+    static const QRegularExpression component(QStringLiteral(
+        R"re((?<![\w.])([A-Za-z][\w]*(?:\.[\w]+)+)/(\.?[A-Za-z_$][\w$]*(?:\.[\w$]+)*))re"));
+    QHash<QString, QSet<QString>> found;
+    QRegularExpressionMatchIterator it = component.globalMatch(text);
+    while (it.hasNext()) {
+        const QRegularExpressionMatch m = it.next();
+        const QString package = m.captured(1);
+        QString name = m.captured(2);
+        if (name.startsWith(u'.'))
+            name.prepend(package);
+        found[package].insert(name);
+    }
+    QHash<QString, QStringList> sorted;
+    for (auto entry = found.cbegin(); entry != found.cend(); ++entry) {
+        QStringList names(entry.value().cbegin(), entry.value().cend());
+        names.sort();
+        sorted.insert(entry.key(), names);
+    }
+    return sorted;
+}
+
+} // namespace
+
+// android-diagnoser read "Package [x]" only at column 0, sections at exactly
+// two spaces and permissions at four or more. Phones print the header two
+// spaces in (Android 17 on a Pixel 8 Pro: all 549 headers), so it read no
+// package at all. Indentation is now taken relative to the header, with the
+// same rules; a column-0 dump is read exactly as before. For indented
+// (real) dumps two more things change: packages under "Hidden system
+// packages" (the factory copies of updated system apps) no longer replace
+// the live entries, and the app's components from the resolver tables are
+// added to the text the tracker search reads.
 OrderedMap<QString, PackageDetails> parsePackageDump(const QString &text) {
-    static const QRegularExpression pkgHeader = py::re(QStringLiteral(R"re(^Package \[([^\]]+)\])re"));
-    static const QRegularExpression section = py::re(QStringLiteral(R"re(^  ([A-Za-z][^:\n]*):\s*$)re"));
-    static const QRegularExpression perm = py::re(QStringLiteral(R"re(^\s{4,}([A-Za-z0-9_.]+)(?::\s*(.*))?$)re"));
+    static const QRegularExpression pkgHeader = py::re(QStringLiteral(R"re(^([ \t]*)Package \[([^\]]+)\])re"));
+    static const QRegularExpression sectionName = py::re(QStringLiteral(R"re(^([A-Za-z][^:\n]*):\s*$)re"));
+    static const QRegularExpression perm = py::re(QStringLiteral(R"re(^([A-Za-z0-9_.]+)(?::\s*(.*))?$)re"));
     static const QRegularExpression version = py::re(QStringLiteral(R"re(^\s+versionName=(\S+))re"));
     static const QRegularExpression userId = py::re(QStringLiteral(R"re(^\s+userId=(\d+))re"));
+    static const QRegularExpression appId = py::re(QStringLiteral(R"re(^\s+appId=(\d+))re"));
 
     OrderedMap<QString, PackageDetails> packages;
     std::optional<PackageDetails> current;
     std::optional<QString> currentSection;
     QStringList body;
+    int base = 0;
+    bool hidden = false;
+    // One reading per dump: any header at column 0 means android-diagnoser's
+    // format, where an indented "Package [" is just text in the package
+    // above it; only a dump whose headers are all indented is read the new
+    // way.
+    const bool indented = !text.startsWith(QLatin1String("Package [")) && !text.contains(QLatin1String("\nPackage ["))
+                          && !text.contains(QLatin1String("\rPackage ["));
 
     auto finish = [&] {
         if (current) {
@@ -482,14 +536,20 @@ OrderedMap<QString, PackageDetails> parsePackageDump(const QString &text) {
     };
 
     for (const QString &raw : py::splitLines(text)) {
-        // The header and the indentation checks only look at the first
-        // characters; skip the regexes when they cannot match.
-        if (raw.startsWith(QLatin1String("Package ["))) {
+        // A line at column 0 opens a top-level part of the dump.
+        if (!raw.isEmpty() && raw.at(0) != u' ' && raw.at(0) != u'\t')
+            hidden = raw.startsWith(QLatin1String("Hidden system packages"));
+        // The header check only looks at the first characters; skip the
+        // regex when it cannot match.
+        if (raw.contains(QLatin1String("Package ["))) {
             const QRegularExpressionMatch header = py::match(pkgHeader, raw);
-            if (header.hasMatch()) {
+            if (header.hasMatch() && (indented || header.capturedLength(1) == 0)) {
                 finish();
+                base = int(header.capturedLength(1));
+                if (indented && hidden)
+                    continue;
                 current = PackageDetails();
-                current->name = header.captured(1);
+                current->name = header.captured(2);
                 currentSection.reset();
                 body.clear();
                 continue;
@@ -497,7 +557,8 @@ OrderedMap<QString, PackageDetails> parsePackageDump(const QString &text) {
         }
         if (!current)
             continue;
-        if (!raw.isEmpty() && !raw.startsWith(u' ') && !raw.startsWith(u'\t')) {
+        const int indent = leadingWhitespace(raw);
+        if (!raw.isEmpty() && indent <= base) {
             finish();
             continue;
         }
@@ -508,10 +569,20 @@ OrderedMap<QString, PackageDetails> parsePackageDump(const QString &text) {
         m = py::match(userId, raw);
         if (m.hasMatch() && !current->userId)
             current->userId = py::toInt(m.capturedView(1));
-        m = py::match(section, raw);
-        if (m.hasMatch()) {
-            currentSection = m.captured(1);
-            continue;
+        if (indented && !current->userId) {
+            m = py::match(appId, raw);
+            if (m.hasMatch())
+                current->userId = py::toInt(m.capturedView(1));
+        }
+        // A section is exactly two spaces deeper than the header, as
+        // android-diagnoser's "^  name:" was at column 0.
+        const QString rest = raw.mid(indent);
+        if (indent == base + 2 && raw.left(indent) == QString(indent, u' ')) {
+            m = py::match(sectionName, rest);
+            if (m.hasMatch()) {
+                currentSection = m.captured(1);
+                continue;
+            }
         }
         if (!currentSection)
             continue;
@@ -519,17 +590,28 @@ OrderedMap<QString, PackageDetails> parsePackageDump(const QString &text) {
         const bool requested = name == QLatin1String("requested permissions");
         if (!requested && name != QLatin1String("install permissions") && name != QLatin1String("runtime permissions"))
             continue;
-        m = py::match(perm, raw);
+        if (indent < base + 4)
+            continue;
+        m = py::match(perm, rest);
         if (!m.hasMatch())
             continue;
         const QString permission = m.captured(1);
-        QString rest = m.captured(2);
+        QString detail = m.captured(2);
         if (requested)
             current->requested.append(permission);
-        else if (rest.remove(u' ').contains(QLatin1String("granted=true")))
+        else if (detail.remove(u' ').contains(QLatin1String("granted=true")))
             current->granted.append(permission);
     }
     finish();
+
+    if (indented) {
+        const QHash<QString, QStringList> components = componentsByPackage(text);
+        for (auto &[name, details] : packages) {
+            const QStringList names = components.value(name);
+            if (!names.isEmpty())
+                details.body += u'\n' + names.join(u'\n');
+        }
+    }
     return packages;
 }
 

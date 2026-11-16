@@ -5,13 +5,23 @@ included, so the two can be compared on the same capture before either is
 changed. These are the quirks found while porting. Each shows in the golden
 files; the ones marked *checked* were also looked at by hand after the merge.
 
-1. **Indented package dumps** (*checked*, `real-indent`). A package header is
-   read only at column 0 (`Package [x]`) and a section name only at exactly
-   two spaces. With the header indented by two spaces, no grants, trackers or
-   versions are read: in `golden/real-indent/report.json` both apps have
-   `declared` 0, `trackers` 0 and empty `versions`. If real phones indent the
-   header (expected for AOSP's `dumpsys package`, not yet seen on a device),
-   every app's granted permissions, tracker SDKs and versions are missed.
+1. **Indented package dumps: fixed, parity left on purpose.**
+   android-diagnoser reads a package header only at column 0 and a section
+   name only at exactly two spaces. A real phone indents the header by two
+   spaces: in a capture from a Pixel 8 Pro on Android 17 (2026-11-16) all 549
+   headers were indented and none at column 0, and both programs gave the
+   same report (JSON and text identical) with 0 granted permissions, 0
+   trackers, 0 versions and 0 apps with internet permission across 443 app
+   cards. Snoopy now reads an indented dump relative to its headers, skips
+   packages under "Hidden system packages" (the factory copies of updated
+   system apps), and adds each app's components from the resolver tables
+   (where a real dump lists them, never in the Package block) to the text
+   the tracker search reads. On the same capture: 573 granted sensitive
+   permissions, 222 trackers in 127 apps, versions for 427 apps, internet
+   permission for 219. A dump with any header at column 0 is read exactly
+   as before, so every other golden file still matches; `real-indent`'s
+   golden files keep the old reading and `packageDumpReadsIndented` /
+   `packageDumpLikeAPhone` check the new one.
 2. **DHCP filter by text** (*checked*, `android14`). Destinations whose kind
    contains "port 67" or "port 68" are dropped from the graph, so port 6789
    is dropped too: it is in `flows.json`, not in `graph.json`.
@@ -37,5 +47,6 @@ of "Capture gaps" when meta.json is not sorted (Qt sorts JSON keys), how
 many replacement characters invalid UTF-8 becomes, inputs on which Python
 raises (C++ carries on), and Unicode corner cases in the patterns.
 
-Next: a capture from a real phone, run through both programs, decides which
-of these are bugs worth leaving parity for. Item 1 first.
+Before item 1 was fixed, the Pixel 8 Pro capture gave identical reports
+from both programs, so the port matched on real data too. The other items
+are kept until a real capture shows they matter.

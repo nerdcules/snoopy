@@ -111,17 +111,21 @@ bin/test      # the Qt Test suites, offscreen
 `tests/fixtures/` holds captures, and `tests/fixtures/golden/` what
 android-diagnoser (commit 7b2d820) made of each: report, flows, graph, text
 and watch output. `tests/make-golden.py` regenerates them from a checkout of
-that program. The C++ core matches them exactly, and keeps that program's
-quirks for now (docs/parity.md).
+that program. The C++ core matches them exactly, except where it reads a
+real phone's `dumpsys package` that the Python missed entirely
+(docs/parity.md, item 1); the other quirks are kept for now.
 
-At the commit that merged the port: app 20, report 97 and icon 42 tests,
-all passing. Measured in the port's own commit (76ff680), `buildReport` took
+Tests at the commit that read real package dumps: app 20, report 90 and
+icon 42, all passing. Measured in the port's own commit (76ff680), `buildReport` took
 2.21 ms on the largest fixture (mean of 50 runs), 328 ms on a synthetic
 3,150,558-character `dumpsys package` and 674 ms on a 6,295,040-character one
 (Python: 1942 ms and 3863 ms, one run each).
 
-Not yet tried on a real phone: every fixture is written by hand from the
-formats the parsers expect.
+On a real phone (Pixel 8 Pro, Android 17, 2026-11-16), before that fix,
+both programs gave identical reports from the same capture. One sample took
+13,858 ms over USB; building its report took 405 to 418 ms (three runs, the
+`dumpsys package` dump is 8,068,091 bytes). The fixtures themselves are
+written by hand, with no personal data.
 
 ## License
 
