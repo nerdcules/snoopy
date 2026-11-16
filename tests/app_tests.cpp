@@ -464,8 +464,80 @@ private slots:
         QVERIFY(!fake.calls.contains("connect 192.0.2.9:4000"));
     }
 
+    void linkPicksTheCableOrWifi() {
+        const QByteArray listing = "List of devices attached\n"
+                                   "192.0.2.5:36115 device product:husky\n"
+                                   "adb-PHONE1-ab12._adb-tls-connect._tcp device product:husky\n"
+                                   "PHONE1 device usb:2-1\n";
+        {
+            FakeAdb fake;
+            fake.answer("devices -l", listing);
+            fake.answer("-s 192.0.2.5:36115 shell getprop ro.serialno", "PHONE1\n");
+            Adb adb({}, fake.runner(), "/usr/bin/adb");
+            QCOMPARE(adb.resolveSerial(Adb::Link::Cable), QString("PHONE1"));
+        }
+        {
+            // Over Wi-Fi the phone is listed twice; it counts once, by its
+            // network name, which outlives the address.
+            FakeAdb fake;
+            fake.answer("devices -l", listing);
+            fake.answer("-s 192.0.2.5:36115 shell getprop ro.serialno", "PHONE1\n");
+            Adb adb({}, fake.runner(), "/usr/bin/adb");
+            QCOMPARE(adb.resolveSerial(Adb::Link::Wifi), QString("adb-PHONE1-ab12._adb-tls-connect._tcp"));
+            QVERIFY(fake.calls.contains("-s 192.0.2.5:36115 shell getprop ro.serialno"));
+        }
+        {
+            FakeAdb fake;
+            fake.answer("devices -l", "List of devices attached\nPHONE1 device usb:2-1\n");
+            Adb adb({}, fake.runner(), "/usr/bin/adb");
+            QVERIFY_THROWS_EXCEPTION(AdbError, adb.resolveSerial(Adb::Link::Wifi));
+            try {
+                Adb again({}, fake.runner(), "/usr/bin/adb");
+                again.resolveSerial(Adb::Link::Wifi);
+            } catch (const AdbError &error) {
+                QVERIFY2(error.message().contains("press W"), qPrintable(error.message()));
+            }
+        }
+        {
+            FakeAdb fake;
+            fake.answer("devices -l", "List of devices attached\nadb-PHONE1-ab12._adb-tls-connect._tcp device\n");
+            Adb adb({}, fake.runner(), "/usr/bin/adb");
+            try {
+                adb.resolveSerial(Adb::Link::Cable);
+                QFAIL("no phone on the cable");
+            } catch (const AdbError &error) {
+                QVERIFY2(error.message().contains("No phone on the cable"), qPrintable(error.message()));
+            }
+        }
+    }
+
+    void monitorPassesTheLink() {
+        QStringList links;
+        QMutex mutex;
+        Monitor monitor({}, [&](const QString &, const QString &link) {
+            QMutexLocker lock(&mutex);
+            links.append(link);
+            Sample sample;
+            sample.error = "no phone";
+            return sample;
+        });
+        QSignalSpy sampled(&monitor, &Monitor::sampled);
+        monitor.setPaused(true);
+        QCOMPARE(monitor.link(), QString("usb"));
+        monitor.sampleNow();
+        QVERIFY(sampled.wait(5000));
+        // Switching samples at once, over the new link.
+        monitor.setLink("wifi");
+        QVERIFY(sampled.wait(5000));
+        monitor.setLink("bogus");
+        QCOMPARE(monitor.link(), QString("usb"));
+        QVERIFY(sampled.wait(5000));
+        QMutexLocker lock(&mutex);
+        QCOMPARE(links, QStringList({"usb", "wifi", "usb"}));
+    }
+
     void monitorWaitsWhenThePhoneCantBeRead() {
-        Monitor monitor({}, [](const QString &) {
+        Monitor monitor({}, [](const QString &, const QString &) {
             Sample sample;
             sample.error = "No Android device is connected. Enable USB debugging and plug the phone in.";
             return sample;
@@ -480,7 +552,7 @@ private slots:
     }
 
     void monitorIntervalIsBounded() {
-        Monitor monitor({}, [](const QString &) { return Sample(); });
+        Monitor monitor({}, [](const QString &, const QString &) { return Sample(); });
         monitor.setInterval(1);
         QCOMPARE(monitor.interval(), 5);
         monitor.setInterval(1000);

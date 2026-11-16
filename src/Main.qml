@@ -59,6 +59,7 @@ ApplicationWindow {
     Shortcut { sequences: ["L", "Right"]; context: Qt.ApplicationShortcut; onActivated: graph.side(1) }
     Shortcut { sequence: "E"; context: Qt.ApplicationShortcut; onActivated: win.logVisible = !win.logVisible }
     Shortcut { sequence: "W"; context: Qt.ApplicationShortcut; onActivated: win.showWireless(!win.wirelessVisible) }
+    Shortcut { sequence: "T"; context: Qt.ApplicationShortcut; onActivated: monitor.link = monitor.link === "wifi" ? "usb" : "wifi" }
     Shortcut { sequence: "C"; context: Qt.ApplicationShortcut; onActivated: monitor.clearEvents() }
     Shortcut { sequences: ["+", "="]; context: Qt.ApplicationShortcut; onActivated: monitor.interval = monitor.interval - 5 }
     Shortcut { sequence: "-"; context: Qt.ApplicationShortcut; onActivated: monitor.interval = monitor.interval + 5 }
@@ -97,20 +98,35 @@ ApplicationWindow {
                     font.pixelSize: Math.round(13 * win.u)
                 }
 
-                Rectangle {
-                    visible: monitor.transport !== ""
-                    width: transportLabel.implicitWidth + 16
-                    height: Math.round(22 * win.u)
-                    radius: Math.min(4, theme.radius)
-                    color: "transparent"
-                    border.color: theme.panelBorder
-                    border.width: 1
-                    Label {
-                        id: transportLabel
-                        anchors.centerIn: parent
-                        text: monitor.transport === "wifi" ? qsTr("Wi-Fi") : qsTr("USB")
-                        color: theme.muted
-                        font.pixelSize: Math.round(11 * win.u)
+                // Cable or Wi-Fi: only the chosen one is used (T).
+                Row {
+                    spacing: 0
+                    Repeater {
+                        model: [["usb", qsTr("Cable")], ["wifi", qsTr("Wi-Fi")]]
+                        delegate: Rectangle {
+                            required property var modelData
+                            required property int index
+                            readonly property bool active: monitor.link === modelData[0]
+                            width: linkLabel.implicitWidth + 20
+                            height: Math.round(24 * win.u)
+                            radius: Math.min(4, theme.radius)
+                            color: active ? theme.accent : "transparent"
+                            border.color: active ? theme.accent : theme.panelBorder
+                            border.width: 1
+                            Label {
+                                id: linkLabel
+                                anchors.centerIn: parent
+                                text: parent.modelData[1]
+                                color: parent.active ? theme.accentForeground : theme.muted
+                                font.pixelSize: Math.round(12 * win.u)
+                                font.weight: parent.active ? Font.DemiBold : Font.Normal
+                            }
+                            MouseArea {
+                                anchors.fill: parent
+                                cursorShape: Qt.PointingHandCursor
+                                onClicked: monitor.link = parent.modelData[0]
+                            }
+                        }
                     }
                 }
 
@@ -233,7 +249,7 @@ ApplicationWindow {
 
             Label {
                 Layout.fillWidth: true
-                text: qsTr("Space pause · R sample · / filter · J/K H/L select · E changes · W Wi-Fi · ? help · Q quit")
+                text: qsTr("Space pause · R sample · / filter · J/K H/L select · T cable/Wi-Fi · W pair · ? help · Q quit")
                 color: theme.muted
                 font.pixelSize: Math.round(12 * win.u)
                 elide: Text.ElideRight

@@ -106,26 +106,40 @@ QList<QPair<QString, QString>> Adb::devices() {
     return parseDevices(normalize(result.out));
 }
 
-QString Adb::resolveSerial() {
+QString Adb::resolveSerial(Link link) {
     if (!m_serial.isEmpty())
         return m_serial;
+    auto wanted = [link](const QString &serial) {
+        return link == Link::Any || (link == Link::Wifi) == isWireless(serial);
+    };
     QStringList ready, other;
     for (const auto &[serial, state] : devices()) {
+        if (!wanted(serial))
+            continue;
         if (state == "device")
             ready.append(serial);
         else
             other.append(QString("%1 (%2)").arg(serial, state));
     }
-    // One phone on both the cable and Wi-Fi is one phone; the cable is
-    // faster, so it wins.
-    QStringList phones;
-    QStringList chosen;
+    // adb can list one phone more than once: on the cable, under its
+    // network name, and under the address `adb connect` used. Each counts
+    // once; the cable is fastest, and a network name outlives an address.
+    auto rank = [](const QString &serial) { return !isWireless(serial) ? 0 : serial.contains("_adb-tls-connect") ? 1 : 2; };
+    QStringList phones, chosen;
     for (const QString &serial : ready) {
-        const int at = int(phones.indexOf(phoneOf(serial)));
+        QString phone = phoneOf(serial);
+        // A bare address doesn't name its phone; the phone does.
+        if (ready.size() > 1 && rank(serial) == 2) {
+            const ProcessResult answer = m_runner(requireAdb(), {"-s", serial, "shell", "getprop ro.serialno"}, 10000);
+            const QString hardware = QString::fromUtf8(answer.out).trimmed();
+            if (answer.code == 0 && !hardware.isEmpty())
+                phone = hardware;
+        }
+        const int at = int(phones.indexOf(phone));
         if (at < 0) {
-            phones.append(phoneOf(serial));
+            phones.append(phone);
             chosen.append(serial);
-        } else if (isWireless(chosen.at(at)) && !isWireless(serial)) {
+        } else if (rank(serial) < rank(chosen.at(at))) {
             chosen[at] = serial;
         }
     }
@@ -137,6 +151,11 @@ QString Adb::resolveSerial() {
     if (ready.isEmpty() && !other.isEmpty())
         throw AdbError(QObject::tr("A phone is connected but not ready: %1. Unlock it and accept the USB debugging prompt.")
                            .arg(other.join(", ")));
+    if (ready.isEmpty() && link == Link::Cable)
+        throw AdbError(QObject::tr("No phone on the cable. Plug it in and accept USB debugging, or switch to Wi-Fi with T."));
+    if (ready.isEmpty() && link == Link::Wifi)
+        throw AdbError(QObject::tr("No phone over Wi-Fi. Turn on Wireless debugging on the phone, on the same network as "
+                                   "this computer, or press W to pair it."));
     if (ready.isEmpty())
         throw AdbError(QObject::tr("No Android device is connected. Enable USB debugging and plug the phone in."));
     throw AdbError(QObject::tr("More than one device is connected. Pick one with --serial. Devices: %1").arg(ready.join(", ")));

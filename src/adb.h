@@ -52,9 +52,14 @@ public:
     QString serial() const { return m_serial; }
     QString adbPath() const { return m_adbPath; }
 
+    // Which connection to read a phone over: either (a phone on both counts
+    // once and the cable wins), only the cable, or only Wi-Fi.
+    enum class Link { Any, Cable, Wifi };
+
     QList<QPair<QString, QString>> devices();
-    // The one ready phone's serial, or an AdbError saying what is wrong.
-    QString resolveSerial();
+    // The one ready phone's serial over link, or an AdbError saying what is
+    // wrong.
+    QString resolveSerial(Link link = Link::Any);
 
     struct Shell {
         QString out;

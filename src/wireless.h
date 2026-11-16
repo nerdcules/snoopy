@@ -75,11 +75,13 @@ private:
         QString serial;
         QString guid;
         int generation = 0;
+        bool connectByHand = false;
     };
     void poll();
     void stepDone();
     void set(const QString &state, const QString &message);
-    Step step(const QString &state, const QString &name, const QString &password, const QString &guid) const;
+    Step step(const QString &state, const QString &name, const QString &password, const QString &guid,
+              bool connectByHand) const;
 
     Runner m_runner;
     QString m_adbPath;
@@ -94,4 +96,5 @@ private:
     QString m_password;
     QString m_guid;
     int m_generation = 0;
+    int m_connectLooks = 0;
 };

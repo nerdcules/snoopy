@@ -45,9 +45,13 @@ class Monitor : public QObject {
     Q_PROPERTY(int interval READ interval WRITE setInterval NOTIFY intervalChanged)
     // "usb" or "wifi" for the phone the last sample read, "" before one.
     Q_PROPERTY(QString transport READ transport NOTIFY changed)
+    // Which connection to read the phone over: "usb" (the cable only) or
+    // "wifi" (wireless debugging only). The other is left alone. Kept
+    // between runs.
+    Q_PROPERTY(QString link READ link WRITE setLink NOTIFY linkChanged)
 
 public:
-    using Sampler = std::function<Sample(const QString &serial)>;
+    using Sampler = std::function<Sample(const QString &serial, const QString &link)>;
 
     // serial picks a phone when several are connected. The default sampler
     // collects a snapshot over adb and builds its report.
@@ -70,6 +74,8 @@ public:
     // The serial of the phone the last sample read, for the icon reader.
     QString serial() const;
     QString transport() const;
+    QString link() const { return m_link; }
+    void setLink(const QString &link);
 
     void setPaused(bool paused);
     void setInterval(int seconds);
@@ -94,6 +100,7 @@ signals:
     void busyChanged();
     void pausedChanged();
     void intervalChanged();
+    void linkChanged();
     // After every sample, good or not.
     void sampled();
 
@@ -124,4 +131,6 @@ private:
     int m_samples = 0;
     bool m_paused = false;
     int m_interval = 20;
+    QString m_link = "usb";
+    bool m_persistLink = false;
 };

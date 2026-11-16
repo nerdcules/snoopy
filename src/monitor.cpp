@@ -8,21 +8,25 @@
 #include "wireless.h"
 
 #include <QSet>
+#include <QSettings>
 #include <QtConcurrent>
 
 namespace {
 
-Sample adbSample(const QString &serial) {
+Sample adbSample(const QString &serial, const QString &link) {
     Sample sample;
     try {
         Adb adb(serial);
-        // No phone ready: a phone paired for wireless debugging may be
-        // announcing itself on the network; connect to it and go on.
+        const Adb::Link over = link == QLatin1String("wifi") ? Adb::Link::Wifi : Adb::Link::Cable;
+        // Over Wi-Fi with no phone ready: a phone paired for wireless
+        // debugging may be announcing itself on the network; connect to it
+        // and look again.
         try {
-            adb.resolveSerial();
+            adb.resolveSerial(over);
         } catch (const AdbError &) {
-            if (connectAnnounced(adb) == 0)
+            if (over != Adb::Link::Wifi || connectAnnounced(adb) == 0)
                 throw;
+            adb.resolveSerial(over);
         }
         sample.capture = collectSnapshot(adb);
         sample.serial = adb.serial();
@@ -54,7 +58,7 @@ QStringList strings(const QJsonValue &value) {
 } // namespace
 
 Monitor::Monitor(const QString &serial, Sampler sampler, Names *names, QObject *parent)
-    : QObject(parent), m_sampler(sampler ? std::move(sampler) : Sampler(adbSample)), m_names(names),
+    : QObject(parent), m_sampler(sampler ? sampler : Sampler(adbSample)), m_names(names),
       m_requestedSerial(serial) {
     m_timer.setSingleShot(true);
     connect(&m_timer, &QTimer::timeout, this, &Monitor::sampleNow);
@@ -65,6 +69,22 @@ Monitor::Monitor(const QString &serial, Sampler sampler, Names *names, QObject *
     connect(&m_namesDebounce, &QTimer::timeout, this, &Monitor::rebuildGraph);
     if (m_names)
         connect(m_names, &Names::resolved, &m_namesDebounce, qOverload<>(&QTimer::start));
+    // The app (default sampler) remembers the choice; tests don't touch
+    // the user's settings.
+    m_persistLink = !sampler;
+    if (m_persistLink)
+        m_link = QSettings("snoopy", "snoopy").value("link", "usb").toString() == "wifi" ? "wifi" : "usb";
+}
+
+void Monitor::setLink(const QString &link) {
+    const QString value = link == QLatin1String("wifi") ? QStringLiteral("wifi") : QStringLiteral("usb");
+    if (value == m_link)
+        return;
+    m_link = value;
+    if (m_persistLink)
+        QSettings("snoopy", "snoopy").setValue("link", m_link);
+    emit linkChanged();
+    sampleNow();
 }
 
 Monitor::~Monitor() {
@@ -85,9 +105,9 @@ void Monitor::sampleNow() {
     if (m_watcher.isRunning())
         return;
     m_timer.stop();
-    const QString serial = m_requestedSerial;
+    const QString serial = m_requestedSerial, link = m_link;
     const Sampler sampler = m_sampler;
-    m_watcher.setFuture(QtConcurrent::run([sampler, serial] { return sampler(serial); }));
+    m_watcher.setFuture(QtConcurrent::run([sampler, serial, link] { return sampler(serial, link); }));
     emit busyChanged();
 }
 

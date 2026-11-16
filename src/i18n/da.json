@@ -76,11 +76,7 @@
   "%1 B": "%1 B",
   "%1 %2": "%1 %2",
   "Reading the phone…": "Læser telefonen…",
-  "Plug the phone in and accept USB debugging, or press W to connect over Wi-Fi. Apps show up here on their own.": "Sæt telefonen i, og godkend USB-fejlfinding, eller tryk på W for at forbinde via Wi-Fi. Apps dukker selv op her.",
-  "Connect the phone over Wi-Fi (wireless debugging)": "Forbind telefonen via Wi-Fi (trådløs fejlfinding)",
   "Wi-Fi": "Wi-Fi",
-  "USB": "USB",
-  "Space pause · R sample · / filter · J/K H/L select · E changes · W Wi-Fi · ? help · Q quit": "Mellemrum pause · R mål · / filtrér · J/K H/L vælg · E ændringer · W Wi-Fi · ? hjælp · Q afslut",
   "Connect over Wi-Fi": "Forbind via Wi-Fi",
   "Pairing happens once. After that Snoopy finds the phone on the network whenever Wireless debugging is on.": "Parringen sker én gang. Derefter finder Snoopy telefonen på netværket, når trådløs fejlfinding er slået til.",
   "Try again": "Prøv igen",
@@ -92,5 +88,13 @@
   "Pairing failed: %1": "Parringen mislykkedes: %1",
   "adb gave no answer.": "adb svarede ikke.",
   "Paired. Connecting over Wi-Fi…": "Parret. Forbinder via Wi-Fi…",
-  "Connected over Wi-Fi. You can unplug the cable.": "Forbundet via Wi-Fi. Du kan tage kablet ud."
+  "Connected over Wi-Fi. You can unplug the cable.": "Forbundet via Wi-Fi. Du kan tage kablet ud.",
+  "Cable": "Kabel",
+  "No phone on the cable. Plug it in and accept USB debugging, or switch to Wi-Fi with T.": "Ingen telefon i kablet. Sæt den i, og godkend USB-fejlfinding, eller skift til Wi-Fi med T.",
+  "No phone over Wi-Fi. Turn on Wireless debugging on the phone, on the same network as this computer, or press W to pair it.": "Ingen telefon via Wi-Fi. Slå trådløs fejlfinding til på telefonen, på samme netværk som denne computer, eller tryk på W for at parre den.",
+  "Read the phone over the cable or over Wi-Fi": "Læs telefonen via kablet eller via Wi-Fi",
+  "Pair the phone for Wi-Fi (wireless debugging)": "Par telefonen til Wi-Fi (trådløs fejlfinding)",
+  "Turn on Wireless debugging on the phone, or press W to pair it. Apps show up here on their own.": "Slå trådløs fejlfinding til på telefonen, eller tryk på W for at parre den. Apps dukker selv op her.",
+  "Plug the phone in and accept USB debugging, or press T for Wi-Fi. Apps show up here on their own.": "Sæt telefonen i, og godkend USB-fejlfinding, eller tryk på T for Wi-Fi. Apps dukker selv op her.",
+  "Space pause · R sample · / filter · J/K H/L select · T cable/Wi-Fi · W pair · ? help · Q quit": "Mellemrum pause · R mål · / filtrér · J/K H/L vælg · T kabel/Wi-Fi · W par · ? hjælp · Q afslut"
 }

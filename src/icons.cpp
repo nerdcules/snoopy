@@ -27,6 +27,9 @@ struct Unavailable {};
 constexpr int kRunTimeout = 20000;
 constexpr int kReadyTimeout = 3000;
 constexpr int kWalkerTimeout = 50000;
+// Written into each .miss file. Raise it whenever the reader learns to find
+// icons it used to miss, so old misses are tried again.
+const QByteArray kReaderVersion = QByteArrayLiteral("2\n");
 
 QString shellQuote(const QString &text) {
     QString quoted = text;
@@ -427,7 +430,9 @@ QByteArray IconSource::icon(const QString &package, const QString &serial, QStri
             if (!data.isEmpty())
                 return image(data);
         }
-        if (QFileInfo(missing).isFile())
+        // A miss counts only if this reader wrote it: one from an older
+        // reader (which missed YouTube's and Edge's icons) is tried again.
+        if (QFileInfo(missing).isFile() && readFile(missing) == kReaderVersion)
             return monogramFor(package);
         return std::nullopt;
     };
@@ -461,9 +466,11 @@ QByteArray IconSource::icon(const QString &package, const QString &serial, QStri
             }
             return image(found);
         }
-        QFile file(missing);
-        if (file.open(QIODevice::WriteOnly | QIODevice::Truncate))
-            file.close();
+        QSaveFile file(missing);
+        if (file.open(QIODevice::WriteOnly)) {
+            file.write(kReaderVersion);
+            file.commit();
+        }
     } else if (bitmap) {
         return image(found);
     }

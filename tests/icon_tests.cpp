@@ -933,7 +933,8 @@ private slots:
         QCOMPARE(source.icon("com.no.icon", {}, &mime), IconSource::monogram("com.no.icon"));
         QCOMPARE(mime, QString("image/svg+xml"));
         QCOMPARE(cacheFiles(m_cache), QStringList{"com.no.icon.miss"});
-        QCOMPARE(QFileInfo(m_cache + "/com.no.icon.miss").size(), 0);
+        // Stamped with the reader's version.
+        QCOMPARE(QFileInfo(m_cache + "/com.no.icon.miss").size(), 2);
         // Installed APK with no package at all: also a miss.
         QCOMPARE(source.icon("com.not.installed", {}, &mime), IconSource::monogram("com.not.installed"));
         QVERIFY(QFileInfo::exists(m_cache + "/com.not.installed.miss"));
@@ -1001,6 +1002,7 @@ private slots:
         QVERIFY(QDir().mkpath(m_cache));
         QFile file(m_cache + "/com.demo.app.miss");
         QVERIFY(file.open(QIODevice::WriteOnly));
+        file.write("2\n");
         file.close();
         FakePhone phone;
         phone.install("com.demo.app", {{"base.apk", launcherApk()}});
@@ -1009,6 +1011,21 @@ private slots:
         QCOMPARE(source.icon("com.demo.app", {}, &mime), IconSource::monogram("com.demo.app"));
         QCOMPARE(mime, QString("image/svg+xml"));
         QVERIFY(phone.calls().isEmpty());
+    }
+
+    void oldMissIsTriedAgain() {
+        // An empty .miss is from the first reader, which missed icons this
+        // one finds.
+        QVERIFY(QDir().mkpath(m_cache));
+        QFile file(m_cache + "/com.demo.app.miss");
+        QVERIFY(file.open(QIODevice::WriteOnly));
+        file.close();
+        FakePhone phone;
+        phone.install("com.demo.app", {{"base.apk", launcherApk()}});
+        IconSource source(m_cache, phone.runner(), "/fake/adb");
+        QString mime;
+        QCOMPARE(source.icon("com.demo.app", {}, &mime), png("xxhdpi"));
+        QVERIFY(!phone.calls().isEmpty());
     }
 
     void badPackageNames_data() {

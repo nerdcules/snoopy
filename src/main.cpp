@@ -57,8 +57,11 @@ int main(int argc, char *argv[]) {
     Monitor monitor(serial, {}, &names);
     IconSource icons;
     Pairing pairing;
-    // A phone that just connected over Wi-Fi is sampled at once.
-    QObject::connect(&pairing, &Pairing::connected, &monitor, &Monitor::sampleNow);
+    // A phone that just paired is read over Wi-Fi from now on, at once.
+    QObject::connect(&pairing, &Pairing::connected, &monitor, [&monitor] {
+        monitor.setLink("wifi");
+        monitor.sampleNow();
+    });
 
     QQmlApplicationEngine engine;
     QObject::connect(&translator, &Translator::changed, &engine, &QQmlEngine::retranslate);

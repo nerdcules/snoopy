@@ -96,6 +96,7 @@ void Pairing::start() {
     m_qrText = pairingQrText(m_name, m_password);
     m_guid.clear();
     m_serial.clear();
+    m_connectLooks = 0;
     if (m_adbPath.isEmpty()) {
         set("failed", tr("adb is not installed. Install the android-tools package, then try again."));
         return;
@@ -120,14 +121,19 @@ void Pairing::poll() {
         return;
     const int generation = m_generation;
     const QString state = m_state, name = m_name, password = m_password, guid = m_guid;
-    m_watcher.setFuture(QtConcurrent::run([this, state, name, password, guid, generation] {
-        Step result = step(state, name, password, guid);
+    // adb connects to a freshly paired phone by itself within a moment; a
+    // second connection by address would list the phone twice. Snoopy
+    // connects by hand only after three looks.
+    const bool byHand = state == "connecting" && ++m_connectLooks > 3;
+    m_watcher.setFuture(QtConcurrent::run([this, state, name, password, guid, generation, byHand] {
+        Step result = step(state, name, password, guid, byHand);
         result.generation = generation;
         return result;
     }));
 }
 
-Pairing::Step Pairing::step(const QString &state, const QString &name, const QString &password, const QString &guid) const {
+Pairing::Step Pairing::step(const QString &state, const QString &name, const QString &password, const QString &guid,
+                            bool connectByHand) const {
     Adb adb({}, m_runner, m_adbPath);
     Step result{state, QString(), QString(), guid};
     try {
@@ -157,6 +163,8 @@ Pairing::Step Pairing::step(const QString &state, const QString &name, const QSt
                 return result;
             }
         }
+        if (!connectByHand)
+            return result;
         for (const MdnsService &service : services(adb)) {
             if (service.type != kConnectType || (!guid.isEmpty() && service.instance != guid))
                 continue;
