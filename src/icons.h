@@ -12,7 +12,10 @@
 //   2. otherwise the manifest's icon resource, resolved in resources.arsc to
 //      a single png or webp (the table is indexed in place on the phone, not
 //      copied off when it is large);
-//   3. otherwise a letter monogram (SVG).
+//   3. otherwise that resource drawn from its XML (an adaptive icon, a
+//      vector, layers of these) to a 192 x 192 PNG (apk::renderIcon);
+//   4. otherwise a bitmap layer of the XML icon, as icons.py;
+//   5. otherwise a letter monogram (SVG).
 // Found icons and misses are cached on disk, so each package is read once.
 //
 // Blocking and slow (several adb calls per package); the window calls it from
@@ -24,7 +27,7 @@ public:
     explicit IconSource(const QString &cacheDirectory = {}, Runner runner = runProcess, const QString &adbPath = findAdb());
 
     // Image bytes for package and their mime type (image/png, image/webp or,
-    // for a monogram, image/svg+xml). Never empty. A package name that isn't
+    // for a monogram, image/svg+xml). A drawn XML icon is image/png. Never empty. A package name that isn't
     // a.b.c-shaped, or a phone that isn't ready, gets a monogram (and a phone
     // that isn't ready is not cached as a miss, so it is tried again).
     QByteArray icon(const QString &package, const QString &serial, QString *mime);

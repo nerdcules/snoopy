@@ -5,6 +5,7 @@
 #include <QtConcurrent>
 #include <QtTest>
 
+#include <QBuffer>
 #include <QCryptographicHash>
 #include <QImage>
 #include <QProcess>
@@ -173,6 +174,7 @@ struct Config {
     Encoding encoding;
     int entryCount;
     QMap<int, Value> entries;
+    quint8 uiMode = 0; // 0x20: night
 };
 
 QByteArray typeChunk(const Config &config) {
@@ -212,6 +214,7 @@ QByteArray typeChunk(const Config &config) {
     resConfig[0] = 64;
     resConfig[14] = char(config.density & 0xFF);
     resConfig[15] = char(config.density >> 8);
+    resConfig[29] = char(config.uiMode);
     QByteArray header;
     header.append(char(config.typeId));
     header.append(char(flags));
@@ -379,12 +382,20 @@ public:
         m_calls.clear();
     }
 
-    // dd calls, as (skip, count).
+    // dd calls, as (skip, count), one byte per block or at byte offsets.
     QList<QPair<qint64, qint64>> reads() {
         QList<QPair<qint64, qint64>> list;
         for (const Call &call : calls()) {
-            if (call.arguments.value(0) == "exec-out")
-                list.append({call.arguments.at(5).mid(5).toLongLong(), call.arguments.at(6).mid(6).toLongLong()});
+            if (call.arguments.value(0) != "exec-out")
+                continue;
+            qint64 skip = -1, count = -1;
+            for (const QString &argument : call.arguments) {
+                if (argument.startsWith("skip="))
+                    skip = argument.mid(5).toLongLong();
+                else if (argument.startsWith("count="))
+                    count = argument.mid(6).toLongLong();
+            }
+            list.append({skip, count});
         }
         return list;
     }
@@ -514,6 +525,204 @@ QByteArray manifestApk(bool withXxhdpiBitmap = true) {
         items.append({"res/mipmap-xxhdpi-v4/whatever.png", png("xxhdpi"), true});
     return zip(items);
 }
+
+// ---- binary XML trees (drawables) ----
+
+// android.R.attr ids, as aapt2 writes them into the resource map.
+constexpr quint32 aDrawable = 0x01010199, aColor = 0x010101a5, aWidth = 0x01010159, aHeight = 0x01010155,
+                  aViewportWidth = 0x01010402, aViewportHeight = 0x01010403, aFillColor = 0x01010404, aPathData = 0x01010405,
+                  aStrokeColor = 0x01010406, aStrokeWidth = 0x01010407, aStrokeLineCap = 0x0101040b, aFillAlpha = 0x010104cc,
+                  aFillType = 0x0101051e, aRotation = 0x01010326, aPivotX = 0x010101b5, aPivotY = 0x010101b6,
+                  aTranslateY = 0x0101045b, aScaleX = 0x01010324, aInsetLeft = 0x010101b7, aInsetRight = 0x010101b8,
+                  aInsetTop = 0x010101b9, aInsetBottom = 0x010101ba, aSrc = 0x01010119, aType = 0x010101a1,
+                  aStartX = 0x01010510, aStartY = 0x01010511, aEndX = 0x01010512, aEndY = 0x01010513, aOffset = 0x01010514,
+                  aCenterX = 0x010101a2, aCenterY = 0x010101a3, aGradientRadius = 0x010101a4, aAlpha = 0x0101031f;
+
+struct Attr {
+    QString name;
+    quint32 id; // 0: not in the resource map
+    quint8 type;
+    quint32 data;
+    QString text; // for type 0x03
+};
+
+struct Node {
+    QString name;
+    QList<Attr> attributes;
+    QList<Node> children;
+};
+
+quint32 floatBits(float value) {
+    quint32 bits;
+    std::memcpy(&bits, &value, sizeof bits);
+    return bits;
+}
+
+Attr ref(const QString &name, quint32 id, quint32 target) { return {name, id, 0x01, target, {}}; }
+Attr argb(const QString &name, quint32 id, quint32 color) { return {name, id, 0x1C, color, {}}; }
+Attr flt(const QString &name, quint32 id, float value) { return {name, id, 0x04, floatBits(value), {}}; }
+Attr integer(const QString &name, quint32 id, qint32 value) { return {name, id, 0x10, quint32(value), {}}; }
+Attr text(const QString &name, quint32 id, const QString &value) { return {name, id, 0x03, 0, value}; }
+// A whole number of dp (radix 23p0, unit dip).
+Attr dp(const QString &name, quint32 id, int value) { return {name, id, 0x05, (quint32(value) << 8) | 0x01, {}}; }
+// A fraction of the bounds (radix 0p23, unit fraction).
+Attr fraction(const QString &name, quint32 id, double value) {
+    return {name, id, 0x06, (quint32(std::lround(value * (1 << 23))) << 8) | (3 << 4), {}};
+}
+
+// A binary XML file for the tree at root, as aapt2 lays it out: attribute
+// names with resource ids first in the pool, covered by the resource map.
+// withMap false leaves the map out (names only); obfuscate renames every
+// attribute (ids only, as a shrunk APK may).
+QByteArray axml(const Node &root, bool withMap = true, bool obfuscate = false) {
+    QStringList strings;
+    QList<quint32> map;
+    std::function<void(const Node &)> mapped = [&](const Node &node) {
+        for (const Attr &attribute : node.attributes) {
+            if (attribute.id && withMap && !map.contains(attribute.id)) {
+                strings.append(obfuscate ? QString("x%1").arg(map.size()) : attribute.name);
+                map.append(attribute.id);
+            }
+        }
+        for (const Node &child : node.children)
+            mapped(child);
+    };
+    mapped(root);
+    const auto index = [&](const QString &value) {
+        qsizetype at = strings.indexOf(value);
+        if (at < 0) {
+            strings.append(value);
+            at = strings.size() - 1;
+        }
+        return quint32(at);
+    };
+    const auto nameIndex = [&](const Attr &attribute) {
+        if (attribute.id && withMap)
+            return quint32(map.indexOf(attribute.id));
+        return index(attribute.name);
+    };
+    QByteArray elements;
+    QByteArray lineAndComment;
+    le32(lineAndComment, 1);
+    le32(lineAndComment, 0xFFFFFFFF);
+    std::function<void(const Node &)> writeNode = [&](const Node &node) {
+        QByteArray ext;
+        le32(ext, 0xFFFFFFFF);
+        le32(ext, index(node.name));
+        le16(ext, 20);
+        le16(ext, 20);
+        le16(ext, quint32(node.attributes.size()));
+        le16(ext, 0);
+        le16(ext, 0);
+        le16(ext, 0);
+        for (const Attr &attribute : node.attributes) {
+            const quint32 data = attribute.type == 0x03 ? index(attribute.text) : attribute.data;
+            le32(ext, 0xFFFFFFFF);
+            le32(ext, nameIndex(attribute));
+            le32(ext, attribute.type == 0x03 ? data : 0xFFFFFFFF);
+            le16(ext, 8);
+            ext.append('\0');
+            ext.append(char(attribute.type));
+            le32(ext, data);
+        }
+        elements += chunk(0x0102, lineAndComment, ext);
+        for (const Node &child : node.children)
+            writeNode(child);
+        QByteArray end;
+        le32(end, 0xFFFFFFFF);
+        le32(end, index(node.name));
+        elements += chunk(0x0103, lineAndComment, end);
+    };
+    writeNode(root);
+    QByteArray body = stringPool(strings, false);
+    if (!map.isEmpty()) {
+        QByteArray bytes;
+        for (quint32 id : map)
+            le32(bytes, id);
+        body += chunk(0x0180, {}, bytes);
+    }
+    return chunk(0x0003, {}, body + elements);
+}
+
+// A <vector> of viewport x viewport (and as many dp) holding children.
+Node vector(int viewport, const QList<Node> &children) {
+    return {"vector",
+            {dp("width", aWidth, viewport), dp("height", aHeight, viewport), flt("viewportWidth", aViewportWidth, viewport),
+             flt("viewportHeight", aViewportHeight, viewport)},
+            children};
+}
+
+Node path(const QString &d, const Attr &fill, const QList<Attr> &more = {}) {
+    return {"path", QList<Attr>{text("pathData", aPathData, d), fill} + more, {}};
+}
+
+Node adaptive(const Attr &background, const Attr &foreground) {
+    return {"adaptive-icon", {}, {{"background", {background}, {}}, {"foreground", {foreground}, {}}, {"monochrome", {foreground}, {}}}};
+}
+
+// A real PNG: one colour, size x size.
+QByteArray solidPng(QRgb color, int size = 48) {
+    QImage image(size, size, QImage::Format_ARGB32);
+    image.fill(color);
+    QByteArray out;
+    QBuffer buffer(&out);
+    buffer.open(QIODevice::WriteOnly);
+    image.save(&buffer, "PNG");
+    return out;
+}
+
+// Resources for apk::renderIcon from a table and files in memory.
+struct Memory {
+    QByteArray table;
+    QHash<QString, QByteArray> files;
+    QStringList asked;
+    QList<QStringList> prefetched;
+
+    apk::Resources resources() {
+        apk::Resources resources;
+        resources.values = [this](quint32 id) { return apk::tableValues(table, id); };
+        resources.file = [this](const QString &path) {
+            asked.append(path);
+            return files.value(path);
+        };
+        resources.prefetch = [this](const QStringList &paths) { prefetched.append(paths); };
+        return resources;
+    }
+};
+
+// The table every drawing test uses: mipmap 0x7F0D0000 (the icon) and the
+// drawables 0x7F080000.. are file paths or references; colours 0x7F060000..
+// are colour values, references, or files.
+struct Entry {
+    quint8 type;
+    int index;
+    Value value;
+};
+
+QByteArray drawTable(const QStringList &strings, const QList<Entry> &entries, quint16 density = 0) {
+    QMap<quint8, QMap<int, Value>> byType;
+    for (const Entry &entry : entries)
+        byType[entry.type][entry.index] = entry.value;
+    QList<Config> configs;
+    for (auto it = byType.cbegin(); it != byType.cend(); ++it) {
+        const int count = it.value().isEmpty() ? 0 : it.value().lastKey() + 1;
+        configs.append({it.key(), it.key() == 0x0D ? quint16(65534) : density, Encoding::Dense, count, it.value()});
+    }
+    return table(strings, configs);
+}
+
+QRgb pixelAt(const QImage &image, double x, double y) { return image.pixel(int(x), int(y)); }
+
+// Same colour within tolerance per channel (antialiasing and gradient steps).
+bool near(QRgb actual, QRgb expected, int tolerance = 6) {
+    return std::abs(qRed(actual) - qRed(expected)) <= tolerance && std::abs(qGreen(actual) - qGreen(expected)) <= tolerance &&
+           std::abs(qBlue(actual) - qBlue(expected)) <= tolerance && std::abs(qAlpha(actual) - qAlpha(expected)) <= tolerance;
+}
+
+QString hex(QRgb color) { return QString("#%1").arg(color, 8, 16, QLatin1Char('0')); }
+
+#define QVERIFY_COLOR(actual, expected)                                                                                      \
+    QVERIFY2(near((actual), (expected)), qPrintable(hex(actual) + " != " + hex(expected)))
 
 QStringList cacheFiles(const QString &directory) { return QDir(directory).entryList(QDir::Files); }
 
@@ -718,6 +927,385 @@ private slots:
         QVERIFY(IconSource::monogram("a.&b").contains(">&amp;</text>"));
         QVERIFY(IconSource::monogram("a.<b").contains(">&lt;</text>"));
         QVERIFY(IconSource::monogram(QString::fromUtf8("com.\xF0\x9D\x90\x80x")).contains(QByteArray("\xF0\x9D\x90\x80</text>")));
+    }
+
+    // ---- binary XML, vector and adaptive icons ----
+
+    void xmlTreeWithTypedValues() {
+        const Node root{"layer-list",
+                        {integer("count", 0x7F010000, -3)},
+                        {{"item",
+                          {argb("a", aColor, 0x80112233),
+                           {"b", aFillColor, 0x1D, 0xFF445566, {}},
+                           {"c", aStrokeColor, 0x1E, 0xCC778899, {}},
+                           {"d", aAlpha, 0x1F, 0x00AABBCC, {}}},
+                          {}},
+                         {"item",
+                          {dp("w", aWidth, 108), fraction("f", aInsetLeft, 0.25), flt("x", aPivotX, 1.5f),
+                           {"b", 0x0101000e, 0x12, 0xFFFFFFFF, {}}, text("s", aPathData, "M0,0h1"),
+                           ref("r", aDrawable, 0x7F080001)},
+                          {{"deep", {}, {}}}}}};
+        for (const bool obfuscate : {false, true}) {
+            const auto parsed = apk::parseXml(axml(root, true, obfuscate));
+            QVERIFY(parsed);
+            QCOMPARE(parsed->name, QString("layer-list"));
+            QCOMPARE(parsed->children.size(), 2);
+            const apk::XmlElement &first = parsed->children[0];
+            const apk::XmlElement &second = parsed->children[1];
+            QCOMPARE(second.children.size(), 1);
+            QCOMPARE(second.children[0].name, QString("deep"));
+            QVERIFY(first.attribute(aColor, "a")->value.isColor());
+            QCOMPARE(first.attribute(aColor, "a")->value.argb(), 0x80112233u);
+            QCOMPARE(first.attribute(aFillColor, "b")->value.argb(), 0xFF445566u); // RGB8
+            QCOMPARE(first.attribute(aStrokeColor, "c")->value.argb(), 0xCC778899u); // ARGB4, expanded by aapt
+            QCOMPARE(first.attribute(aAlpha, "d")->value.argb(), 0xFFAABBCCu);   // RGB4: opaque
+            QCOMPARE(second.attribute(aWidth, "w")->value.number(), 108.0);
+            QCOMPARE(second.attribute(aWidth, "w")->resourceId, aWidth);
+            QCOMPARE(second.attribute(aInsetLeft, "f")->value.type, quint8(0x06));
+            QCOMPARE(second.attribute(aInsetLeft, "f")->value.number(), 0.25);
+            QCOMPARE(second.attribute(aPivotX, "x")->value.number(), 1.5);
+            QCOMPARE(second.attribute(0x0101000e, "b")->value.number(), 1.0);
+            QCOMPARE(second.attribute(aPathData, "s")->value.string, QString("M0,0h1"));
+            QCOMPARE(second.attribute(aDrawable, "r")->value.type, quint8(0x01));
+            QCOMPARE(second.attribute(aDrawable, "r")->value.data, 0x7F080001u);
+            QCOMPARE(parsed->attribute(0x7F010000, "count")->value.number(), -3.0);
+            QCOMPARE(first.attribute(aWidth, "w"), nullptr);
+            // Renamed attributes (a shrunk APK) are found by id only.
+            QCOMPARE(first.attributes[0].name, obfuscate ? QString("x1") : QString("a"));
+        }
+        // No resource map: names find them.
+        const auto unmapped = apk::parseXml(axml(root, false));
+        QVERIFY(unmapped);
+        QCOMPARE(unmapped->children[1].attribute(aWidth, "w")->resourceId, 0u);
+        QCOMPARE(unmapped->children[1].attribute(aWidth, "w")->value.number(), 108.0);
+        // An app's own attribute of the same name does not stand in for the
+        // framework's.
+        const auto own = apk::parseXml(axml({"path", {argb("fillColor", 0x7F040001, 0xFF00FF00)}, {}}));
+        QVERIFY(own);
+        QCOMPARE(own->attribute(aFillColor, "fillColor"), nullptr);
+    }
+
+    void tableValuesTypesAndConfigs() {
+        const QStringList strings = {"res/color/sel.xml"};
+        const QByteArray bytes =
+            table(strings, {{0x06, 0, Encoding::Dense, 4, {{0, {0x1C, 0xFF102030}}, {1, {0x01, 0x7F060000}}, {2, {0x03, 0}}, {3, {0x1D, 0xFF0000FF}}}},
+                            {0x06, 0, Encoding::Offset16, 1, {{0, {0x1C, 0xFF000000}}}, 0x20}});
+        const QList<apk::TableValue> colour = apk::tableValues(bytes, 0x7F060000);
+        QCOMPARE(colour.size(), 2);
+        QCOMPARE(colour[0].value.type, quint8(0x1C));
+        QCOMPARE(colour[0].value.argb(), 0xFF102030u);
+        QVERIFY(colour[0].plain);
+        QCOMPARE(colour[1].value.argb(), 0xFF000000u);
+        QVERIFY(!colour[1].plain); // night
+        QCOMPARE(apk::tableValues(bytes, 0x7F060001).value(0).value.data, 0x7F060000u);
+        QCOMPARE(apk::tableValues(bytes, 0x7F060002).value(0).value.string, strings[0]);
+        QCOMPARE(apk::resolveInTable(bytes, 0x7F060002), (apk::Found{{0, strings[0]}}));
+        QCOMPARE(apk::resolveInTable(bytes, 0x7F060001), (apk::Found{{0, "@7f060000"}}));
+        // A colour is not a path for the bitmap reader.
+        QCOMPARE(apk::resolveInTable(bytes, 0x7F060003), apk::Found());
+        // Another package's id (the framework's white) is not this table's
+        // type 6 entry 0x0b.
+        QVERIFY(apk::tableValues(bytes, 0x01060000).isEmpty());
+        for (int cut = 0; cut < bytes.size(); cut += 3)
+            QVERIFY(apk::tableValues(bytes.left(cut), 0x7F060000).size() <= 2);
+    }
+
+    void vectorGroupTransformAndReferencedColor() {
+        // A square at 10..30 in a group rotated 90 degrees about (50, 50) and
+        // moved down 50: it lands at 70..90 x 60..80. Its colour is
+        // @color/accent, which is @color/red, 0xFFE53935. A second, literal
+        // blue square at half alpha sits in the middle.
+        const Node v = vector(100, {{"group",
+                                     {flt("rotation", aRotation, 90), flt("pivotX", aPivotX, 50), flt("pivotY", aPivotY, 50),
+                                      flt("translateY", aTranslateY, 50)},
+                                     {path("M10,10h20v20h-20z", ref("fillColor", aFillColor, 0x7F060000))}},
+                                    path("M40,40h20v20h-20z", argb("fillColor", aFillColor, 0xFF1E88E5),
+                                         {flt("fillAlpha", aFillAlpha, 0.5f)}),
+                                    path("M0,95h100", argb("fillColor", aFillColor, 0),
+                                         {argb("strokeColor", aStrokeColor, 0xFF00FF00), flt("strokeWidth", aStrokeWidth, 4),
+                                          integer("strokeLineCap", aStrokeLineCap, 1), integer("fillType", aFillType, 1)})});
+        Memory memory;
+        memory.table = drawTable({"res/drawable/v.xml"}, {{0x0D, 0, {0x01, 0x7F080000}},
+                                                          {0x08, 0, {0x03, 0}},
+                                                          {0x06, 0, {0x01, 0x7F060001}},
+                                                          {0x06, 1, {0x1C, 0xFFE53935}}});
+        memory.files["res/drawable/v.xml"] = axml(v);
+
+        const auto parsed = apk::parseXml(memory.files["res/drawable/v.xml"]);
+        QVERIFY(parsed);
+        const QByteArray svg = apk::vectorToSvg(*parsed, [](quint32 id) {
+            apk::Paint paint;
+            if (id == 0x7F060000) {
+                paint.kind = apk::Paint::Solid;
+                paint.argb = 0xFFE53935;
+            }
+            return paint;
+        });
+        QVERIFY(svg.contains("viewBox=\"0 0 100 100\""));
+        QVERIFY(svg.contains("transform=\"translate(50 100) rotate(90) scale(1 1) translate(-50 -50)\""));
+        QVERIFY(svg.contains("fill=\"#e53935\""));
+        QVERIFY(svg.contains("fill=\"#1e88e5\" fill-opacity=\"0.5\""));
+        QVERIFY(svg.contains("fill-rule=\"evenodd\" stroke=\"#00ff00\" stroke-width=\"4\""));
+        QVERIFY(svg.contains("stroke-linecap=\"round\""));
+
+        QStringList met;
+        const QImage image = QImage::fromData(apk::renderIcon(kIcon, memory.resources(), 192, &met));
+        QCOMPARE(image.size(), QSize(192, 192));
+        QCOMPARE(met, QStringList{"vector"});
+        const double scale = 1.92;
+        QVERIFY_COLOR(pixelAt(image, 80 * scale, 70 * scale), 0xFFE53935u);  // moved square
+        QCOMPARE(qAlpha(pixelAt(image, 20 * scale, 20 * scale)), 0);           // not where it was drawn
+        QCOMPARE(qAlpha(pixelAt(image, 80 * scale, 20 * scale)), 0);           // nor only rotated
+        QVERIFY_COLOR(pixelAt(image, 50 * scale, 50 * scale), 0x801E88E5u);  // half-alpha blue
+        QVERIFY_COLOR(pixelAt(image, 50 * scale, 95 * scale), 0xFF00FF00u);  // the stroke
+        QCOMPARE(qAlpha(pixelAt(image, 50 * scale, 90 * scale)), 0);
+    }
+
+    void adaptiveIconOnThePhone() {
+        // ic_app is an adaptive icon: a colour background and a vector
+        // foreground with a yellow square at 44..64 of 108 dp.
+        const QStringList strings = {"res/mipmap-anydpi-v26/ic_app.xml", "res/drawable/fg.xml"};
+        const QByteArray tableBytes = drawTable(strings, {{0x0D, 0, {0x03, 0}}, {0x06, 0, {0x1C, 0xFF336699}}, {0x08, 1, {0x03, 1}}});
+        const QByteArray icon = axml(adaptive(ref("drawable", aDrawable, kBackground), ref("drawable", aDrawable, kForeground)));
+        const QByteArray foreground = axml(vector(108, {path("M44,44h20v20h-20z", argb("fillColor", aFillColor, 0xFFFFCC00))}));
+        FakePhone phone;
+        phone.install("com.vector.app", {{"base.apk", zip({{"AndroidManifest.xml", manifest(kIcon), true},
+                                                           {"resources.arsc", tableBytes, false},
+                                                           {strings[0], icon, true},
+                                                           {strings[1], foreground, true}})}});
+        IconSource source(m_cache, phone.runner(), "/fake/adb");
+        QString mime;
+        const QByteArray bytes = source.icon("com.vector.app", {}, &mime);
+        QCOMPARE(mime, QString("image/png"));
+        const QImage image = QImage::fromData(bytes, "PNG");
+        QCOMPARE(image.size(), QSize(192, 192));
+        // The middle 72 of 108 dp fills the 192 pixels: dp 18 is pixel 0.
+        const auto px = [](double dp) { return (dp - 18) * 192 / 72; };
+        QVERIFY_COLOR(image.pixel(96, 96), 0xFFFFCC00u);
+        QVERIFY_COLOR(pixelAt(image, px(46), px(54)), 0xFFFFCC00u);
+        QVERIFY_COLOR(pixelAt(image, px(42), px(54)), 0xFF336699u);
+        QVERIFY_COLOR(pixelAt(image, px(66), px(54)), 0xFF336699u);
+        QVERIFY_COLOR(image.pixel(20, 20), 0xFF336699u); // a corner of the safe zone, inside the rounding
+        QVERIFY_COLOR(image.pixel(96, 1), 0xFF336699u);
+        QCOMPARE(qAlpha(image.pixel(1, 1)), 0);           // clipped to a rounded square
+        QCOMPARE(qAlpha(image.pixel(190, 190)), 0);
+        // Cached as an image: the next source reads no phone.
+        QCOMPARE(cacheFiles(m_cache), QStringList{"com.vector.app.img"});
+        phone.clearCalls();
+        IconSource again(m_cache, phone.runner(), "/fake/adb");
+        QCOMPARE(again.icon("com.vector.app", {}, &mime), bytes);
+        QCOMPARE(mime, QString("image/png"));
+        QVERIFY(phone.calls().isEmpty());
+    }
+
+    void referenceChains() {
+        // mipmap -> @drawable/alias -> @drawable/real -> the adaptive XML;
+        // background -> @color/bg -> @color/bg2 (a night variant too);
+        // foreground -> @drawable/fg -> a vector filled with @color/c, a
+        // colour state list whose stateless item is @color/blue at half
+        // alpha; a second path uses @color/loop, which refers to itself.
+        const QStringList strings = {"res/mipmap-anydpi-v26/ic.xml", "res/drawable/fg.xml", "res/color/c.xml"};
+        const QByteArray tableBytes =
+            table(strings, {{0x0D, 65534, Encoding::Dense, 1, {{0, {0x01, 0x7F080000}}}},
+                            {0x08, 0, Encoding::Dense, 3, {{0, {0x01, 0x7F080001}}, {1, {0x03, 0}}, {2, {0x03, 1}}}},
+                            {0x06, 0, Encoding::Dense, 5,
+                             {{0, {0x01, 0x7F060001}}, {1, {0x1C, 0xFF00AA55}}, {2, {0x03, 2}}, {3, {0x1D, 0xFF0000FF}}, {4, {0x01, 0x7F060004}}}},
+                            {0x06, 0, Encoding::Dense, 2, {{1, {0x1C, 0xFF000000}}}, 0x20}});
+        Memory memory;
+        memory.table = tableBytes;
+        memory.files[strings[0]] = axml(adaptive(ref("drawable", aDrawable, 0x7F060000), ref("drawable", aDrawable, 0x7F080002)));
+        memory.files[strings[1]] = axml(vector(108, {path("M36,36h36v36h-36z", ref("fillColor", aFillColor, 0x7F060002)),
+                                                     path("M0,0h10v10h-10z", ref("fillColor", aFillColor, 0x7F060004))}));
+        memory.files[strings[2]] =
+            axml({"selector",
+                  {},
+                  {{"item", {{"state_pressed", 0x010100a7, 0x12, 0xFFFFFFFF, {}}, argb("color", aColor, 0xFFFF0000)}, {}},
+                   {"item", {ref("color", aColor, 0x7F060003), flt("alpha", aAlpha, 0.5f)}, {}}}});
+        QStringList met;
+        const QImage image = QImage::fromData(apk::renderIcon(kIcon, memory.resources(), 192, &met));
+        QCOMPARE(image.size(), QSize(192, 192));
+        QCOMPARE(met, (QStringList{"adaptive-icon", "color", "vector"}));
+        QVERIFY_COLOR(image.pixel(20, 20), 0xFF00AA55u);         // the plain bg2, not the night one
+        QVERIFY_COLOR(image.pixel(96, 96), 0xFF0055AAu);         // half blue over bg2
+    }
+
+    void gradients() {
+        // A linear gradient (red to blue, left to right) from an aapt
+        // <gradient> file, and a radial one (white in the middle to black).
+        const QStringList strings = {"res/drawable/v.xml", "res/drawable/$v__0.xml", "res/drawable/$v__1.xml"};
+        Memory memory;
+        memory.table = drawTable(strings, {{0x0D, 0, {0x01, 0x7F080000}}, {0x08, 0, {0x03, 0}}, {0x08, 1, {0x03, 1}}, {0x08, 2, {0x03, 2}}});
+        memory.files[strings[0]] = axml(vector(100, {path("M0,0h100v50h-100z", ref("fillColor", aFillColor, 0x7F080001)),
+                                                     path("M0,50h100v50h-100z", ref("fillColor", aFillColor, 0x7F080002))}));
+        memory.files[strings[1]] =
+            axml({"gradient",
+                  {integer("type", aType, 0), flt("startX", aStartX, 0), flt("startY", aStartY, 0), flt("endX", aEndX, 100),
+                   flt("endY", aEndY, 0)},
+                  {{"item", {flt("offset", aOffset, 0), argb("color", aColor, 0xFFFF0000)}, {}},
+                   {"item", {flt("offset", aOffset, 1), argb("color", aColor, 0xFF0000FF)}, {}}}});
+        memory.files[strings[2]] =
+            axml({"gradient",
+                  {integer("type", aType, 1), flt("centerX", aCenterX, 50), flt("centerY", aCenterY, 75),
+                   flt("gradientRadius", aGradientRadius, 25), argb("startColor", 0x0101019d, 0xFFFFFFFF),
+                   argb("endColor", 0x0101019e, 0xFF000000)},
+                  {}});
+        const QImage image = QImage::fromData(apk::renderIcon(kIcon, memory.resources()));
+        QCOMPARE(image.size(), QSize(192, 192));
+        QVERIFY_COLOR(image.pixel(1, 40), 0xFFFF0000u);
+        QVERIFY_COLOR(image.pixel(190, 40), 0xFF0000FFu);
+        QVERIFY(qRed(image.pixel(96, 40)) > 100 && qBlue(image.pixel(96, 40)) > 100);
+        QVERIFY_COLOR(image.pixel(96, 144), 0xFFFFFFFFu); // the radial centre
+        QVERIFY_COLOR(image.pixel(2, 144), 0xFF000000u);  // beyond its radius
+        // Both gradient files were offered to prefetch together.
+        QCOMPARE(memory.prefetched.value(0), (QStringList{strings[1], strings[2]}));
+    }
+
+    void bitmapInsetAndLayerList() {
+        // Background: a green PNG. Foreground: a layer-list whose item is an
+        // inset of a quarter on each side around <bitmap src=red PNG>.
+        const QStringList strings = {"res/mipmap-anydpi-v26/ic.xml", "res/drawable-xxhdpi-v4/bg.png", "res/drawable/fg.xml",
+                                     "res/drawable/dot.xml", "res/drawable-nodpi-v4/dot.png"};
+        Memory memory;
+        memory.table = drawTable(strings, {{0x0D, 0, {0x03, 0}},
+                                           {0x08, 0, {0x03, 1}},
+                                           {0x08, 1, {0x03, 2}},
+                                           {0x08, 2, {0x03, 3}},
+                                           {0x08, 3, {0x03, 4}}});
+        memory.files[strings[0]] = axml(adaptive(ref("drawable", aDrawable, 0x7F080000), ref("drawable", aDrawable, 0x7F080001)));
+        memory.files[strings[1]] = solidPng(0xFF00C853);
+        memory.files[strings[2]] =
+            axml({"layer-list",
+                  {},
+                  {{"item",
+                    {},
+                    {{"inset",
+                      {fraction("insetLeft", aInsetLeft, 0.25), fraction("insetRight", aInsetRight, 0.25),
+                       fraction("insetTop", aInsetTop, 0.25), fraction("insetBottom", aInsetBottom, 0.25),
+                       ref("drawable", aDrawable, 0x7F080002)},
+                      {}}}}}});
+        memory.files[strings[3]] = axml({"bitmap", {ref("src", aSrc, 0x7F080003)}, {}});
+        memory.files[strings[4]] = solidPng(0xFFD50000, 16);
+        QStringList met;
+        const QImage image = QImage::fromData(apk::renderIcon(kIcon, memory.resources(), 192, &met));
+        QCOMPARE(image.size(), QSize(192, 192));
+        QCOMPARE(met, (QStringList{"adaptive-icon", "bitmap", "layer-list", "inset"}));
+        // The layer is 288 pixels from -48; the inset leaves 24..168.
+        QVERIFY_COLOR(image.pixel(96, 96), 0xFFD50000u);
+        QVERIFY_COLOR(image.pixel(30, 96), 0xFFD50000u);
+        QVERIFY_COLOR(image.pixel(18, 96), 0xFF00C853u);
+        QVERIFY_COLOR(image.pixel(96, 174), 0xFF00C853u);
+    }
+
+    void malformedXmlDrawsNothing() {
+        const QByteArray good = axml(vector(100, {path("M0,0h100v100h-100z", argb("fillColor", aFillColor, 0xFFFF0000))}));
+        QVERIFY(apk::parseXml(good));
+        for (int cut = 0; cut < good.size(); ++cut)
+            QVERIFY2(!apk::parseXml(good.left(cut)), qPrintable(QString::number(cut)));
+        QVERIFY(!apk::parseXml(png("x")));
+        QVERIFY(!apk::parseXml(QByteArray("\x03\x00\x08\x00\xff\xff\xff\xff", 8) + QByteArray(64, '\xff')));
+        // A chunk claiming more than the file holds, and a zero-size one.
+        QByteArray lying = good;
+        lying[good.size() - 20] = '\x7f';
+        apk::parseXml(lying);
+        QByteArray zero = good;
+        zero.replace(8, 8, QByteArray(8, '\0'));
+        QVERIFY(!apk::parseXml(zero));
+
+        const QStringList strings = {"res/drawable/v.xml"};
+        const auto drawn = [&](const QByteArray &file, quint32 icon = kIcon) {
+            Memory memory;
+            memory.table = drawTable(strings, {{0x0D, 0, {0x03, 0}}, {0x0D, 1, {0x01, 0x7F0D0001}}, {0x0D, 2, {0x01, 0x7F0D0003}},
+                                               {0x0D, 3, {0x01, 0x7F0D0002}}});
+            memory.files[strings[0]] = file;
+            return apk::renderIcon(icon, memory.resources());
+        };
+        QVERIFY(!drawn(good).isEmpty());
+        for (int cut = 0; cut < good.size(); cut += 9)
+            QVERIFY(drawn(good.left(cut)).isEmpty());
+        QVERIFY(drawn(QByteArray(300, '\x03')).isEmpty());
+        QVERIFY(drawn(png("not really")).isEmpty());
+        // A vector without a viewport, a path without data, a path whose
+        // colour is a theme attribute (?attr): nothing drawn.
+        QVERIFY(drawn(axml({"vector", {dp("width", aWidth, 24)}, {path("M0,0h9v9z", argb("fillColor", aFillColor, 0xFFFF0000))}})).isEmpty());
+        QVERIFY(drawn(axml(vector(24, {path("", argb("fillColor", aFillColor, 0xFFFF0000))}))).isEmpty());
+        QVERIFY(drawn(axml(vector(24, {path("M0,0h24v24h-24z", {"fillColor", aFillColor, 0x02, 0x7F040000, {}})}))).isEmpty());
+        // References in a loop end.
+        QVERIFY(drawn(good, 0x7F0D0001).isEmpty());
+        QVERIFY(drawn(good, 0x7F0D0002).isEmpty());
+        QVERIFY(apk::renderIcon(kIcon, apk::Resources{}).isEmpty());
+
+        // On the phone: a cut-short icon is a miss with a monogram.
+        FakePhone phone;
+        const QByteArray icon = axml(adaptive(argb("drawable", aDrawable, 0xFF336699), ref("drawable", aDrawable, kForeground)));
+        phone.install("com.broken.app",
+                      {{"base.apk", zip({{"AndroidManifest.xml", manifest(kIcon), true},
+                                         {"resources.arsc", drawTable({"res/mipmap-anydpi-v26/ic.xml", "res/drawable/fg.xml"},
+                                                                      {{0x0D, 0, {0x03, 0}}, {0x08, 1, {0x03, 1}}}),
+                                          false},
+                                         {"res/mipmap-anydpi-v26/ic.xml", icon, true},
+                                         {"res/drawable/fg.xml", good.left(good.size() - 12), true}})}});
+        IconSource source(m_cache, phone.runner(), "/fake/adb");
+        QString mime;
+        QCOMPARE(source.icon("com.broken.app", {}, &mime), IconSource::monogram("com.broken.app"));
+        QCOMPARE(mime, QString("image/svg+xml"));
+        QCOMPARE(cacheFiles(m_cache), QStringList{"com.broken.app.miss"});
+    }
+
+    void xmlIconReadsAreFew_data() {
+        QTest::addColumn<int>("gradients");
+        QTest::newRow("one gradient") << 1;
+        QTest::newRow("six gradients") << 6;
+    }
+
+    void xmlIconReadsAreFew() {
+        // A foreground whose paths each fill with their own gradient file,
+        // as aapt writes inline gradients: the files come across in one
+        // read, so six cost no more reads than one. The APK is larger than
+        // the tail reads, so those do not hold the files already.
+        QFETCH(int, gradients);
+        QStringList strings = {"res/mipmap-anydpi-v26/ic.xml", "res/drawable/fg.xml"};
+        QList<Entry> entries = {{0x0D, 0, {0x03, 0}}, {0x06, 0, {0x1C, 0xFF336699}}, {0x08, 1, {0x03, 1}}};
+        QList<Node> paths;
+        QList<ZipItem> items = {{"AndroidManifest.xml", manifest(kIcon), true}};
+        for (int i = 0; i < gradients; ++i) {
+            strings.append(QString("res/drawable/$fg__%1.xml").arg(i));
+            entries.append({0x08, 2 + i, {0x03, quint32(2 + i)}});
+            paths.append(path(QString("M%1,0h10v108h-10z").arg(i * 10), ref("fillColor", aFillColor, 0x7F080002 + i)));
+            items.append({strings.last(),
+                          axml({"gradient",
+                                {integer("type", aType, 0), flt("startX", aStartX, 0), flt("endX", aEndX, 108)},
+                                {{"item", {flt("offset", aOffset, 0), argb("color", aColor, 0xFFFF0000)}, {}},
+                                 {"item", {flt("offset", aOffset, 1), argb("color", aColor, 0xFF0000FF)}, {}}}}),
+                          true});
+        }
+        items.append({strings[0], axml(adaptive(ref("drawable", aDrawable, kBackground), ref("drawable", aDrawable, kForeground))), true});
+        items.append({strings[1], axml(vector(108, paths)), true});
+        items.append({"resources.arsc", drawTable(strings, entries), false});
+        QByteArray noise(600000, '\0');
+        for (int i = 0; i < noise.size(); ++i)
+            noise[i] = char((i * 7919) >> 3);
+        items.append({"assets/large.bin", noise, false});
+        FakePhone phone;
+        phone.install("com.gradient.app", {{"base.apk", zip(items)}});
+        IconSource source(m_cache, phone.runner(), "/fake/adb");
+        QString mime;
+        source.icon("com.gradient.app", {}, &mime);
+        QCOMPARE(mime, QString("image/png"));
+        QSet<QString> seen;
+        for (const auto &call : phone.calls()) {
+            if (call.arguments.value(2) != "dd")
+                continue;
+            QVERIFY2(!seen.contains(call.arguments.join(' ')), "read twice");
+            seen.insert(call.arguments.join(' '));
+        }
+        // dd: the 256,000-byte tail (which holds the directory), the
+        // 400,000-byte tail (locate), the manifest with its local header,
+        // the table's local header, the table, the icon XML, the
+        // foreground XML, and the gradient files: one file alone, six
+        // together.
+        QCOMPARE(phone.reads().size(), 8);
+        const QPair<qint64, qint64> last = phone.reads().last();
+        QVERIFY2(last.second < 400000, qPrintable(QString::number(last.second)));
     }
 
     // ---- IconSource against the fake phone ----
@@ -1002,7 +1590,7 @@ private slots:
         QVERIFY(QDir().mkpath(m_cache));
         QFile file(m_cache + "/com.demo.app.miss");
         QVERIFY(file.open(QIODevice::WriteOnly));
-        file.write("2\n");
+        file.write("3\n");
         file.close();
         FakePhone phone;
         phone.install("com.demo.app", {{"base.apk", launcherApk()}});
@@ -1013,12 +1601,20 @@ private slots:
         QVERIFY(phone.calls().isEmpty());
     }
 
+    void oldMissIsTriedAgain_data() {
+        QTest::addColumn<QByteArray>("stamp");
+        // An empty .miss is from the first reader, "2" from the one before
+        // XML icons were drawn: both missed icons this one finds.
+        QTest::newRow("first reader") << QByteArray();
+        QTest::newRow("reader 2") << QByteArray("2\n");
+    }
+
     void oldMissIsTriedAgain() {
-        // An empty .miss is from the first reader, which missed icons this
-        // one finds.
+        QFETCH(QByteArray, stamp);
         QVERIFY(QDir().mkpath(m_cache));
         QFile file(m_cache + "/com.demo.app.miss");
         QVERIFY(file.open(QIODevice::WriteOnly));
+        file.write(stamp);
         file.close();
         FakePhone phone;
         phone.install("com.demo.app", {{"base.apk", launcherApk()}});

@@ -12,6 +12,7 @@
 
 #include <algorithm>
 #include <cmath>
+#include <cstdio>
 #include <optional>
 
 // A port of android-diagnoser's icons.py at 7b2d820. The order of attempts,
@@ -27,9 +28,34 @@ struct Unavailable {};
 constexpr int kRunTimeout = 20000;
 constexpr int kReadyTimeout = 3000;
 constexpr int kWalkerTimeout = 50000;
+// resources.arsc tables up to kWalkLimit bytes are walked on a phone that
+// reads one byte per block; on one that reads at byte offsets, tables up to
+// kFastCopyLimit are copied off. Zoom's and OneDrive's tables are 23,805,656
+// and 27,647,204 bytes, over the 20,000,000 this was before; copying Zoom's
+// took 4,980 and 4,127 ms over Wi-Fi (Pixel 8 Pro, Android 17), once per
+// icon read.
+constexpr qint64 kWalkLimit = 20000000;
+constexpr qint64 kFastCopyLimit = 32000000;
+// readNamed reads an entry and its local header at once up to this many
+// bytes, allowing this much for the header's extra field.
+constexpr qint64 kOneReadLimit = 400000;
+constexpr qint64 kLocalExtraSlack = 64;
+// prefetch joins entries less than kPrefetchGap bytes apart into one read
+// of at most kPrefetchSpan bytes.
+constexpr qint64 kPrefetchGap = 16384;
+constexpr qint64 kPrefetchSpan = 262144;
+// An XML icon is drawn at this size, in pixels.
+constexpr int kRenderSize = 192;
+
+// SNOOPY_TRACE=1 also says what an XML icon was drawn from (see adb.cpp).
+bool tracing() {
+    static const bool trace = !qEnvironmentVariableIsEmpty("SNOOPY_TRACE");
+    return trace;
+}
+
 // Written into each .miss file. Raise it whenever the reader learns to find
 // icons it used to miss, so old misses are tried again.
-const QByteArray kReaderVersion = QByteArrayLiteral("2\n");
+const QByteArray kReaderVersion = QByteArrayLiteral("3\n");
 
 QString shellQuote(const QString &text) {
     QString quoted = text;
@@ -107,6 +133,10 @@ private:
         const QString key = QString("%1\n%2\n%3").arg(path).arg(skip).arg(count);
         if (const auto cached = m_reads.constFind(key); cached != m_reads.cend())
             return cached.value();
+        // Inside a span read before (a prefetch): no adb call.
+        for (const auto &[start, bytes] : m_spans.value(path))
+            if (start <= skip && skip + count <= start + bytes.size())
+                return bytes.mid(skip - start, count);
         if (m_fastReads != 0) {
             const ProcessResult result =
                 call({"exec-out", "toybox", "dd", "if=" + path, "bs=65536", "iflag=skip_bytes,count_bytes",
@@ -115,6 +145,7 @@ private:
             if (result.code == 0) {
                 m_fastReads = 1;
                 m_reads.insert(key, result.out);
+                m_spans[path].append({skip, result.out});
                 return result.out;
             }
             if (m_fastReads == 1)
@@ -127,7 +158,44 @@ private:
         if (result.code != 0)
             throw Unavailable();
         m_reads.insert(key, result.out);
+        m_spans[path].append({skip, result.out});
         return result.out;
+    }
+
+    // Reads the named small entries that lie close together in an APK in
+    // one go (each with its local header), so readNamed finds them in a
+    // span already read. An entry alone in its span is left for readNamed.
+    // Only on a phone that reads at byte offsets.
+    void prefetch(const QStringList &paths, const QStringList &names) {
+        if (m_fastReads != 1)
+            return;
+        QHash<QString, QList<QPair<qint64, qint64>>> wanted;
+        for (const QString &name : names) {
+            for (const QString &path : paths) {
+                const std::optional<apk::ZipEntry> entry = findEntry(path, name);
+                if (!entry)
+                    continue;
+                if (entry->compressedSize <= kPrefetchSpan) {
+                    const qint64 start = entry->localOffset;
+                    wanted[path].append({start, start + 30 + name.toUtf8().size() + kLocalExtraSlack + entry->compressedSize});
+                }
+                break;
+            }
+        }
+        for (auto it = wanted.begin(); it != wanted.end(); ++it) {
+            QList<QPair<qint64, qint64>> &ranges = it.value();
+            std::sort(ranges.begin(), ranges.end());
+            for (int first = 0; first < ranges.size();) {
+                qint64 end = ranges[first].second;
+                int last = first;
+                while (last + 1 < ranges.size() && ranges[last + 1].first <= end + kPrefetchGap &&
+                       std::max(end, ranges[last + 1].second) - ranges[first].first <= kPrefetchSpan)
+                    end = std::max(end, ranges[++last].second);
+                if (last > first)
+                    dd(it.key(), ranges[first].first, end - ranges[first].first);
+                first = last + 1;
+            }
+        }
     }
 
     // _apk_paths: `pm path` lines.
@@ -215,41 +283,71 @@ private:
         return raw;
     }
 
-    // _locate: an entry's data start and sizes, from the last 400,000 bytes.
-    std::optional<Located> locate(const QString &path, const QString &want) {
-        const qint64 size = fileSize(path);
-        if (size <= 0)
-            return std::nullopt;
-        const apk::Eocd eocd = apk::findEocd(dd(path, std::max<qint64>(size - 400000, 0), std::min<qint64>(size, 400000)));
-        if (!eocd.found)
-            return std::nullopt;
-        if (eocd.directorySize == 0 || eocd.directorySize > 3000000 || eocd.directoryOffset == 0xFFFFFFFFu)
-            return std::nullopt;
-        for (const apk::ZipEntry &entry : apk::centralDirectory(dd(path, eocd.directoryOffset, eocd.directorySize))) {
-            if (entry.name != want)
-                continue;
-            const int offset = apk::localDataOffset(dd(path, entry.localOffset, 30), false);
-            if (offset < 0)
-                return std::nullopt;
-            return Located{qint64(entry.localOffset) + offset, entry.method, entry.compressedSize, entry.uncompressedSize};
+    // The central directory entry named want, from the last 400,000 bytes.
+    // Each APK's directory is indexed once per lookup: an XML icon asks for
+    // a dozen files.
+    std::optional<apk::ZipEntry> findEntry(const QString &path, const QString &want) {
+        auto index = m_directories.constFind(path);
+        if (index == m_directories.cend()) {
+            QHash<QString, apk::ZipEntry> entries;
+            const qint64 size = fileSize(path);
+            const apk::Eocd eocd =
+                size > 0 ? apk::findEocd(dd(path, std::max<qint64>(size - 400000, 0), std::min<qint64>(size, 400000))) : apk::Eocd{};
+            if (eocd.found && eocd.directorySize != 0 && eocd.directorySize <= 3000000 && eocd.directoryOffset != 0xFFFFFFFFu) {
+                // The first of a repeated name, as the loop in icons.py.
+                for (const apk::ZipEntry &entry : apk::centralDirectory(dd(path, eocd.directoryOffset, eocd.directorySize)))
+                    if (!entries.contains(entry.name))
+                        entries.insert(entry.name, entry);
+            }
+            index = m_directories.insert(path, entries);
         }
-        return std::nullopt;
+        const auto found = index->constFind(want);
+        if (found == index->cend())
+            return std::nullopt;
+        return found.value();
+    }
+
+    // _locate: an entry's data start and sizes.
+    std::optional<Located> locate(const QString &path, const QString &want) {
+        const std::optional<apk::ZipEntry> entry = findEntry(path, want);
+        if (!entry)
+            return std::nullopt;
+        const int offset = apk::localDataOffset(dd(path, entry->localOffset, 30), false);
+        if (offset < 0)
+            return std::nullopt;
+        return Located{qint64(entry->localOffset) + offset, entry->method, entry->compressedSize, entry->uncompressedSize};
     }
 
     // _read_named: an entry's bytes, when it is at most limit compressed.
+    // A small entry comes across in one read with its local header (whose
+    // extra field is guessed at up to kLocalExtraSlack bytes); a second read
+    // fetches the data when the guess was short.
     QByteArray readNamed(const QString &path, const QString &want, qint64 limit) {
-        const std::optional<Located> located = locate(path, want);
-        if (!located)
+        const std::optional<apk::ZipEntry> entry = findEntry(path, want);
+        if (!entry || entry->compressedSize == 0 || entry->compressedSize > limit)
             return {};
-        if (located->compressedSize == 0 || located->compressedSize > limit)
-            return {};
-        QByteArray data = dd(path, located->dataStart, located->compressedSize);
-        if (located->method == 8) {
+        const qint64 guess = 30 + want.toUtf8().size() + kLocalExtraSlack + entry->compressedSize;
+        QByteArray data;
+        if (guess <= kOneReadLimit) {
+            const QByteArray both = dd(path, entry->localOffset, guess);
+            const int offset = apk::localDataOffset(both.left(30), false);
+            if (offset < 0)
+                return {};
+            data = offset + qint64(entry->compressedSize) <= both.size()
+                       ? both.mid(offset, entry->compressedSize)
+                       : dd(path, qint64(entry->localOffset) + offset, entry->compressedSize);
+        } else {
+            const std::optional<Located> located = locate(path, want);
+            if (!located)
+                return {};
+            data = dd(path, located->dataStart, located->compressedSize);
+        }
+        if (entry->method == 8) {
             bool ok = false;
             data = apk::inflateRaw(data, &ok);
             if (!ok)
                 return {};
-        } else if (located->method != 0) {
+        } else if (entry->method != 0) {
             return {};
         }
         return data;
@@ -292,6 +390,17 @@ private:
             }
             return {};
         }
+        // No bitmap: draw the XML icon (adaptive, vector, layers) to a PNG.
+        // Only the icon itself, not its layers one by one below.
+        if (depth == 0) {
+            QStringList met;
+            const QByteArray drawn = apk::renderIcon(resourceId, resources(paths), kRenderSize, &met);
+            if (tracing())
+                fprintf(stderr, "icon: %s: %s\n", drawn.isEmpty() ? "not drawn" : "drawn", qPrintable(met.join(", ")));
+            if (!drawn.isEmpty())
+                return drawn;
+        }
+        // Else, as icons.py: the first bitmap among the layers.
         for (const auto &[density, name] : found) {
             Q_UNUSED(density)
             if (!name.toLower().endsWith(".xml"))
@@ -310,6 +419,50 @@ private:
         return {};
     }
 
+    // The resources.arsc of each APK that is copied off whole (as
+    // resolveResource decides), read once per lookup.
+    QList<QByteArray> tables(const QStringList &paths) {
+        if (m_tables)
+            return *m_tables;
+        QList<QByteArray> list;
+        for (const QString &path : paths) {
+            const std::optional<Located> located = locate(path, "resources.arsc");
+            if (!located || located->method != 0)
+                continue;
+            if (located->compressedSize <= copyLimit())
+                list.append(dd(path, located->dataStart, located->compressedSize));
+        }
+        m_tables = list;
+        return list;
+    }
+
+    // What apk::renderIcon reads: values from every APK's table, files from
+    // the first APK that has them (bitmaps up to 400,000 bytes, as above).
+    apk::Resources resources(const QStringList &paths) {
+        apk::Resources resources;
+        resources.values = [this, paths](quint32 id) {
+            QList<apk::TableValue> values;
+            for (const QByteArray &table : tables(paths))
+                values += apk::tableValues(table, id);
+            return values;
+        };
+        resources.prefetch = [this, paths](const QStringList &names) { prefetch(paths, names); };
+        resources.file = [this, paths](const QString &name) {
+            for (const QString &path : paths) {
+                const QByteArray bytes = readNamed(path, name, 400000);
+                if (!bytes.isEmpty())
+                    return bytes;
+            }
+            return QByteArray();
+        };
+        return resources;
+    }
+
+    // The largest resources.arsc copied off whole: 1,500,000 bytes when the
+    // phone reads one byte per block (icons.py's limit), else
+    // kFastCopyLimit.
+    qint64 copyLimit() const { return m_fastReads == 1 ? kFastCopyLimit : 1500000; }
+
     // _resolve_resource: tables up to 1,500,000 bytes are read and indexed
     // here; larger ones (stored, up to 20,000,000) were walked on the phone.
     // With byte-offset reads a table comes across fast (8,000,000 bytes in
@@ -323,10 +476,9 @@ private:
             const std::optional<Located> located = locate(path, "resources.arsc");
             if (!located)
                 continue;
-            if (located->method != 0 || located->compressedSize > 20000000)
+            if (located->method != 0 || located->compressedSize > std::max(kWalkLimit, copyLimit()))
                 continue;
-            const qint64 copyLimit = m_fastReads == 1 ? 20000000 : 1500000;
-            if (located->compressedSize <= copyLimit) {
+            if (located->compressedSize <= copyLimit()) {
                 const QByteArray table = dd(path, located->dataStart, located->compressedSize);
                 found += apk::resolveInTable(table, resourceId);
             } else {
@@ -359,7 +511,11 @@ private:
     // -1 not tried yet, 1 the phone's dd takes byte offsets, 0 it doesn't.
     int m_fastReads = -1;
     QHash<QString, QByteArray> m_reads;
+    // Every read of each APK, by where it starts.
+    QHash<QString, QList<QPair<qint64, QByteArray>>> m_spans;
     QHash<QString, qint64> m_sizes;
+    QHash<QString, QHash<QString, apk::ZipEntry>> m_directories;
+    std::optional<QList<QByteArray>> m_tables;
     Adb m_adb;
     bool m_hasAdb;
 };
