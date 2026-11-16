@@ -227,6 +227,70 @@ private slots:
             QVERIFY(!item.toObject().value("new").toBool());
     }
 
+    void backgroundEventsHaveAbsoluteTimes() {
+        Capture c = capture();
+        c.meta.insert("captured_at", "2026-11-16T09:00:00Z");
+        const QList<BackgroundEvent> events = backgroundEvents(c);
+        // Two microphone lines out of sight, two location lines (bg, fgsvc)
+        // and the system contacts sync; not the top one, the reject, the
+        // old camera or the persistent process.
+        QCOMPARE(events.size(), 5);
+        const BackgroundEvent mic = events.first();
+        QCOMPARE(mic.op, QString("RECORD_AUDIO"));
+        QCOMPARE(mic.at, QDateTime(QDate(2026, 11, 16), QTime(9, 0), QTimeZone::UTC).toSecsSinceEpoch() - (12 * 60 + 3));
+        QCOMPARE(mic.level, QString("alert"));
+        QCOMPARE(backgroundKey(mic), QString("bg|com.example.spy|RECORD_AUDIO"));
+        QVERIFY(events.last().system); // com.android.contacts isn't third-party
+    }
+
+    void historyKeepsAMonthOnce() {
+        QTemporaryDir directory;
+        WatchHistory history(directory.path());
+        const QDateTime now(QDate(2026, 11, 16), QTime(9, 0), QTimeZone::UTC);
+        BackgroundEvent event{"com.example.spy", "RECORD_AUDIO", "cch", now.toSecsSinceEpoch() - 600, 2000, "alert", false};
+        BackgroundEvent again = event;
+        again.at += 1; // the same access, seen by the next sample
+        BackgroundEvent old = event;
+        old.at = now.toSecsSinceEpoch() - 31 * 86400;
+        history.record("PHONE1", {event, old}, now);
+        history.record("PHONE1", {again}, now.addSecs(300));
+        const QList<BackgroundEvent> stored = history.since("PHONE1", 0);
+        QCOMPARE(stored.size(), 1);
+        QCOMPARE(stored.first().durationMs, qint64(2000));
+        QVERIFY(history.since("PHONE2", 0).isEmpty());
+    }
+
+    void weekOnFindingsAndEarlierUse() {
+        const QDateTime now = QDateTime::currentDateTime();
+        const qint64 t = now.toSecsSinceEpoch();
+        QList<BackgroundEvent> events{
+            {"com.example.spy", "RECORD_AUDIO", "cch", t - 600, 0, "alert", false},
+            {"com.example.spy", "RECORD_AUDIO", "bg", t - 2 * 86400, 0, "alert", false},
+            {"com.example.spy", "RECORD_AUDIO", "bg", t - 2 * 86400 - 60, 0, "alert", false},
+            {"com.example.maps", "FINE_LOCATION", "bg", t - 3 * 86400, 0, "warn", false},
+            {"com.example.old", "CAMERA", "bg", t - 9 * 86400, 0, "alert", false},
+        };
+        const QJsonArray current{QJsonObject{{"key", "bg|com.example.spy|RECORD_AUDIO"}, {"level", "alert"},
+                                             {"group", "background"}, {"ago", 600}}};
+        const QJsonArray out = withHistory(current, events, now);
+        const QJsonObject mic = byKey(out, "bg|com.example.spy|RECORD_AUDIO");
+        QCOMPARE(mic.value("weekTimes").toInt(), 3);
+        QCOMPARE(mic.value("weekDays").toInt(), 2);
+        const QJsonArray days = mic.value("week").toArray();
+        QCOMPARE(days.size(), 7);
+        QCOMPARE(days.last().toInt(), now.toLocalTime().time().secsTo(QTime(0, 10)) > 0 ? 0 : 1);
+        // Location three days ago isn't in this sample: it is listed as earlier.
+        const QJsonObject maps = byKey(out, "bg|com.example.maps|FINE_LOCATION");
+        QVERIFY(maps.value("earlier").toBool());
+        QCOMPARE(maps.value("level").toString(), QString("warn"));
+        QCOMPARE(maps.value("weekDays").toInt(), 1);
+        QVERIFY(maps.value("detail").toString().contains("1 of the last 7 days"));
+        // Older than the week: gone.
+        QVERIFY(byKey(out, "bg|com.example.old|CAMERA").isEmpty());
+        // Alerts still first.
+        QCOMPARE(out.first().toObject().value("level").toString(), QString("alert"));
+    }
+
     void emptySampleFindsNothing() {
         QCOMPARE(watchFindings(Capture(), QDate(2026, 11, 16)).size(), 0);
     }

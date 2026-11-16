@@ -11,8 +11,8 @@ Item {
     property bool showInfo: false
     readonly property real u: theme.fontScale
     readonly property var groups: [
-        ["background", qsTr("Used while not on screen, in the last day"),
-         qsTr("Some of this is expected: navigation, a call, step counting, a music recognizer, backups. It is worth a look when you can't think why an app would.")],
+        ["background", qsTr("Used while not on screen"),
+         qsTr("The last day from this sample, and earlier this week from Snoopy's own history (kept 30 days). Some of this is expected: navigation, a call, step counting, a music recognizer, backups. It is worth a look when you can't think why an app would.")],
         ["control", qsTr("Can watch or control the phone"), ""],
         ["network", qsTr("Network"), ""],
         ["outside", qsTr("From outside an app store"), ""],
@@ -106,8 +106,11 @@ Item {
                         Repeater {
                             model: parent.items
                             delegate: Rectangle {
+                                id: findingRow
                                 required property var modelData
+                                readonly property string level: modelData.level
                                 Layout.fillWidth: true
+                                opacity: modelData.earlier ? 0.75 : 1
                                 implicitHeight: body.implicitHeight + 20 * view.u
                                 radius: theme.radius
                                 color: theme.panel
@@ -163,6 +166,33 @@ Item {
                                         font.pixelSize: Math.round(12 * view.u)
                                         wrapMode: Text.Wrap
                                         textFormat: Text.PlainText
+                                    }
+                                    // The last 7 days, oldest first: a square per day,
+                                    // stronger for more use.
+                                    RowLayout {
+                                        visible: !!modelData.week
+                                        spacing: 3
+                                        Repeater {
+                                            model: modelData.week || []
+                                            delegate: Rectangle {
+                                                required property int modelData
+                                                required property int index
+                                                width: 12 * view.u
+                                                height: width
+                                                radius: Math.min(2, theme.radius)
+                                                color: modelData === 0 ? Qt.alpha(theme.muted, 0.18)
+                                                                       : Qt.alpha(view.levelColor(findingRow.level),
+                                                                                  Math.min(1, 0.35 + modelData / 6))
+                                                border.width: index === 6 ? 1 : 0
+                                                border.color: theme.muted
+                                            }
+                                        }
+                                        Label {
+                                            Layout.leftMargin: 6
+                                            text: modelData.week ? qsTr("on %1 of the last 7 days, %n times", "", modelData.weekTimes).arg(modelData.weekDays) : ""
+                                            color: theme.muted
+                                            font.pixelSize: Math.round(11 * view.u)
+                                        }
                                     }
                                     Label {
                                         Layout.fillWidth: true

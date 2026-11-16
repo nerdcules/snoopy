@@ -87,7 +87,10 @@ the same sample, and says for each what it can and can't mean:
   sight is an alert, for any app, system ones included; location a warning;
   other data a warning for third-party apps and a listed line for the
   system's own (its sync and backup read contacts and photos all day).
-  Apps with an alert get a red dot on the graph.
+  Apps with an alert get a red dot on the graph. Snoopy keeps its own
+  history of this (30 days, `~/.local/state/snoopy/watch/history/`), so each
+  of these shows the last 7 days as a strip of squares, and use from earlier
+  in the week stays listed after it drops out of the phone's last day.
 - **Can watch or control the phone:** accessibility services, notification
   access, device administrators, device or profile owners, usage access,
   installing other apps, drawing over apps, all-files access, and who holds

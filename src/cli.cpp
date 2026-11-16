@@ -23,6 +23,7 @@
 #include <QTextStream>
 #include <QThread>
 #include <QTime>
+#include <algorithm>
 #include <csignal>
 
 namespace {
@@ -224,8 +225,18 @@ int check(const Options &options, QTextStream &out, QTextStream &err) {
     QString phone = parseSecurity(capture.text("security")).value("hardware_serial");
     if (phone.isEmpty())
         phone = phoneOf(serial);
-    const QJsonArray findings = WatchBaseline().apply(phone, watchFindings(capture, QDate::currentDate()),
-                                                      QDateTime::currentDateTime(), false);
+    // The stored week plus this sample, in memory: check never writes.
+    const QDateTime now = QDateTime::currentDateTime();
+    QList<BackgroundEvent> week = WatchHistory().since(phone, now.toSecsSinceEpoch() - 8 * 86400);
+    for (const BackgroundEvent &event : backgroundEvents(capture)) {
+        const bool known = std::any_of(week.begin(), week.end(), [&](const BackgroundEvent &e) {
+            return e.package == event.package && e.op == event.op && e.state == event.state && qAbs(e.at - event.at) <= 2;
+        });
+        if (!known)
+            week.append(event);
+    }
+    const QJsonArray findings = WatchBaseline().apply(
+        phone, withHistory(watchFindings(capture, QDate::currentDate()), week, now), now, false);
     const bool all = options.flags.contains("--all");
     QJsonArray shown;
     for (const QJsonValue &item : findings)

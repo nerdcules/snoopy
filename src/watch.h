@@ -56,6 +56,47 @@ QSet<QString> parseLaunchers(const QString &text);
 // security patch's age.
 QJsonArray watchFindings(const Capture &capture, const QDate &today);
 
+// One sensitive access while the app wasn't on screen, at an absolute time
+// (seconds since the epoch): what the Watch page's background findings and
+// its history are made of.
+struct BackgroundEvent {
+    QString package;
+    QString op;
+    QString state;
+    qint64 at = 0;
+    qint64 durationMs = 0;
+    QString level;
+    bool system = false;
+};
+
+// Every such access in the sample's last day, timed from the capture's
+// captured_at (the phone's own clock and zone don't matter).
+QList<BackgroundEvent> backgroundEvents(const Capture &capture);
+
+// The finding key an event belongs to: "bg|pkg|OP", or "fgsvc|pkg|OP" for
+// use in a foreground service.
+QString backgroundKey(const BackgroundEvent &event);
+
+// Background use over the last 30 days, one JSON file per phone in
+// directory. Samples overlap (each sees a day), so an access already stored
+// within 2 seconds is not stored again.
+class WatchHistory {
+public:
+    explicit WatchHistory(const QString &directory = {});
+    void record(const QString &phone, const QList<BackgroundEvent> &events, const QDateTime &now);
+    QList<BackgroundEvent> since(const QString &phone, qint64 from) const;
+
+private:
+    QString path(const QString &phone) const;
+    QString m_directory;
+};
+
+// The last 7 days on each background finding: "week" (accesses per day,
+// oldest first, today last), "weekDays" and "weekTimes". Background use
+// from earlier in the week that this sample no longer shows becomes a
+// finding of its own, marked "earlier".
+QJsonArray withHistory(const QJsonArray &findings, const QList<BackgroundEvent> &events, const QDateTime &now);
+
 // What one phone looked like the first time Snoopy saw it, and since:
 // findings whose key it holds are not new. Stored as JSON in directory,
 // one file per phone.

@@ -31,10 +31,16 @@ Sample takeSample(const QString &serial, const QString &link) {
         sample.capture = collectSnapshot(adb);
         sample.serial = adb.serial();
         sample.report = buildReport(sample.capture);
-        sample.findings = watchFindings(sample.capture, QDate::currentDate());
         sample.phone = parseSecurity(sample.capture.text("security")).value("hardware_serial");
         if (sample.phone.isEmpty())
             sample.phone = phoneOf(sample.serial);
+        // Each sample sees the phone's last day; the history keeps the
+        // month, and the page shows the week.
+        const QDateTime now = QDateTime::currentDateTime();
+        WatchHistory history;
+        history.record(sample.phone, backgroundEvents(sample.capture), now);
+        sample.findings = withHistory(watchFindings(sample.capture, QDate::currentDate()),
+                                      history.since(sample.phone, now.toSecsSinceEpoch() - 8 * 86400), now);
     } catch (const AdbError &error) {
         sample.error = error.message();
     } catch (const std::exception &error) {

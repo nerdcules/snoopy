@@ -5,7 +5,9 @@
 #include <QDir>
 #include <QFile>
 #include <QJsonDocument>
+#include <QLocale>
 #include <QObject>
+#include <QSet>
 #include <QRegularExpression>
 #include <QSaveFile>
 #include <QStandardPaths>
@@ -109,6 +111,37 @@ QJsonObject finding(const QString &key, const QString &level, const QString &gro
 
 int levelRank(const QString &level) {
     return level == "alert" ? 0 : level == "warn" ? 1 : 2;
+}
+
+// Which accesses the Watch page counts: sensitive data while the app was in
+// the background or cached, and microphone, camera or precise location in a
+// foreground service.
+bool counted(const OpAccess &entry) {
+    if (entry.rejected || entry.ago < 0 || entry.ago > 86400 || !sensitive(entry.op))
+        return false;
+    if (entry.state == "bg" || entry.state == "cch")
+        return true;
+    return entry.state == "fgsvc" && (entry.op == "RECORD_AUDIO" || entry.op == "CAMERA" || entry.op == "FINE_LOCATION");
+}
+
+// Microphone and camera out of sight are alerts, location a warning, for any
+// app. Other data read in the background is routine for the phone's own sync
+// and backup (24 of 33 such findings on a Pixel 8 Pro, 2026-11-16), so for
+// system apps it is listed, not flagged. A foreground service shows a
+// notification, so its use is listed only.
+QString backgroundLevel(const QString &op, const QString &state, bool system) {
+    const Sensitive *what = sensitive(op);
+    if (!what || state == "fgsvc")
+        return QStringLiteral("info");
+    QString level = QString::fromLatin1(what->level);
+    if (level == "warn" && system && op != "FINE_LOCATION" && op != "COARSE_LOCATION")
+        level = QStringLiteral("info");
+    return level;
+}
+
+QString backgroundTitle(const QString &package, const QString &op) {
+    const Sensitive *what = sensitive(op);
+    return QObject::tr("%1 accessed %2 while not on screen").arg(appName(package), what ? QObject::tr(what->what) : op);
 }
 
 struct OpGrant {
@@ -259,13 +292,9 @@ QJsonArray watchFindings(const Capture &capture, const QDate &today) {
     QHash<QString, Summary> summaries;
     QStringList order;
     for (const OpAccess &entry : parseOpAccesses(capture.text("appops"))) {
-        if (entry.rejected || entry.ago < 0 || entry.ago > 86400 || !sensitive(entry.op))
+        if (!counted(entry))
             continue;
-        const bool hidden = entry.state == "bg" || entry.state == "cch";
-        const bool service = entry.state == "fgsvc" &&
-                             (entry.op == "RECORD_AUDIO" || entry.op == "CAMERA" || entry.op == "FINE_LOCATION");
-        if (!hidden && !service)
-            continue;
+        const bool service = entry.state == "fgsvc";
         // One finding per app and kind of data; a foreground service (which
         // shows a notification) is kept apart from use with nothing shown.
         const QString key = QStringList{service ? "fgsvc" : "bg", entry.package, entry.op}.join('|');
@@ -280,18 +309,8 @@ QJsonArray watchFindings(const Capture &capture, const QDate &today) {
     for (const QString &key : order) {
         const Summary &summary = summaries[key];
         const OpAccess &entry = summary.latest;
-        const Sensitive *what = sensitive(entry.op);
-        const bool service = entry.state == "fgsvc";
-        // Microphone and camera out of sight are alerts, location a warning,
-        // for any app. Other data read in the background is routine for the
-        // phone's own sync and backup (24 of 33 such findings on a Pixel 8
-        // Pro, 2026-11-16), so for system apps it is listed, not flagged.
         const bool system = knowsThirdParty && !thirdParty(entry.package);
-        QString level = QString::fromLatin1(what->level);
-        if (service)
-            level = QStringLiteral("info");
-        else if (level == "warn" && system && entry.op != "FINE_LOCATION" && entry.op != "COARSE_LOCATION")
-            level = QStringLiteral("info");
+        const QString level = backgroundLevel(entry.op, entry.state, system);
         QString detail = QObject::tr("Last %1; %n times in the last day.", "", summary.times).arg(agoText(entry.ago));
         if (summary.totalMs >= 1000)
             detail += QObject::tr(" %1 s in all.").arg(summary.totalMs / 1000);
@@ -301,9 +320,7 @@ QJsonArray watchFindings(const Capture &capture, const QDate &today) {
         if (entry.flags.contains('p'))
             detail += QObject::tr(" It went through another app on its behalf.");
         detail += systemNote(entry.package);
-        QJsonObject item = finding(key, level, "background", entry.package,
-                                   QObject::tr("%1 accessed %2 while not on screen")
-                                       .arg(appName(entry.package), QObject::tr(what->what)),
+        QJsonObject item = finding(key, level, "background", entry.package, backgroundTitle(entry.package, entry.op),
                                    detail);
         item.insert("ago", entry.ago);
         out.append(item);
@@ -535,6 +552,200 @@ QJsonArray watchFindings(const Capture &capture, const QDate &today) {
     for (const QJsonObject &item : out)
         array.append(item);
     return array;
+}
+
+QString backgroundKey(const BackgroundEvent &event) {
+    return QStringList{event.state == "fgsvc" ? "fgsvc" : "bg", event.package, event.op}.join('|');
+}
+
+QList<BackgroundEvent> backgroundEvents(const Capture &capture) {
+    QDateTime taken = QDateTime::fromString(capture.meta.value("captured_at").toString(), Qt::ISODate);
+    if (!taken.isValid())
+        taken = QDateTime::currentDateTimeUtc();
+    const QHash<QString, QString> installers = parseInstallers(capture.text("installers"));
+    QList<BackgroundEvent> events;
+    for (const OpAccess &entry : parseOpAccesses(capture.text("appops"))) {
+        if (!counted(entry))
+            continue;
+        BackgroundEvent event;
+        event.package = entry.package;
+        event.op = entry.op;
+        event.state = entry.state;
+        event.at = taken.toSecsSinceEpoch() - entry.ago;
+        event.durationMs = entry.durationMs;
+        event.system = !installers.isEmpty() && !installers.contains(entry.package);
+        event.level = backgroundLevel(entry.op, entry.state, event.system);
+        events.append(event);
+    }
+    return events;
+}
+
+WatchHistory::WatchHistory(const QString &directory)
+    : m_directory(directory.isEmpty()
+                      ? QStandardPaths::writableLocation(QStandardPaths::GenericStateLocation) + "/snoopy/watch/history"
+                      : directory) {}
+
+QString WatchHistory::path(const QString &phone) const {
+    QString safe = phone;
+    safe.replace(QRegularExpression("[^A-Za-z0-9._-]"), "_");
+    return m_directory + "/" + safe + ".json";
+}
+
+namespace {
+
+QJsonObject eventJson(const BackgroundEvent &event) {
+    return {{"p", event.package}, {"o", event.op}, {"s", event.state}, {"t", event.at},
+            {"d", event.durationMs}, {"l", event.level}, {"y", event.system}};
+}
+
+BackgroundEvent eventFrom(const QJsonObject &object) {
+    BackgroundEvent event;
+    event.package = object.value("p").toString();
+    event.op = object.value("o").toString();
+    event.state = object.value("s").toString();
+    event.at = qint64(object.value("t").toDouble());
+    event.durationMs = qint64(object.value("d").toDouble());
+    event.level = object.value("l").toString();
+    event.system = object.value("y").toBool();
+    return event;
+}
+
+} // namespace
+
+QList<BackgroundEvent> WatchHistory::since(const QString &phone, qint64 from) const {
+    QList<BackgroundEvent> events;
+    if (phone.isEmpty())
+        return events;
+    QFile file(path(phone));
+    if (!file.open(QIODevice::ReadOnly))
+        return events;
+    for (const QJsonValue &value : QJsonDocument::fromJson(file.readAll()).object().value("events").toArray()) {
+        const BackgroundEvent event = eventFrom(value.toObject());
+        if (event.at >= from)
+            events.append(event);
+    }
+    return events;
+}
+
+void WatchHistory::record(const QString &phone, const QList<BackgroundEvent> &events, const QDateTime &now) {
+    if (phone.isEmpty())
+        return;
+    const qint64 keepFrom = now.toSecsSinceEpoch() - 30 * 86400;
+    QList<BackgroundEvent> all = since(phone, keepFrom);
+    // Same app, data and state within 2 s is the same access seen again.
+    QHash<QString, QList<qint64>> seen;
+    for (const BackgroundEvent &event : all)
+        seen[event.package + '|' + event.op + '|' + event.state].append(event.at);
+    bool added = false;
+    for (const BackgroundEvent &event : events) {
+        if (event.at < keepFrom)
+            continue;
+        QList<qint64> &times = seen[event.package + '|' + event.op + '|' + event.state];
+        const bool known = std::any_of(times.begin(), times.end(), [&](qint64 t) { return qAbs(t - event.at) <= 2; });
+        if (known)
+            continue;
+        times.append(event.at);
+        all.append(event);
+        added = true;
+    }
+    QFile existing(path(phone));
+    if (!added && existing.exists())
+        return;
+    std::sort(all.begin(), all.end(), [](const BackgroundEvent &a, const BackgroundEvent &b) { return a.at < b.at; });
+    QJsonArray array;
+    for (const BackgroundEvent &event : all)
+        array.append(eventJson(event));
+    QDir().mkpath(m_directory);
+    QSaveFile file(path(phone));
+    if (file.open(QIODevice::WriteOnly)) {
+        file.write(QJsonDocument(QJsonObject{{"events", array}}).toJson(QJsonDocument::Compact));
+        file.commit();
+    }
+}
+
+QJsonArray withHistory(const QJsonArray &findings, const QList<BackgroundEvent> &events, const QDateTime &now) {
+    const QDate today = now.toLocalTime().date();
+    const QDate first = today.addDays(-6);
+    struct Week {
+        int days[7] = {0, 0, 0, 0, 0, 0, 0};
+        int times = 0;
+        qint64 latest = 0;
+        BackgroundEvent sample;
+        QString level = "info";
+    };
+    QHash<QString, Week> weeks;
+    QStringList order;
+    for (const BackgroundEvent &event : events) {
+        const QDate day = QDateTime::fromSecsSinceEpoch(event.at).toLocalTime().date();
+        if (day < first || day > today)
+            continue;
+        const QString key = backgroundKey(event);
+        if (!weeks.contains(key))
+            order.append(key);
+        Week &week = weeks[key];
+        ++week.days[first.daysTo(day)];
+        ++week.times;
+        if (event.at >= week.latest) {
+            week.latest = event.at;
+            week.sample = event;
+        }
+        if (levelRank(event.level) < levelRank(week.level))
+            week.level = event.level;
+    }
+    auto attach = [](QJsonObject &item, const Week &week) {
+        QJsonArray days;
+        int active = 0;
+        for (int count : week.days) {
+            days.append(count);
+            active += count > 0;
+        }
+        item.insert("week", days);
+        item.insert("weekDays", active);
+        item.insert("weekTimes", week.times);
+    };
+    QJsonArray out;
+    QSet<QString> present;
+    for (const QJsonValue &value : findings) {
+        QJsonObject item = value.toObject();
+        const QString key = item.value("key").toString();
+        if (weeks.contains(key)) {
+            attach(item, weeks.value(key));
+            present.insert(key);
+        }
+        out.append(item);
+    }
+    for (const QString &key : order) {
+        if (present.contains(key))
+            continue;
+        const Week &week = weeks.value(key);
+        const QDateTime last = QDateTime::fromSecsSinceEpoch(week.latest).toLocalTime();
+        int active = 0;
+        for (int count : week.days)
+            active += count > 0;
+        QJsonObject item = finding(key, week.level, "background", week.sample.package,
+                                   backgroundTitle(week.sample.package, week.sample.op),
+                                   QObject::tr("Last on %1; on %n of the last 7 days.", "", active)
+                                           .arg(QLocale().toString(last, QLocale::ShortFormat)) +
+                                       (week.sample.system ? QObject::tr(" It is part of the phone's system software.") : QString()));
+        item.insert("ago", now.toSecsSinceEpoch() - week.latest);
+        item.insert("earlier", true);
+        attach(item, week);
+        out.append(item);
+    }
+    // Keep the page's order: alerts first, then by how recent.
+    QList<QJsonObject> sorted;
+    for (const QJsonValue &value : out)
+        sorted.append(value.toObject());
+    std::stable_sort(sorted.begin(), sorted.end(), [](const QJsonObject &a, const QJsonObject &b) {
+        const int ra = levelRank(a.value("level").toString()), rb = levelRank(b.value("level").toString());
+        if (ra != rb)
+            return ra < rb;
+        return a.value("ago").toDouble(1e12) < b.value("ago").toDouble(1e12);
+    });
+    QJsonArray result;
+    for (const QJsonObject &item : sorted)
+        result.append(item);
+    return result;
 }
 
 WatchBaseline::WatchBaseline(const QString &directory)

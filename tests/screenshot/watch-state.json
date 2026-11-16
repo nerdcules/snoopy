@@ -193,7 +193,18 @@
       "key": "bg|com.example.spy|RECORD_AUDIO",
       "level": "alert",
       "package": "com.example.spy",
-      "title": "Spy accessed the microphone while not on screen"
+      "title": "Spy accessed the microphone while not on screen",
+      "week": [
+        0,
+        0,
+        3,
+        0,
+        1,
+        0,
+        2
+      ],
+      "weekDays": 3,
+      "weekTimes": 6
     },
     {
       "ago": 540,
@@ -202,7 +213,18 @@
       "key": "bg|com.example.maps|FINE_LOCATION",
       "level": "warn",
       "package": "com.example.maps",
-      "title": "Maps accessed precise location while not on screen"
+      "title": "Maps accessed precise location while not on screen",
+      "week": [
+        1,
+        1,
+        0,
+        1,
+        0,
+        1,
+        1
+      ],
+      "weekDays": 5,
+      "weekTimes": 5
     },
     {
       "detail": "An accessibility service is on: it sees everything on screen and can tap and type. Screen readers and password managers use this, and so does stalkerware. If you didn't turn it on, turn it off under Settings > Accessibility.",
@@ -335,6 +357,27 @@
       "level": "info",
       "package": "",
       "title": "Wireless debugging is on"
+    },
+    {
+      "key": "bg|com.example.old|CAMERA",
+      "level": "alert",
+      "group": "background",
+      "package": "com.example.old",
+      "title": "Old accessed the camera while not on screen",
+      "detail": "Last on 13/11/2026 22:14; on 1 of the last 7 days.",
+      "earlier": true,
+      "week": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0
+      ],
+      "weekDays": 1,
+      "weekTimes": 1,
+      "ago": 250000
     }
   ],
   "newFindings": 1,

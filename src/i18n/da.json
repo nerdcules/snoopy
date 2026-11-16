@@ -103,8 +103,6 @@
   "Watch": "Opsyn",
   "1/2 graph/watch · M mark seen · I info · R sample · T cable/Wi-Fi · ? help · Q quit": "1/2 graf/opsyn · M markér set · I info · R mål · T kabel/Wi-Fi · ? hjælp · Q afslut",
   "1/2 graph/watch · Space pause · R sample · / filter · J/K H/L select · T cable/Wi-Fi · W pair · ? help · Q quit": "1/2 graf/opsyn · Mellemrum pause · R mål · / filtrér · J/K H/L vælg · T kabel/Wi-Fi · W par · ? hjælp · Q afslut",
-  "Used while not on screen, in the last day": "Brugt uden at være på skærmen, det seneste døgn",
-  "Some of this is expected: navigation, a call, step counting, a music recognizer, backups. It is worth a look when you can't think why an app would.": "Noget af det er forventeligt: navigation, et opkald, skridttælling, musikgenkendelse, sikkerhedskopier. Det er værd at se på, når du ikke kan komme i tanke om, hvorfor en app skulle.",
   "Can watch or control the phone": "Kan overvåge eller styre telefonen",
   "Network": "Netværk",
   "From outside an app store": "Uden for en appbutik",
@@ -238,5 +236,15 @@
   "Couldn't turn the bar widget on; try: omarchy plugin enable snoopy.phone": "Kunne ikke slå bjælkewidgetten til; prøv: omarchy plugin enable snoopy.phone",
   "Bar widget installed in %1": "Bjælkewidget installeret i %1",
   "Couldn't start snoopy.service; is the package installed? Try: systemctl --user status snoopy": "Kunne ikke starte snoopy.service; er pakken installeret? Prøv: systemctl --user status snoopy",
-  "snoopy.service is on: the phone is checked every few minutes, also with the window closed.": "snoopy.service er slået til: telefonen tjekkes med få minutters mellemrum, også når vinduet er lukket."
+  "snoopy.service is on: the phone is checked every few minutes, also with the window closed.": "snoopy.service er slået til: telefonen tjekkes med få minutters mellemrum, også når vinduet er lukket.",
+  "on %1 of the last 7 days, %n times": {
+    "one": "på %1 af de seneste 7 dage, %n gang",
+    "other": "på %1 af de seneste 7 dage, %n gange"
+  },
+  "Last on %1; on %n of the last 7 days.": {
+    "one": "Senest %1; på %n af de seneste 7 dage.",
+    "other": "Senest %1; på %n af de seneste 7 dage."
+  },
+  "Used while not on screen": "Brugt uden at være på skærmen",
+  "The last day from this sample, and earlier this week from Snoopy's own history (kept 30 days). Some of this is expected: navigation, a call, step counting, a music recognizer, backups. It is worth a look when you can't think why an app would.": "Det seneste døgn fra denne måling og tidligere i ugen fra Snoopys egen historik (gemt i 30 dage). Noget af det er forventeligt: navigation, et opkald, skridttælling, musikgenkendelse, sikkerhedskopier. Det er værd at se på, når du ikke kan komme i tanke om, hvorfor en app skulle."
 }

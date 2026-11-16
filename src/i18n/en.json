@@ -42,5 +42,13 @@
   "and %n more on the Watch page": {
     "one": "and %n more on the Watch page",
     "other": "and %n more on the Watch page"
+  },
+  "on %1 of the last 7 days, %n times": {
+    "one": "on %1 of the last 7 days, %n time",
+    "other": "on %1 of the last 7 days, %n times"
+  },
+  "Last on %1; on %n of the last 7 days.": {
+    "one": "Last on %1; on %n of the last 7 days.",
+    "other": "Last on %1; on %n of the last 7 days."
   }
 }
