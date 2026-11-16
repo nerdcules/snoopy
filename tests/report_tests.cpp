@@ -635,27 +635,47 @@ private slots:
         QCOMPARE(friendlyName("com.example."), QStringLiteral("com.example."));
     }
 
-    // dumpsys package runs to several MB on a real phone. A synthetic dump of
-    // that size must stay well clear of quadratic time.
+    // dumpsys package runs to several MB on a real phone. Synthetic dumps of
+    // about 3 and 6 MB (copies of android14's, renamed) must take time in
+    // proportion to their size, not its square.
     void largePackageDumpStaysLinear() {
-        Capture capture = load("android14");
-        const QString base = capture.text("package_dump");
-        QString big;
-        int copies = 0;
-        while (big.size() < 6 * 1024 * 1024) {
-            QString copy = base;
-            copy.replace(QStringLiteral("Package [com."), QStringLiteral("Package [com.copy%1.").arg(copies++));
-            big += copy;
-        }
-        capture.texts.insert("package_dump", big);
+        const Capture base = load("android14");
+        qsizetype characters = 0;
+        for (const QString &text : base.texts)
+            characters += text.size();
         QElapsedTimer timer;
         timer.start();
-        const QJsonObject report = buildReport(capture);
-        const qint64 elapsed = timer.elapsed();
-        qInfo("buildReport on a %lld-character package dump (%d copies of android14): %lld ms", qint64(big.size()), copies,
-              elapsed);
-        QVERIFY(!report.value("live").toArray().isEmpty());
-        QVERIFY2(elapsed < 20000, qPrintable(QString::number(elapsed)));
+        const int runs = 50;
+        for (int i = 0; i < runs; ++i)
+            buildReport(base);
+        qInfo("buildReport on android14 (%lld characters of capture text): %.2f ms per run, mean of %d",
+              qint64(characters), double(timer.nsecsElapsed()) / 1e6 / runs, runs);
+
+        qint64 elapsed[2] = {0, 0};
+        const qsizetype targets[2] = {3 * 1024 * 1024, 6 * 1024 * 1024};
+        for (int step = 0; step < 2; ++step) {
+            Capture capture = base;
+            const QString dump = base.text("package_dump");
+            QString big;
+            int copies = 0;
+            while (big.size() < targets[step]) {
+                QString copy = dump;
+                copy.replace(QStringLiteral("Package [com."), QStringLiteral("Package [com.copy%1.").arg(copies++));
+                big += copy;
+            }
+            capture.texts.insert("package_dump", big);
+            QElapsedTimer clock;
+            clock.start();
+            const QJsonObject report = buildReport(capture);
+            elapsed[step] = clock.elapsed();
+            qInfo("buildReport with a %lld-character package dump (%d copies of android14's): %lld ms",
+                  qint64(big.size()), copies, elapsed[step]);
+            QVERIFY(!report.value("live").toArray().isEmpty());
+        }
+        QVERIFY2(elapsed[1] < 20000, qPrintable(QString::number(elapsed[1])));
+        // Twice the text; a quadratic step would take about four times as long.
+        QVERIFY2(elapsed[1] < 3 * std::max<qint64>(elapsed[0], 50),
+                 qPrintable(QStringLiteral("%1 ms vs %2 ms").arg(elapsed[1]).arg(elapsed[0])));
     }
 };
 
