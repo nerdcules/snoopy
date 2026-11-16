@@ -20,6 +20,7 @@ ApplicationWindow {
 
     property bool helpVisible: false
     property bool wirelessVisible: false
+    property int page: 0
     property bool logVisible: true
     readonly property real u: theme.fontScale
     // Narrow or tiled windows put the inspector under the graph.
@@ -59,6 +60,11 @@ ApplicationWindow {
     Shortcut { sequences: ["L", "Right"]; context: Qt.ApplicationShortcut; onActivated: graph.side(1) }
     Shortcut { sequence: "E"; context: Qt.ApplicationShortcut; onActivated: win.logVisible = !win.logVisible }
     Shortcut { sequence: "W"; context: Qt.ApplicationShortcut; onActivated: win.showWireless(!win.wirelessVisible) }
+    Shortcut { sequence: "1"; context: Qt.ApplicationShortcut; onActivated: win.page = 0 }
+    Shortcut { sequence: "2"; context: Qt.ApplicationShortcut; onActivated: win.page = 1 }
+    Shortcut { sequence: "Tab"; context: Qt.ApplicationShortcut; onActivated: win.page = 1 - win.page }
+    Shortcut { sequence: "M"; context: Qt.ApplicationShortcut; onActivated: monitor.acknowledgeFindings() }
+    Shortcut { sequence: "I"; context: Qt.ApplicationShortcut; onActivated: watchView.showInfo = !watchView.showInfo }
     Shortcut { sequence: "T"; context: Qt.ApplicationShortcut; onActivated: monitor.link = monitor.link === "wifi" ? "usb" : "wifi" }
     Shortcut { sequence: "C"; context: Qt.ApplicationShortcut; onActivated: monitor.clearEvents() }
     Shortcut { sequences: ["+", "="]; context: Qt.ApplicationShortcut; onActivated: monitor.interval = monitor.interval - 5 }
@@ -88,6 +94,37 @@ ApplicationWindow {
                     color: theme.text
                     font.pixelSize: Math.round(20 * win.u)
                     font.weight: Font.DemiBold
+                }
+
+                Row {
+                    spacing: 4
+                    Repeater {
+                        model: [qsTr("Graph"), monitor.newFindings > 0 ? qsTr("Watch (%n new)", "", monitor.newFindings) : qsTr("Watch")]
+                        delegate: Rectangle {
+                            required property int index
+                            required property string modelData
+                            readonly property bool active: win.page === index
+                            width: tabLabel.implicitWidth + 28
+                            height: Math.round(30 * win.u)
+                            radius: theme.radius
+                            color: active ? theme.accent : "transparent"
+                            border.color: active ? theme.accent : (index === 1 && monitor.newFindings > 0 ? theme.warn : theme.panelBorder)
+                            border.width: 1
+                            Label {
+                                id: tabLabel
+                                anchors.centerIn: parent
+                                text: parent.modelData
+                                color: parent.active ? theme.accentForeground : theme.text
+                                font.pixelSize: Math.round(13 * win.u)
+                                font.weight: Font.DemiBold
+                            }
+                            MouseArea {
+                                anchors.fill: parent
+                                cursorShape: Qt.PointingHandCursor
+                                onClicked: win.page = parent.index
+                            }
+                        }
+                    }
                 }
 
                 Label {
@@ -134,6 +171,7 @@ ApplicationWindow {
 
                 TextField {
                     id: filter
+                    visible: win.page === 0
                     Layout.preferredWidth: 260 * win.u
                     placeholderText: qsTr("Filter apps")
                     font.pixelSize: Math.round(13 * win.u)
@@ -215,41 +253,51 @@ ApplicationWindow {
                 }
             }
 
-            GridLayout {
+            StackLayout {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-                columns: win.wide ? 2 : 1
-                rowSpacing: 12
-                columnSpacing: 12
+                currentIndex: win.page
 
-                GraphView {
-                    id: graph
-                    Layout.fillWidth: true
-                    Layout.fillHeight: true
-                    Layout.minimumHeight: 240 * win.u
-                    cards: monitor.graph
-                    query: filter.text
-                    focus: true
+                GridLayout {
+                    columns: win.wide ? 2 : 1
+                    rowSpacing: 12
+                    columnSpacing: 12
+
+                    GraphView {
+                        id: graph
+                        Layout.fillWidth: true
+                        Layout.fillHeight: true
+                        Layout.minimumHeight: 240 * win.u
+                        cards: monitor.graph
+                        query: filter.text
+                        focus: true
+                    }
+
+                    Inspector {
+                        Layout.preferredWidth: win.wide ? 360 * win.u : -1
+                        Layout.fillWidth: !win.wide
+                        Layout.fillHeight: win.wide
+                        Layout.preferredHeight: win.wide ? -1 : 220 * win.u
+                        node: G.find(graph.graph, graph.focusId)
+                    }
                 }
 
-                Inspector {
-                    Layout.preferredWidth: win.wide ? 360 * win.u : -1
-                    Layout.fillWidth: !win.wide
-                    Layout.fillHeight: win.wide
-                    Layout.preferredHeight: win.wide ? -1 : 220 * win.u
-                    node: G.find(graph.graph, graph.focusId)
+                WatchView {
+                    id: watchView
                 }
             }
 
             EventLog {
                 Layout.fillWidth: true
                 Layout.preferredHeight: 150 * win.u
-                visible: win.logVisible
+                visible: win.logVisible && win.page === 0
             }
 
             Label {
                 Layout.fillWidth: true
-                text: qsTr("Space pause · R sample · / filter · J/K H/L select · T cable/Wi-Fi · W pair · ? help · Q quit")
+                text: win.page === 1
+                      ? qsTr("1/2 graph/watch · M mark seen · I info · R sample · T cable/Wi-Fi · ? help · Q quit")
+                      : qsTr("1/2 graph/watch · Space pause · R sample · / filter · J/K H/L select · T cable/Wi-Fi · W pair · ? help · Q quit")
                 color: theme.muted
                 font.pixelSize: Math.round(12 * win.u)
                 elide: Text.ElideRight

@@ -74,6 +74,44 @@ phone goes away, the last sample stays on screen with a note.
 
 `snoopy open --serial S` picks one phone when several are connected.
 
+## Watch
+
+![The Watch page (made-up apps)](docs/watch.png)
+
+The second page (2, or Tab) lists what is worth a look on the phone, from
+the same sample, and says for each what it can and can't mean:
+
+- **Used while not on screen, in the last day.** Every app-op access the
+  phone records carries the app's state at the time (on screen, foreground
+  service, background, cached). Microphone or camera with the app out of
+  sight is an alert, for any app, system ones included; location a warning;
+  other data a warning for third-party apps and a listed line for the
+  system's own (its sync and backup read contacts and photos all day).
+  Apps with an alert get a red dot on the graph.
+- **Can watch or control the phone:** accessibility services, notification
+  access, device administrators, device or profile owners, usage access,
+  installing other apps, drawing over apps, all-files access, and who holds
+  the default texts, calls, assistant, home and browser roles.
+- **Network:** a global proxy, an active or always-on VPN, Private DNS.
+- **From outside an app store:** third-party apps not installed by Google
+  Play (APK file, adb, another store, or an installer that didn't say), and
+  apps with no icon in the app list.
+- **The phone:** security patch age, verified boot, bootloader lock,
+  wireless debugging.
+
+The first look at a phone (by its hardware serial, so cable and Wi-Fi are
+one phone) is its baseline. Anything that appears later is marked NEW until
+M marks it seen; I shows the info lines. Baselines are kept in
+`~/.local/state/snoopy/watch/`.
+
+Without root it can't see what an app does inside itself beyond what
+Android records, the modem and SIM, anything that hides from the phone's
+own reports, user-installed certificates (the shell may not list them), or
+logs older than the buffer. A quiet page doesn't prove a phone is clean.
+
+On the Pixel 8 Pro over Wi-Fi (2026-11-16) one check took 10,099 ms and found no
+alerts, 16 warnings and 44 info lines.
+
 ## Commands
 
 Each exits 0, or 1 with the problem on stderr (no adb, no phone, the phone
@@ -83,14 +121,19 @@ not authorized, more than one phone without `--serial`).
 snoopy scan [--json] [--all] [--package P]... [--out DIR] [--serial S]
 snoopy watch [--interval 5] [--count 12] [--package P]... [--serial S]
 snoopy report --capture DIR [--json] [--all] [--package P]...
+snoopy check [--json] [--all] [--serial S | --capture DIR]
+snoopy icon PACKAGE [--out FILE] [--fresh] [--json] [--serial S]
 snoopy skill install
 ```
 
 `scan` takes one sample and prints the report; `--out` also saves the raw
 dumps, which `report` reads back offline. A capture saved by
 android-diagnoser's `scan --out` loads unchanged. `watch` prints sockets,
-focus and app ops as they change. `skill install` puts a short agent skill in
-`~/.claude/skills/snoopy`.
+focus and app ops as they change. `check` prints the Watch page's alerts and
+warnings (`--all` adds the info lines; it reads the baseline but never
+changes it). `icon` reads one app's launcher icon. `skill install` puts a
+short agent skill in `~/.claude/skills/snoopy`. `SNOOPY_TRACE=1` prints
+every adb call with its time.
 
 ## What it reads from the phone
 

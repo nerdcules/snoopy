@@ -1,0 +1,8 @@
+Current Device Policy Manager state:
+  Immutable state:
+    mHasFeature=true
+  Enabled Device Admins (User 0, provisioningState: 0):
+    com.example.spy/.receiver.Admin:
+      uid=10305
+      testOnlyAdmin=false
+  Other:

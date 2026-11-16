@@ -1,0 +1,5 @@
+VPNs:
+  0: [Legacy VPN]
+    Active package name: com.example.vpn
+    mEventChanges (most recent first):
+      2026-11-16T06:56:41.815312 - [LockdownAlwaysOn] Mode changed: lockdown=false alwaysOn=true calling from x

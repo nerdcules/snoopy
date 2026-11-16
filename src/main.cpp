@@ -29,6 +29,10 @@ int main(int argc, char *argv[]) {
     if (isCliCommand(arguments)) {
         QCoreApplication app(argc, argv);
         app.setApplicationName("snoopy");
+        // English always, so scripts and agents read the same words; the
+        // catalogue still gives English its plural forms ("1 time").
+        Translator english(QStringLiteral("/nonexistent/snoopy-cli-language"));
+        app.installTranslator(&english);
         return runCli(arguments);
     }
 

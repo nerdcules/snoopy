@@ -21,6 +21,10 @@ struct Sample {
     Capture capture;
     QString serial;
     QString error;
+    // The Watch page's findings and the phone's hardware serial, which keys
+    // its baseline (the same phone over the cable or Wi-Fi).
+    QJsonArray findings;
+    QString phone;
 };
 
 // Samples the phone on a worker thread every interval seconds, keeps the
@@ -49,6 +53,12 @@ class Monitor : public QObject {
     // "wifi" (wireless debugging only). The other is left alone. Kept
     // between runs.
     Q_PROPERTY(QString link READ link WRITE setLink NOTIFY linkChanged)
+    // The Watch page: findings from the last sample (watch.h), how many are
+    // new since the phone's baseline, and the apps that used the microphone
+    // or camera while not on screen.
+    Q_PROPERTY(QVariantList findings READ findings NOTIFY findingsChanged)
+    Q_PROPERTY(int newFindings READ newFindings NOTIFY findingsChanged)
+    Q_PROPERTY(QStringList flagged READ flagged NOTIFY findingsChanged)
 
 public:
     using Sampler = std::function<Sample(const QString &serial, const QString &link)>;
@@ -75,6 +85,13 @@ public:
     QString serial() const;
     QString transport() const;
     QString link() const { return m_link; }
+    QVariantList findings() const { return m_findings; }
+    int newFindings() const;
+    QStringList flagged() const { return m_flagged; }
+    // Everything new on the Watch page becomes part of the phone's baseline.
+    Q_INVOKABLE void acknowledgeFindings();
+    // Where baselines are kept; tests pass a temporary directory.
+    void setBaselineDirectory(const QString &directory);
     void setLink(const QString &link);
 
     void setPaused(bool paused);
@@ -101,12 +118,14 @@ signals:
     void pausedChanged();
     void intervalChanged();
     void linkChanged();
+    void findingsChanged();
     // After every sample, good or not.
     void sampled();
 
 private:
     void finished();
     void rebuildGraph();
+    void applyFindings(const QString &phone, const QJsonArray &findings);
 
     Sampler m_sampler;
     Names *m_names = nullptr;
@@ -132,5 +151,9 @@ private:
     bool m_paused = false;
     int m_interval = 20;
     QString m_link = "usb";
+    QVariantList m_findings;
+    QStringList m_flagged;
+    QString m_phone;
+    QString m_baselineDirectory;
     bool m_persistLink = false;
 };

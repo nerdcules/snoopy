@@ -1,0 +1,3 @@
+package:com.example.spy  installer=com.google.android.packageinstaller uid:10305
+package:com.example.maps  installer=com.android.vending uid:10410
+package:com.example.free  installer=org.fdroid.fdroid uid:10500

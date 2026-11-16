@@ -5,3 +5,4 @@
 int runAppTests(int argc, char **argv);
 int runReportTests(int argc, char **argv);
 int runIconTests(int argc, char **argv);
+int runWatchTests(int argc, char **argv);

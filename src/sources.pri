@@ -17,6 +17,7 @@ HEADERS += \
     $$PWD/report.h \
     $$PWD/theme.h \
     $$PWD/translator.h \
+    $$PWD/watch.h \
     $$PWD/wireless.h
 
 SOURCES += \
@@ -37,6 +38,7 @@ SOURCES += \
     $$PWD/report.cpp \
     $$PWD/theme.cpp \
     $$PWD/translator.cpp \
+    $$PWD/watch.cpp \
     $$PWD/wireless.cpp
 
 # Raw deflate for APK entries (icons). Qt itself links the same zlib.

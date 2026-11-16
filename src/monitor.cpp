@@ -5,6 +5,7 @@
 #include "graph.h"
 #include "names.h"
 #include "report.h"
+#include "watch.h"
 #include "wireless.h"
 
 #include <QSet>
@@ -31,6 +32,10 @@ Sample adbSample(const QString &serial, const QString &link) {
         sample.capture = collectSnapshot(adb);
         sample.serial = adb.serial();
         sample.report = buildReport(sample.capture);
+        sample.findings = watchFindings(sample.capture, QDate::currentDate());
+        sample.phone = parseSecurity(sample.capture.text("security")).value("hardware_serial");
+        if (sample.phone.isEmpty())
+            sample.phone = phoneOf(sample.serial);
     } catch (const AdbError &error) {
         sample.error = error.message();
     } catch (const std::exception &error) {
@@ -124,6 +129,7 @@ void Monitor::finished() {
             m_serial = sample.serial;
         }
         relay(sample.report);
+        applyFindings(sample.phone, sample.findings);
     } else {
         setWaiting(sample.error);
     }
@@ -207,6 +213,46 @@ void Monitor::rebuildGraph() {
         m_names->warm(hosts);
     }
     emit graphChanged();
+}
+
+void Monitor::applyFindings(const QString &phone, const QJsonArray &findings) {
+    m_phone = phone;
+    const QJsonArray marked = phone.isEmpty() ? findings
+                                              : WatchBaseline(m_baselineDirectory).apply(phone, findings,
+                                                                                         QDateTime::currentDateTime());
+    m_findings = marked.toVariantList();
+    m_flagged.clear();
+    for (const QJsonValue &value : marked) {
+        const QJsonObject item = value.toObject();
+        if (item.value("group").toString() == "background" && item.value("level").toString() == "alert")
+            m_flagged.append(item.value("package").toString());
+    }
+    m_flagged.removeDuplicates();
+    emit findingsChanged();
+}
+
+int Monitor::newFindings() const {
+    int count = 0;
+    for (const QVariant &item : m_findings)
+        count += item.toMap().value("new").toBool() ? 1 : 0;
+    return count;
+}
+
+void Monitor::acknowledgeFindings() {
+    if (m_phone.isEmpty())
+        return;
+    WatchBaseline(m_baselineDirectory).acknowledge(m_phone);
+    for (QVariant &item : m_findings) {
+        QVariantMap map = item.toMap();
+        map.remove("new");
+        map.remove("since");
+        item = map;
+    }
+    emit findingsChanged();
+}
+
+void Monitor::setBaselineDirectory(const QString &directory) {
+    m_baselineDirectory = directory;
 }
 
 void Monitor::clearEvents() {

@@ -7,6 +7,6 @@ INCLUDEPATH += ../src
 include(../src/sources.pri)
 
 HEADERS += tests.h
-SOURCES += main.cpp app_tests.cpp report_tests.cpp icon_tests.cpp
+SOURCES += main.cpp app_tests.cpp report_tests.cpp icon_tests.cpp watch_tests.cpp
 RESOURCES += ../src/resources.qrc
 DEFINES += SNOOPY_FIXTURES=\\\"$$PWD/fixtures\\\"

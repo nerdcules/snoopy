@@ -1,3 +1,38 @@
 {
-  "%n changes": { "one": "%n change", "other": "%n changes" }
+  "%n changes": {
+    "one": "%n change",
+    "other": "%n changes"
+  },
+  "%n seconds ago": {
+    "one": "%n second ago",
+    "other": "%n seconds ago"
+  },
+  "%n minutes ago": {
+    "one": "%n minute ago",
+    "other": "%n minutes ago"
+  },
+  "%n hours ago": {
+    "one": "%n hour ago",
+    "other": "%n hours ago"
+  },
+  "Last %1; %n times in the last day.": {
+    "one": "Last %1; once in the last day.",
+    "other": "Last %1; %n times in the last day."
+  },
+  "Security patch %1, %n days old": {
+    "one": "Security patch %1, %n day old",
+    "other": "Security patch %1, %n days old"
+  },
+  "%n new since you last marked them seen.": {
+    "one": "%n new since you last marked them seen.",
+    "other": "%n new since you last marked them seen."
+  },
+  "Show %n info lines (I)": {
+    "one": "Show %n info line (I)",
+    "other": "Show %n info lines (I)"
+  },
+  "Watch (%n new)": {
+    "one": "Watch (%n new)",
+    "other": "Watch (%n new)"
+  }
 }

@@ -64,6 +64,20 @@ Item {
             smooth: true
         }
 
+        // Used the microphone or camera while not on screen (see Watch).
+        Rectangle {
+            visible: root.node.type === "app" && (monitor.flagged || []).indexOf(root.node.card.package) >= 0
+            width: 14 * root.u
+            height: width
+            radius: width / 2
+            anchors.top: parent.top
+            anchors.right: parent.right
+            color: theme.bad
+            border.color: theme.window
+            border.width: 2
+            z: 2
+        }
+
         Glyph {
             visible: root.node.type !== "app"
             anchors.centerIn: parent

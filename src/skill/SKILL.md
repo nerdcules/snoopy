@@ -24,6 +24,13 @@ problem on stderr (no adb, no phone, phone not authorized, two phones: pass
   includes apps with nothing live.
 - `snoopy watch --interval 5 --count 12`: prints sockets, focus and app ops
   as they change.
+- `snoopy check --json [--all]`: findings worth a look, each with `level`
+  (alert, warn, info), `group` (background, control, network, outside,
+  device), `package`, `title`, `detail`, `ago` (seconds, for background
+  use) and `new` (not in the phone's baseline). Background use is sensitive
+  data accessed while the app wasn't on screen; control is accessibility,
+  notification access, device admin and similar; outside is apps not from
+  Google Play. A finding is a reason to look, not proof.
 
 What the data can and can't say:
 - A socket belongs to a Linux uid; on Android that is usually one app.

@@ -39,6 +39,8 @@ Rectangle {
 
             Repeater {
                 model: [
+                    ["1 / 2, Tab", qsTr("Show the graph or the Watch page")],
+                    ["M / I", qsTr("Watch: mark everything seen / show the info lines")],
                     ["Space", qsTr("Pause or resume sampling")],
                     ["R", qsTr("Take a sample now")],
                     ["/", qsTr("Filter the apps; Esc clears the filter")],

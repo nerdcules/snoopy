@@ -3,6 +3,8 @@
 #include "adb.h"
 #include "capture.h"
 #include "icons.h"
+#include "watch.h"
+#include "wireless.h"
 #include "render.h"
 #include "report.h"
 
@@ -21,7 +23,7 @@
 
 namespace {
 
-const QStringList kCommands{"scan", "watch", "report", "icon", "skill", "help", "--help", "-h"};
+const QStringList kCommands{"scan", "watch", "report", "check", "icon", "skill", "help", "--help", "-h"};
 
 void usage(QTextStream &out) {
     out << "snoopy - what each app on a connected Android phone reads, and where it is connected\n\n"
@@ -32,6 +34,10 @@ void usage(QTextStream &out) {
            "                               print sockets, focus and app ops as they change (--count 0: until Ctrl+C)\n"
            "  snoopy report --capture DIR [--json] [--all] [--package P]...\n"
            "                               the report for a capture saved with scan --out\n"
+           "  snoopy check [--json] [--all] [--serial S | --capture DIR]\n"
+           "                               what's worth a look: background use, apps that can watch or control\n"
+           "                               the phone, VPN/proxy/DNS, apps from outside a store, the phone itself\n"
+           "                               (alerts and warnings; --all adds the info lines)\n"
            "  snoopy icon PACKAGE [--out FILE] [--fresh] [--json] [--serial S]\n"
            "                               an app's launcher icon from the phone (--fresh skips the cache)\n"
            "  snoopy skill install         install the agent skill into ~/.claude/skills/snoopy\n\n"
@@ -192,6 +198,45 @@ int watch(const Options &options, QTextStream &out, QTextStream &err) {
     return 0;
 }
 
+int check(const Options &options, QTextStream &out, QTextStream &err) {
+    Capture capture;
+    QString serial;
+    if (options.values.contains("--capture")) {
+        QString error;
+        if (!loadCapture(options.values.value("--capture"), &capture, &error)) {
+            err << error << "\n";
+            return 1;
+        }
+    } else {
+        Adb adb(options.values.value("--serial"));
+        capture = collectSnapshot(adb);
+        serial = adb.serial();
+    }
+    QString phone = parseSecurity(capture.text("security")).value("hardware_serial");
+    if (phone.isEmpty())
+        phone = phoneOf(serial);
+    const QJsonArray findings = WatchBaseline().apply(phone, watchFindings(capture, QDate::currentDate()),
+                                                      QDateTime::currentDateTime(), false);
+    const bool all = options.flags.contains("--all");
+    QJsonArray shown;
+    for (const QJsonValue &item : findings)
+        if (all || item.toObject().value("level").toString() != "info")
+            shown.append(item);
+    if (options.flags.contains("--json")) {
+        out << QJsonDocument(shown).toJson(QJsonDocument::Indented);
+        return 0;
+    }
+    if (shown.isEmpty())
+        out << "Nothing to look at" << (all ? "" : " (--all shows the info lines)") << ".\n";
+    for (const QJsonValue &value : shown) {
+        const QJsonObject item = value.toObject();
+        out << (item.value("level").toString() == "alert" ? "ALERT " : item.value("level").toString() == "warn" ? "warn  " : "info  ")
+            << (item.value("new").toBool() ? "NEW " : "") << item.value("title").toString() << "\n"
+            << "      " << item.value("detail").toString() << "\n";
+    }
+    return 0;
+}
+
 int icon(const QStringList &arguments, const Options &options, QTextStream &out, QTextStream &err) {
     const QString package = arguments.value(2);
     if (package.isEmpty() || package.startsWith("--")) {
@@ -270,6 +315,8 @@ int runCli(const QStringList &arguments) {
         options = parse(arguments, {"--serial", "--package", "--out"}, {"--json", "--all"});
     else if (command == "watch")
         options = parse(arguments, {"--serial", "--package", "--interval", "--count"}, {});
+    else if (command == "check")
+        options = parse(arguments, {"--serial", "--capture"}, {"--json", "--all"});
     else if (command == "icon")
         options = parse(arguments.mid(0, 2) + arguments.mid(3), {"--serial", "--out"}, {"--fresh", "--json"});
     else
@@ -286,6 +333,8 @@ int runCli(const QStringList &arguments) {
             return watch(options, out, err);
         if (command == "icon")
             return icon(arguments, options, out, err);
+        if (command == "check")
+            return check(options, out, err);
         return report(options, out, err);
     } catch (const AdbError &error) {
         out.flush();

@@ -1,0 +1,10 @@
+accessibility=com.example.spy/.Watcher:com.android.talkback/.TalkBack
+listeners=com.example.spy/.Listener
+proxy=null
+private_dns=hostname
+private_dns_host=dns.example.net
+adb_wifi=1
+patch=2026-05-01
+verified_boot=green
+flash_locked=1
+hardware_serial=PHONE1

@@ -34,6 +34,25 @@ const Command kSnapshot[] = {
     {"udp", "cat /proc/net/udp"},
     {"udp6", "cat /proc/net/udp6"},
     {"dns", "logcat -d -t 3000 | grep -Ei 'getaddrinfo|DnsResolver|libnetd_resolv|qname=|host='"},
+    // For the Watch page (not in android-diagnoser): settings and build
+    // properties as key=value lines, third-party packages with their
+    // installer, apps with a launcher icon, device admins and owners,
+    // default-app roles, and VPN state.
+    {"security", "echo accessibility=$(settings get secure enabled_accessibility_services); "
+                 "echo listeners=$(settings get secure enabled_notification_listeners); "
+                 "echo proxy=$(settings get global http_proxy); "
+                 "echo private_dns=$(settings get global private_dns_mode); "
+                 "echo private_dns_host=$(settings get global private_dns_specifier); "
+                 "echo adb_wifi=$(settings get global adb_wifi_enabled); "
+                 "echo patch=$(getprop ro.build.version.security_patch); "
+                 "echo verified_boot=$(getprop ro.boot.verifiedbootstate); "
+                 "echo flash_locked=$(getprop ro.boot.flash.locked); "
+                 "echo hardware_serial=$(getprop ro.serialno)"},
+    {"installers", "pm list packages -i -U -3"},
+    {"launchers", "cmd package query-activities --brief -a android.intent.action.MAIN -c android.intent.category.LAUNCHER"},
+    {"device_policy", "dumpsys device_policy"},
+    {"roles", "dumpsys role"},
+    {"vpn", "dumpsys vpn_management"},
 };
 
 const Command kWatch[] = {

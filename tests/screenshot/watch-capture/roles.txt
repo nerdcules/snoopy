@@ -1,0 +1,5 @@
+    roles=[
+      {
+        name=android.app.role.SMS
+        holders=com.example.sms
+      }

@@ -1,0 +1,40 @@
+Current AppOps Service state:
+  Uid 1000:
+    state=pers
+    Package android:
+      READ_CONTACTS (allow): 
+        null=[
+          Access: [pers-s] 2026-11-16 07:00:00.000 (-1h32m12s593ms)
+        ]
+  Uid u0a305:
+    state=cch
+    Package com.example.spy:
+      RECORD_AUDIO (allow): 
+        recorder=[
+          Access: [cch-s] 2026-11-16 08:00:00.000 (-12m3s4ms) duration=+41s200ms
+          Access: [bg-s] 2026-11-16 07:00:00.000 (-1h2m3s4ms) duration=+2s
+          Access: [top-s] 2026-11-16 07:30:00.000 (-30m0s0ms) duration=+5s
+        ]
+      CAMERA (allow): 
+        null=[
+          Access: [bg-s] 2026-11-14 08:00:00.000 (-2d0h0m0s0ms)
+        ]
+      READ_CONTACTS (allow): 
+        null=[
+          Reject: [bg-s] 2026-11-16 08:00:00.000 (-5m0s0ms)
+        ]
+      GET_USAGE_STATS (allow): 
+      SYSTEM_ALERT_WINDOW (default): 
+  Uid u0a410:
+    Package com.example.maps:
+      FINE_LOCATION (allow): 
+        null=[
+          Access: [fgsvc-s] 2026-11-16 08:10:00.000 (-2m0s0ms) duration=+1m0s0ms
+          Access: [bg-tp] 2026-11-16 08:00:00.000 (-9m0s0ms)
+        ]
+  Uid 10088:
+    Package com.android.contacts:
+      READ_CONTACTS (allow): 
+        sync=[
+          Access: [bg-s] 2026-11-16 08:00:00.000 (-10m0s0ms)
+        ]
