@@ -1,0 +1,4 @@
+Wake Locks ÿþ size=2
+Wake Locks: size=2
+  PARTIAL_WAKE_LOCK              'SmsSync' ACQ=-3s (uid=1010077 pid=3001)
+  PARTIAL_WAKE_LOCK              'BackupJob' ACQ=-1s WorkSource{10079 com.old.backup}

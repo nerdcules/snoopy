@@ -1,0 +1,7 @@
+package:com.old.messenger uid:1010077
+package:com.old.browser uid:10078
+package:com.old.backup uid:10079
+package:com.android.phone uid:1001
+  package:com.padded.entry uid:10080
+package:com.dup.entry uid:10081
+package:com.dup.entry uid:10082

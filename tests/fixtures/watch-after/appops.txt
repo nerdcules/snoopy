@@ -1,0 +1,17 @@
+Uid u0a401:
+  Package com.watch.one:
+    CAMERA (allow):
+      Access: [top] 2024-11-14 18:09:00.000 (-10s)
+    RECORD_AUDIO (allow):
+      Access: [top] 2024-11-14 18:09:30.000 (-1s)
+Uid u0a402:
+  Package com.watch.two:
+    FINE_LOCATION (allow):
+      Reject: [bg] 2024-11-14 17:00:00.000 (-1h)
+    READ_CONTACTS: allow; time=+2m ago
+    COARSE_LOCATION (allow):
+      Reject: [bg] 2024-11-14 18:08:00.000 (-2m)
+Uid u0a403:
+  Package com.watch.three:
+    READ_CLIPBOARD: allow; time=+1s ago
+    CAMERA (deny):

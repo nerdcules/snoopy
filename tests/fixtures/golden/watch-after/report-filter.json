@@ -1,0 +1,108 @@
+{
+  "declared_only": [],
+  "device": {
+    "android": "",
+    "captured_at": "2024-11-14T18:10:00Z",
+    "model": "",
+    "sdk": "",
+    "serial": ""
+  },
+  "errors": {
+    "dns": "command exited 1"
+  },
+  "limits": [
+    "Network sockets belong to a Linux uid. On Android that uid is usually one app.",
+    "Transmission shown here is destination, size, and DNS name. HTTPS message bodies stay encrypted.",
+    "Tracker SDK rows are components shipped inside the app and the kind of data that SDK is built to collect."
+  ],
+  "live": [
+    {
+      "attempted": [
+        {
+          "category": "Precise location",
+          "detail": "GPS-level location of the device.",
+          "last_access": null,
+          "last_reject": "[bg] 2024-11-14 17:00:00.000 (-1h)",
+          "mode": "allow",
+          "op": "FINE_LOCATION",
+          "package": "com.watch.two",
+          "uid": 10402
+        },
+        {
+          "category": "Approximate location",
+          "detail": "Cell and Wi-Fi location of the device.",
+          "last_access": null,
+          "last_reject": "[bg] 2024-11-14 18:08:00.000 (-2m)",
+          "mode": "allow",
+          "op": "COARSE_LOCATION",
+          "package": "com.watch.two",
+          "uid": 10402
+        }
+      ],
+      "declared": [],
+      "doing": [
+        "On screen: com.watch.two/.Chat"
+      ],
+      "observed": [
+        {
+          "category": "Contacts",
+          "detail": "Names, phone numbers, and emails in the address book.",
+          "last_access": "+2m ago",
+          "last_reject": null,
+          "mode": "allow",
+          "op": "READ_CONTACTS",
+          "package": "com.watch.two",
+          "uid": 10402
+        }
+      ],
+      "packages": [
+        "com.watch.two"
+      ],
+      "permitted_unseen": [],
+      "trackers": [],
+      "transmitted": {
+        "connections": [
+          {
+            "local": "10.0.0.5:45001",
+            "proto": "TCP",
+            "remote": "192.0.2.101:443",
+            "state": "CLOSE_WAIT",
+            "uid": 10402
+          },
+          {
+            "local": "10.0.0.5:45200",
+            "proto": "UDP",
+            "remote": "192.0.2.104:443",
+            "state": "ESTABLISHED",
+            "uid": 10402
+          }
+        ],
+        "dns": [],
+        "network_permission": false,
+        "rx_bytes": 0,
+        "tx_bytes": 0
+      },
+      "uid": 10402,
+      "uid_packages": [
+        "com.watch.shared",
+        "com.watch.two"
+      ],
+      "versions": {}
+    }
+  ],
+  "sources": [
+    "dumpsys appops",
+    "dumpsys package",
+    "dumpsys activity",
+    "dumpsys jobscheduler",
+    "dumpsys power",
+    "dumpsys location",
+    "dumpsys sensorservice",
+    "dumpsys clipboard",
+    "dumpsys netstats",
+    "/proc/net/tcp",
+    "/proc/net/udp",
+    "logcat DNS"
+  ],
+  "unattributed_dns": []
+}

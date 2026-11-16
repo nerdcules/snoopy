@@ -1,0 +1,33 @@
+Android diagnoser
+Device: Android 14, serial INDENT
+Captured: 2025-03-01T13:00:00Z
+Sources: dumpsys appops, dumpsys package, dumpsys activity, dumpsys jobscheduler, dumpsys power, dumpsys location, dumpsys sensorservice, dumpsys clipboard, dumpsys netstats, /proc/net/tcp, /proc/net/udp, logcat DNS
+
+Network sockets belong to a Linux uid. On Android that uid is usually one app.
+Transmission shown here is destination, size, and DNS name. HTTPS message bodies stay encrypted.
+Tracker SDK rows are components shipped inside the app and the kind of data that SDK is built to collect.
+
+## What each app is doing, tracking, and transmitting
+
+### uid 10601  com.example.indented
+Doing:
+  - Nothing running, scheduled, or holding a sensor, location request, or the clipboard.
+Information tracked:
+  Observed by the OS:
+    - Camera — CAMERA, allowed, last access [top-s] 2025-03-01 12:00:00.000 (-1h0m0s0ms). Images and video from the camera.
+Transmitted:
+  Sent 0 B, received 0 B.
+  - No active socket with a remote address.
+
+### uid 10602  com.example.second
+Doing:
+  - Nothing running, scheduled, or holding a sensor, location request, or the clipboard.
+Information tracked:
+  - No sensitive grant, app-op, or tracker component in this snapshot.
+Transmitted:
+  Sent 0 B, received 0 B.
+  - TCP ESTABLISHED 10.0.0.21:40961 -> 192.0.2.12:443
+  - TCP CLOSING 10.0.0.21:40964 -> 192.0.2.13:80
+
+## Declared sensitive access with no live evidence in this snapshot
+None.

@@ -1,0 +1,31 @@
+{
+  "connections": [
+    {
+      "packages": [
+        "com.example.second"
+      ],
+      "proto": "TCP",
+      "remote": "192.0.2.12:443",
+      "state": "ESTABLISHED",
+      "uid": 10602
+    },
+    {
+      "packages": [
+        "com.example.second"
+      ],
+      "proto": "TCP",
+      "remote": "192.0.2.13:80",
+      "state": "CLOSING",
+      "uid": 10602
+    }
+  ],
+  "focus": [],
+  "ops": [
+    {
+      "last_access": "[top-s] 2025-03-01 12:00:00.000 (-1h0m0s0ms)",
+      "last_reject": null,
+      "op": "CAMERA",
+      "package": "com.example.indented"
+    }
+  ]
+}

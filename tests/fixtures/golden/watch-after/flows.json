@@ -1,0 +1,155 @@
+{
+  "apps": [
+    {
+      "doing": [],
+      "name": "com.watch.one",
+      "packages": [
+        "com.watch.one"
+      ],
+      "rx_bytes": 0,
+      "tx_bytes": 0
+    },
+    {
+      "doing": [
+        "On screen: com.watch.two/.Chat"
+      ],
+      "name": "com.watch.shared, com.watch.two",
+      "packages": [
+        "com.watch.shared",
+        "com.watch.two"
+      ],
+      "rx_bytes": 0,
+      "tx_bytes": 0
+    },
+    {
+      "doing": [
+        "On screen: com.watch.three/.Feed"
+      ],
+      "name": "com.watch.three",
+      "packages": [
+        "com.watch.three"
+      ],
+      "rx_bytes": 0,
+      "tx_bytes": 0
+    },
+    {
+      "doing": [],
+      "name": "uid 10499",
+      "packages": [],
+      "rx_bytes": 0,
+      "tx_bytes": 0
+    }
+  ],
+  "flows": [
+    {
+      "destination": "com.watch.two",
+      "detail": "last reject [bg] 2024-11-14 18:08:00.000 (-2m). Cell and Wi-Fi location of the device.",
+      "information": "Cell and Wi-Fi location of the device.",
+      "kind": "collection",
+      "source": "Approximate location",
+      "via": "denied"
+    },
+    {
+      "destination": "com.watch.one",
+      "detail": "last access [top] 2024-11-14 18:09:00.000 (-10s). Images and video from the camera.",
+      "information": "Images and video from the camera.",
+      "kind": "collection",
+      "source": "Camera",
+      "via": "read"
+    },
+    {
+      "destination": "com.watch.three",
+      "detail": "Images and video from the camera.",
+      "information": "Images and video from the camera.",
+      "kind": "collection",
+      "source": "Camera",
+      "via": "denied"
+    },
+    {
+      "destination": "com.watch.three",
+      "detail": "last access +1s ago. Text and images currently copied on the device.",
+      "information": "Text and images currently copied on the device.",
+      "kind": "collection",
+      "source": "Clipboard",
+      "via": "read"
+    },
+    {
+      "destination": "com.watch.two",
+      "detail": "last access +2m ago. Names, phone numbers, and emails in the address book.",
+      "information": "Names, phone numbers, and emails in the address book.",
+      "kind": "collection",
+      "source": "Contacts",
+      "via": "read"
+    },
+    {
+      "destination": "com.watch.one",
+      "detail": "last access [top] 2024-11-14 18:09:30.000 (-1s). Audio from the microphone.",
+      "information": "Audio from the microphone.",
+      "kind": "collection",
+      "source": "Microphone",
+      "via": "read"
+    },
+    {
+      "destination": "com.watch.two",
+      "detail": "last reject [bg] 2024-11-14 17:00:00.000 (-1h). GPS-level location of the device.",
+      "information": "GPS-level location of the device.",
+      "kind": "collection",
+      "source": "Precise location",
+      "via": "denied"
+    },
+    {
+      "count": 1,
+      "destination": "192.0.2.100:443",
+      "detail": "",
+      "information": "TCP ESTABLISHED",
+      "kind": "transmission",
+      "source": "com.watch.one",
+      "via": "10.0.0.5:45000"
+    },
+    {
+      "count": 1,
+      "destination": "[2001:db8:ff::1]:443",
+      "detail": "",
+      "information": "TCP ESTABLISHED",
+      "kind": "transmission",
+      "source": "com.watch.one",
+      "via": "[2001:db8::5]:45100"
+    },
+    {
+      "count": 1,
+      "destination": "192.0.2.101:443",
+      "detail": "",
+      "information": "TCP CLOSE_WAIT",
+      "kind": "transmission",
+      "source": "com.watch.shared, com.watch.two",
+      "via": "10.0.0.5:45001"
+    },
+    {
+      "count": 1,
+      "destination": "192.0.2.104:443",
+      "detail": "",
+      "information": "QUIC",
+      "kind": "transmission",
+      "source": "com.watch.shared, com.watch.two",
+      "via": "10.0.0.5:45200"
+    },
+    {
+      "count": 1,
+      "destination": "192.0.2.102:80",
+      "detail": "",
+      "information": "TCP ESTABLISHED",
+      "kind": "transmission",
+      "source": "com.watch.three",
+      "via": "10.0.0.5:45002"
+    },
+    {
+      "count": 1,
+      "destination": "192.0.2.103:443",
+      "detail": "",
+      "information": "TCP ESTABLISHED",
+      "kind": "transmission",
+      "source": "uid 10499",
+      "via": "10.0.0.5:45003"
+    }
+  ]
+}

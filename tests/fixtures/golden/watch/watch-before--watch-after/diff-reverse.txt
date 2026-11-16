@@ -1,0 +1,5 @@
+On screen: com.watch.one/.Main
+Left screen: com.watch.three/.Feed
+Left screen: com.watch.two/.Chat
+com.watch.shared, com.watch.two TCP ESTABLISHED -> 192.0.2.101:443
+com.watch.one CAMERA [top] 2024-11-14 18:00:00.000 (-5m)

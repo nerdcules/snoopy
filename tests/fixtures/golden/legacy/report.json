@@ -1,0 +1,518 @@
+{
+  "declared_only": [
+    {
+      "categories": [
+        "Camera"
+      ],
+      "package": "com.dup.entry",
+      "uid": 10082
+    },
+    {
+      "categories": [
+        "Nearby Bluetooth devices"
+      ],
+      "package": "com.padded.entry",
+      "uid": 10080
+    }
+  ],
+  "device": {
+    "android": "9",
+    "captured_at": "2019-05-01T10:05:00Z",
+    "model": "Fixture Legacy",
+    "sdk": 28,
+    "serial": "LEGACY01"
+  },
+  "errors": {
+    "dns": "logcat: Unable to open log device '/dev/log/main': No such file or directory"
+  },
+  "limits": [
+    "Network sockets belong to a Linux uid. On Android that uid is usually one app.",
+    "Transmission shown here is destination, size, and DNS name. HTTPS message bodies stay encrypted.",
+    "Tracker SDK rows are components shipped inside the app and the kind of data that SDK is built to collect."
+  ],
+  "live": [
+    {
+      "attempted": [
+        {
+          "category": "Camera",
+          "detail": "Images and video from the camera.",
+          "last_access": null,
+          "last_reject": "+3m ago",
+          "mode": "ignore",
+          "op": "CAMERA",
+          "package": "com.old.messenger",
+          "uid": 1010077
+        },
+        {
+          "category": "Microphone",
+          "detail": "Audio from the microphone.",
+          "last_access": null,
+          "last_reject": null,
+          "mode": "deny",
+          "op": "RECORD_AUDIO",
+          "package": "com.old.messenger",
+          "uid": 1010077
+        }
+      ],
+      "declared": [
+        {
+          "category": "Call history",
+          "detail": "Numbers called and received, and when.",
+          "package": "com.old.messenger",
+          "permission": "android.permission.READ_CALL_LOG"
+        },
+        {
+          "category": "SMS messages",
+          "detail": "Text message contents.",
+          "package": "com.old.messenger",
+          "permission": "android.permission.READ_SMS"
+        },
+        {
+          "category": "Incoming SMS",
+          "detail": "Text messages as they arrive.",
+          "package": "com.old.messenger",
+          "permission": "android.permission.RECEIVE_SMS"
+        }
+      ],
+      "doing": [
+        "On screen: com.old.messenger/.ui.ConversationList",
+        "Process com.old.messenger pid 3001 (on screen)",
+        "Foreground service com.old.messenger/.sync.SmsSyncService",
+        "Scheduled job com.old.messenger/.CleanupJob",
+        "Wakelock SmsSync (PARTIAL_WAKE_LOCK)",
+        "Sensor android.sensor.light (pid 3001)",
+        "Sensor android.sensor.proximity (pid 3001)",
+        "Location request: POWER_LOW network requested=+30m fastest=+30m"
+      ],
+      "observed": [
+        {
+          "category": "Precise location",
+          "detail": "GPS-level location of the device.",
+          "last_access": "+1d2h ago",
+          "last_reject": null,
+          "mode": "foreground",
+          "op": "FINE_LOCATION",
+          "package": "com.old.messenger",
+          "uid": 1010077
+        },
+        {
+          "category": "Approximate location",
+          "detail": "Cell and Wi-Fi location of the device.",
+          "last_access": "+2m ago",
+          "last_reject": null,
+          "mode": null,
+          "op": "COARSE_LOCATION",
+          "package": "com.old.messenger",
+          "uid": 1010077
+        },
+        {
+          "category": "Call history",
+          "detail": "Numbers called and received, and when.",
+          "last_access": "+0s ago",
+          "last_reject": "+1s ago",
+          "mode": "errored",
+          "op": "READ_CALL_LOG",
+          "package": "com.old.messenger",
+          "uid": 1010077
+        },
+        {
+          "category": "SMS messages",
+          "detail": "Text message contents.",
+          "last_access": "+1h2m3s123ms ago",
+          "last_reject": null,
+          "mode": "allow",
+          "op": "READ_SMS",
+          "package": "com.old.messenger",
+          "uid": 1010077
+        },
+        {
+          "category": "Incoming SMS",
+          "detail": "Text messages as they arrive.",
+          "last_access": "+5m ago",
+          "last_reject": null,
+          "mode": "allow",
+          "op": "RECEIVE_SMS",
+          "package": "com.old.messenger",
+          "uid": 1010077
+        },
+        {
+          "category": "SMS sending",
+          "detail": "Text messages the app sends.",
+          "last_access": "+4m ago",
+          "last_reject": null,
+          "mode": "allow",
+          "op": "SEND_SMS",
+          "package": "com.old.messenger",
+          "uid": 1010077
+        },
+        {
+          "category": "Clipboard",
+          "detail": "Text and images currently copied on the device.",
+          "last_access": "+10s ago",
+          "last_reject": "+2h ago",
+          "mode": "allow",
+          "op": "READ_CLIPBOARD",
+          "package": "com.old.messenger",
+          "uid": 1010077
+        }
+      ],
+      "packages": [
+        "com.old.messenger"
+      ],
+      "permitted_unseen": [
+        {
+          "category": "Call history",
+          "detail": "Changes to call history.",
+          "last_access": null,
+          "last_reject": null,
+          "mode": "allow",
+          "op": "WRITE_CALL_LOG",
+          "package": "com.old.messenger",
+          "uid": 1010077
+        },
+        {
+          "category": "Accounts",
+          "detail": "Account names on the device.",
+          "last_access": null,
+          "last_reject": null,
+          "mode": "allow",
+          "op": "GET_ACCOUNTS",
+          "package": "com.old.messenger",
+          "uid": 1010077
+        }
+      ],
+      "trackers": [
+        {
+          "collects": "Usage events, device model, and the advertising ID when the app shares it.",
+          "name": "Firebase Analytics",
+          "package": "com.old.messenger",
+          "prefix": "com.google.firebase.analytics"
+        },
+        {
+          "collects": "A push token. Delivery metadata goes to Google.",
+          "name": "Firebase Cloud Messaging",
+          "package": "com.old.messenger",
+          "prefix": "com.google.firebase.messaging"
+        },
+        {
+          "collects": "Analytics events and device properties.",
+          "name": "Flurry",
+          "package": "com.old.messenger",
+          "prefix": "com.flurry"
+        }
+      ],
+      "transmitted": {
+        "connections": [
+          {
+            "local": "192.168.1.20:33000",
+            "proto": "TCP",
+            "remote": "198.51.100.20:443",
+            "state": "ESTABLISHED",
+            "uid": 1010077
+          }
+        ],
+        "dns": [
+          {
+            "host": "api.old-messenger.example",
+            "tracker": null,
+            "uid": 1010077
+          }
+        ],
+        "network_permission": true,
+        "rx_bytes": 4096,
+        "tx_bytes": 2048
+      },
+      "uid": 1010077,
+      "uid_packages": [
+        "com.old.messenger"
+      ],
+      "versions": {
+        "com.old.messenger": "9.0"
+      }
+    },
+    {
+      "attempted": [
+        {
+          "category": "Files",
+          "detail": "Shared files on the device.",
+          "last_access": null,
+          "last_reject": "+20s ago",
+          "mode": "allow",
+          "op": "READ_EXTERNAL_STORAGE",
+          "package": "com.old.browser",
+          "uid": 10078
+        }
+      ],
+      "declared": [
+        {
+          "category": "Precise location",
+          "detail": "GPS-level location of the device.",
+          "package": "com.old.browser",
+          "permission": "android.permission.ACCESS_FINE_LOCATION"
+        },
+        {
+          "category": "Camera",
+          "detail": "Images and video from the camera.",
+          "package": "com.old.browser",
+          "permission": "android.permission.CAMERA"
+        },
+        {
+          "category": "Files",
+          "detail": "Shared files on the device.",
+          "package": "com.old.browser",
+          "permission": "android.permission.READ_EXTERNAL_STORAGE"
+        }
+      ],
+      "doing": [
+        "On screen: com.old.browser/org.chromium.Main",
+        "Location request: ACCURACY_FINE gps requested=+5s fastest=+5s"
+      ],
+      "observed": [
+        {
+          "category": "Precise location",
+          "detail": "GPS-level location of the device.",
+          "last_access": "+3m ago",
+          "last_reject": null,
+          "mode": "ignore",
+          "op": "FINE_LOCATION",
+          "package": "com.old.browser",
+          "uid": 10078
+        },
+        {
+          "category": "Camera",
+          "detail": "Images and video from the camera.",
+          "last_access": "[top] 2019-05-01 10:00:00 (+1m ago)",
+          "last_reject": null,
+          "mode": "foreground",
+          "op": "CAMERA",
+          "package": "com.old.browser",
+          "uid": 10078
+        },
+        {
+          "category": "Playback audio",
+          "detail": "Audio being played on the device.",
+          "last_access": "+20s ago",
+          "last_reject": null,
+          "mode": "allow",
+          "op": "RECORD_AUDIO_OUTPUT",
+          "package": "com.old.browser",
+          "uid": 10078
+        }
+      ],
+      "packages": [
+        "com.old.browser"
+      ],
+      "permitted_unseen": [
+        {
+          "category": "Nearby Wi-Fi devices",
+          "detail": "Devices seen over nearby Wi-Fi.",
+          "last_access": null,
+          "last_reject": null,
+          "mode": "allow",
+          "op": "NEARBY_WIFI_DEVICES",
+          "package": "com.old.browser",
+          "uid": 10078
+        }
+      ],
+      "trackers": [],
+      "transmitted": {
+        "connections": [
+          {
+            "local": "192.168.1.20:33001",
+            "proto": "TCP",
+            "remote": "198.51.100.21:80",
+            "state": "ESTABLISHED",
+            "uid": 10078
+          },
+          {
+            "local": "192.168.1.20:34000",
+            "proto": "UDP",
+            "remote": "198.51.100.22:443",
+            "state": "ESTABLISHED",
+            "uid": 10078
+          }
+        ],
+        "dns": [
+          {
+            "host": "www.google-analytics.com",
+            "tracker": "Google Analytics",
+            "uid": 10078
+          }
+        ],
+        "network_permission": true,
+        "rx_bytes": 1536,
+        "tx_bytes": 0
+      },
+      "uid": 10078,
+      "uid_packages": [
+        "com.old.browser"
+      ],
+      "versions": {
+        "com.old.browser": "68.0.3440.91"
+      }
+    },
+    {
+      "attempted": [],
+      "declared": [],
+      "doing": [],
+      "observed": [
+        {
+          "category": "Phone number",
+          "detail": "The device phone number.",
+          "last_access": "+1m ago",
+          "last_reject": null,
+          "mode": "allow",
+          "op": "READ_PHONE_NUMBERS",
+          "package": "com.android.phone",
+          "uid": 1001
+        }
+      ],
+      "packages": [
+        "com.android.phone"
+      ],
+      "permitted_unseen": [],
+      "trackers": [],
+      "transmitted": {
+        "connections": [],
+        "dns": [],
+        "network_permission": false,
+        "rx_bytes": 0,
+        "tx_bytes": 0
+      },
+      "uid": 1001,
+      "uid_packages": [
+        "com.android.phone"
+      ],
+      "versions": {}
+    },
+    {
+      "attempted": [],
+      "declared": [],
+      "doing": [
+        "Process com.old.browser:sandboxed_process0 pid 3002"
+      ],
+      "observed": [],
+      "packages": [],
+      "permitted_unseen": [],
+      "trackers": [],
+      "transmitted": {
+        "connections": [],
+        "dns": [],
+        "network_permission": false,
+        "rx_bytes": 0,
+        "tx_bytes": 0
+      },
+      "uid": 99005,
+      "uid_packages": [],
+      "versions": {}
+    },
+    {
+      "attempted": [],
+      "declared": [
+        {
+          "category": "Photos",
+          "detail": "Images in shared storage.",
+          "package": "com.old.backup",
+          "permission": "android.permission.READ_MEDIA_IMAGES"
+        },
+        {
+          "category": "Videos",
+          "detail": "Videos in shared storage.",
+          "package": "com.old.backup",
+          "permission": "android.permission.READ_MEDIA_VIDEO"
+        },
+        {
+          "category": "Audio files",
+          "detail": "Audio files in shared storage.",
+          "package": "com.old.backup",
+          "permission": "android.permission.READ_MEDIA_AUDIO"
+        },
+        {
+          "category": "Files",
+          "detail": "Shared files on the device.",
+          "package": "com.old.backup",
+          "permission": "android.permission.READ_EXTERNAL_STORAGE"
+        }
+      ],
+      "doing": [
+        "Process com.old.backup pid 3003 (foreground service)",
+        "Service com.old.backup/.BackupService",
+        "Scheduled job c5",
+        "Wakelock BackupJob (PARTIAL_WAKE_LOCK)"
+      ],
+      "observed": [],
+      "packages": [
+        "com.old.backup"
+      ],
+      "permitted_unseen": [
+        {
+          "category": "Photos",
+          "detail": "Images in shared storage.",
+          "last_access": null,
+          "last_reject": null,
+          "mode": "allow",
+          "op": "READ_MEDIA_IMAGES",
+          "package": "com.old.backup",
+          "uid": 10079
+        },
+        {
+          "category": "Files",
+          "detail": "Shared files on the device.",
+          "last_access": null,
+          "last_reject": null,
+          "mode": "allow",
+          "op": "READ_EXTERNAL_STORAGE",
+          "package": "com.old.backup",
+          "uid": 10079
+        }
+      ],
+      "trackers": [],
+      "transmitted": {
+        "connections": [],
+        "dns": [
+          {
+            "host": "sub.onelink.me",
+            "tracker": "AppsFlyer",
+            "uid": 10079
+          }
+        ],
+        "network_permission": false,
+        "rx_bytes": 0,
+        "tx_bytes": 0
+      },
+      "uid": 10079,
+      "uid_packages": [
+        "com.old.backup"
+      ],
+      "versions": {
+        "com.old.backup": "2"
+      }
+    }
+  ],
+  "sources": [
+    "dumpsys appops",
+    "dumpsys package",
+    "dumpsys activity",
+    "dumpsys jobscheduler",
+    "dumpsys power",
+    "dumpsys location",
+    "dumpsys sensorservice",
+    "dumpsys clipboard",
+    "dumpsys netstats",
+    "/proc/net/tcp",
+    "/proc/net/udp",
+    "logcat DNS"
+  ],
+  "unattributed_dns": [
+    {
+      "host": "example.invalid",
+      "tracker": null,
+      "uid": null
+    },
+    {
+      "host": "ssl.google-analytics.com",
+      "tracker": "Google Analytics",
+      "uid": null
+    }
+  ]
+}

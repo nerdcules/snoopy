@@ -1,0 +1,169 @@
+{
+  "connections": [
+    {
+      "packages": [
+        "com.old.messenger"
+      ],
+      "proto": "TCP",
+      "remote": "198.51.100.20:443",
+      "state": "ESTABLISHED",
+      "uid": 1010077
+    },
+    {
+      "packages": [
+        "com.old.browser"
+      ],
+      "proto": "TCP",
+      "remote": "198.51.100.21:80",
+      "state": "ESTABLISHED",
+      "uid": 10078
+    },
+    {
+      "packages": [
+        "com.old.browser"
+      ],
+      "proto": "UDP",
+      "remote": "198.51.100.22:443",
+      "state": "ESTABLISHED",
+      "uid": 10078
+    }
+  ],
+  "focus": [
+    "com.old.browser/org.chromium.Main",
+    "com.old.messenger/.ui.ConversationList"
+  ],
+  "ops": [
+    {
+      "last_access": "+1h2m3s123ms ago",
+      "last_reject": null,
+      "op": "READ_SMS",
+      "package": "com.old.messenger"
+    },
+    {
+      "last_access": "+5m ago",
+      "last_reject": null,
+      "op": "RECEIVE_SMS",
+      "package": "com.old.messenger"
+    },
+    {
+      "last_access": null,
+      "last_reject": "+3m ago",
+      "op": "CAMERA",
+      "package": "com.old.messenger"
+    },
+    {
+      "last_access": null,
+      "last_reject": null,
+      "op": "RECORD_AUDIO",
+      "package": "com.old.messenger"
+    },
+    {
+      "last_access": "+10s ago",
+      "last_reject": "+2h ago",
+      "op": "READ_CLIPBOARD",
+      "package": "com.old.messenger"
+    },
+    {
+      "last_access": "+1d2h ago",
+      "last_reject": null,
+      "op": "FINE_LOCATION",
+      "package": "com.old.messenger"
+    },
+    {
+      "last_access": "+2m ago",
+      "last_reject": null,
+      "op": "COARSE_LOCATION",
+      "package": "com.old.messenger"
+    },
+    {
+      "last_access": null,
+      "last_reject": null,
+      "op": "READ_PHONE_STATE",
+      "package": "com.old.messenger"
+    },
+    {
+      "last_access": null,
+      "last_reject": null,
+      "op": "GET_ACCOUNTS",
+      "package": "com.old.messenger"
+    },
+    {
+      "last_access": "+4m ago",
+      "last_reject": null,
+      "op": "SEND_SMS",
+      "package": "com.old.messenger"
+    },
+    {
+      "last_access": null,
+      "last_reject": null,
+      "op": "WRITE_CALL_LOG",
+      "package": "com.old.messenger"
+    },
+    {
+      "last_access": "+0s ago",
+      "last_reject": "+1s ago",
+      "op": "READ_CALL_LOG",
+      "package": "com.old.messenger"
+    },
+    {
+      "last_access": null,
+      "last_reject": null,
+      "op": "READ_CALENDAR",
+      "package": "com.old.messenger"
+    },
+    {
+      "last_access": "+20s ago",
+      "last_reject": null,
+      "op": "RECORD_AUDIO_OUTPUT",
+      "package": "com.old.browser"
+    },
+    {
+      "last_access": null,
+      "last_reject": "+20s ago",
+      "op": "READ_EXTERNAL_STORAGE",
+      "package": "com.old.browser"
+    },
+    {
+      "last_access": "+3m ago",
+      "last_reject": null,
+      "op": "FINE_LOCATION",
+      "package": "com.old.browser"
+    },
+    {
+      "last_access": "[top] 2019-05-01 10:00:00 (+1m ago)",
+      "last_reject": null,
+      "op": "CAMERA",
+      "package": "com.old.browser"
+    },
+    {
+      "last_access": null,
+      "last_reject": null,
+      "op": "BLUETOOTH_SCAN",
+      "package": "com.old.browser"
+    },
+    {
+      "last_access": null,
+      "last_reject": null,
+      "op": "NEARBY_WIFI_DEVICES",
+      "package": "com.old.browser"
+    },
+    {
+      "last_access": null,
+      "last_reject": null,
+      "op": "READ_EXTERNAL_STORAGE",
+      "package": "com.old.backup"
+    },
+    {
+      "last_access": null,
+      "last_reject": null,
+      "op": "READ_MEDIA_IMAGES",
+      "package": "com.old.backup"
+    },
+    {
+      "last_access": "+1m ago",
+      "last_reject": null,
+      "op": "READ_PHONE_NUMBERS",
+      "package": "com.android.phone"
+    }
+  ]
+}

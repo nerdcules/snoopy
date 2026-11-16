@@ -1,0 +1,31 @@
+Android diagnoser
+Captured: 2024-11-14T18:10:00Z
+Sources: dumpsys appops, dumpsys package, dumpsys activity, dumpsys jobscheduler, dumpsys power, dumpsys location, dumpsys sensorservice, dumpsys clipboard, dumpsys netstats, /proc/net/tcp, /proc/net/udp, logcat DNS
+
+Network sockets belong to a Linux uid. On Android that uid is usually one app.
+Transmission shown here is destination, size, and DNS name. HTTPS message bodies stay encrypted.
+Tracker SDK rows are components shipped inside the app and the kind of data that SDK is built to collect.
+
+## What each app is doing, tracking, and transmitting
+
+### uid 10402  com.watch.two
+This uid also contains: com.watch.shared
+Doing:
+  - On screen: com.watch.two/.Chat
+Information tracked:
+  Observed by the OS:
+    - Contacts — READ_CONTACTS, allowed, last access +2m ago. Names, phone numbers, and emails in the address book.
+  Attempted and denied:
+    - Precise location — FINE_LOCATION, allowed, last reject [bg] 2024-11-14 17:00:00.000 (-1h). GPS-level location of the device.
+    - Approximate location — COARSE_LOCATION, allowed, last reject [bg] 2024-11-14 18:08:00.000 (-2m). Cell and Wi-Fi location of the device.
+Transmitted:
+  Sockets and byte counts belong to uid 10402 (com.watch.shared, com.watch.two).
+  Sent 0 B, received 0 B.
+  - TCP CLOSE_WAIT 10.0.0.5:45001 -> 192.0.2.101:443
+  - UDP ESTABLISHED 10.0.0.5:45200 -> 192.0.2.104:443
+
+## Declared sensitive access with no live evidence in this snapshot
+None.
+
+## Capture gaps
+- dns: command exited 1

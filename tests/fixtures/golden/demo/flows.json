@@ -1,0 +1,157 @@
+{
+  "apps": [
+    {
+      "doing": [
+        "On screen: com.tracker.demo/.Main",
+        "Process com.tracker.demo pid 4321 (on screen, foreground service)",
+        "Foreground service com.tracker.demo/.UploadService",
+        "Scheduled job com.tracker.demo/.sync.SyncJob",
+        "Wakelock UploadLock (PARTIAL_WAKE_LOCK)",
+        "Sensor android.sensor.accelerometer (pid 4321)",
+        "Location request: HIGH_ACCURACY, interval=1000, provider=fused",
+        "Owns the current clipboard contents"
+      ],
+      "name": "com.tracker.demo",
+      "packages": [
+        "com.tracker.demo"
+      ],
+      "rx_bytes": 81536,
+      "tx_bytes": 12512
+    }
+  ],
+  "flows": [
+    {
+      "destination": "com.tracker.demo",
+      "detail": "last access [top] 2024-11-14 18:01:02.123 (-5m ago). Cell and Wi-Fi location of the device.",
+      "information": "Cell and Wi-Fi location of the device.",
+      "kind": "collection",
+      "source": "Approximate location",
+      "via": "read"
+    },
+    {
+      "destination": "com.tracker.demo",
+      "detail": "last access [fgsvc] 2024-11-14 12:00:00.000 (-6h ago). Images and video from the camera.",
+      "information": "Images and video from the camera.",
+      "kind": "collection",
+      "source": "Camera",
+      "via": "read"
+    },
+    {
+      "destination": "com.tracker.demo",
+      "detail": "last access +30s ago. Text and images currently copied on the device.",
+      "information": "Text and images currently copied on the device.",
+      "kind": "collection",
+      "source": "Clipboard",
+      "via": "read"
+    },
+    {
+      "destination": "com.tracker.demo",
+      "detail": "last reject [top] 2024-11-14 11:00:00.000 (-7h ago). Audio from the microphone.",
+      "information": "Audio from the microphone.",
+      "kind": "collection",
+      "source": "Microphone",
+      "via": "denied"
+    },
+    {
+      "destination": "com.tracker.demo",
+      "detail": "last access [top] 2024-11-14 18:01:02.123 (-5m ago) duration=+2s. last reject [bg] 2024-11-14 17:00:00.000 (-1h ago). GPS-level location of the device.",
+      "information": "GPS-level location of the device.",
+      "kind": "collection",
+      "source": "Precise location",
+      "via": "read"
+    },
+    {
+      "destination": "com.tracker.demo",
+      "detail": "Sensor android.sensor.accelerometer (pid 4321)",
+      "information": "Sensor reading",
+      "kind": "collection",
+      "source": "android.sensor.accelerometer",
+      "via": "read"
+    },
+    {
+      "destination": "com.tracker.demo",
+      "detail": "",
+      "information": "Granted, with no use in this sample",
+      "kind": "declared",
+      "source": "Advertising ID",
+      "via": "granted"
+    },
+    {
+      "destination": "com.quiet.notes",
+      "detail": "",
+      "information": "Granted, with no use in this sample",
+      "kind": "declared",
+      "source": "Contacts",
+      "via": "granted"
+    },
+    {
+      "destination": "com.tracker.demo",
+      "detail": "",
+      "information": "Granted, with no use in this sample",
+      "kind": "declared",
+      "source": "Contacts",
+      "via": "granted"
+    },
+    {
+      "destination": "Facebook Audience Network",
+      "detail": "com.facebook.ads",
+      "information": "Advertising ID and ad interactions.",
+      "kind": "tracker",
+      "source": "com.tracker.demo",
+      "via": "SDK in the app"
+    },
+    {
+      "destination": "Firebase Analytics",
+      "detail": "com.google.firebase.analytics",
+      "information": "Usage events, device model, and the advertising ID when the app shares it.",
+      "kind": "tracker",
+      "source": "com.tracker.demo",
+      "via": "SDK in the app"
+    },
+    {
+      "count": 1,
+      "destination": "app-measurement.com",
+      "detail": "Known tracker: Firebase Analytics",
+      "information": "DNS lookup",
+      "kind": "transmission",
+      "source": "Unknown app",
+      "via": "Firebase Analytics"
+    },
+    {
+      "count": 1,
+      "destination": "192.168.8.8:443",
+      "detail": "",
+      "information": "TCP ESTABLISHED",
+      "kind": "transmission",
+      "source": "com.tracker.demo",
+      "via": "127.0.0.1:54321"
+    },
+    {
+      "count": 1,
+      "destination": "8.8.8.8:53",
+      "detail": "",
+      "information": "UDP ESTABLISHED",
+      "kind": "transmission",
+      "source": "com.tracker.demo",
+      "via": "127.0.0.1:50012"
+    },
+    {
+      "count": 1,
+      "destination": "example.com",
+      "detail": "",
+      "information": "DNS lookup",
+      "kind": "transmission",
+      "source": "com.tracker.demo",
+      "via": ""
+    },
+    {
+      "count": 1,
+      "destination": "graph.facebook.com",
+      "detail": "Known tracker: Facebook",
+      "information": "DNS lookup",
+      "kind": "transmission",
+      "source": "com.tracker.demo",
+      "via": "Facebook"
+    }
+  ]
+}

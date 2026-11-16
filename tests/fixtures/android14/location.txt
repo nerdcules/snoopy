@@ -1,0 +1,22 @@
+Location Manager State:
+  User Info:
+    current user: [0] {0}
+  Location Settings:
+    [u0] LocationUserSettings[adasGnssLocationEnabled = false]
+  gps provider:
+    service: ProviderRequest[ON @ +1s0ms, HIGH_ACCURACY, WorkSource{10301 com.maps.app}]
+    listeners:
+      com.maps.app(10301)/navigation Request[@+1s0ms HIGH_ACCURACY, minUpdateDistance=0.0] (registered)
+  fused provider:
+    listeners:
+      com.fit.tracker(10302) Request[@+10s0ms BALANCED] (registered)
+      com.fit.tracker(10302) Request[@+10s0ms BALANCED] (registered)
+      Receiver com.weather.app.widget(10303) Request[ PASSIVE , interval=60000 ]
+  passive provider:
+    listener packageName=com.weather.app., interval=+15m
+    provider request from package=com.unlisted.location
+  Historical Aggregate Location Provider Data:
+    com.idle.wallpaper(10308): min/max interval = +1h
+    android(1000): last fix
+  network provider:
+    Request[] com.google.android.gms(10120) package=com.google.android.gms,

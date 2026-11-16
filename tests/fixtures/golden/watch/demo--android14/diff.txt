@@ -1,0 +1,68 @@
+On screen: com.maps.app/com.maps.app.MainActivity
+On screen: com.unlisted.app/.Splash
+On screen: com.whatsapp/.HomeActivity
+Left screen: com.tracker.demo/.Main
+com.whatsapp TCP ESTABLISHED -> 142.250.180.14:443
+com.whatsapp TCP ESTABLISHED -> 157.240.22.35:443
+com.whatsapp TCP ESTABLISHED -> 157.240.22.35:443
+com.whatsapp TCP ESTABLISHED -> 157.240.22.35:5222
+com.maps.app TCP TIME_WAIT -> 203.0.113.10:80
+com.maps.app TCP CLOSE_WAIT -> 203.0.113.11:443
+com.game.puzzle TCP ESTABLISHED -> 198.51.100.7:6789
+com.game.puzzle TCP SYN_SENT -> 198.51.100.8:443
+uid 0 TCP ESTABLISHED -> 192.0.2.50:853
+android, com.android.bluetoothmidiservice, com.android.settings TCP ESTABLISHED -> 192.0.2.60:443
+com.google.android.gms, com.google.android.gsf TCP ESTABLISHED -> 192.0.2.61:443
+com.google.android.gms, com.google.android.gsf TCP ESTABLISHED -> 192.0.2.62:5228
+uid 10399 TCP ESTABLISHED -> 127.0.0.1:8080
+com.whatsapp TCP ESTABLISHED -> [::ffff:142.250.200.4]:443
+com.whatsapp TCP ESTABLISHED -> [2a03:2880:f12f:83:face:b00c:0:25de]:443
+com.maps.app TCP ESTABLISHED -> [2001:db8::1:0:0:1]:8443
+com.maps.app TCP ESTABLISHED -> [::1.2.3.4]:80
+com.weather.app TCP ESTABLISHED -> [::ffff:203.0.113.12]:993
+com.weather.app TCP ESTABLISHED -> [2001:4860:4860::8888]:443
+com.weather.app TCP FIN_WAIT1 -> [fe80::1]:22
+com.weather.app TCP ESTABLISHED -> [2001:db8:aa::1]:443
+com.weather.app TCP ESTABLISHED -> [2001:db8:aa::2]:443
+com.weather.app TCP ESTABLISHED -> [2001:db8:aa::3]:443
+com.weather.app TCP ESTABLISHED -> [2001:db8:aa::4]:443
+com.weather.app TCP ESTABLISHED -> [2001:db8:aa::5]:443
+android, com.android.bluetoothmidiservice, com.android.settings UDP ESTABLISHED -> 10.0.0.1:67
+com.whatsapp UDP ESTABLISHED -> 142.250.180.14:443
+com.weather.app UDP ESTABLISHED -> 8.8.8.8:53
+com.whatsapp UDP ESTABLISHED -> 192.0.2.70:3478
+com.maps.app UDP ESTABLISHED -> [::ffff:142.250.180.14]:443
+com.maps.app UDP ESTABLISHED -> [2001:4860:4860::8844]:443
+android, com.android.bluetoothmidiservice, com.android.settings UDP ESTABLISHED -> [ff02::1:2]:547
+com.maps.app FINE_LOCATION [top-s] 2024-11-14 18:03:00.000 (-2m0s0ms) duration=+1s12ms
+com.maps.app COARSE_LOCATION [fg-s] 2024-11-11 09:00:00.000 (-3d9h5m0s0ms) duration=+40ms
+com.maps.app MONITOR_LOCATION [bg-s] 2024-11-13 12:00:00.000 (-30h5m0s0ms) duration=+2h
+com.maps.app MONITOR_HIGH_POWER_LOCATION [top-s] 2024-11-13 19:00:00.000 (-23h5m0s0ms) duration=+20m
+com.maps.app GPS [top-s] 2024-11-14 18:04:30.000 (-30s0ms)
+com.maps.app WIFI_SCAN [top-s] 2024-11-14 18:04:00.000 (-1m0s0ms)
+com.fit.tracker ACTIVITY_RECOGNITION [fgsvc-s] 2024-11-14 17:55:00.000 (-10m0s0ms)
+com.fit.tracker READ_CONTACTS [top-s] 2024-11-14 17:05:00.000 (-1h0m0s0ms)
+com.fit.tracker COARSE_LOCATION [bg-s] 2024-11-12 08:00:00.000 (-2d10h5m0s0ms)
+com.whatsapp READ_CONTACTS [top-s] 2024-11-14 18:04:00.000 (-1m0s0ms)
+com.whatsapp WRITE_CONTACTS [top-s] 2024-11-14 18:03:00.000 (-2m0s0ms)
+com.whatsapp CAMERA [top-s] 2024-11-14 18:04:55.000 (-5s0ms)
+com.whatsapp RECORD_AUDIO [top-s] 2024-11-14 17:25:00.000 (-40m0s0ms)
+com.whatsapp READ_MEDIA_IMAGES [top-s] 2024-11-14 17:05:00.000 (-1h0m0s0ms)
+com.whatsapp READ_MEDIA_VIDEO [top-s] 2024-11-14 17:04:00.000 (-1h1m0s0ms)
+com.whatsapp READ_MEDIA_AUDIO [top-s] 2024-11-14 17:03:00.000 (-1h2m0s0ms)
+com.whatsapp READ_EXTERNAL_STORAGE [top-s] 2024-11-14 17:02:00.000 (-1h3m0s0ms)
+com.whatsapp ACCESS_MEDIA_LOCATION [top-s] 2024-11-14 17:01:00.000 (-1h4m0s0ms)
+com.whatsapp READ_CLIPBOARD [top-s] 2024-11-14 18:04:58.000 (-2s0ms)
+com.whatsapp READ_PHONE_NUMBERS [top-s] 2024-11-14 18:00:00.000 (-5m0s0ms)
+com.whatsapp READ_SMS [top-s] 2024-11-14 18:00:00.000 (-5m0s0ms)
+com.whatsapp READ_CALL_LOG [top-s] 2024-11-14 18:00:00.000 (-5m0s0ms)
+com.android.systemui CAMERA [pers-s] 2024-11-14 18:03:00.000 (-2m0s0ms)
+com.android.systemui READ_CLIPBOARD [pers-s] 2024-11-14 18:03:30.000 (-1m30s0ms)
+com.game.puzzle ACCESS_MEDIA_LOCATION [top-s] 2024-11-14 18:02:00.000 (-3m0s0ms)
+com.game.puzzle READ_CALENDAR [top-s] 2024-11-14 18:02:00.000 (-3m0s0ms)
+com.game.puzzle BODY_SENSORS [top-s] 2024-11-14 18:02:00.000 (-3m0s0ms)
+com.game.puzzle READ_DEVICE_IDENTIFIERS [top-s] 2024-11-14 18:01:00.000 (-4m0s0ms)
+com.cam.snap CAMERA [top-s] 2024-11-14 18:00:00.000
+com.cam.snap RECORD_AUDIO [cch-s] 2024-11-14 17:00:00.000 (-1h5m0s0ms)
+com.ghost.app COARSE_LOCATION [top-s] 2024-11-14 18:00:00.000 (-5m0s0ms)
+com.unknown.uid CAMERA [top-s] 2024-11-14 18:00:00.000 (-5m0s0ms)

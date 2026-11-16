@@ -1,0 +1,72 @@
+Package [com.sync.contacts] (1a):
+  userId=10500
+  versionName=5.1
+  install permissions:
+      android.permission.INTERNET: granted=true
+      android.permission.GET_ACCOUNTS: granted=true
+  runtime permissions:
+      android.permission.READ_CONTACTS: granted=true
+      android.permission.WRITE_CONTACTS: granted=true
+
+Package [com.android.providers.contacts] (1b):
+  userId=10500
+  versionName=17
+  runtime permissions:
+      android.permission.READ_CONTACTS: granted=true
+      android.permission.READ_CALL_LOG: granted=true
+
+Package [com.a.one] (2a):
+  userId=10501
+  versionName=1.0.0
+  install permissions:
+      android.permission.INTERNET: granted=true
+  runtime permissions:
+      android.permission.CAMERA: granted=true
+      android.permission.READ_CALENDAR: granted=true
+  Service Resolver Table:
+      com.mixpanel.android.mpmetrics.MixpanelFCMMessagingService
+
+Package [com.a.two] (2b):
+  userId=10501
+  versionName=1.0.1
+  runtime permissions:
+      android.permission.RECORD_AUDIO: granted=false
+      android.permission.READ_CALENDAR: granted=true
+
+Package [com.b.three] (3a):
+  userId=10502
+  versionName=3
+  install permissions:
+      android.permission.INTERNET: granted=true
+  runtime permissions:
+      android.permission.ACCESS_FINE_LOCATION: granted=true
+      android.permission.SEND_SMS: granted=false
+  Receiver Resolver Table:
+      com.segment.analytics.android.integrations.Receiver
+      com.kochava.base.ReferralReceiver
+
+Package [com.c.one] (4a):
+  userId=10504
+  install permissions:
+      android.permission.INTERNET: granted=true
+  Service Resolver Table:
+      com.adobe.marketing.mobile.services.Service
+
+Package [com.c.two] (4b):
+  userId=10504
+  runtime permissions:
+      android.permission.RECORD_AUDIO: granted=true
+
+Package [com.android.settings] (5a):
+  userId=1000
+  versionName=17
+  install permissions:
+      android.permission.BLUETOOTH_CONNECT: granted=true
+      android.permission.INTERNET: granted=true
+
+Package [com.android.shell] (6a):
+  userId=2000
+  versionName=17
+  install permissions:
+      android.permission.READ_PHONE_STATE: granted=true
+      android.permission.PACKAGE_USAGE_STATS: granted=true

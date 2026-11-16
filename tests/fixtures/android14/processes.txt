@@ -1,0 +1,21 @@
+ACTIVITY MANAGER RUNNING PROCESSES (dumpsys activity processes)
+  All known processes:
+  *APP* UID 10304 ProcessRecord{a1 5100:com.whatsapp/u0a304}
+    user #0 uid=10304 gids={50304, 20304, 9997}
+    packageList={com.whatsapp}
+    foregroundActivities=true
+    foregroundServices=false
+  *APP* UID 10302 ProcessRecord{b2 5200:com.fit.tracker:workout/u0a302}
+    user #0 uid=10302 gids={50302}
+    packageList={com.fit.tracker}
+    foregroundServices=true
+  *PERS* UID 1000 ProcessRecord{c3 1500:system/1000}
+    packageList={android, com.android.settings, com.android.bluetoothmidiservice}
+  ProcessRecord{d4 5300:com.google.android.gms.persistent/u0a120}
+    user #0 uid=10120 gids={50120}
+    packageList={com.google.android.gms, com.google.android.gsf}
+  ProcessRecord{e5 5400:com.unknown.process/u0a888}
+    packageList={}
+  ProcessRecord{f6 5500:com.maps.app/u0a301}
+    packageList={ com.maps.app , }
+    foregroundActivities=false

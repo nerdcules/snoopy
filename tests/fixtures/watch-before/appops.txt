@@ -1,0 +1,12 @@
+Uid u0a401:
+  Package com.watch.one:
+    CAMERA (allow):
+      Access: [top] 2024-11-14 18:00:00.000 (-5m)
+    RECORD_AUDIO (allow):
+    WAKE_LOCK (allow):
+      Access: [top] 2024-11-14 18:00:00.000 (-5m)
+Uid u0a402:
+  Package com.watch.two:
+    FINE_LOCATION (allow):
+      Reject: [bg] 2024-11-14 17:00:00.000 (-1h)
+    READ_CONTACTS: allow; time=+2m ago

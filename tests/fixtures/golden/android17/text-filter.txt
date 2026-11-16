@@ -1,0 +1,37 @@
+Android diagnoser
+Device: Fixture Phone 17, Android 17 (SDK 37)
+Captured: 2026-11-14T18:12:00Z
+Sources: dumpsys appops, dumpsys package, dumpsys activity, dumpsys jobscheduler, dumpsys power, dumpsys location, dumpsys sensorservice, dumpsys clipboard, dumpsys netstats, /proc/net/tcp, /proc/net/udp, logcat DNS
+
+Network sockets belong to a Linux uid. On Android that uid is usually one app.
+Transmission shown here is destination, size, and DNS name. HTTPS message bodies stay encrypted.
+Tracker SDK rows are components shipped inside the app and the kind of data that SDK is built to collect.
+
+## What each app is doing, tracking, and transmitting
+
+### uid 10501  com.a.one
+Version: com.a.one 1.0.0
+This uid also contains: com.a.two, com.android.x
+Doing:
+  - Nothing running, scheduled, or holding a sensor, location request, or the clipboard.
+Information tracked:
+  Observed by the OS:
+    - Camera — CAMERA, allowed, last access [top-s] 2026-11-14 18:11:00.000 (-1m0s0ms). Images and video from the camera.
+  Granted permissions:
+    - Camera — android.permission.CAMERA. Images and video from the camera.
+    - Calendar — android.permission.READ_CALENDAR. Calendar events.
+  Tracker components shipped in the app:
+    - Mixpanel (com.mixpanel). Product analytics events and device properties.
+Transmitted:
+  Sockets and byte counts belong to uid 10501 (com.a.one, com.a.two, com.android.x).
+  Sent 111 B, received 999 B.
+  Network permission: granted.
+  - TCP ESTABLISHED 10.1.1.5:50002 -> 192.0.2.81:443
+  - DNS api.mixpanel.com — tracker Mixpanel
+
+## Declared sensitive access with no live evidence in this snapshot
+None.
+
+## DNS names not tied to an app uid
+- t.appsflyer.com — tracker AppsFlyer
+- t.appsflyer.com — tracker AppsFlyer

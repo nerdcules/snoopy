@@ -1,0 +1,6 @@
+Active sensors:
+Connection Number: 0
+  Operating Mode: NORMAL
+  com.old.messenger | WakeLockRefCount 0 | uid 1010077 | pid 3001
+  Sensor: android.sensor.light
+  Sensor: android.sensor.proximityConnection Number: 1

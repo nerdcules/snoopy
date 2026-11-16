@@ -1,0 +1,77 @@
+{
+  "apps": [
+    {
+      "doing": [],
+      "name": "com.watch.shared, com.watch.two",
+      "packages": [
+        "com.watch.shared",
+        "com.watch.two"
+      ],
+      "rx_bytes": 0,
+      "tx_bytes": 0
+    },
+    {
+      "doing": [
+        "On screen: com.watch.one/.Main"
+      ],
+      "name": "com.watch.one",
+      "packages": [
+        "com.watch.one"
+      ],
+      "rx_bytes": 0,
+      "tx_bytes": 0
+    }
+  ],
+  "flows": [
+    {
+      "destination": "com.watch.one",
+      "detail": "last access [top] 2024-11-14 18:00:00.000 (-5m). Images and video from the camera.",
+      "information": "Images and video from the camera.",
+      "kind": "collection",
+      "source": "Camera",
+      "via": "read"
+    },
+    {
+      "destination": "com.watch.two",
+      "detail": "last access +2m ago. Names, phone numbers, and emails in the address book.",
+      "information": "Names, phone numbers, and emails in the address book.",
+      "kind": "collection",
+      "source": "Contacts",
+      "via": "read"
+    },
+    {
+      "destination": "com.watch.two",
+      "detail": "last reject [bg] 2024-11-14 17:00:00.000 (-1h). GPS-level location of the device.",
+      "information": "GPS-level location of the device.",
+      "kind": "collection",
+      "source": "Precise location",
+      "via": "denied"
+    },
+    {
+      "destination": "com.watch.one",
+      "detail": "",
+      "information": "Granted, with no use in this sample",
+      "kind": "declared",
+      "source": "Microphone",
+      "via": "granted"
+    },
+    {
+      "count": 1,
+      "destination": "192.0.2.100:443",
+      "detail": "",
+      "information": "TCP ESTABLISHED",
+      "kind": "transmission",
+      "source": "com.watch.one",
+      "via": "10.0.0.5:45000"
+    },
+    {
+      "count": 1,
+      "destination": "192.0.2.101:443",
+      "detail": "",
+      "information": "TCP ESTABLISHED",
+      "kind": "transmission",
+      "source": "com.watch.shared, com.watch.two",
+      "via": "10.0.0.5:45001"
+    }
+  ]
+}

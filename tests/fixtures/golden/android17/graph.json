@@ -1,0 +1,396 @@
+[
+  {
+    "destinations": [
+      {
+        "count": 1,
+        "detail": "Encrypted connection to 192.0.2.80:443. 1 socket. The address is visible. The contents are not.",
+        "endpoint": "192.0.2.80:443",
+        "host": "192.0.2.80",
+        "kind": "Encrypted",
+        "label": "192.0.2.80",
+        "name": "",
+        "relation": "connects"
+      }
+    ],
+    "name": "Contacts",
+    "package": "com.sync.contacts",
+    "reads": [
+      {
+        "detail": "Names and numbers from the address book. Contacts, 12 minutes ago.",
+        "label": "Contacts"
+      },
+      {
+        "detail": "Phone, account, or advertising identifiers. Accounts, 12 minutes ago.",
+        "label": "Identity"
+      }
+    ],
+    "rx_bytes": 4096,
+    "tx_bytes": 2048
+  },
+  {
+    "destinations": [
+      {
+        "count": 1,
+        "detail": "Encrypted connection to 192.0.2.81:443. 1 socket. The address is visible. The contents are not.",
+        "endpoint": "192.0.2.81:443",
+        "host": "192.0.2.81",
+        "kind": "Encrypted",
+        "label": "192.0.2.81",
+        "name": "",
+        "relation": "connects"
+      },
+      {
+        "count": 1,
+        "detail": "DNS lookup for api.mixpanel.com. Mixpanel is a known tracker in that name.",
+        "endpoint": "api.mixpanel.com",
+        "host": "api.mixpanel.com",
+        "kind": "Mixpanel",
+        "label": "api.mixpanel.com",
+        "name": "",
+        "relation": "lookup"
+      }
+    ],
+    "name": "com.a.one, com.a.two",
+    "package": "",
+    "reads": [],
+    "rx_bytes": 999,
+    "tx_bytes": 111
+  },
+  {
+    "destinations": [
+      {
+        "count": 1,
+        "detail": "DNS lookup for bam.nr-data.net. New Relic is a known tracker in that name.",
+        "endpoint": "bam.nr-data.net",
+        "host": "bam.nr-data.net",
+        "kind": "New Relic",
+        "label": "bam.nr-data.net",
+        "name": "",
+        "relation": "lookup"
+      },
+      {
+        "count": 1,
+        "detail": "DNS lookup for dpm.demdex.net. Adobe Audience Manager is a known tracker in that name.",
+        "endpoint": "dpm.demdex.net",
+        "host": "dpm.demdex.net",
+        "kind": "Adobe Audience Manager",
+        "label": "dpm.demdex.net",
+        "name": "",
+        "relation": "lookup"
+      },
+      {
+        "count": 1,
+        "detail": "DNS lookup for metrics.omtrdc.net. Adobe Analytics is a known tracker in that name.",
+        "endpoint": "metrics.omtrdc.net",
+        "host": "metrics.omtrdc.net",
+        "kind": "Adobe Analytics",
+        "label": "metrics.omtrdc.net",
+        "name": "",
+        "relation": "lookup"
+      }
+    ],
+    "name": "com.c.one, com.c.three, com.c.two",
+    "package": "",
+    "reads": [
+      {
+        "detail": "Motion sensor readings. rotation vector, in this sample.",
+        "label": "Motion"
+      }
+    ],
+    "rx_bytes": 300,
+    "tx_bytes": 400
+  },
+  {
+    "destinations": [
+      {
+        "count": 1,
+        "detail": "Encrypted connection to 192.0.2.84:443. 1 socket. The address is visible. The contents are not.",
+        "endpoint": "192.0.2.84:443",
+        "host": "192.0.2.84",
+        "kind": "Encrypted",
+        "label": "192.0.2.84",
+        "name": "",
+        "relation": "connects"
+      },
+      {
+        "count": 1,
+        "detail": "DNS lookup for connectivitycheck.gstatic.com.",
+        "endpoint": "connectivitycheck.gstatic.com",
+        "host": "connectivitycheck.gstatic.com",
+        "kind": "DNS",
+        "label": "connectivitycheck.gstatic.com",
+        "name": "",
+        "relation": "lookup"
+      }
+    ],
+    "name": "System",
+    "package": "",
+    "reads": [],
+    "rx_bytes": 100,
+    "tx_bytes": 100
+  },
+  {
+    "destinations": [
+      {
+        "count": 1,
+        "detail": "Encrypted connection to 192.0.2.85:443. 1 socket. The address is visible. The contents are not.",
+        "endpoint": "192.0.2.85:443",
+        "host": "192.0.2.85",
+        "kind": "Encrypted",
+        "label": "192.0.2.85",
+        "name": "",
+        "relation": "connects"
+      },
+      {
+        "count": 1,
+        "detail": "DNS lookup for unknown-owner.example.com.",
+        "endpoint": "unknown-owner.example.com",
+        "host": "unknown-owner.example.com",
+        "kind": "DNS",
+        "label": "unknown-owner.example.com",
+        "name": "",
+        "relation": "lookup"
+      }
+    ],
+    "name": "uid 10777",
+    "package": "",
+    "reads": [
+      {
+        "detail": "Motion sensor readings. gyroscope uncalibrated, in this sample.",
+        "label": "Motion"
+      }
+    ],
+    "rx_bytes": 50,
+    "tx_bytes": 60
+  },
+  {
+    "destinations": [
+      {
+        "count": 1,
+        "detail": "Encrypted connection to 192.0.2.83:443. 1 socket. The address is visible. The contents are not.",
+        "endpoint": "192.0.2.83:443",
+        "host": "192.0.2.83",
+        "kind": "Encrypted",
+        "label": "192.0.2.83",
+        "name": "",
+        "relation": "connects"
+      },
+      {
+        "count": 2,
+        "detail": "Encrypted connection to 192.0.2.90:443. 2 sockets. The address is visible. The contents are not.",
+        "endpoint": "192.0.2.90:443",
+        "host": "192.0.2.90",
+        "kind": "Encrypted",
+        "label": "192.0.2.90",
+        "name": "",
+        "relation": "connects"
+      },
+      {
+        "count": 1,
+        "detail": "TCP \u00b7 port 25 to 192.0.2.91:25. 1 socket.",
+        "endpoint": "192.0.2.91:25",
+        "host": "192.0.2.91",
+        "kind": "TCP \u00b7 port 25",
+        "label": "192.0.2.91",
+        "name": "",
+        "relation": "connects"
+      },
+      {
+        "count": 1,
+        "detail": "Encrypted connection to 192.0.2.92:443. 1 socket. The address is visible. The contents are not.",
+        "endpoint": "192.0.2.92:443",
+        "host": "192.0.2.92",
+        "kind": "Encrypted",
+        "label": "192.0.2.92",
+        "name": "",
+        "relation": "connects"
+      },
+      {
+        "count": 1,
+        "detail": "DNS lookup for e.crashlytics.com. Firebase Crashlytics is a known tracker in that name.",
+        "endpoint": "e.crashlytics.com",
+        "host": "e.crashlytics.com",
+        "kind": "Firebase Crashlytics",
+        "label": "e.crashlytics.com",
+        "name": "",
+        "relation": "lookup"
+      }
+    ],
+    "name": "Android system (2 packages)",
+    "package": "",
+    "reads": [],
+    "rx_bytes": 0,
+    "tx_bytes": 0
+  },
+  {
+    "destinations": [],
+    "name": "One",
+    "package": "com.a.one",
+    "reads": [
+      {
+        "detail": "Images or video from the camera. Camera, 1 minute ago.",
+        "label": "Camera"
+      }
+    ],
+    "rx_bytes": 0,
+    "tx_bytes": 0
+  },
+  {
+    "destinations": [
+      {
+        "count": 1,
+        "detail": "DNS lookup for adb.example.org.",
+        "endpoint": "adb.example.org",
+        "host": "adb.example.org",
+        "kind": "DNS",
+        "label": "adb.example.org",
+        "name": "",
+        "relation": "lookup"
+      }
+    ],
+    "name": "Shell",
+    "package": "com.android.shell",
+    "reads": [
+      {
+        "detail": "Phone, account, or advertising identifiers. Phone identity, 1 second ago.",
+        "label": "Identity"
+      }
+    ],
+    "rx_bytes": 0,
+    "tx_bytes": 0
+  },
+  {
+    "destinations": [],
+    "name": "Three",
+    "package": "com.b.three",
+    "reads": [
+      {
+        "detail": "Where the phone is. Precise location, 30 seconds ago.",
+        "label": "Location"
+      }
+    ],
+    "rx_bytes": 0,
+    "tx_bytes": 0
+  },
+  {
+    "destinations": [],
+    "name": "Two",
+    "package": "com.c.two",
+    "reads": [
+      {
+        "detail": "Audio from the microphone or from playback. Microphone, 3 minutes ago.",
+        "label": "Microphone"
+      }
+    ],
+    "rx_bytes": 0,
+    "tx_bytes": 0
+  },
+  {
+    "destinations": [
+      {
+        "count": 1,
+        "detail": "TCP \u00b7 port 80 to 192.0.2.82:80. 1 socket.",
+        "endpoint": "192.0.2.82:80",
+        "host": "192.0.2.82",
+        "kind": "TCP \u00b7 port 80",
+        "label": "192.0.2.82",
+        "name": "",
+        "relation": "connects"
+      },
+      {
+        "count": 1,
+        "detail": "DNS lookup for api.segment.io. Segment is a known tracker in that name.",
+        "endpoint": "api.segment.io",
+        "host": "api.segment.io",
+        "kind": "Segment",
+        "label": "api.segment.io",
+        "name": "",
+        "relation": "lookup"
+      },
+      {
+        "count": 1,
+        "detail": "DNS lookup for cdn.segment.com. Segment is a known tracker in that name.",
+        "endpoint": "cdn.segment.com",
+        "host": "cdn.segment.com",
+        "kind": "Segment",
+        "label": "cdn.segment.com",
+        "name": "",
+        "relation": "lookup"
+      }
+    ],
+    "name": "com.b.five and 4 other packages",
+    "package": "",
+    "reads": [],
+    "rx_bytes": 0,
+    "tx_bytes": 0
+  },
+  {
+    "destinations": [
+      {
+        "count": 1,
+        "detail": "Encrypted connection to 192.0.2.86:443. 1 socket. The address is visible. The contents are not.",
+        "endpoint": "192.0.2.86:443",
+        "host": "192.0.2.86",
+        "kind": "Encrypted",
+        "label": "192.0.2.86",
+        "name": "",
+        "relation": "connects"
+      },
+      {
+        "count": 1,
+        "detail": "TCP \u00b7 port 8080 to 203.0.113.10:8080. 1 socket.",
+        "endpoint": "203.0.113.10:8080",
+        "host": "203.0.113.10",
+        "kind": "TCP \u00b7 port 8080",
+        "label": "203.0.113.10",
+        "name": "",
+        "relation": "connects"
+      },
+      {
+        "count": 1,
+        "detail": "Encrypted connection to 203.0.113.11:443. 1 socket. The address is visible. The contents are not.",
+        "endpoint": "203.0.113.11:443",
+        "host": "203.0.113.11",
+        "kind": "Encrypted",
+        "label": "203.0.113.11",
+        "name": "",
+        "relation": "connects"
+      },
+      {
+        "count": 1,
+        "detail": "Encrypted connection to 203.0.113.12:443. 1 socket. The address is visible. The contents are not.",
+        "endpoint": "203.0.113.12:443",
+        "host": "203.0.113.12",
+        "kind": "Encrypted",
+        "label": "203.0.113.12",
+        "name": "",
+        "relation": "connects"
+      },
+      {
+        "count": 1,
+        "detail": "TCP \u00b7 port 8080 to 203.0.113.13:8080. 1 socket.",
+        "endpoint": "203.0.113.13:8080",
+        "host": "203.0.113.13",
+        "kind": "TCP \u00b7 port 8080",
+        "label": "203.0.113.13",
+        "name": "",
+        "relation": "connects"
+      },
+      {
+        "count": 1,
+        "detail": "Encrypted connection to 203.0.113.14:443. 1 socket. The address is visible. The contents are not.",
+        "endpoint": "203.0.113.14:443",
+        "host": "203.0.113.14",
+        "kind": "Encrypted",
+        "label": "203.0.113.14",
+        "name": "",
+        "relation": "connects"
+      }
+    ],
+    "name": "uid 10778",
+    "package": "",
+    "reads": [],
+    "rx_bytes": 0,
+    "tx_bytes": 0
+  }
+]

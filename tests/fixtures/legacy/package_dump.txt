@@ -1,0 +1,45 @@
+Package [com.old.messenger] (11):
+  userId=10077
+  versionName=9.0
+  requested permissions:
+      android.permission.READ_SMS
+      android.permission.RECEIVE_SMS
+  install permissions:
+      android.permission.INTERNET: granted=true
+      android.permission.READ_SMS: granted=true
+      android.permission.RECEIVE_SMS: granted=true
+      android.permission.READ_CALL_LOG: granted=true
+  Provider Resolver Table:
+      com.google.firebase.messaging.FirebaseMessagingService
+      com.google.firebase.analytics.connector.internal.AnalyticsConnectorRegistrar
+  Package [com.nested.header] (12):
+      com.flurry.android.FlurryAgent
+
+Package [com.old.browser] (13):
+  userId=10078
+  versionName=68.0.3440.91
+  install permissions:
+      android.permission.INTERNET: granted=true
+      android.permission.ACCESS_FINE_LOCATION: granted=true
+      android.permission.CAMERA: granted=true
+      android.permission.READ_EXTERNAL_STORAGE: granted=true
+
+Package [com.old.backup] (14):
+  userId=10079
+  versionName=2
+  install permissions:
+      android.permission.READ_EXTERNAL_STORAGE: granted=true
+      android.permission.READ_MEDIA_IMAGES: granted=true
+      android.permission.READ_MEDIA_VIDEO: granted=true
+      android.permission.READ_MEDIA_AUDIO: granted=true
+
+Package [com.dup.entry] (15):
+  userId=10083
+  versionName=1
+  install permissions:
+      android.permission.CAMERA: granted=true
+
+Package [com.padded.entry] (16):
+  userId=10080
+  install permissions:
+      android.permission.BLUETOOTH_SCAN: granted=true

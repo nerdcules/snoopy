@@ -1,0 +1,31 @@
+Activity Resolver Table:
+  Non-Data Actions:
+      android.intent.action.MAIN:
+        5c1d2e3 com.example.indented/.MainActivity filter 9a8b7c6
+
+Packages:
+  Package [com.example.indented] (5c1d2e3):
+    appId=10601
+    pkg=Package{8f7e6d5 com.example.indented}
+    codePath=/data/app/~~QrS==/com.example.indented-TuV==
+    versionCode=42 minSdk=24 targetSdk=34
+    versionName=4.2
+    requested permissions:
+      android.permission.INTERNET
+      android.permission.CAMERA
+    install permissions:
+      android.permission.INTERNET: granted=true
+    User 0: ceDataInode=55 installed=true hidden=false suspended=false
+      runtime permissions:
+        android.permission.CAMERA: granted=true, flags=[ USER_SET]
+  Package [com.example.second] (6d2e3f4):
+    appId=10602
+    versionName=1.0
+    install permissions:
+      android.permission.INTERNET: granted=true
+      com.google.android.gms.permission.AD_ID: granted=true
+      com.appsflyer.lib.Receiver
+
+Hidden system packages:
+  Package [com.android.hidden] (7e3f4a5):
+    appId=1000

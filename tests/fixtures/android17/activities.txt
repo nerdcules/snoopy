@@ -1,0 +1,2 @@
+  topResumedActivity=ActivityRecord{77aa u0 com.b.three/.MapActivity t40}
+  ResumedActivity: ActivityRecord{77aa u0 com.b.three/.MapActivity t40}

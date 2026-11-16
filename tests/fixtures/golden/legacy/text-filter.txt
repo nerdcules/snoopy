@@ -1,0 +1,60 @@
+Android diagnoser
+Device: Fixture Legacy, Android 9 (SDK 28), serial LEGACY01
+Captured: 2019-05-01T10:05:00Z
+Sources: dumpsys appops, dumpsys package, dumpsys activity, dumpsys jobscheduler, dumpsys power, dumpsys location, dumpsys sensorservice, dumpsys clipboard, dumpsys netstats, /proc/net/tcp, /proc/net/udp, logcat DNS
+
+Network sockets belong to a Linux uid. On Android that uid is usually one app.
+Transmission shown here is destination, size, and DNS name. HTTPS message bodies stay encrypted.
+Tracker SDK rows are components shipped inside the app and the kind of data that SDK is built to collect.
+
+## What each app is doing, tracking, and transmitting
+
+### uid 1010077  com.old.messenger
+Version: com.old.messenger 9.0
+Doing:
+  - On screen: com.old.messenger/.ui.ConversationList
+  - Process com.old.messenger pid 3001 (on screen)
+  - Foreground service com.old.messenger/.sync.SmsSyncService
+  - Scheduled job com.old.messenger/.CleanupJob
+  - Wakelock SmsSync (PARTIAL_WAKE_LOCK)
+  - Sensor android.sensor.light (pid 3001)
+  - Sensor android.sensor.proximity (pid 3001)
+  - Location request: POWER_LOW network requested=+30m fastest=+30m
+Information tracked:
+  Observed by the OS:
+    - Precise location — FINE_LOCATION, allowed only while the app is in use, last access +1d2h ago. GPS-level location of the device.
+    - Approximate location — COARSE_LOCATION, mode unrecorded, last access +2m ago. Cell and Wi-Fi location of the device.
+    - Call history — READ_CALL_LOG, errored, last access +0s ago, last reject +1s ago. Numbers called and received, and when.
+    - SMS messages — READ_SMS, allowed, last access +1h2m3s123ms ago. Text message contents.
+    - Incoming SMS — RECEIVE_SMS, allowed, last access +5m ago. Text messages as they arrive.
+    - SMS sending — SEND_SMS, allowed, last access +4m ago. Text messages the app sends.
+    - Clipboard — READ_CLIPBOARD, allowed, last access +10s ago, last reject +2h ago. Text and images currently copied on the device.
+  Attempted and denied:
+    - Camera — CAMERA, denied, last reject +3m ago. Images and video from the camera.
+    - Microphone — RECORD_AUDIO, denied. Audio from the microphone.
+  Permitted, with no access time recorded:
+    - Call history — WRITE_CALL_LOG, allowed
+    - Accounts — GET_ACCOUNTS, allowed
+  Granted permissions:
+    - Call history — android.permission.READ_CALL_LOG. Numbers called and received, and when.
+    - SMS messages — android.permission.READ_SMS. Text message contents.
+    - Incoming SMS — android.permission.RECEIVE_SMS. Text messages as they arrive.
+  Tracker components shipped in the app:
+    - Firebase Analytics (com.google.firebase.analytics). Usage events, device model, and the advertising ID when the app shares it.
+    - Firebase Cloud Messaging (com.google.firebase.messaging). A push token. Delivery metadata goes to Google.
+    - Flurry (com.flurry). Analytics events and device properties.
+Transmitted:
+  Sent 2.0 KB, received 4.0 KB.
+  Network permission: granted.
+  - TCP ESTABLISHED 192.168.1.20:33000 -> 198.51.100.20:443
+  - DNS api.old-messenger.example
+
+## Declared sensitive access with no live evidence in this snapshot
+None.
+
+## DNS names not tied to an app uid
+- example.invalid
+- ssl.google-analytics.com — tracker Google Analytics
+
+## Capture gaps
+- dns: logcat: Unable to open log device '/dev/log/main': No such file or directory

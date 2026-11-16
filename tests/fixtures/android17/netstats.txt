@@ -1,0 +1,24 @@
+Active interfaces:
+  iface=wlan0 ident=[{type=WIFI}]
+UID stats:
+  ident=[{type=WIFI}] uid=10500 set=DEFAULT tag=0x0
+    NetworkStatsHistory: bucketDuration=7200000
+      bucketStart=1700000000000 activeTime=1 rxBytes=111111111 rxPackets=1 txBytes=111111111 txPackets=1 operations=0
+mAppUidStatsMap:
+    uid rxBytes rxPackets txBytes txPackets
+    10500 2048 2 1024 1
+    10501 999 1 111 1
+    10502 0 0 0 0
+    0 100 1 100 1
+    10777 50 1 60 1
+    1000 1048575 10 1048576 10
+    10500 4096 4 2048 2
+
+    20001 7 1 7 1
+  mStatsMapA:
+    ifaceIndex ifaceName tag_hex uid_int cnt_set rxBytes rxPackets txBytes txPackets
+    47 wlan0 0x0 10501 1 99999 4 88888 3
+    20002 7 1 7 1
+mAppUidStatsMap:
+    uid rxBytes rxPackets txBytes txPackets
+    10504 300 3 400 4

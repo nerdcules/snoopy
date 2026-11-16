@@ -1,0 +1,9 @@
+Location Manager State:
+  Location Listeners:
+    Receiver[3a2 listener UpdateRecord[gps com.old.browser(10078) Request[ACCURACY_FINE gps requested=+5s fastest=+5s]]]
+    Reciever[3a3 listener UpdateRecord[network com.old.messenger(1010077) Request[POWER_LOW network requested=+30m fastest=+30m]]]
+  Active Records by Provider:
+    gps:
+      UpdateRecord[gps com.old.browser(10078) Request[ACCURACY_FINE gps requested=+5s fastest=+5s]]
+  Last Known Locations:
+    passive: Location[fused 0.000000,0.000000 hAcc=20 et=+1d2h acc=20]

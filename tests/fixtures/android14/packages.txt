@@ -1,0 +1,17 @@
+package:/data/app/~~AbC1==/com.maps.app-XyZ1==/base.apk=com.maps.app uid:10301
+package:/data/app/~~AbC2==/com.fit.tracker-XyZ2==/base.apk=com.fit.tracker uid:10302
+package:/data/app/~~AbC3==/com.weather.app-XyZ3==/base.apk=com.weather.app uid:10303
+package:/data/app/~~AbC4==/com.whatsapp-XyZ4==/base.apk=com.whatsapp uid:10304
+package:/data/app/~~AbC5==/com.game.puzzle-XyZ5==/base.apk=com.game.puzzle uid:10305
+package:/system_ext/priv-app/SystemUIGoogle/SystemUIGoogle.apk=com.android.systemui uid:10150
+package:/system/framework/framework-res.apk=android uid:1000
+package:/system/priv-app/Settings/Settings.apk=com.android.settings uid:1000
+package:/system/app/BluetoothMidiService/BluetoothMidiService.apk=com.android.bluetoothmidiservice uid:1000
+package:/product/priv-app/PrebuiltGmsCore/PrebuiltGmsCore.apk=com.google.android.gms uid:10120
+package:/product/priv-app/GoogleServicesFramework/GoogleServicesFramework.apk=com.google.android.gsf uid:10120
+package:/data/app/~~AbC6==/com.notes.plain-XyZ6==/base.apk=com.notes.plain uid:10306
+package:/data/app/~~AbC7==/com.cam.snap-XyZ7==/base.apk=com.cam.snap uid:10307
+package:/data/app/~~AbC8==/com.idle.wallpaper-XyZ8==/base.apk=com.idle.wallpaper uid:10308
+
+this line is not a package
+package:/data/app/~~AbC9==/com.broken.entry-XyZ9==/base.apk=com.broken.entry uid:notanumber

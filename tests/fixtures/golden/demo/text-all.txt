@@ -1,0 +1,76 @@
+Android diagnoser
+Device: Pixel 8, Android 14 (SDK 34), serial fixture
+Captured: 2024-11-14T18:05:00Z
+Sources: dumpsys appops, dumpsys package, dumpsys activity, dumpsys jobscheduler, dumpsys power, dumpsys location, dumpsys sensorservice, dumpsys clipboard, dumpsys netstats, /proc/net/tcp, /proc/net/udp, logcat DNS
+
+Network sockets belong to a Linux uid. On Android that uid is usually one app.
+Transmission shown here is destination, size, and DNS name. HTTPS message bodies stay encrypted.
+Tracker SDK rows are components shipped inside the app and the kind of data that SDK is built to collect.
+
+## What each app is doing, tracking, and transmitting
+
+### uid 10245  com.tracker.demo
+Version: com.tracker.demo 1.2.3
+Doing:
+  - On screen: com.tracker.demo/.Main
+  - Process com.tracker.demo pid 4321 (on screen, foreground service)
+  - Foreground service com.tracker.demo/.UploadService
+  - Scheduled job com.tracker.demo/.sync.SyncJob
+  - Wakelock UploadLock (PARTIAL_WAKE_LOCK)
+  - Sensor android.sensor.accelerometer (pid 4321)
+  - Location request: HIGH_ACCURACY, interval=1000, provider=fused
+  - Owns the current clipboard contents
+Information tracked:
+  Observed by the OS:
+    - Precise location — FINE_LOCATION, allowed only while the app is in use, last access [top] 2024-11-14 18:01:02.123 (-5m ago) duration=+2s, last reject [bg] 2024-11-14 17:00:00.000 (-1h ago). GPS-level location of the device.
+    - Approximate location — COARSE_LOCATION, allowed, last access [top] 2024-11-14 18:01:02.123 (-5m ago). Cell and Wi-Fi location of the device.
+    - Camera — CAMERA, allowed, last access [fgsvc] 2024-11-14 12:00:00.000 (-6h ago). Images and video from the camera.
+    - Clipboard — READ_CLIPBOARD, allowed, last access +30s ago. Text and images currently copied on the device.
+  Attempted and denied:
+    - Microphone — RECORD_AUDIO, denied, last reject [top] 2024-11-14 11:00:00.000 (-7h ago). Audio from the microphone.
+  Permitted, with no access time recorded:
+    - Contacts — READ_CONTACTS, allowed
+  Granted permissions:
+    - Precise location — android.permission.ACCESS_FINE_LOCATION. GPS-level location of the device.
+    - Approximate location — android.permission.ACCESS_COARSE_LOCATION. Cell and Wi-Fi location of the device.
+    - Camera — android.permission.CAMERA. Images and video from the camera.
+    - Contacts — android.permission.READ_CONTACTS. Names, phone numbers, and emails in the address book.
+    - Advertising ID — com.google.android.gms.permission.AD_ID. The resettable advertising identifier.
+  Tracker components shipped in the app:
+    - Facebook Audience Network (com.facebook.ads). Advertising ID and ad interactions.
+    - Firebase Analytics (com.google.firebase.analytics). Usage events, device model, and the advertising ID when the app shares it.
+Transmitted:
+  Sent 12.2 KB, received 79.6 KB.
+  Network permission: granted.
+  - TCP ESTABLISHED 127.0.0.1:54321 -> 192.168.8.8:443
+  - UDP ESTABLISHED 127.0.0.1:50012 -> 8.8.8.8:53
+  - DNS example.com
+  - DNS graph.facebook.com — tracker Facebook
+
+### uid 1000  com.android.hidden
+Doing:
+  - Nothing running, scheduled, or holding a sensor, location request, or the clipboard.
+Information tracked:
+  - No sensitive grant, app-op, or tracker component in this snapshot.
+Transmitted:
+  Sent 0 B, received 0 B.
+  - No active socket with a remote address.
+
+### uid 10299  com.quiet.notes
+Version: com.quiet.notes 4.0
+Doing:
+  - Nothing running, scheduled, or holding a sensor, location request, or the clipboard.
+Information tracked:
+  Permitted, with no access time recorded:
+    - Contacts — READ_CONTACTS, allowed
+  Granted permissions:
+    - Contacts — android.permission.READ_CONTACTS. Names, phone numbers, and emails in the address book.
+Transmitted:
+  Sent 0 B, received 0 B.
+  - No active socket with a remote address.
+
+## Declared sensitive access with no live evidence in this snapshot
+None.
+
+## DNS names not tied to an app uid
+- app-measurement.com — tracker Firebase Analytics

@@ -1,0 +1,9 @@
+ACTIVITY MANAGER SERVICES (dumpsys activity services)
+  User 10 active services:
+  * ServiceRecord{c1 u10 com.old.messenger/.sync.SmsSyncService}
+    intent={cmp=com.old.messenger/.sync.SmsSyncService}
+    packageName=com.old.messenger
+    isForeground=true foregroundId=2 foregroundNoti=Notification(channel=sync)
+  * ServiceRecord{c2 u0 com.old.backup/.BackupService}
+    packageName=com.old.backup
+    startRequested=true delayedStop=false

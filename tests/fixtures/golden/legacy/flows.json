@@ -1,0 +1,356 @@
+{
+  "apps": [
+    {
+      "doing": [
+        "On screen: com.old.messenger/.ui.ConversationList",
+        "Process com.old.messenger pid 3001 (on screen)",
+        "Foreground service com.old.messenger/.sync.SmsSyncService",
+        "Scheduled job com.old.messenger/.CleanupJob",
+        "Wakelock SmsSync (PARTIAL_WAKE_LOCK)",
+        "Sensor android.sensor.light (pid 3001)",
+        "Sensor android.sensor.proximity (pid 3001)",
+        "Location request: POWER_LOW network requested=+30m fastest=+30m"
+      ],
+      "name": "com.old.messenger",
+      "packages": [
+        "com.old.messenger"
+      ],
+      "rx_bytes": 4096,
+      "tx_bytes": 2048
+    },
+    {
+      "doing": [
+        "On screen: com.old.browser/org.chromium.Main",
+        "Location request: ACCURACY_FINE gps requested=+5s fastest=+5s"
+      ],
+      "name": "com.old.browser",
+      "packages": [
+        "com.old.browser"
+      ],
+      "rx_bytes": 1536,
+      "tx_bytes": 0
+    },
+    {
+      "doing": [],
+      "name": "com.android.phone",
+      "packages": [
+        "com.android.phone"
+      ],
+      "rx_bytes": 0,
+      "tx_bytes": 0
+    },
+    {
+      "doing": [
+        "Process com.old.browser:sandboxed_process0 pid 3002"
+      ],
+      "name": "uid 99005",
+      "packages": [],
+      "rx_bytes": 0,
+      "tx_bytes": 0
+    },
+    {
+      "doing": [
+        "Process com.old.backup pid 3003 (foreground service)",
+        "Service com.old.backup/.BackupService",
+        "Scheduled job c5",
+        "Wakelock BackupJob (PARTIAL_WAKE_LOCK)"
+      ],
+      "name": "com.old.backup",
+      "packages": [
+        "com.old.backup"
+      ],
+      "rx_bytes": 0,
+      "tx_bytes": 0
+    }
+  ],
+  "flows": [
+    {
+      "destination": "com.old.messenger",
+      "detail": "last access +2m ago. Cell and Wi-Fi location of the device.",
+      "information": "Cell and Wi-Fi location of the device.",
+      "kind": "collection",
+      "source": "Approximate location",
+      "via": "read"
+    },
+    {
+      "destination": "com.old.messenger",
+      "detail": "last access +0s ago. last reject +1s ago. Numbers called and received, and when.",
+      "information": "Numbers called and received, and when.",
+      "kind": "collection",
+      "source": "Call history",
+      "via": "read"
+    },
+    {
+      "destination": "com.old.browser",
+      "detail": "last access [top] 2019-05-01 10:00:00 (+1m ago). Images and video from the camera.",
+      "information": "Images and video from the camera.",
+      "kind": "collection",
+      "source": "Camera",
+      "via": "read"
+    },
+    {
+      "destination": "com.old.messenger",
+      "detail": "last reject +3m ago. Images and video from the camera.",
+      "information": "Images and video from the camera.",
+      "kind": "collection",
+      "source": "Camera",
+      "via": "denied"
+    },
+    {
+      "destination": "com.old.messenger",
+      "detail": "last access +10s ago. last reject +2h ago. Text and images currently copied on the device.",
+      "information": "Text and images currently copied on the device.",
+      "kind": "collection",
+      "source": "Clipboard",
+      "via": "read"
+    },
+    {
+      "destination": "com.old.browser",
+      "detail": "last reject +20s ago. Shared files on the device.",
+      "information": "Shared files on the device.",
+      "kind": "collection",
+      "source": "Files",
+      "via": "denied"
+    },
+    {
+      "destination": "com.old.messenger",
+      "detail": "last access +5m ago. Text messages as they arrive.",
+      "information": "Text messages as they arrive.",
+      "kind": "collection",
+      "source": "Incoming SMS",
+      "via": "read"
+    },
+    {
+      "destination": "com.old.messenger",
+      "detail": "Audio from the microphone.",
+      "information": "Audio from the microphone.",
+      "kind": "collection",
+      "source": "Microphone",
+      "via": "denied"
+    },
+    {
+      "destination": "com.android.phone",
+      "detail": "last access +1m ago. The device phone number.",
+      "information": "The device phone number.",
+      "kind": "collection",
+      "source": "Phone number",
+      "via": "read"
+    },
+    {
+      "destination": "com.old.browser",
+      "detail": "last access +20s ago. Audio being played on the device.",
+      "information": "Audio being played on the device.",
+      "kind": "collection",
+      "source": "Playback audio",
+      "via": "read"
+    },
+    {
+      "destination": "com.old.browser",
+      "detail": "last access +3m ago. GPS-level location of the device.",
+      "information": "GPS-level location of the device.",
+      "kind": "collection",
+      "source": "Precise location",
+      "via": "read"
+    },
+    {
+      "destination": "com.old.messenger",
+      "detail": "last access +1d2h ago. GPS-level location of the device.",
+      "information": "GPS-level location of the device.",
+      "kind": "collection",
+      "source": "Precise location",
+      "via": "read"
+    },
+    {
+      "destination": "com.old.messenger",
+      "detail": "last access +1h2m3s123ms ago. Text message contents.",
+      "information": "Text message contents.",
+      "kind": "collection",
+      "source": "SMS messages",
+      "via": "read"
+    },
+    {
+      "destination": "com.old.messenger",
+      "detail": "last access +4m ago. Text messages the app sends.",
+      "information": "Text messages the app sends.",
+      "kind": "collection",
+      "source": "SMS sending",
+      "via": "read"
+    },
+    {
+      "destination": "com.old.messenger",
+      "detail": "Sensor android.sensor.light (pid 3001)",
+      "information": "Sensor reading",
+      "kind": "collection",
+      "source": "android.sensor.light",
+      "via": "read"
+    },
+    {
+      "destination": "com.old.messenger",
+      "detail": "Sensor android.sensor.proximity (pid 3001)",
+      "information": "Sensor reading",
+      "kind": "collection",
+      "source": "android.sensor.proximity",
+      "via": "read"
+    },
+    {
+      "destination": "com.old.messenger",
+      "detail": "",
+      "information": "Granted, with no use in this sample",
+      "kind": "declared",
+      "source": "Accounts",
+      "via": "granted"
+    },
+    {
+      "destination": "com.old.backup",
+      "detail": "",
+      "information": "Granted, with no use in this sample",
+      "kind": "declared",
+      "source": "Audio files",
+      "via": "granted"
+    },
+    {
+      "destination": "com.dup.entry",
+      "detail": "",
+      "information": "Granted, with no use in this sample",
+      "kind": "declared",
+      "source": "Camera",
+      "via": "granted"
+    },
+    {
+      "destination": "com.old.backup",
+      "detail": "",
+      "information": "Granted, with no use in this sample",
+      "kind": "declared",
+      "source": "Files",
+      "via": "granted"
+    },
+    {
+      "destination": "com.padded.entry",
+      "detail": "",
+      "information": "Granted, with no use in this sample",
+      "kind": "declared",
+      "source": "Nearby Bluetooth devices",
+      "via": "granted"
+    },
+    {
+      "destination": "com.old.browser",
+      "detail": "",
+      "information": "Granted, with no use in this sample",
+      "kind": "declared",
+      "source": "Nearby Wi-Fi devices",
+      "via": "granted"
+    },
+    {
+      "destination": "com.old.backup",
+      "detail": "",
+      "information": "Granted, with no use in this sample",
+      "kind": "declared",
+      "source": "Photos",
+      "via": "granted"
+    },
+    {
+      "destination": "com.old.backup",
+      "detail": "",
+      "information": "Granted, with no use in this sample",
+      "kind": "declared",
+      "source": "Videos",
+      "via": "granted"
+    },
+    {
+      "destination": "Firebase Analytics",
+      "detail": "com.google.firebase.analytics",
+      "information": "Usage events, device model, and the advertising ID when the app shares it.",
+      "kind": "tracker",
+      "source": "com.old.messenger",
+      "via": "SDK in the app"
+    },
+    {
+      "destination": "Firebase Cloud Messaging",
+      "detail": "com.google.firebase.messaging",
+      "information": "A push token. Delivery metadata goes to Google.",
+      "kind": "tracker",
+      "source": "com.old.messenger",
+      "via": "SDK in the app"
+    },
+    {
+      "destination": "Flurry",
+      "detail": "com.flurry",
+      "information": "Analytics events and device properties.",
+      "kind": "tracker",
+      "source": "com.old.messenger",
+      "via": "SDK in the app"
+    },
+    {
+      "count": 1,
+      "destination": "example.invalid",
+      "detail": "",
+      "information": "DNS lookup",
+      "kind": "transmission",
+      "source": "Unknown app",
+      "via": ""
+    },
+    {
+      "count": 1,
+      "destination": "ssl.google-analytics.com",
+      "detail": "Known tracker: Google Analytics",
+      "information": "DNS lookup",
+      "kind": "transmission",
+      "source": "Unknown app",
+      "via": "Google Analytics"
+    },
+    {
+      "count": 1,
+      "destination": "sub.onelink.me",
+      "detail": "Known tracker: AppsFlyer",
+      "information": "DNS lookup",
+      "kind": "transmission",
+      "source": "com.old.backup",
+      "via": "AppsFlyer"
+    },
+    {
+      "count": 1,
+      "destination": "198.51.100.21:80",
+      "detail": "",
+      "information": "TCP ESTABLISHED",
+      "kind": "transmission",
+      "source": "com.old.browser",
+      "via": "192.168.1.20:33001"
+    },
+    {
+      "count": 1,
+      "destination": "198.51.100.22:443",
+      "detail": "",
+      "information": "QUIC",
+      "kind": "transmission",
+      "source": "com.old.browser",
+      "via": "192.168.1.20:34000"
+    },
+    {
+      "count": 1,
+      "destination": "www.google-analytics.com",
+      "detail": "Known tracker: Google Analytics",
+      "information": "DNS lookup",
+      "kind": "transmission",
+      "source": "com.old.browser",
+      "via": "Google Analytics"
+    },
+    {
+      "count": 1,
+      "destination": "198.51.100.20:443",
+      "detail": "",
+      "information": "TCP ESTABLISHED",
+      "kind": "transmission",
+      "source": "com.old.messenger",
+      "via": "192.168.1.20:33000"
+    },
+    {
+      "count": 1,
+      "destination": "api.old-messenger.example",
+      "detail": "",
+      "information": "DNS lookup",
+      "kind": "transmission",
+      "source": "com.old.messenger",
+      "via": ""
+    }
+  ]
+}

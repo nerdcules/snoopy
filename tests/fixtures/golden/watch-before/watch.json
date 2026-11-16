@@ -1,0 +1,52 @@
+{
+  "connections": [
+    {
+      "packages": [
+        "com.watch.one"
+      ],
+      "proto": "TCP",
+      "remote": "192.0.2.100:443",
+      "state": "ESTABLISHED",
+      "uid": 10401
+    },
+    {
+      "packages": [
+        "com.watch.shared",
+        "com.watch.two"
+      ],
+      "proto": "TCP",
+      "remote": "192.0.2.101:443",
+      "state": "ESTABLISHED",
+      "uid": 10402
+    }
+  ],
+  "focus": [
+    "com.watch.one/.Main"
+  ],
+  "ops": [
+    {
+      "last_access": "[top] 2024-11-14 18:00:00.000 (-5m)",
+      "last_reject": null,
+      "op": "CAMERA",
+      "package": "com.watch.one"
+    },
+    {
+      "last_access": null,
+      "last_reject": null,
+      "op": "RECORD_AUDIO",
+      "package": "com.watch.one"
+    },
+    {
+      "last_access": null,
+      "last_reject": "[bg] 2024-11-14 17:00:00.000 (-1h)",
+      "op": "FINE_LOCATION",
+      "package": "com.watch.two"
+    },
+    {
+      "last_access": "+2m ago",
+      "last_reject": null,
+      "op": "READ_CONTACTS",
+      "package": "com.watch.two"
+    }
+  ]
+}

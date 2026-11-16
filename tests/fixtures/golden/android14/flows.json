@@ -1,0 +1,1379 @@
+{
+  "apps": [
+    {
+      "doing": [
+        "On screen: com.whatsapp/.HomeActivity",
+        "Process com.whatsapp pid 5100 (on screen)",
+        "Service com.whatsapp/.messaging.MessageService",
+        "Wakelock Doze (DOZE_WAKE_LOCK)",
+        "Owns the current clipboard contents"
+      ],
+      "name": "com.whatsapp",
+      "packages": [
+        "com.whatsapp"
+      ],
+      "rx_bytes": 53479424,
+      "tx_bytes": 7865344
+    },
+    {
+      "doing": [
+        "On screen: com.maps.app/com.maps.app.MainActivity",
+        "Process com.maps.app pid 5500",
+        "Foreground service com.maps.app/com.maps.app.NavigationService",
+        "Scheduled job 5ab9c1d",
+        "Location request: @+1s0ms HIGH_ACCURACY, minUpdateDistance=0.0"
+      ],
+      "name": "com.maps.app",
+      "packages": [
+        "com.maps.app"
+      ],
+      "rx_bytes": 3221225472,
+      "tx_bytes": 1610612736
+    },
+    {
+      "doing": [],
+      "name": "com.game.puzzle",
+      "packages": [
+        "com.game.puzzle"
+      ],
+      "rx_bytes": 0,
+      "tx_bytes": 0
+    },
+    {
+      "doing": [
+        "Sensor android.sensor.light (pid 2100)"
+      ],
+      "name": "com.android.systemui",
+      "packages": [
+        "com.android.systemui"
+      ],
+      "rx_bytes": 0,
+      "tx_bytes": 0
+    },
+    {
+      "doing": [
+        "Process com.fit.tracker:workout pid 5200 (foreground service)",
+        "Foreground service com.fit.tracker/.workout.TrackingService",
+        "Wakelock TrackingService:workout (PARTIAL_WAKE_LOCK)",
+        "Sensor android.sensor.step_counter (pid 5200)",
+        "Sensor android.sensor.heart_rate (pid 5200)",
+        "Sensor android.sensor.accelerometer (pid 5200)",
+        "Location request: @+10s0ms BALANCED"
+      ],
+      "name": "com.fit.tracker",
+      "packages": [
+        "com.fit.tracker"
+      ],
+      "rx_bytes": 0,
+      "tx_bytes": 0
+    },
+    {
+      "doing": [],
+      "name": "com.cam.snap",
+      "packages": [
+        "com.cam.snap"
+      ],
+      "rx_bytes": 0,
+      "tx_bytes": 0
+    },
+    {
+      "doing": [],
+      "name": "com.ghost.app",
+      "packages": [
+        "com.ghost.app"
+      ],
+      "rx_bytes": 0,
+      "tx_bytes": 0
+    },
+    {
+      "doing": [
+        "Scheduled job com.weather.app/.WidgetRefreshJob",
+        "Location request: PASSIVE , interval=60000",
+        "Location request"
+      ],
+      "name": "com.weather.app",
+      "packages": [
+        "com.weather.app"
+      ],
+      "rx_bytes": 512,
+      "tx_bytes": 1023
+    },
+    {
+      "doing": [
+        "Process system pid 1500",
+        "Scheduled job com.android.settings/.backup.BackupJob",
+        "Wakelock *job*/com.maps.app/.sync.OfflineMapsJob (PARTIAL_WAKE_LOCK)",
+        "Wakelock WindowManager (SCREEN_BRIGHT_WAKE_LOCK)"
+      ],
+      "name": "Android system (3 packages)",
+      "packages": [
+        "android",
+        "com.android.bluetoothmidiservice",
+        "com.android.settings"
+      ],
+      "rx_bytes": 1099511627776,
+      "tx_bytes": 5
+    },
+    {
+      "doing": [
+        "Process com.google.android.gms.persistent pid 5300",
+        "Service com.google.android.gms/.chimera.PersistentApiService",
+        "Sensor android.sensor.significant_motion (pid 5300)",
+        "Location request"
+      ],
+      "name": "Android system (2 packages)",
+      "packages": [
+        "com.google.android.gms",
+        "com.google.android.gsf"
+      ],
+      "rx_bytes": 8192,
+      "tx_bytes": 8192
+    },
+    {
+      "doing": [],
+      "name": "uid 0",
+      "packages": [],
+      "rx_bytes": 4096,
+      "tx_bytes": 4096
+    },
+    {
+      "doing": [
+        "Sensor android.sensor.gyroscope (pid 7000)",
+        "Sensor android.sensor.proximity (pid 7000)"
+      ],
+      "name": "uid 10555",
+      "packages": [],
+      "rx_bytes": 0,
+      "tx_bytes": 0
+    },
+    {
+      "doing": [],
+      "name": "uid 10019",
+      "packages": [],
+      "rx_bytes": 5,
+      "tx_bytes": 5
+    },
+    {
+      "doing": [],
+      "name": "uid 10011",
+      "packages": [],
+      "rx_bytes": 5,
+      "tx_bytes": 5
+    },
+    {
+      "doing": [],
+      "name": "uid 1035",
+      "packages": [],
+      "rx_bytes": 5,
+      "tx_bytes": 5
+    },
+    {
+      "doing": [],
+      "name": "uid 10027",
+      "packages": [],
+      "rx_bytes": 5,
+      "tx_bytes": 5
+    },
+    {
+      "doing": [],
+      "name": "uid 1073",
+      "packages": [],
+      "rx_bytes": 3000,
+      "tx_bytes": 3000
+    },
+    {
+      "doing": [],
+      "name": "uid 1043",
+      "packages": [],
+      "rx_bytes": 5,
+      "tx_bytes": 5
+    },
+    {
+      "doing": [],
+      "name": "uid 1051",
+      "packages": [],
+      "rx_bytes": 700,
+      "tx_bytes": 900
+    },
+    {
+      "doing": [],
+      "name": "com.idle.wallpaper",
+      "packages": [
+        "com.idle.wallpaper"
+      ],
+      "rx_bytes": 0,
+      "tx_bytes": 0
+    },
+    {
+      "doing": [],
+      "name": "com.notes.plain",
+      "packages": [
+        "com.notes.plain"
+      ],
+      "rx_bytes": 1,
+      "tx_bytes": 0
+    }
+  ],
+  "flows": [
+    {
+      "destination": "com.fit.tracker",
+      "detail": "last reject [bg-s] 2024-11-12 08:00:00.000 (-2d10h5m0s0ms). Cell and Wi-Fi location of the device.",
+      "information": "Cell and Wi-Fi location of the device.",
+      "kind": "collection",
+      "source": "Approximate location",
+      "via": "denied"
+    },
+    {
+      "destination": "com.ghost.app",
+      "detail": "last access [top-s] 2024-11-14 18:00:00.000 (-5m0s0ms). Cell and Wi-Fi location of the device.",
+      "information": "Cell and Wi-Fi location of the device.",
+      "kind": "collection",
+      "source": "Approximate location",
+      "via": "read"
+    },
+    {
+      "destination": "com.maps.app",
+      "detail": "last access [fg-s] 2024-11-11 09:00:00.000 (-3d9h5m0s0ms) duration=+40ms. Cell and Wi-Fi location of the device.",
+      "information": "Cell and Wi-Fi location of the device.",
+      "kind": "collection",
+      "source": "Approximate location",
+      "via": "read"
+    },
+    {
+      "destination": "com.whatsapp",
+      "detail": "last access [top-s] 2024-11-14 17:03:00.000 (-1h2m0s0ms). Audio files in shared storage.",
+      "information": "Audio files in shared storage.",
+      "kind": "collection",
+      "source": "Audio files",
+      "via": "read"
+    },
+    {
+      "destination": "com.fit.tracker",
+      "detail": "Heart rate and similar body-sensor readings.",
+      "information": "Heart rate and similar body-sensor readings.",
+      "kind": "collection",
+      "source": "Body sensors",
+      "via": "denied"
+    },
+    {
+      "destination": "com.game.puzzle",
+      "detail": "last access [top-s] 2024-11-14 18:02:00.000 (-3m0s0ms). Heart rate and similar body-sensor readings.",
+      "information": "Heart rate and similar body-sensor readings.",
+      "kind": "collection",
+      "source": "Body sensors",
+      "via": "read"
+    },
+    {
+      "destination": "com.game.puzzle",
+      "detail": "last access [top-s] 2024-11-14 18:02:00.000 (-3m0s0ms). Calendar events.",
+      "information": "Calendar events.",
+      "kind": "collection",
+      "source": "Calendar",
+      "via": "read"
+    },
+    {
+      "destination": "com.whatsapp",
+      "detail": "last access [top-s] 2024-11-14 18:00:00.000 (-5m0s0ms). Numbers called and received, and when.",
+      "information": "Numbers called and received, and when.",
+      "kind": "collection",
+      "source": "Call history",
+      "via": "read"
+    },
+    {
+      "destination": "com.android.systemui",
+      "detail": "last access [pers-s] 2024-11-14 18:03:00.000 (-2m0s0ms). Images and video from the camera.",
+      "information": "Images and video from the camera.",
+      "kind": "collection",
+      "source": "Camera",
+      "via": "read"
+    },
+    {
+      "destination": "com.cam.snap",
+      "detail": "last access [top-s] 2024-11-14 18:00:00.000. Images and video from the camera.",
+      "information": "Images and video from the camera.",
+      "kind": "collection",
+      "source": "Camera",
+      "via": "read"
+    },
+    {
+      "destination": "com.whatsapp",
+      "detail": "last access [top-s] 2024-11-14 18:04:55.000 (-5s0ms). Images and video from the camera.",
+      "information": "Images and video from the camera.",
+      "kind": "collection",
+      "source": "Camera",
+      "via": "read"
+    },
+    {
+      "destination": "com.android.systemui",
+      "detail": "last access [pers-s] 2024-11-14 18:03:30.000 (-1m30s0ms). Text and images currently copied on the device.",
+      "information": "Text and images currently copied on the device.",
+      "kind": "collection",
+      "source": "Clipboard",
+      "via": "read"
+    },
+    {
+      "destination": "com.whatsapp",
+      "detail": "last access [top-s] 2024-11-14 18:04:58.000 (-2s0ms). Text and images currently copied on the device.",
+      "information": "Text and images currently copied on the device.",
+      "kind": "collection",
+      "source": "Clipboard",
+      "via": "read"
+    },
+    {
+      "destination": "com.fit.tracker",
+      "detail": "last reject [top-s] 2024-11-14 17:05:00.000 (-1h0m0s0ms). Names, phone numbers, and emails in the address book.",
+      "information": "Names, phone numbers, and emails in the address book.",
+      "kind": "collection",
+      "source": "Contacts",
+      "via": "denied"
+    },
+    {
+      "destination": "com.whatsapp",
+      "detail": "last access [top-s] 2024-11-14 18:03:00.000 (-2m0s0ms). Changes to the address book.",
+      "information": "Changes to the address book.",
+      "kind": "collection",
+      "source": "Contacts",
+      "via": "read"
+    },
+    {
+      "destination": "com.whatsapp",
+      "detail": "last access [top-s] 2024-11-14 18:04:00.000 (-1m0s0ms). Names, phone numbers, and emails in the address book.",
+      "information": "Names, phone numbers, and emails in the address book.",
+      "kind": "collection",
+      "source": "Contacts",
+      "via": "read"
+    },
+    {
+      "destination": "com.maps.app",
+      "detail": "last access [bg-s] 2024-11-13 12:00:00.000 (-30h5m0s0ms) duration=+2h. Ongoing location monitoring.",
+      "information": "Ongoing location monitoring.",
+      "kind": "collection",
+      "source": "Continuous location",
+      "via": "read"
+    },
+    {
+      "destination": "com.whatsapp",
+      "detail": "last access [top-s] 2024-11-14 17:02:00.000 (-1h3m0s0ms). Shared files on the device.",
+      "information": "Shared files on the device.",
+      "kind": "collection",
+      "source": "Files",
+      "via": "read"
+    },
+    {
+      "destination": "com.maps.app",
+      "detail": "last access [top-s] 2024-11-14 18:04:30.000 (-30s0ms). Satellite location fixes.",
+      "information": "Satellite location fixes.",
+      "kind": "collection",
+      "source": "GPS",
+      "via": "read"
+    },
+    {
+      "destination": "com.game.puzzle",
+      "detail": "last access [top-s] 2024-11-14 18:01:00.000 (-4m0s0ms). Non-resettable identifiers such as an IMEI or serial number.",
+      "information": "Non-resettable identifiers such as an IMEI or serial number.",
+      "kind": "collection",
+      "source": "Hardware identifiers",
+      "via": "read"
+    },
+    {
+      "destination": "com.maps.app",
+      "detail": "last access [top-s] 2024-11-13 19:00:00.000 (-23h5m0s0ms) duration=+20m. High-accuracy location that keeps extra hardware awake.",
+      "information": "High-accuracy location that keeps extra hardware awake.",
+      "kind": "collection",
+      "source": "High-power location",
+      "via": "read"
+    },
+    {
+      "destination": "com.cam.snap",
+      "detail": "last reject [cch-s] 2024-11-14 17:00:00.000 (-1h5m0s0ms). Audio from the microphone.",
+      "information": "Audio from the microphone.",
+      "kind": "collection",
+      "source": "Microphone",
+      "via": "denied"
+    },
+    {
+      "destination": "com.whatsapp",
+      "detail": "last access [top-s] 2024-11-14 17:25:00.000 (-40m0s0ms). Audio from the microphone.",
+      "information": "Audio from the microphone.",
+      "kind": "collection",
+      "source": "Microphone",
+      "via": "read"
+    },
+    {
+      "destination": "com.whatsapp",
+      "detail": "last access [top-s] 2024-11-14 18:00:00.000 (-5m0s0ms). The device phone number.",
+      "information": "The device phone number.",
+      "kind": "collection",
+      "source": "Phone number",
+      "via": "read"
+    },
+    {
+      "destination": "com.game.puzzle",
+      "detail": "last access [top-s] 2024-11-14 18:02:00.000 (-3m0s0ms). Location tags embedded in photos.",
+      "information": "Location tags embedded in photos.",
+      "kind": "collection",
+      "source": "Photo locations",
+      "via": "read"
+    },
+    {
+      "destination": "com.whatsapp",
+      "detail": "last access [top-s] 2024-11-14 17:01:00.000 (-1h4m0s0ms). Location tags embedded in photos.",
+      "information": "Location tags embedded in photos.",
+      "kind": "collection",
+      "source": "Photo locations",
+      "via": "read"
+    },
+    {
+      "destination": "com.whatsapp",
+      "detail": "last access [top-s] 2024-11-14 17:05:00.000 (-1h0m0s0ms). Images in shared storage.",
+      "information": "Images in shared storage.",
+      "kind": "collection",
+      "source": "Photos",
+      "via": "read"
+    },
+    {
+      "destination": "com.fit.tracker",
+      "detail": "last access [fgsvc-s] 2024-11-14 17:55:00.000 (-10m0s0ms). Walking, driving, and similar motion.",
+      "information": "Walking, driving, and similar motion.",
+      "kind": "collection",
+      "source": "Physical activity",
+      "via": "read"
+    },
+    {
+      "destination": "com.maps.app",
+      "detail": "last access [top-s] 2024-11-14 18:03:00.000 (-2m0s0ms) duration=+1s12ms. last reject [bg-s] 2024-11-14 17:00:00.000 (-1h5m0s0ms). GPS-level location of the device.",
+      "information": "GPS-level location of the device.",
+      "kind": "collection",
+      "source": "Precise location",
+      "via": "read"
+    },
+    {
+      "destination": "com.whatsapp",
+      "detail": "last access [top-s] 2024-11-14 18:00:00.000 (-5m0s0ms). Text message contents.",
+      "information": "Text message contents.",
+      "kind": "collection",
+      "source": "SMS messages",
+      "via": "read"
+    },
+    {
+      "destination": "com.whatsapp",
+      "detail": "last access [top-s] 2024-11-14 17:04:00.000 (-1h1m0s0ms). Videos in shared storage.",
+      "information": "Videos in shared storage.",
+      "kind": "collection",
+      "source": "Videos",
+      "via": "read"
+    },
+    {
+      "destination": "com.maps.app",
+      "detail": "last access [top-s] 2024-11-14 18:04:00.000 (-1m0s0ms). Nearby network names and signal strength, which can locate the device.",
+      "information": "Nearby network names and signal strength, which can locate the device.",
+      "kind": "collection",
+      "source": "Wi-Fi scan",
+      "via": "read"
+    },
+    {
+      "destination": "com.fit.tracker",
+      "detail": "Sensor android.sensor.accelerometer (pid 5200)",
+      "information": "Sensor reading",
+      "kind": "collection",
+      "source": "android.sensor.accelerometer",
+      "via": "read"
+    },
+    {
+      "destination": "uid 10555",
+      "detail": "Sensor android.sensor.gyroscope (pid 7000)",
+      "information": "Sensor reading",
+      "kind": "collection",
+      "source": "android.sensor.gyroscope",
+      "via": "read"
+    },
+    {
+      "destination": "com.fit.tracker",
+      "detail": "Sensor android.sensor.heart_rate (pid 5200)",
+      "information": "Sensor reading",
+      "kind": "collection",
+      "source": "android.sensor.heart_rate",
+      "via": "read"
+    },
+    {
+      "destination": "com.android.systemui",
+      "detail": "Sensor android.sensor.light (pid 2100)",
+      "information": "Sensor reading",
+      "kind": "collection",
+      "source": "android.sensor.light",
+      "via": "read"
+    },
+    {
+      "destination": "uid 10555",
+      "detail": "Sensor android.sensor.proximity (pid 7000)",
+      "information": "Sensor reading",
+      "kind": "collection",
+      "source": "android.sensor.proximity",
+      "via": "read"
+    },
+    {
+      "destination": "Android system (2 packages)",
+      "detail": "Sensor android.sensor.significant_motion (pid 5300)",
+      "information": "Sensor reading",
+      "kind": "collection",
+      "source": "android.sensor.significant_motion",
+      "via": "read"
+    },
+    {
+      "destination": "com.fit.tracker",
+      "detail": "Sensor android.sensor.step_counter (pid 5200)",
+      "information": "Sensor reading",
+      "kind": "collection",
+      "source": "android.sensor.step_counter",
+      "via": "read"
+    },
+    {
+      "destination": "com.game.puzzle",
+      "detail": "",
+      "information": "Granted, with no use in this sample",
+      "kind": "declared",
+      "source": "Accounts",
+      "via": "granted"
+    },
+    {
+      "destination": "com.whatsapp",
+      "detail": "",
+      "information": "Granted, with no use in this sample",
+      "kind": "declared",
+      "source": "Accounts",
+      "via": "granted"
+    },
+    {
+      "destination": "com.game.puzzle",
+      "detail": "",
+      "information": "Granted, with no use in this sample",
+      "kind": "declared",
+      "source": "Advertising ID",
+      "via": "granted"
+    },
+    {
+      "destination": "com.maps.app",
+      "detail": "",
+      "information": "Granted, with no use in this sample",
+      "kind": "declared",
+      "source": "Advertising ID",
+      "via": "granted"
+    },
+    {
+      "destination": "com.weather.app",
+      "detail": "",
+      "information": "Granted, with no use in this sample",
+      "kind": "declared",
+      "source": "Advertising ID",
+      "via": "granted"
+    },
+    {
+      "destination": "com.weather.app",
+      "detail": "",
+      "information": "Granted, with no use in this sample",
+      "kind": "declared",
+      "source": "Approximate location",
+      "via": "granted"
+    },
+    {
+      "destination": "com.notes.plain",
+      "detail": "",
+      "information": "Granted, with no use in this sample",
+      "kind": "declared",
+      "source": "Contacts",
+      "via": "granted"
+    },
+    {
+      "destination": "com.notes.plain",
+      "detail": "",
+      "information": "Granted, with no use in this sample",
+      "kind": "declared",
+      "source": "Files",
+      "via": "granted"
+    },
+    {
+      "destination": "com.sideloaded.tool",
+      "detail": "",
+      "information": "Granted, with no use in this sample",
+      "kind": "declared",
+      "source": "Installed apps",
+      "via": "granted"
+    },
+    {
+      "destination": "com.google.android.gms",
+      "detail": "",
+      "information": "Granted, with no use in this sample",
+      "kind": "declared",
+      "source": "Nearby Bluetooth devices",
+      "via": "granted"
+    },
+    {
+      "destination": "com.google.android.gms",
+      "detail": "",
+      "information": "Granted, with no use in this sample",
+      "kind": "declared",
+      "source": "Nearby Wi-Fi devices",
+      "via": "granted"
+    },
+    {
+      "destination": "com.google.android.gms",
+      "detail": "",
+      "information": "Granted, with no use in this sample",
+      "kind": "declared",
+      "source": "Precise location",
+      "via": "granted"
+    },
+    {
+      "destination": "com.android.systemui",
+      "detail": "",
+      "information": "Granted, with no use in this sample",
+      "kind": "declared",
+      "source": "Screen overlay",
+      "via": "granted"
+    },
+    {
+      "destination": "com.weather.app",
+      "detail": "",
+      "information": "Granted, with no use in this sample",
+      "kind": "declared",
+      "source": "Wi-Fi scan",
+      "via": "granted"
+    },
+    {
+      "destination": "Firebase Crashlytics",
+      "detail": "com.google.firebase.crashlytics",
+      "information": "Crash traces, device model, OS version, and app state at the crash.",
+      "kind": "tracker",
+      "source": "com.fit.tracker",
+      "via": "SDK in the app"
+    },
+    {
+      "destination": "Sentry",
+      "detail": "io.sentry",
+      "information": "Crash traces and device state.",
+      "kind": "tracker",
+      "source": "com.fit.tracker",
+      "via": "SDK in the app"
+    },
+    {
+      "destination": "Adobe Marketing",
+      "detail": "com.adobe.marketing",
+      "information": "Engagement events and device properties.",
+      "kind": "tracker",
+      "source": "com.game.puzzle",
+      "via": "SDK in the app"
+    },
+    {
+      "destination": "Amazon Ads",
+      "detail": "com.amazon.device.ads",
+      "information": "Advertising ID and ad interactions.",
+      "kind": "tracker",
+      "source": "com.game.puzzle",
+      "via": "SDK in the app"
+    },
+    {
+      "destination": "Amplitude",
+      "detail": "com.amplitude",
+      "information": "Product analytics events and device properties.",
+      "kind": "tracker",
+      "source": "com.game.puzzle",
+      "via": "SDK in the app"
+    },
+    {
+      "destination": "AppLovin",
+      "detail": "com.applovin",
+      "information": "Advertising ID and ad interactions.",
+      "kind": "tracker",
+      "source": "com.game.puzzle",
+      "via": "SDK in the app"
+    },
+    {
+      "destination": "AppMetrica",
+      "detail": "io.appmetrica",
+      "information": "Analytics events, device identifiers, and location if the app can read it.",
+      "kind": "tracker",
+      "source": "com.game.puzzle",
+      "via": "SDK in the app"
+    },
+    {
+      "destination": "Braze",
+      "detail": "com.braze",
+      "information": "Engagement events and device properties.",
+      "kind": "tracker",
+      "source": "com.game.puzzle",
+      "via": "SDK in the app"
+    },
+    {
+      "destination": "Bugsnag",
+      "detail": "com.bugsnag",
+      "information": "Crash traces and device state.",
+      "kind": "tracker",
+      "source": "com.game.puzzle",
+      "via": "SDK in the app"
+    },
+    {
+      "destination": "Chartboost",
+      "detail": "com.chartboost",
+      "information": "Advertising ID and ad interactions.",
+      "kind": "tracker",
+      "source": "com.game.puzzle",
+      "via": "SDK in the app"
+    },
+    {
+      "destination": "CleverTap",
+      "detail": "com.clevertap",
+      "information": "Engagement events and device properties.",
+      "kind": "tracker",
+      "source": "com.game.puzzle",
+      "via": "SDK in the app"
+    },
+    {
+      "destination": "Flurry",
+      "detail": "com.flurry",
+      "information": "Analytics events and device properties.",
+      "kind": "tracker",
+      "source": "com.game.puzzle",
+      "via": "SDK in the app"
+    },
+    {
+      "destination": "Google Mobile Ads",
+      "detail": "com.google.android.gms.ads",
+      "information": "Advertising ID, ad interactions, and IP address.",
+      "kind": "tracker",
+      "source": "com.game.puzzle",
+      "via": "SDK in the app"
+    },
+    {
+      "destination": "Huawei Ads",
+      "detail": "com.huawei.hms.ads",
+      "information": "Advertising ID and ad interactions.",
+      "kind": "tracker",
+      "source": "com.game.puzzle",
+      "via": "SDK in the app"
+    },
+    {
+      "destination": "InMobi",
+      "detail": "com.inmobi",
+      "information": "Advertising ID and ad interactions.",
+      "kind": "tracker",
+      "source": "com.game.puzzle",
+      "via": "SDK in the app"
+    },
+    {
+      "destination": "IronSource",
+      "detail": "com.ironsource",
+      "information": "Advertising ID and ad interactions.",
+      "kind": "tracker",
+      "source": "com.game.puzzle",
+      "via": "SDK in the app"
+    },
+    {
+      "destination": "Kochava",
+      "detail": "com.kochava",
+      "information": "Attribution identifiers and IP address.",
+      "kind": "tracker",
+      "source": "com.game.puzzle",
+      "via": "SDK in the app"
+    },
+    {
+      "destination": "Mixpanel",
+      "detail": "com.mixpanel",
+      "information": "Product analytics events and device properties.",
+      "kind": "tracker",
+      "source": "com.game.puzzle",
+      "via": "SDK in the app"
+    },
+    {
+      "destination": "MoEngage",
+      "detail": "com.moengage",
+      "information": "Engagement events and device properties.",
+      "kind": "tracker",
+      "source": "com.game.puzzle",
+      "via": "SDK in the app"
+    },
+    {
+      "destination": "New Relic",
+      "detail": "com.newrelic.agent",
+      "information": "Performance traces and device state.",
+      "kind": "tracker",
+      "source": "com.game.puzzle",
+      "via": "SDK in the app"
+    },
+    {
+      "destination": "OneSignal",
+      "detail": "com.onesignal",
+      "information": "Push token and device properties.",
+      "kind": "tracker",
+      "source": "com.game.puzzle",
+      "via": "SDK in the app"
+    },
+    {
+      "destination": "Salesforce Marketing Cloud",
+      "detail": "com.salesforce.marketingcloud",
+      "information": "Engagement events and contact keys the app sets.",
+      "kind": "tracker",
+      "source": "com.game.puzzle",
+      "via": "SDK in the app"
+    },
+    {
+      "destination": "Segment",
+      "detail": "com.segment.analytics",
+      "information": "Event routing and device properties.",
+      "kind": "tracker",
+      "source": "com.game.puzzle",
+      "via": "SDK in the app"
+    },
+    {
+      "destination": "Singular",
+      "detail": "com.singular",
+      "information": "Attribution identifiers and IP address.",
+      "kind": "tracker",
+      "source": "com.game.puzzle",
+      "via": "SDK in the app"
+    },
+    {
+      "destination": "Start.io",
+      "detail": "com.startapp",
+      "information": "Advertising ID and, on older SDKs, installed-app signals.",
+      "kind": "tracker",
+      "source": "com.game.puzzle",
+      "via": "SDK in the app"
+    },
+    {
+      "destination": "Umeng",
+      "detail": "com.umeng",
+      "information": "Analytics events and device identifiers.",
+      "kind": "tracker",
+      "source": "com.game.puzzle",
+      "via": "SDK in the app"
+    },
+    {
+      "destination": "Unity Ads",
+      "detail": "com.unity3d.ads",
+      "information": "Advertising ID and ad interactions.",
+      "kind": "tracker",
+      "source": "com.game.puzzle",
+      "via": "SDK in the app"
+    },
+    {
+      "destination": "Vungle",
+      "detail": "com.vungle",
+      "information": "Advertising ID and ad interactions.",
+      "kind": "tracker",
+      "source": "com.game.puzzle",
+      "via": "SDK in the app"
+    },
+    {
+      "destination": "Yandex Metrica",
+      "detail": "com.yandex.metrica",
+      "information": "Analytics events and device identifiers.",
+      "kind": "tracker",
+      "source": "com.game.puzzle",
+      "via": "SDK in the app"
+    },
+    {
+      "destination": "mParticle",
+      "detail": "com.mparticle",
+      "information": "Event routing, device properties, and advertising ID.",
+      "kind": "tracker",
+      "source": "com.game.puzzle",
+      "via": "SDK in the app"
+    },
+    {
+      "destination": "Firebase Installations",
+      "detail": "com.google.firebase.installations",
+      "information": "An app-scoped installation identifier.",
+      "kind": "tracker",
+      "source": "com.maps.app",
+      "via": "SDK in the app"
+    },
+    {
+      "destination": "Google Measurement",
+      "detail": "com.google.android.gms.measurement",
+      "information": "Analytics events and device properties.",
+      "kind": "tracker",
+      "source": "com.maps.app",
+      "via": "SDK in the app"
+    },
+    {
+      "destination": "Google Mobile Ads",
+      "detail": "com.google.android.gms.ads",
+      "information": "Advertising ID, ad interactions, and IP address.",
+      "kind": "tracker",
+      "source": "com.maps.app",
+      "via": "SDK in the app"
+    },
+    {
+      "destination": "Adjust",
+      "detail": "com.adjust.sdk",
+      "information": "Install attribution, advertising ID, and IP address.",
+      "kind": "tracker",
+      "source": "com.weather.app",
+      "via": "SDK in the app"
+    },
+    {
+      "destination": "Branch",
+      "detail": "io.branch",
+      "information": "Attribution identifiers and which link was opened.",
+      "kind": "tracker",
+      "source": "com.weather.app",
+      "via": "SDK in the app"
+    },
+    {
+      "destination": "Facebook App Events",
+      "detail": "com.facebook.appevents",
+      "information": "App events, device info, and advertising ID.",
+      "kind": "tracker",
+      "source": "com.whatsapp",
+      "via": "SDK in the app"
+    },
+    {
+      "destination": "Facebook Audience Network",
+      "detail": "com.facebook.ads",
+      "information": "Advertising ID and ad interactions.",
+      "kind": "tracker",
+      "source": "com.whatsapp",
+      "via": "SDK in the app"
+    },
+    {
+      "destination": "Facebook Login",
+      "detail": "com.facebook.FacebookActivity",
+      "information": "Facebook identity when the user signs in, plus app events.",
+      "kind": "tracker",
+      "source": "com.whatsapp",
+      "via": "SDK in the app"
+    },
+    {
+      "count": 1,
+      "destination": "192.0.2.61:443",
+      "detail": "",
+      "information": "TCP ESTABLISHED",
+      "kind": "transmission",
+      "source": "Android system (2 packages)",
+      "via": "10.0.0.23:40011"
+    },
+    {
+      "count": 1,
+      "destination": "192.0.2.62:5228",
+      "detail": "",
+      "information": "TCP ESTABLISHED",
+      "kind": "transmission",
+      "source": "Android system (2 packages)",
+      "via": "10.0.0.23:40012"
+    },
+    {
+      "count": 1,
+      "destination": "mtalk.google.com",
+      "detail": "",
+      "information": "DNS lookup",
+      "kind": "transmission",
+      "source": "Android system (2 packages)",
+      "via": ""
+    },
+    {
+      "count": 1,
+      "destination": "10.0.0.1:67",
+      "detail": "",
+      "information": "UDP ESTABLISHED",
+      "kind": "transmission",
+      "source": "Android system (3 packages)",
+      "via": "10.0.0.23:68"
+    },
+    {
+      "count": 1,
+      "destination": "192.0.2.60:443",
+      "detail": "",
+      "information": "TCP ESTABLISHED",
+      "kind": "transmission",
+      "source": "Android system (3 packages)",
+      "via": "10.0.0.23:40010"
+    },
+    {
+      "count": 1,
+      "destination": "[ff02::1:2]:547",
+      "detail": "",
+      "information": "UDP ESTABLISHED",
+      "kind": "transmission",
+      "source": "Android system (3 packages)",
+      "via": "[fe80::23]:546"
+    },
+    {
+      "count": 1,
+      "destination": "api.weather.example",
+      "detail": "",
+      "information": "DNS lookup",
+      "kind": "transmission",
+      "source": "Unknown app",
+      "via": ""
+    },
+    {
+      "count": 1,
+      "destination": "app.adjust.com",
+      "detail": "Known tracker: Adjust",
+      "information": "DNS lookup",
+      "kind": "transmission",
+      "source": "Unknown app",
+      "via": "Adjust"
+    },
+    {
+      "count": 1,
+      "destination": "cdn.example.net",
+      "detail": "",
+      "information": "DNS lookup",
+      "kind": "transmission",
+      "source": "Unknown app",
+      "via": ""
+    },
+    {
+      "count": 1,
+      "destination": "o12345.ingest.sentry.io",
+      "detail": "Known tracker: Sentry",
+      "information": "DNS lookup",
+      "kind": "transmission",
+      "source": "Unknown app",
+      "via": "Sentry"
+    },
+    {
+      "count": 1,
+      "destination": "settings.crashlytics.com",
+      "detail": "Known tracker: Firebase Crashlytics",
+      "information": "DNS lookup",
+      "kind": "transmission",
+      "source": "com.fit.tracker",
+      "via": "Firebase Crashlytics"
+    },
+    {
+      "count": 1,
+      "destination": "198.51.100.7:6789",
+      "detail": "",
+      "information": "TCP ESTABLISHED",
+      "kind": "transmission",
+      "source": "com.game.puzzle",
+      "via": "10.0.0.23:40007"
+    },
+    {
+      "count": 1,
+      "destination": "198.51.100.8:443",
+      "detail": "",
+      "information": "TCP SYN_SENT",
+      "kind": "transmission",
+      "source": "com.game.puzzle",
+      "via": "10.0.0.23:40008"
+    },
+    {
+      "count": 1,
+      "destination": "ads.mopub.example.doubleclick.net",
+      "detail": "Known tracker: Google Ads",
+      "information": "DNS lookup",
+      "kind": "transmission",
+      "source": "com.game.puzzle",
+      "via": "Google Ads"
+    },
+    {
+      "count": 1,
+      "destination": "127.0.0.1:8080",
+      "detail": "",
+      "information": "TCP ESTABLISHED",
+      "kind": "transmission",
+      "source": "com.ghost.app",
+      "via": "127.0.0.1:40013"
+    },
+    {
+      "count": 1,
+      "destination": "wallpaper.example.org",
+      "detail": "",
+      "information": "DNS lookup",
+      "kind": "transmission",
+      "source": "com.idle.wallpaper",
+      "via": ""
+    },
+    {
+      "count": 1,
+      "destination": "142.250.180.14:443",
+      "detail": "",
+      "information": "QUIC",
+      "kind": "transmission",
+      "source": "com.maps.app",
+      "via": "10.0.0.23:41100"
+    },
+    {
+      "count": 1,
+      "destination": "203.0.113.10:80",
+      "detail": "",
+      "information": "TCP TIME_WAIT",
+      "kind": "transmission",
+      "source": "com.maps.app",
+      "via": "10.0.0.23:40005"
+    },
+    {
+      "count": 1,
+      "destination": "203.0.113.11:443",
+      "detail": "",
+      "information": "TCP CLOSE_WAIT",
+      "kind": "transmission",
+      "source": "com.maps.app",
+      "via": "10.0.0.23:40006"
+    },
+    {
+      "count": 1,
+      "destination": "[2001:4860:4860::8844]:443",
+      "detail": "",
+      "information": "QUIC",
+      "kind": "transmission",
+      "source": "com.maps.app",
+      "via": "[2001:db8:1::23]:41101"
+    },
+    {
+      "count": 1,
+      "destination": "[2001:db8::1:0:0:1]:8443",
+      "detail": "",
+      "information": "TCP ESTABLISHED",
+      "kind": "transmission",
+      "source": "com.maps.app",
+      "via": "[2001:db8:1::23]:40102"
+    },
+    {
+      "count": 1,
+      "destination": "[::1.2.3.4]:80",
+      "detail": "",
+      "information": "TCP ESTABLISHED",
+      "kind": "transmission",
+      "source": "com.maps.app",
+      "via": "[2001:db8:1::23]:40103"
+    },
+    {
+      "count": 1,
+      "destination": "app-measurement.com",
+      "detail": "Known tracker: Firebase Analytics",
+      "information": "DNS lookup",
+      "kind": "transmission",
+      "source": "com.maps.app",
+      "via": "Firebase Analytics"
+    },
+    {
+      "count": 1,
+      "destination": "firebaseinstallations.googleapis.com",
+      "detail": "Known tracker: Firebase Installations",
+      "information": "DNS lookup",
+      "kind": "transmission",
+      "source": "com.maps.app",
+      "via": "Firebase Installations"
+    },
+    {
+      "count": 1,
+      "destination": "region1.app-measurement.com",
+      "detail": "Known tracker: Firebase Analytics",
+      "information": "DNS lookup",
+      "kind": "transmission",
+      "source": "com.maps.app",
+      "via": "Firebase Analytics"
+    },
+    {
+      "count": 1,
+      "destination": "sync.notes.example",
+      "detail": "",
+      "information": "DNS lookup",
+      "kind": "transmission",
+      "source": "com.notes.plain",
+      "via": ""
+    },
+    {
+      "count": 1,
+      "destination": "203.0.113.12:993",
+      "detail": "",
+      "information": "TCP ESTABLISHED",
+      "kind": "transmission",
+      "source": "com.weather.app",
+      "via": "10.0.0.23:40104"
+    },
+    {
+      "count": 1,
+      "destination": "8.8.8.8:53",
+      "detail": "",
+      "information": "UDP ESTABLISHED",
+      "kind": "transmission",
+      "source": "com.weather.app",
+      "via": "10.0.0.23:41001"
+    },
+    {
+      "count": 1,
+      "destination": "[2001:4860:4860::8888]:443",
+      "detail": "",
+      "information": "TCP ESTABLISHED",
+      "kind": "transmission",
+      "source": "com.weather.app",
+      "via": "[2001:db8:1::23]:40105"
+    },
+    {
+      "count": 1,
+      "destination": "[2001:db8:aa::1]:443",
+      "detail": "",
+      "information": "TCP ESTABLISHED",
+      "kind": "transmission",
+      "source": "com.weather.app",
+      "via": "[2001:db8:1::23]:40107"
+    },
+    {
+      "count": 1,
+      "destination": "[2001:db8:aa::2]:443",
+      "detail": "",
+      "information": "TCP ESTABLISHED",
+      "kind": "transmission",
+      "source": "com.weather.app",
+      "via": "[2001:db8:1::23]:40108"
+    },
+    {
+      "count": 1,
+      "destination": "[2001:db8:aa::3]:443",
+      "detail": "",
+      "information": "TCP ESTABLISHED",
+      "kind": "transmission",
+      "source": "com.weather.app",
+      "via": "[2001:db8:1::23]:40109"
+    },
+    {
+      "count": 1,
+      "destination": "[2001:db8:aa::4]:443",
+      "detail": "",
+      "information": "TCP ESTABLISHED",
+      "kind": "transmission",
+      "source": "com.weather.app",
+      "via": "[2001:db8:1::23]:40110"
+    },
+    {
+      "count": 1,
+      "destination": "[2001:db8:aa::5]:443",
+      "detail": "",
+      "information": "TCP ESTABLISHED",
+      "kind": "transmission",
+      "source": "com.weather.app",
+      "via": "[2001:db8:1::23]:40111"
+    },
+    {
+      "count": 1,
+      "destination": "[fe80::1]:22",
+      "detail": "",
+      "information": "TCP FIN_WAIT1",
+      "kind": "transmission",
+      "source": "com.weather.app",
+      "via": "[2001:db8:1::23]:40106"
+    },
+    {
+      "count": 1,
+      "destination": "api2.branch.io",
+      "detail": "Known tracker: Branch",
+      "information": "DNS lookup",
+      "kind": "transmission",
+      "source": "com.weather.app",
+      "via": "Branch"
+    },
+    {
+      "count": 1,
+      "destination": "notbranch.io",
+      "detail": "",
+      "information": "DNS lookup",
+      "kind": "transmission",
+      "source": "com.weather.app",
+      "via": ""
+    },
+    {
+      "count": 1,
+      "destination": "142.250.180.14:443",
+      "detail": "",
+      "information": "QUIC",
+      "kind": "transmission",
+      "source": "com.whatsapp",
+      "via": "10.0.0.23:41000"
+    },
+    {
+      "count": 1,
+      "destination": "142.250.180.14:443",
+      "detail": "",
+      "information": "TCP ESTABLISHED",
+      "kind": "transmission",
+      "source": "com.whatsapp",
+      "via": "10.0.0.23:40001"
+    },
+    {
+      "count": 1,
+      "destination": "142.250.200.4:443",
+      "detail": "",
+      "information": "TCP ESTABLISHED",
+      "kind": "transmission",
+      "source": "com.whatsapp",
+      "via": "10.0.0.23:40100"
+    },
+    {
+      "count": 2,
+      "destination": "157.240.22.35:443",
+      "detail": "",
+      "information": "TCP ESTABLISHED",
+      "kind": "transmission",
+      "source": "com.whatsapp",
+      "via": "10.0.0.23:40002"
+    },
+    {
+      "count": 1,
+      "destination": "157.240.22.35:5222",
+      "detail": "",
+      "information": "TCP ESTABLISHED",
+      "kind": "transmission",
+      "source": "com.whatsapp",
+      "via": "10.0.0.23:40004"
+    },
+    {
+      "count": 1,
+      "destination": "192.0.2.70:3478",
+      "detail": "",
+      "information": "UDP ESTABLISHED",
+      "kind": "transmission",
+      "source": "com.whatsapp",
+      "via": "10.0.0.23:41002"
+    },
+    {
+      "count": 1,
+      "destination": "[2a03:2880:f12f:83:face:b00c:0:25de]:443",
+      "detail": "",
+      "information": "TCP ESTABLISHED",
+      "kind": "transmission",
+      "source": "com.whatsapp",
+      "via": "[2001:db8:1::23]:40101"
+    },
+    {
+      "count": 1,
+      "destination": "g.whatsapp.net",
+      "detail": "",
+      "information": "DNS lookup",
+      "kind": "transmission",
+      "source": "com.whatsapp",
+      "via": ""
+    },
+    {
+      "count": 1,
+      "destination": "graph.facebook.com",
+      "detail": "Known tracker: Facebook",
+      "information": "DNS lookup",
+      "kind": "transmission",
+      "source": "com.whatsapp",
+      "via": "Facebook"
+    },
+    {
+      "count": 1,
+      "destination": "192.0.2.50:853",
+      "detail": "",
+      "information": "TCP ESTABLISHED",
+      "kind": "transmission",
+      "source": "uid 0",
+      "via": "10.0.0.23:40009"
+    },
+    {
+      "count": 1,
+      "destination": "time.android.com",
+      "detail": "",
+      "information": "DNS lookup",
+      "kind": "transmission",
+      "source": "uid 0",
+      "via": ""
+    }
+  ]
+}

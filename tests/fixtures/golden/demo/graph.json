@@ -1,0 +1,68 @@
+[
+  {
+    "destinations": [
+      {
+        "count": 1,
+        "detail": "Encrypted connection to 192.168.8.8:443. 1 socket. The address is visible. The contents are not.",
+        "endpoint": "192.168.8.8:443",
+        "host": "192.168.8.8",
+        "kind": "Encrypted",
+        "label": "192.168.8.8",
+        "name": "",
+        "relation": "connects"
+      },
+      {
+        "count": 1,
+        "detail": "UDP \u00b7 port 53 to 8.8.8.8:53. 1 socket.",
+        "endpoint": "8.8.8.8:53",
+        "host": "8.8.8.8",
+        "kind": "UDP \u00b7 port 53",
+        "label": "8.8.8.8",
+        "name": "",
+        "relation": "connects"
+      },
+      {
+        "count": 1,
+        "detail": "DNS lookup for example.com.",
+        "endpoint": "example.com",
+        "host": "example.com",
+        "kind": "DNS",
+        "label": "example.com",
+        "name": "",
+        "relation": "lookup"
+      },
+      {
+        "count": 1,
+        "detail": "DNS lookup for graph.facebook.com. Facebook is a known tracker in that name.",
+        "endpoint": "graph.facebook.com",
+        "host": "graph.facebook.com",
+        "kind": "Facebook",
+        "label": "graph.facebook.com",
+        "name": "",
+        "relation": "lookup"
+      }
+    ],
+    "name": "Demo",
+    "package": "com.tracker.demo",
+    "reads": [
+      {
+        "detail": "Where the phone is. Approximate location, 5 minutes ago. Precise location, 5 minutes ago.",
+        "label": "Location"
+      },
+      {
+        "detail": "Images or video from the camera. Camera, 6 hours ago.",
+        "label": "Camera"
+      },
+      {
+        "detail": "Text or images copied on the phone. Clipboard, in this sample.",
+        "label": "Clipboard"
+      },
+      {
+        "detail": "Motion sensor readings. accelerometer, in this sample.",
+        "label": "Motion"
+      }
+    ],
+    "rx_bytes": 81536,
+    "tx_bytes": 12512
+  }
+]

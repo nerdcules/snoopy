@@ -1,0 +1,28 @@
+Sensor Device:
+Total 3 h/w sensors, 3 running 0 disabled clients:
+Sensor List:
+0x00000001) LSM6DSO Accelerometer     | STMicro         | ver: 1 | type: android.sensor.accelerometer(1) | perm: n/a
+Active sensors:
+Socket Buffer size = 39 events
+WakeLock Status: not held
+4 active connections
+Connection Number: 0
+  Operating Mode: NORMAL
+  com.fit.tracker | WakeLockRefCount 0 | uid 10302 | pid 5200
+  Sensor: android.sensor.step_counter
+  Sensor: android.sensor.heart_rate
+  Sensor: android.sensor.accelerometer
+Connection Number: 1
+  Operating Mode: NORMAL
+  com.android.systemui | WakeLockRefCount 0 | uid 10150 | pid 2100
+  Sensor: android.sensor.light
+Connection Number: 2
+  Operating Mode: NORMAL
+  com.google.android.gms.location | WakeLockRefCount 1 | uid 10120 | pid 5300
+  Sensor: android.sensor.significant_motion
+Connection Number: 3
+  Operating Mode: NORMAL
+  com.vanished.app | WakeLockRefCount 0 | uid 10555 | pid 7000
+  Sensor: android.sensor.gyroscope
+Previous Registrations:
+  Sensor: android.sensor.proximity

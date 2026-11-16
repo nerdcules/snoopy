@@ -1,0 +1,1231 @@
+{
+  "declared_only": [],
+  "device": {
+    "android": "17",
+    "captured_at": "2026-11-14T18:12:00Z",
+    "model": "Fixture Phone 17",
+    "sdk": "37",
+    "serial": ""
+  },
+  "errors": {},
+  "limits": [
+    "Network sockets belong to a Linux uid. On Android that uid is usually one app.",
+    "Transmission shown here is destination, size, and DNS name. HTTPS message bodies stay encrypted.",
+    "Tracker SDK rows are components shipped inside the app and the kind of data that SDK is built to collect."
+  ],
+  "live": [
+    {
+      "attempted": [],
+      "declared": [
+        {
+          "category": "Contacts",
+          "detail": "Names, phone numbers, and emails in the address book.",
+          "package": "com.sync.contacts",
+          "permission": "android.permission.READ_CONTACTS"
+        },
+        {
+          "category": "Contacts",
+          "detail": "Names, phone numbers, and emails in the address book.",
+          "package": "com.android.providers.contacts",
+          "permission": "android.permission.READ_CONTACTS"
+        },
+        {
+          "category": "Contacts",
+          "detail": "Changes to the address book.",
+          "package": "com.sync.contacts",
+          "permission": "android.permission.WRITE_CONTACTS"
+        },
+        {
+          "category": "Call history",
+          "detail": "Numbers called and received, and when.",
+          "package": "com.android.providers.contacts",
+          "permission": "android.permission.READ_CALL_LOG"
+        },
+        {
+          "category": "Accounts",
+          "detail": "Account names on the device.",
+          "package": "com.sync.contacts",
+          "permission": "android.permission.GET_ACCOUNTS"
+        }
+      ],
+      "doing": [],
+      "observed": [
+        {
+          "category": "Contacts",
+          "detail": "Names, phone numbers, and emails in the address book.",
+          "last_access": "[bg-s] 2026-11-14 18:00:00.000 (-12m0s0ms) duration=+3s",
+          "last_reject": null,
+          "mode": "allow",
+          "op": "READ_CONTACTS",
+          "package": "com.sync.contacts",
+          "uid": 10500
+        },
+        {
+          "category": "Contacts",
+          "detail": "Names, phone numbers, and emails in the address book.",
+          "last_access": "[pers-s] 2026-11-14 18:10:00.000 (-2m0s0ms)",
+          "last_reject": null,
+          "mode": "allow",
+          "op": "READ_CONTACTS",
+          "package": "com.android.providers.contacts",
+          "uid": 10500
+        },
+        {
+          "category": "Accounts",
+          "detail": "Account names on the device.",
+          "last_access": "[bg-s] 2026-11-14 18:00:00.000 (-12m0s0ms)",
+          "last_reject": null,
+          "mode": "allow",
+          "op": "GET_ACCOUNTS",
+          "package": "com.sync.contacts",
+          "uid": 10500
+        }
+      ],
+      "packages": [
+        "com.android.providers.contacts",
+        "com.sync.contacts"
+      ],
+      "permitted_unseen": [],
+      "trackers": [],
+      "transmitted": {
+        "connections": [
+          {
+            "local": "10.1.1.5:50001",
+            "proto": "TCP",
+            "remote": "192.0.2.80:443",
+            "state": "ESTABLISHED",
+            "uid": 10500
+          }
+        ],
+        "dns": [],
+        "network_permission": true,
+        "rx_bytes": 4096,
+        "tx_bytes": 2048
+      },
+      "uid": 10500,
+      "uid_packages": [
+        "com.android.providers.contacts",
+        "com.sync.contacts"
+      ],
+      "versions": {
+        "com.android.providers.contacts": "17",
+        "com.sync.contacts": "5.1"
+      }
+    },
+    {
+      "attempted": [
+        {
+          "category": "Microphone",
+          "detail": "Audio from the microphone.",
+          "last_access": null,
+          "last_reject": null,
+          "mode": "deny",
+          "op": "RECORD_AUDIO",
+          "package": "com.a.two",
+          "uid": 10501
+        }
+      ],
+      "declared": [
+        {
+          "category": "Camera",
+          "detail": "Images and video from the camera.",
+          "package": "com.a.one",
+          "permission": "android.permission.CAMERA"
+        },
+        {
+          "category": "Calendar",
+          "detail": "Calendar events.",
+          "package": "com.a.one",
+          "permission": "android.permission.READ_CALENDAR"
+        },
+        {
+          "category": "Calendar",
+          "detail": "Calendar events.",
+          "package": "com.a.two",
+          "permission": "android.permission.READ_CALENDAR"
+        }
+      ],
+      "doing": [],
+      "observed": [
+        {
+          "category": "Camera",
+          "detail": "Images and video from the camera.",
+          "last_access": "[top-s] 2026-11-14 18:11:00.000 (-1m0s0ms)",
+          "last_reject": null,
+          "mode": "allow",
+          "op": "CAMERA",
+          "package": "com.a.one",
+          "uid": 10501
+        }
+      ],
+      "packages": [
+        "com.a.one",
+        "com.a.two",
+        "com.android.x"
+      ],
+      "permitted_unseen": [
+        {
+          "category": "Calendar",
+          "detail": "Calendar events.",
+          "last_access": null,
+          "last_reject": null,
+          "mode": "allow",
+          "op": "READ_CALENDAR",
+          "package": "com.a.two",
+          "uid": 10501
+        }
+      ],
+      "trackers": [
+        {
+          "collects": "Product analytics events and device properties.",
+          "name": "Mixpanel",
+          "package": "com.a.one",
+          "prefix": "com.mixpanel"
+        }
+      ],
+      "transmitted": {
+        "connections": [
+          {
+            "local": "10.1.1.5:50002",
+            "proto": "TCP",
+            "remote": "192.0.2.81:443",
+            "state": "ESTABLISHED",
+            "uid": 10501
+          }
+        ],
+        "dns": [
+          {
+            "host": "api.mixpanel.com",
+            "tracker": "Mixpanel",
+            "uid": 10501
+          }
+        ],
+        "network_permission": true,
+        "rx_bytes": 999,
+        "tx_bytes": 111
+      },
+      "uid": 10501,
+      "uid_packages": [
+        "com.a.one",
+        "com.a.two",
+        "com.android.x"
+      ],
+      "versions": {
+        "com.a.one": "1.0.0",
+        "com.a.two": "1.0.1"
+      }
+    },
+    {
+      "attempted": [
+        {
+          "category": "SMS sending",
+          "detail": "Text messages the app sends.",
+          "last_access": null,
+          "last_reject": "[top-s] 2026-11-14 18:11:30.000 (-30s0ms)",
+          "mode": "allow",
+          "op": "SEND_SMS",
+          "package": "com.b.three",
+          "uid": 10502
+        }
+      ],
+      "declared": [
+        {
+          "category": "Precise location",
+          "detail": "GPS-level location of the device.",
+          "package": "com.b.three",
+          "permission": "android.permission.ACCESS_FINE_LOCATION"
+        }
+      ],
+      "doing": [
+        "On screen: com.b.three/.MapActivity"
+      ],
+      "observed": [
+        {
+          "category": "Precise location",
+          "detail": "GPS-level location of the device.",
+          "last_access": "[top-s] 2026-11-14 18:11:30.000 (-30s0ms)",
+          "last_reject": null,
+          "mode": "allow",
+          "op": "FINE_LOCATION",
+          "package": "com.b.three",
+          "uid": 10502
+        }
+      ],
+      "packages": [
+        "com.b.five",
+        "com.b.four",
+        "com.b.one",
+        "com.b.three",
+        "com.b.two"
+      ],
+      "permitted_unseen": [],
+      "trackers": [
+        {
+          "collects": "Attribution identifiers and IP address.",
+          "name": "Kochava",
+          "package": "com.b.three",
+          "prefix": "com.kochava"
+        },
+        {
+          "collects": "Event routing and device properties.",
+          "name": "Segment",
+          "package": "com.b.three",
+          "prefix": "com.segment.analytics"
+        }
+      ],
+      "transmitted": {
+        "connections": [
+          {
+            "local": "10.1.1.5:50003",
+            "proto": "TCP",
+            "remote": "192.0.2.82:80",
+            "state": "ESTABLISHED",
+            "uid": 10502
+          }
+        ],
+        "dns": [
+          {
+            "host": "api.segment.io",
+            "tracker": "Segment",
+            "uid": 10502
+          },
+          {
+            "host": "cdn.segment.com",
+            "tracker": "Segment",
+            "uid": 10502
+          }
+        ],
+        "network_permission": true,
+        "rx_bytes": 0,
+        "tx_bytes": 0
+      },
+      "uid": 10502,
+      "uid_packages": [
+        "com.b.five",
+        "com.b.four",
+        "com.b.one",
+        "com.b.three",
+        "com.b.two"
+      ],
+      "versions": {
+        "com.b.three": "3"
+      }
+    },
+    {
+      "attempted": [],
+      "declared": [
+        {
+          "category": "Bluetooth connections",
+          "detail": "Identity of connected Bluetooth devices.",
+          "package": "com.android.settings",
+          "permission": "android.permission.BLUETOOTH_CONNECT"
+        }
+      ],
+      "doing": [],
+      "observed": [
+        {
+          "category": "Bluetooth connections",
+          "detail": "Identity of connected Bluetooth devices.",
+          "last_access": "[pers-s] 2026-11-14 18:09:00.000 (-3m0s0ms)",
+          "last_reject": null,
+          "mode": "allow",
+          "op": "BLUETOOTH_CONNECT",
+          "package": "com.android.settings",
+          "uid": 1000
+        }
+      ],
+      "packages": [
+        "android",
+        "com.android.settings"
+      ],
+      "permitted_unseen": [],
+      "trackers": [],
+      "transmitted": {
+        "connections": [
+          {
+            "local": "10.1.1.5:50004",
+            "proto": "TCP",
+            "remote": "192.0.2.83:443",
+            "state": "ESTABLISHED",
+            "uid": 1000
+          }
+        ],
+        "dns": [],
+        "network_permission": true,
+        "rx_bytes": 1048575,
+        "tx_bytes": 1048576
+      },
+      "uid": 1000,
+      "uid_packages": [
+        "android",
+        "com.android.settings"
+      ],
+      "versions": {
+        "com.android.settings": "17"
+      }
+    },
+    {
+      "attempted": [],
+      "declared": [
+        {
+          "category": "Phone identity",
+          "detail": "Call state and, on older Android versions, hardware identifiers.",
+          "package": "com.android.shell",
+          "permission": "android.permission.READ_PHONE_STATE"
+        },
+        {
+          "category": "App usage",
+          "detail": "Which apps are used and when.",
+          "package": "com.android.shell",
+          "permission": "android.permission.PACKAGE_USAGE_STATS"
+        }
+      ],
+      "doing": [],
+      "observed": [
+        {
+          "category": "Phone identity",
+          "detail": "Call state and, on older Android versions, hardware identifiers.",
+          "last_access": "[top-s] 2026-11-14 18:12:00.000 (-1s0ms)",
+          "last_reject": null,
+          "mode": "allow",
+          "op": "READ_PHONE_STATE",
+          "package": "com.android.shell",
+          "uid": 2000
+        }
+      ],
+      "packages": [
+        "com.android.shell"
+      ],
+      "permitted_unseen": [],
+      "trackers": [],
+      "transmitted": {
+        "connections": [],
+        "dns": [
+          {
+            "host": "adb.example.org",
+            "tracker": null,
+            "uid": 2000
+          }
+        ],
+        "network_permission": false,
+        "rx_bytes": 0,
+        "tx_bytes": 0
+      },
+      "uid": 2000,
+      "uid_packages": [
+        "com.android.shell"
+      ],
+      "versions": {
+        "com.android.shell": "17"
+      }
+    },
+    {
+      "attempted": [],
+      "declared": [
+        {
+          "category": "Microphone",
+          "detail": "Audio from the microphone.",
+          "package": "com.c.two",
+          "permission": "android.permission.RECORD_AUDIO"
+        }
+      ],
+      "doing": [
+        "Sensor android.sensor.rotation_vector (pid 9002)"
+      ],
+      "observed": [
+        {
+          "category": "Microphone",
+          "detail": "Audio from the microphone.",
+          "last_access": "[top-s] 2026-11-14 18:09:00.000 (-3m0s0ms)",
+          "last_reject": null,
+          "mode": "allow",
+          "op": "RECORD_AUDIO",
+          "package": "com.c.two",
+          "uid": 10504
+        }
+      ],
+      "packages": [
+        "com.c.one",
+        "com.c.three",
+        "com.c.two"
+      ],
+      "permitted_unseen": [],
+      "trackers": [
+        {
+          "collects": "Engagement events and device properties.",
+          "name": "Adobe Marketing",
+          "package": "com.c.one",
+          "prefix": "com.adobe.marketing"
+        }
+      ],
+      "transmitted": {
+        "connections": [],
+        "dns": [
+          {
+            "host": "bam.nr-data.net",
+            "tracker": "New Relic",
+            "uid": 10504
+          },
+          {
+            "host": "dpm.demdex.net",
+            "tracker": "Adobe Audience Manager",
+            "uid": 10504
+          },
+          {
+            "host": "metrics.omtrdc.net",
+            "tracker": "Adobe Analytics",
+            "uid": 10504
+          }
+        ],
+        "network_permission": true,
+        "rx_bytes": 300,
+        "tx_bytes": 400
+      },
+      "uid": 10504,
+      "uid_packages": [
+        "com.c.one",
+        "com.c.three",
+        "com.c.two"
+      ],
+      "versions": {}
+    },
+    {
+      "attempted": [],
+      "declared": [],
+      "doing": [],
+      "observed": [],
+      "packages": [],
+      "permitted_unseen": [],
+      "trackers": [],
+      "transmitted": {
+        "connections": [
+          {
+            "local": "10.1.1.5:50007",
+            "proto": "TCP",
+            "remote": "192.0.2.86:443",
+            "state": "ESTABLISHED",
+            "uid": 10778
+          },
+          {
+            "local": "10.1.1.5:52009",
+            "proto": "TCP",
+            "remote": "203.0.113.10:8080",
+            "state": "ESTABLISHED",
+            "uid": 10778
+          },
+          {
+            "local": "10.1.1.5:52010",
+            "proto": "TCP",
+            "remote": "203.0.113.11:443",
+            "state": "ESTABLISHED",
+            "uid": 10778
+          },
+          {
+            "local": "10.1.1.5:52011",
+            "proto": "TCP",
+            "remote": "203.0.113.12:443",
+            "state": "ESTABLISHED",
+            "uid": 10778
+          },
+          {
+            "local": "10.1.1.5:52012",
+            "proto": "TCP",
+            "remote": "203.0.113.13:8080",
+            "state": "ESTABLISHED",
+            "uid": 10778
+          },
+          {
+            "local": "10.1.1.5:52013",
+            "proto": "TCP",
+            "remote": "203.0.113.14:443",
+            "state": "ESTABLISHED",
+            "uid": 10778
+          },
+          {
+            "local": "10.1.1.5:52014",
+            "proto": "TCP",
+            "remote": "203.0.113.15:443",
+            "state": "ESTABLISHED",
+            "uid": 10778
+          },
+          {
+            "local": "10.1.1.5:52015",
+            "proto": "TCP",
+            "remote": "203.0.113.16:8080",
+            "state": "ESTABLISHED",
+            "uid": 10778
+          },
+          {
+            "local": "10.1.1.5:52016",
+            "proto": "TCP",
+            "remote": "203.0.113.17:443",
+            "state": "ESTABLISHED",
+            "uid": 10778
+          },
+          {
+            "local": "10.1.1.5:52017",
+            "proto": "TCP",
+            "remote": "203.0.113.18:443",
+            "state": "ESTABLISHED",
+            "uid": 10778
+          },
+          {
+            "local": "10.1.1.5:52018",
+            "proto": "TCP",
+            "remote": "203.0.113.19:8080",
+            "state": "ESTABLISHED",
+            "uid": 10778
+          },
+          {
+            "local": "10.1.1.5:52000",
+            "proto": "TCP",
+            "remote": "203.0.113.1:8080",
+            "state": "ESTABLISHED",
+            "uid": 10778
+          },
+          {
+            "local": "10.1.1.5:52019",
+            "proto": "TCP",
+            "remote": "203.0.113.20:443",
+            "state": "ESTABLISHED",
+            "uid": 10778
+          },
+          {
+            "local": "10.1.1.5:52020",
+            "proto": "TCP",
+            "remote": "203.0.113.21:443",
+            "state": "ESTABLISHED",
+            "uid": 10778
+          },
+          {
+            "local": "10.1.1.5:52021",
+            "proto": "TCP",
+            "remote": "203.0.113.22:8080",
+            "state": "ESTABLISHED",
+            "uid": 10778
+          },
+          {
+            "local": "10.1.1.5:52022",
+            "proto": "TCP",
+            "remote": "203.0.113.23:443",
+            "state": "ESTABLISHED",
+            "uid": 10778
+          },
+          {
+            "local": "10.1.1.5:52023",
+            "proto": "TCP",
+            "remote": "203.0.113.24:443",
+            "state": "ESTABLISHED",
+            "uid": 10778
+          },
+          {
+            "local": "10.1.1.5:52024",
+            "proto": "TCP",
+            "remote": "203.0.113.25:8080",
+            "state": "ESTABLISHED",
+            "uid": 10778
+          },
+          {
+            "local": "10.1.1.5:52025",
+            "proto": "TCP",
+            "remote": "203.0.113.26:443",
+            "state": "ESTABLISHED",
+            "uid": 10778
+          },
+          {
+            "local": "10.1.1.5:52026",
+            "proto": "TCP",
+            "remote": "203.0.113.27:443",
+            "state": "ESTABLISHED",
+            "uid": 10778
+          },
+          {
+            "local": "10.1.1.5:52027",
+            "proto": "TCP",
+            "remote": "203.0.113.28:8080",
+            "state": "ESTABLISHED",
+            "uid": 10778
+          },
+          {
+            "local": "10.1.1.5:52028",
+            "proto": "TCP",
+            "remote": "203.0.113.29:443",
+            "state": "ESTABLISHED",
+            "uid": 10778
+          },
+          {
+            "local": "10.1.1.5:52001",
+            "proto": "TCP",
+            "remote": "203.0.113.2:443",
+            "state": "ESTABLISHED",
+            "uid": 10778
+          },
+          {
+            "local": "10.1.1.5:52029",
+            "proto": "TCP",
+            "remote": "203.0.113.30:443",
+            "state": "ESTABLISHED",
+            "uid": 10778
+          },
+          {
+            "local": "10.1.1.5:52030",
+            "proto": "TCP",
+            "remote": "203.0.113.31:8080",
+            "state": "ESTABLISHED",
+            "uid": 10778
+          },
+          {
+            "local": "10.1.1.5:52031",
+            "proto": "TCP",
+            "remote": "203.0.113.32:443",
+            "state": "ESTABLISHED",
+            "uid": 10778
+          },
+          {
+            "local": "10.1.1.5:52032",
+            "proto": "TCP",
+            "remote": "203.0.113.33:443",
+            "state": "ESTABLISHED",
+            "uid": 10778
+          },
+          {
+            "local": "10.1.1.5:52033",
+            "proto": "TCP",
+            "remote": "203.0.113.34:8080",
+            "state": "ESTABLISHED",
+            "uid": 10778
+          },
+          {
+            "local": "10.1.1.5:52034",
+            "proto": "TCP",
+            "remote": "203.0.113.35:443",
+            "state": "ESTABLISHED",
+            "uid": 10778
+          },
+          {
+            "local": "10.1.1.5:52035",
+            "proto": "TCP",
+            "remote": "203.0.113.36:443",
+            "state": "ESTABLISHED",
+            "uid": 10778
+          },
+          {
+            "local": "10.1.1.5:52036",
+            "proto": "TCP",
+            "remote": "203.0.113.37:8080",
+            "state": "ESTABLISHED",
+            "uid": 10778
+          },
+          {
+            "local": "10.1.1.5:52037",
+            "proto": "TCP",
+            "remote": "203.0.113.38:443",
+            "state": "ESTABLISHED",
+            "uid": 10778
+          },
+          {
+            "local": "10.1.1.5:52038",
+            "proto": "TCP",
+            "remote": "203.0.113.39:443",
+            "state": "ESTABLISHED",
+            "uid": 10778
+          },
+          {
+            "local": "10.1.1.5:52002",
+            "proto": "TCP",
+            "remote": "203.0.113.3:443",
+            "state": "ESTABLISHED",
+            "uid": 10778
+          },
+          {
+            "local": "10.1.1.5:52039",
+            "proto": "TCP",
+            "remote": "203.0.113.40:8080",
+            "state": "ESTABLISHED",
+            "uid": 10778
+          },
+          {
+            "local": "10.1.1.5:52040",
+            "proto": "TCP",
+            "remote": "203.0.113.41:443",
+            "state": "ESTABLISHED",
+            "uid": 10778
+          },
+          {
+            "local": "10.1.1.5:52041",
+            "proto": "TCP",
+            "remote": "203.0.113.42:443",
+            "state": "ESTABLISHED",
+            "uid": 10778
+          },
+          {
+            "local": "10.1.1.5:52042",
+            "proto": "TCP",
+            "remote": "203.0.113.43:8080",
+            "state": "ESTABLISHED",
+            "uid": 10778
+          },
+          {
+            "local": "10.1.1.5:52043",
+            "proto": "TCP",
+            "remote": "203.0.113.44:443",
+            "state": "ESTABLISHED",
+            "uid": 10778
+          },
+          {
+            "local": "10.1.1.5:52044",
+            "proto": "TCP",
+            "remote": "203.0.113.45:443",
+            "state": "ESTABLISHED",
+            "uid": 10778
+          },
+          {
+            "local": "10.1.1.5:52003",
+            "proto": "TCP",
+            "remote": "203.0.113.4:8080",
+            "state": "ESTABLISHED",
+            "uid": 10778
+          },
+          {
+            "local": "10.1.1.5:52004",
+            "proto": "TCP",
+            "remote": "203.0.113.5:443",
+            "state": "ESTABLISHED",
+            "uid": 10778
+          },
+          {
+            "local": "10.1.1.5:52005",
+            "proto": "TCP",
+            "remote": "203.0.113.6:443",
+            "state": "ESTABLISHED",
+            "uid": 10778
+          },
+          {
+            "local": "10.1.1.5:52006",
+            "proto": "TCP",
+            "remote": "203.0.113.7:8080",
+            "state": "ESTABLISHED",
+            "uid": 10778
+          },
+          {
+            "local": "10.1.1.5:52007",
+            "proto": "TCP",
+            "remote": "203.0.113.8:443",
+            "state": "ESTABLISHED",
+            "uid": 10778
+          },
+          {
+            "local": "10.1.1.5:52008",
+            "proto": "TCP",
+            "remote": "203.0.113.9:443",
+            "state": "ESTABLISHED",
+            "uid": 10778
+          }
+        ],
+        "dns": [
+          {
+            "host": "n00.bulk.example.com",
+            "tracker": null,
+            "uid": 10778
+          },
+          {
+            "host": "n01.bulk.example.com",
+            "tracker": null,
+            "uid": 10778
+          },
+          {
+            "host": "n02.bulk.example.com",
+            "tracker": null,
+            "uid": 10778
+          },
+          {
+            "host": "n03.bulk.example.com",
+            "tracker": null,
+            "uid": 10778
+          },
+          {
+            "host": "n04.bulk.example.com",
+            "tracker": null,
+            "uid": 10778
+          },
+          {
+            "host": "n05.bulk.example.com",
+            "tracker": null,
+            "uid": 10778
+          },
+          {
+            "host": "n06.bulk.example.com",
+            "tracker": null,
+            "uid": 10778
+          },
+          {
+            "host": "n07.bulk.example.com",
+            "tracker": null,
+            "uid": 10778
+          },
+          {
+            "host": "n08.bulk.example.com",
+            "tracker": null,
+            "uid": 10778
+          },
+          {
+            "host": "n09.bulk.example.com",
+            "tracker": null,
+            "uid": 10778
+          },
+          {
+            "host": "n10.bulk.example.com",
+            "tracker": null,
+            "uid": 10778
+          },
+          {
+            "host": "n11.bulk.example.com",
+            "tracker": null,
+            "uid": 10778
+          },
+          {
+            "host": "n12.bulk.example.com",
+            "tracker": null,
+            "uid": 10778
+          },
+          {
+            "host": "n13.bulk.example.com",
+            "tracker": null,
+            "uid": 10778
+          },
+          {
+            "host": "n14.bulk.example.com",
+            "tracker": null,
+            "uid": 10778
+          },
+          {
+            "host": "n15.bulk.example.com",
+            "tracker": null,
+            "uid": 10778
+          },
+          {
+            "host": "n16.bulk.example.com",
+            "tracker": null,
+            "uid": 10778
+          },
+          {
+            "host": "n17.bulk.example.com",
+            "tracker": null,
+            "uid": 10778
+          },
+          {
+            "host": "n18.bulk.example.com",
+            "tracker": null,
+            "uid": 10778
+          },
+          {
+            "host": "n19.bulk.example.com",
+            "tracker": null,
+            "uid": 10778
+          },
+          {
+            "host": "n20.bulk.example.com",
+            "tracker": null,
+            "uid": 10778
+          },
+          {
+            "host": "n21.bulk.example.com",
+            "tracker": null,
+            "uid": 10778
+          },
+          {
+            "host": "n22.bulk.example.com",
+            "tracker": null,
+            "uid": 10778
+          },
+          {
+            "host": "n23.bulk.example.com",
+            "tracker": null,
+            "uid": 10778
+          },
+          {
+            "host": "n24.bulk.example.com",
+            "tracker": null,
+            "uid": 10778
+          },
+          {
+            "host": "n25.bulk.example.com",
+            "tracker": null,
+            "uid": 10778
+          },
+          {
+            "host": "n26.bulk.example.com",
+            "tracker": null,
+            "uid": 10778
+          },
+          {
+            "host": "n27.bulk.example.com",
+            "tracker": null,
+            "uid": 10778
+          },
+          {
+            "host": "n28.bulk.example.com",
+            "tracker": null,
+            "uid": 10778
+          },
+          {
+            "host": "n29.bulk.example.com",
+            "tracker": null,
+            "uid": 10778
+          },
+          {
+            "host": "n30.bulk.example.com",
+            "tracker": null,
+            "uid": 10778
+          },
+          {
+            "host": "n31.bulk.example.com",
+            "tracker": null,
+            "uid": 10778
+          },
+          {
+            "host": "n32.bulk.example.com",
+            "tracker": null,
+            "uid": 10778
+          },
+          {
+            "host": "n33.bulk.example.com",
+            "tracker": null,
+            "uid": 10778
+          },
+          {
+            "host": "n34.bulk.example.com",
+            "tracker": null,
+            "uid": 10778
+          },
+          {
+            "host": "n35.bulk.example.com",
+            "tracker": null,
+            "uid": 10778
+          },
+          {
+            "host": "n36.bulk.example.com",
+            "tracker": null,
+            "uid": 10778
+          },
+          {
+            "host": "n37.bulk.example.com",
+            "tracker": null,
+            "uid": 10778
+          },
+          {
+            "host": "n38.bulk.example.com",
+            "tracker": null,
+            "uid": 10778
+          },
+          {
+            "host": "n39.bulk.example.com",
+            "tracker": null,
+            "uid": 10778
+          },
+          {
+            "host": "n40.bulk.example.com",
+            "tracker": null,
+            "uid": 10778
+          },
+          {
+            "host": "n41.bulk.example.com",
+            "tracker": null,
+            "uid": 10778
+          },
+          {
+            "host": "n42.bulk.example.com",
+            "tracker": null,
+            "uid": 10778
+          }
+        ],
+        "network_permission": false,
+        "rx_bytes": 0,
+        "tx_bytes": 0
+      },
+      "uid": 10778,
+      "uid_packages": [],
+      "versions": {}
+    },
+    {
+      "attempted": [],
+      "declared": [],
+      "doing": [],
+      "observed": [],
+      "packages": [
+        "com.android.networkstack",
+        "com.google.android.ext.services"
+      ],
+      "permitted_unseen": [],
+      "trackers": [],
+      "transmitted": {
+        "connections": [
+          {
+            "local": "[::ffff:10.1.1.5]:50100",
+            "proto": "TCP",
+            "remote": "[::ffff:192.0.2.90]:443",
+            "state": "ESTABLISHED",
+            "uid": 10503
+          },
+          {
+            "local": "[::ffff:10.1.1.5]:50101",
+            "proto": "TCP",
+            "remote": "[::ffff:192.0.2.90]:443",
+            "state": "ESTABLISHED",
+            "uid": 10503
+          },
+          {
+            "local": "[::ffff:10.1.1.5]:50102",
+            "proto": "TCP",
+            "remote": "[::ffff:192.0.2.91]:25",
+            "state": "ESTABLISHED",
+            "uid": 10503
+          },
+          {
+            "local": "10.1.1.5:68",
+            "proto": "UDP",
+            "remote": "10.1.1.1:67",
+            "state": "ESTABLISHED",
+            "uid": 10503
+          },
+          {
+            "local": "10.1.1.5:51000",
+            "proto": "UDP",
+            "remote": "192.0.2.92:443",
+            "state": "ESTABLISHED",
+            "uid": 10503
+          }
+        ],
+        "dns": [
+          {
+            "host": "e.crashlytics.com",
+            "tracker": "Firebase Crashlytics",
+            "uid": 10503
+          }
+        ],
+        "network_permission": false,
+        "rx_bytes": 0,
+        "tx_bytes": 0
+      },
+      "uid": 10503,
+      "uid_packages": [
+        "com.android.networkstack",
+        "com.google.android.ext.services"
+      ],
+      "versions": {}
+    },
+    {
+      "attempted": [],
+      "declared": [],
+      "doing": [
+        "Sensor android.sensor.gyroscope_uncalibrated (pid 9001)"
+      ],
+      "observed": [],
+      "packages": [],
+      "permitted_unseen": [],
+      "trackers": [],
+      "transmitted": {
+        "connections": [
+          {
+            "local": "10.1.1.5:50006",
+            "proto": "TCP",
+            "remote": "192.0.2.85:443",
+            "state": "ESTABLISHED",
+            "uid": 10777
+          }
+        ],
+        "dns": [
+          {
+            "host": "unknown-owner.example.com",
+            "tracker": null,
+            "uid": 10777
+          }
+        ],
+        "network_permission": false,
+        "rx_bytes": 50,
+        "tx_bytes": 60
+      },
+      "uid": 10777,
+      "uid_packages": [],
+      "versions": {}
+    },
+    {
+      "attempted": [],
+      "declared": [],
+      "doing": [],
+      "observed": [],
+      "packages": [],
+      "permitted_unseen": [],
+      "trackers": [],
+      "transmitted": {
+        "connections": [
+          {
+            "local": "10.1.1.5:50005",
+            "proto": "TCP",
+            "remote": "192.0.2.84:443",
+            "state": "ESTABLISHED",
+            "uid": 0
+          }
+        ],
+        "dns": [
+          {
+            "host": "connectivitycheck.gstatic.com",
+            "tracker": null,
+            "uid": 0
+          }
+        ],
+        "network_permission": false,
+        "rx_bytes": 100,
+        "tx_bytes": 100
+      },
+      "uid": 0,
+      "uid_packages": [],
+      "versions": {}
+    },
+    {
+      "attempted": [],
+      "declared": [],
+      "doing": [],
+      "observed": [],
+      "packages": [],
+      "permitted_unseen": [],
+      "trackers": [],
+      "transmitted": {
+        "connections": [],
+        "dns": [],
+        "network_permission": false,
+        "rx_bytes": 7,
+        "tx_bytes": 7
+      },
+      "uid": 20001,
+      "uid_packages": [],
+      "versions": {}
+    }
+  ],
+  "sources": [
+    "dumpsys appops",
+    "dumpsys package",
+    "dumpsys activity",
+    "dumpsys jobscheduler",
+    "dumpsys power",
+    "dumpsys location",
+    "dumpsys sensorservice",
+    "dumpsys clipboard",
+    "dumpsys netstats",
+    "/proc/net/tcp",
+    "/proc/net/udp",
+    "logcat DNS"
+  ],
+  "unattributed_dns": [
+    {
+      "host": "t.appsflyer.com",
+      "tracker": "AppsFlyer",
+      "uid": 10888
+    },
+    {
+      "host": "t.appsflyer.com",
+      "tracker": "AppsFlyer",
+      "uid": null
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+  PID mappings:
+  Process LRU list (sorted by oom_adj, 40 total, non-act at 2, non-svc at 2):
+    Proc # 0: fore  T/A/TOP  trm: 0 3001:com.old.messenger/u10a77 (top-activity)
+  *APP* ProcessRecord{4f1 3001:com.old.messenger/u10a77}
+    user #10 uid=1010077 gids={1010077}
+    packageList={com.old.messenger}
+    foregroundActivities=true
+  *APP* ProcessRecord{4f2 3002:com.old.browser:sandboxed_process0/u0i5}
+    user #0 uid=99005 isolated
+    packageList={com.old.browser}
+  *APP* ProcessRecord{4f3 3003:com.old.backup/u0a79}
+    packageList={com.old.backup}
+    foregroundServices=true

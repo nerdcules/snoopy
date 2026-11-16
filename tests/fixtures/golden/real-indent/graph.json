@@ -1,0 +1,44 @@
+[
+  {
+    "destinations": [],
+    "name": "Indented",
+    "package": "com.example.indented",
+    "reads": [
+      {
+        "detail": "Images or video from the camera. Camera, 1 hour ago.",
+        "label": "Camera"
+      }
+    ],
+    "rx_bytes": 0,
+    "tx_bytes": 0
+  },
+  {
+    "destinations": [
+      {
+        "count": 1,
+        "detail": "Encrypted connection to 192.0.2.12:443. 1 socket. The address is visible. The contents are not.",
+        "endpoint": "192.0.2.12:443",
+        "host": "192.0.2.12",
+        "kind": "Encrypted",
+        "label": "192.0.2.12",
+        "name": "",
+        "relation": "connects"
+      },
+      {
+        "count": 1,
+        "detail": "TCP \u00b7 port 80 to 192.0.2.13:80. 1 socket.",
+        "endpoint": "192.0.2.13:80",
+        "host": "192.0.2.13",
+        "kind": "TCP \u00b7 port 80",
+        "label": "192.0.2.13",
+        "name": "",
+        "relation": "connects"
+      }
+    ],
+    "name": "Second",
+    "package": "com.example.second",
+    "reads": [],
+    "rx_bytes": 0,
+    "tx_bytes": 0
+  }
+]
