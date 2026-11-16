@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=Snoopy
+Comment=See what apps on a connected Android phone read, and where they connect
+Exec=snoopy
+Icon=snoopy
+Terminal=false
+Categories=Utility;Network;Security;
+Keywords=android;phone;adb;privacy;tracker;permissions;connections;
+StartupWMClass=snoopy

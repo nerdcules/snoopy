@@ -1,0 +1,26 @@
+pkgname=snoopy
+pkgver=0.1.0
+pkgrel=1
+pkgdesc='See what apps on a connected Android phone read, and where they connect'
+arch=('x86_64' 'aarch64')
+license=('MIT')
+# qt6-imageformats decodes WebP launcher icons. adb comes from android-tools
+# or from Google's platform-tools unpacked in ~/.local/opt/android-platform-tools.
+depends=('qt6-base' 'qt6-declarative' 'qt6-svg' 'qt6-imageformats' 'qt6-wayland')
+optdepends=('android-tools: adb, unless Google platform-tools is in ~/.local/opt/android-platform-tools')
+makedepends=('gcc' 'make')
+source=()
+sha256sums=()
+
+build() {
+  cd "$startdir/.."
+  ./bin/build
+}
+
+package() {
+  cd "$startdir/.."
+  install -Dm755 build/snoopy "$pkgdir/usr/bin/snoopy"
+  install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+  install -Dm644 "$startdir/snoopy.svg" "$pkgdir/usr/share/icons/hicolor/scalable/apps/snoopy.svg"
+  install -Dm644 "$startdir/snoopy.desktop" "$pkgdir/usr/share/applications/snoopy.desktop"
+}

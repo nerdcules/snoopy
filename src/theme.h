@@ -24,6 +24,12 @@ class Theme : public QObject {
     Q_PROPERTY(QString good READ good CONSTANT)
     Q_PROPERTY(QString warn READ warn CONSTANT)
     Q_PROPERTY(QString bad READ bad CONSTANT)
+    // The graph's three kinds of node and edge, as android-diagnoser's
+    // dashboard coloured them: what was read, where it connects, what it
+    // looked up.
+    Q_PROPERTY(QString information READ information CONSTANT)
+    Q_PROPERTY(QString destination READ destination CONSTANT)
+    Q_PROPERTY(QString lookup READ lookup CONSTANT)
 
 public:
     explicit Theme(const QString &currentDirectory = {}, QObject *parent = nullptr, const QString &hyprctl = {});
@@ -46,6 +52,9 @@ public:
     QString good() const { return "#5cd68c"; }
     QString warn() const { return "#f4c542"; }
     QString bad() const { return "#f16a6a"; }
+    QString information() const { return "#e2b15a"; }
+    QString destination() const { return "#7dbaa6"; }
+    QString lookup() const { return "#8eb4d4"; }
 
     static QString readAccent(const QString &path);
 

@@ -1,6 +1,7 @@
 // snoopy - what each app on a connected Android phone reads, and where it
 // is connected.
 
+#include <QCoreApplication>
 #include <QGuiApplication>
 #include <QIcon>
 #include <QQmlApplicationEngine>
@@ -8,10 +9,27 @@
 #include <QQuickStyle>
 #include <QUrl>
 
+#include "cli.h"
+#include "iconprovider.h"
+#include "icons.h"
+#include "monitor.h"
+#include "names.h"
 #include "theme.h"
 #include "translator.h"
 
 int main(int argc, char *argv[]) {
+    QStringList arguments;
+    for (int i = 0; i < argc; ++i)
+        arguments.append(QString::fromLocal8Bit(argv[i]));
+
+    // The display-free commands only read the phone over adb, so they skip
+    // the GUI stack entirely and work over SSH.
+    if (isCliCommand(arguments)) {
+        QCoreApplication app(argc, argv);
+        app.setApplicationName("snoopy");
+        return runCli(arguments);
+    }
+
     QGuiApplication app(argc, argv);
     app.setApplicationName("snoopy");
     app.setApplicationVersion("0.1.0");
@@ -23,16 +41,30 @@ int main(int argc, char *argv[]) {
 
     QQuickStyle::setStyle("Material");
 
+    // `snoopy open --serial S` picks one phone when several are plugged in.
+    const int serialAt = arguments.indexOf("--serial");
+    const QString serial = serialAt > 0 ? arguments.value(serialAt + 1) : QString();
+
+    // Installed before anything is translated, and every qsTr() binding is
+    // re-evaluated when the Omarchy language changes.
     Translator translator;
     app.installTranslator(&translator);
+
     Theme theme;
+    Names names;
+    Monitor monitor(serial, {}, &names);
+    IconSource icons;
 
     QQmlApplicationEngine engine;
     QObject::connect(&translator, &Translator::changed, &engine, &QQmlEngine::retranslate);
+    engine.addImageProvider("appicon", new IconProvider(&icons, [&monitor] { return monitor.serial(); }));
     engine.rootContext()->setContextProperty("translator", &translator);
     engine.rootContext()->setContextProperty("theme", &theme);
+    engine.rootContext()->setContextProperty("monitor", &monitor);
     engine.load(QUrl("qrc:/Main.qml"));
     if (engine.rootObjects().isEmpty())
         return 1;
+
+    monitor.start();
     return app.exec();
 }

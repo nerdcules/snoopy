@@ -1,6 +1,15 @@
 <RCC>
     <qresource prefix="/">
         <file alias="Main.qml">Main.qml</file>
+        <file alias="GraphView.qml">GraphView.qml</file>
+        <file alias="GraphNode.qml">GraphNode.qml</file>
+        <file alias="Glyph.qml">Glyph.qml</file>
+        <file alias="Inspector.qml">Inspector.qml</file>
+        <file alias="EventLog.qml">EventLog.qml</file>
+        <file alias="HelpOverlay.qml">HelpOverlay.qml</file>
+        <file alias="graph.js">graph.js</file>
+        <file alias="kinds.js">kinds.js</file>
         <file alias="i18n/en.json">i18n/en.json</file>
+        <file alias="skill/SKILL.md">skill/SKILL.md</file>
     </qresource>
 </RCC>
