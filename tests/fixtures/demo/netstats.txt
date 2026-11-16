@@ -1,0 +1,9 @@
+UID stats:
+  ident=[[type=WIFI, subType=COMBINED, networkId="home"],uid=10245]
+    NetworkStatsHistory: bucketDuration=3600000
+      bucketStart=1700000000000 activeTime=1000 rxBytes=80000 rxPackets=10 txBytes=12000 txPackets=8 operations=2
+      bucketStart=1700003600000 activeTime=500 rxBytes=1536 rxPackets=2 txBytes=512 txPackets=1 operations=1
+UID tag stats:
+  ident=[[type=WIFI],uid=10245,tag=0]
+    NetworkStatsHistory: bucketDuration=3600000
+      bucketStart=1700000000000 activeTime=1 rxBytes=999999 rxPackets=1 txBytes=999999 txPackets=1 operations=1

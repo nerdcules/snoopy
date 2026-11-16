@@ -1,0 +1,2 @@
+  current listeners:
+    Receiver com.tracker.demo(10245) Request[HIGH_ACCURACY, interval=1000, provider=fused]

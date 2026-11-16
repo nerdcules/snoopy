@@ -1,0 +1,5 @@
+  *APP* UID 10245 ProcessRecord{abcd 4321:com.tracker.demo/u0a245}
+    user #0 uid=10245 gids={3003, 10245}
+    packageList={com.tracker.demo}
+    foregroundActivities=true
+    foregroundServices=true

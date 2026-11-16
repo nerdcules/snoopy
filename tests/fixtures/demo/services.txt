@@ -1,0 +1,6 @@
+  * ServiceRecord{aa u0 com.tracker.demo/.UploadService}
+    intent={cmp=com.tracker.demo/.UploadService}
+    packageName=com.tracker.demo
+    processName=com.tracker.demo
+    isForeground=true
+    app=ProcessRecord{abcd 4321:com.tracker.demo/u0a245}

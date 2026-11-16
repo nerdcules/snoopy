@@ -1,0 +1,19 @@
+Current AppOps Service state:
+  Uid u0a245:
+    Package com.tracker.demo:
+      COARSE_LOCATION (allow):
+        Access: [top] 2024-11-14 18:01:02.123 (-5m ago)
+      FINE_LOCATION (foreground):
+        Access: [top] 2024-11-14 18:01:02.123 (-5m ago) duration=+2s
+        Reject: [bg] 2024-11-14 17:00:00.000 (-1h ago)
+      CAMERA (allow):
+        Access: [fgsvc] 2024-11-14 12:00:00.000 (-6h ago)
+      READ_CONTACTS (allow):
+      RECORD_AUDIO (ignore):
+        Reject: [top] 2024-11-14 11:00:00.000 (-7h ago)
+      WAKE_LOCK (allow):
+        Access: [top] 2024-11-14 18:04:00.000 (-1m ago)
+      READ_CLIPBOARD: allow; time=+30s ago
+  Uid 10299:
+    Package com.quiet.notes:
+      READ_CONTACTS: allow

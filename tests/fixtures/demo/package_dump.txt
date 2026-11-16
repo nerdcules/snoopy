@@ -1,0 +1,37 @@
+Package [com.tracker.demo] (a):
+  userId=10245
+  versionName=1.2.3
+  pkg=Package{abc com.tracker.demo}
+  requested permissions:
+      android.permission.INTERNET
+      android.permission.ACCESS_FINE_LOCATION
+      android.permission.ACCESS_COARSE_LOCATION
+      android.permission.CAMERA
+      android.permission.RECORD_AUDIO
+      android.permission.READ_CONTACTS
+      com.google.android.gms.permission.AD_ID
+  install permissions:
+      android.permission.INTERNET: granted=true
+      com.google.android.gms.permission.AD_ID: granted=true
+  runtime permissions:
+      android.permission.ACCESS_FINE_LOCATION: granted=true, flags=[ USER_SENSITIVE_WHEN_GRANTED|USER_SENSITIVE_WHEN_DENIED]
+      android.permission.ACCESS_COARSE_LOCATION: granted=true, flags=[ USER_SENSITIVE_WHEN_GRANTED|USER_SENSITIVE_WHEN_DENIED]
+      android.permission.CAMERA: granted=true, flags=[ USER_SENSITIVE_WHEN_GRANTED|USER_SENSITIVE_WHEN_DENIED]
+      android.permission.RECORD_AUDIO: granted=false, flags=[ USER_SENSITIVE_WHEN_GRANTED|USER_SENSITIVE_WHEN_DENIED]
+      android.permission.READ_CONTACTS: granted=true, flags=[ USER_SENSITIVE_WHEN_GRANTED|USER_SENSITIVE_WHEN_DENIED]
+  Provider Resolver Table:
+      com.google.firebase.analytics.FirebaseInitProvider
+  Activity Resolver Table:
+      com.facebook.ads.AudienceNetworkActivity
+
+Package [com.quiet.notes] (b):
+  userId=10299
+  versionName=4.0
+  requested permissions:
+      android.permission.READ_CONTACTS
+  runtime permissions:
+      android.permission.READ_CONTACTS: granted=true, flags=[ USER_SENSITIVE_WHEN_GRANTED|USER_SENSITIVE_WHEN_DENIED]
+
+Hidden system packages:
+Package [com.android.hidden] (c):
+  userId=1000

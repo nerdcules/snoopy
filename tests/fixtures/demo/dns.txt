@@ -1,0 +1,3 @@
+11-14 18:02:00.123  1111  1111 D DnsResolver: getaddrinfo uid=10245 host=graph.facebook.com
+11-14 18:02:01.000  1111  1111 D DnsResolver: getaddrinfo uid=10245 host=example.com
+11-14 18:02:02.000  1111  1111 D DnsResolver: getaddrinfo host=app-measurement.com

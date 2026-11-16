@@ -1,0 +1,2 @@
+package:/data/app/~~x~~/com.tracker.demo-y==/base.apk=com.tracker.demo uid:10245
+package:/data/app/~~x~~/com.quiet.notes-y==/base.apk=com.quiet.notes uid:10299

@@ -1,0 +1,5 @@
+Active sensors:
+Connection Number: 1
+  Operating Mode: NORMAL
+  com.tracker.demo | WakeLockRefCount 0 | uid 10245 | pid 4321
+  Sensor: android.sensor.accelerometer
