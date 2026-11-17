@@ -9,6 +9,10 @@
         <file alias="HelpOverlay.qml">HelpOverlay.qml</file>
         <file alias="WirelessOverlay.qml">WirelessOverlay.qml</file>
         <file alias="WatchView.qml">WatchView.qml</file>
+        <file alias="PermissionsPanel.qml">PermissionsPanel.qml</file>
+        <file alias="PresetsPanel.qml">PresetsPanel.qml</file>
+        <file alias="ChangeConfirm.qml">ChangeConfirm.qml</file>
+        <file alias="SmallButton.qml">SmallButton.qml</file>
         <file alias="graph.js">graph.js</file>
         <file alias="kinds.js">kinds.js</file>
         <file alias="i18n/en.json">i18n/en.json</file>

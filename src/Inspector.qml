@@ -9,6 +9,7 @@ Rectangle {
     id: inspector
 
     property var node: null
+    signal manage(string pkg)
     readonly property real u: theme.fontScale
 
     color: theme.panel
@@ -176,6 +177,12 @@ Rectangle {
                     font.family: "monospace"
                     font.pixelSize: Math.round(12 * inspector.u)
                     wrapMode: Text.WrapAnywhere
+                }
+                Button {
+                    visible: parent.card !== null && !!parent.card.package
+                    text: qsTr("Permissions… (P)")
+                    flat: true
+                    onClicked: inspector.manage(parent.card.package)
                 }
                 Body {
                     visible: parent.card !== null && (parent.card.tx_bytes > 0 || parent.card.rx_bytes > 0)

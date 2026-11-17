@@ -115,6 +115,40 @@ logs older than the buffer. A quiet page doesn't prove a phone is clean.
 On the Pixel 8 Pro over Wi-Fi (2026-11-16) one check took 10,099 ms and found no
 alerts, 16 warnings and 44 info lines.
 
+## Tighten and loosen
+
+Snoopy can change what an app may do, over the same adb connection:
+
+- **Permissions** (P on an app in the graph, or Permissions… on a Watch
+  finding): location all the time, only while using, or not at all;
+  microphone, camera, contacts, texts, call history, phone, calendar,
+  photos, audio, body sensors, activity, nearby devices, notifications;
+  reading the clipboard; running in the background.
+- **Special access:** usage access, installing other apps, drawing over
+  other apps, all-files access, notification access, accessibility
+  services. A device administrator can only be turned off on the phone
+  (Android allows adb to remove test admins only), so Snoopy says where.
+- **The app:** pause it, disable it, or remove it for your user; all three
+  can be put back. Snoopy refuses these for apps the phone needs (the
+  system UI, phone, settings, Play services, providers, keyboards and
+  others).
+- **Watch buttons:** each finding Snoopy can fix has one ("Deny", "Location
+  only while using", "Turn off notification access").
+- **Tighten (Shift+T):** four presets, each a checklist to review first:
+  location only while using for apps that have it all the time; microphone
+  and camera off for apps with no use recorded in 30 days; the same for
+  contacts, texts, call history and calendar; and every Watch warning that
+  has a fix. Third-party apps only.
+
+Every change shows what it does and the exact `adb shell` commands first,
+is read back from the phone afterwards (and says so if it didn't take), and
+is kept with its undo in `~/.local/state/snoopy/changes/<phone>.json`. An
+app that loses a permission can ask for it again, and the phone shows you
+the prompt.
+
+On the Pixel 8 Pro (2026-11-17), listing the presets took 8,833 to 9,539 ms
+each (one sample): 1, 27, 2 and 14 steps.
+
 ## On the desktop
 
 ```sh
@@ -150,6 +184,11 @@ snoopy scan [--json] [--all] [--package P]... [--out DIR] [--serial S]
 snoopy watch [--interval 5] [--count 12] [--package P]... [--serial S]
 snoopy report --capture DIR [--json] [--all] [--package P]...
 snoopy check [--json] [--all] [--serial S | --capture DIR]
+snoopy perm list PACKAGE [--json]
+snoopy perm set PACKAGE CONTROL STATE [--yes]
+snoopy perm preset NAME [--yes]
+snoopy perm history [--json]
+snoopy perm undo ID
 snoopy daemon [--interval 300]
 snoopy desktop install
 snoopy open [--page watch|graph]

@@ -4,6 +4,7 @@
 #include "capture.h"
 #include "icons.h"
 #include "watch.h"
+#include "perms.h"
 #include "desktop.h"
 #include "monitor.h"
 #include "wireless.h"
@@ -28,7 +29,7 @@
 
 namespace {
 
-const QStringList kCommands{"scan", "watch", "report", "check", "icon", "daemon", "desktop", "skill", "help", "--help", "-h"};
+const QStringList kCommands{"scan", "watch", "report", "check", "icon", "daemon", "desktop", "perm", "skill", "help", "--help", "-h"};
 
 void usage(QTextStream &out) {
     out << "snoopy - what each app on a connected Android phone reads, and where it is connected\n\n"
@@ -45,6 +46,13 @@ void usage(QTextStream &out) {
            "                               (alerts and warnings; --all adds the info lines)\n"
            "  snoopy icon PACKAGE [--out FILE] [--fresh] [--json] [--serial S]\n"
            "                               an app's launcher icon from the phone (--fresh skips the cache)\n"
+           "  snoopy perm list PACKAGE [--json]      an app's permissions and special access, and what can change\n"
+           "  snoopy perm set PACKAGE CONTROL STATE [--yes]\n"
+           "                               change one (shows the plan; --yes applies it without asking)\n"
+           "  snoopy perm preset NAME [--yes]        a tightening preset: lists its steps; --yes applies them\n"
+           "                               (background-location, unused-mic-camera, unused-personal, watch)\n"
+           "  snoopy perm history [--json]           changes made by Snoopy on this phone\n"
+           "  snoopy perm undo ID                    put one back\n"
            "  snoopy daemon [--interval 300]\n"
            "                               sample the phone in the background (what snoopy.service runs): keeps\n"
            "                               the Watch baseline, the bar widget's status and notifications going\n"
@@ -344,6 +352,151 @@ int desktopInstall(QTextStream &out, QTextStream &err) {
     return good ? 0 : 1;
 }
 
+QJsonObject controlJson(const perms::Control &c) {
+    return {{"id", c.id}, {"group", c.group}, {"label", c.label}, {"state", c.state},
+            {"options", QJsonArray::fromStringList(c.options)}, {"changeable", c.changeable}, {"reason", c.reason}};
+}
+
+QJsonObject planJson(const perms::Plan &p) {
+    QJsonArray commands;
+    for (const QStringList &command : p.commands)
+        commands.append(command.join(' '));
+    return {{"package", p.package}, {"control", p.control}, {"label", p.label}, {"from", p.from}, {"to", p.to},
+            {"detail", p.detail}, {"commands", commands}, {"blocked", p.blocked}, {"reason", p.reason}};
+}
+
+QString hardwareSerial(Adb &adb) {
+    return adb.shell("getprop ro.serialno").out.trimmed();
+}
+
+bool confirm(QTextStream &out, bool yes) {
+    if (yes)
+        return true;
+    out << "Apply? [y/N] ";
+    out.flush();
+    QTextStream in(stdin);
+    const QString answer = in.readLine().trimmed().toLower();
+    return answer == "y" || answer == "yes";
+}
+
+void printEntry(QTextStream &out, const QJsonObject &entry) {
+    out << "#" << entry.value("id").toInt() << " " << entry.value("package").toString() << " " << entry.value("control").toString()
+        << ": " << entry.value("from").toString() << " -> " << entry.value("to").toString();
+    if (entry.contains("verified"))
+        out << (entry.value("verified").toBool() ? " (checked on the phone)" : " (NOT confirmed: now " + entry.value("now").toString() + ")");
+    if (entry.value("undone").toBool())
+        out << " [undone]";
+    out << "\n";
+    if (!entry.value("output").toString().isEmpty())
+        out << "    " << entry.value("output").toString().replace('\n', "\n    ") << "\n";
+}
+
+int perm(const QStringList &arguments, QTextStream &out, QTextStream &err) {
+    const QString action = arguments.value(2);
+    const bool json = arguments.contains("--json"), yes = arguments.contains("--yes");
+    QStringList words;
+    for (int i = 3; i < arguments.size(); ++i)
+        if (!arguments.at(i).startsWith("--"))
+            words.append(arguments.at(i));
+    const int serialAt = arguments.indexOf("--serial");
+    Adb adb(serialAt > 0 ? arguments.value(serialAt + 1) : QString());
+    adb.resolveSerial();
+    perms::Changer changer(adb, hardwareSerial(adb));
+
+    if (action == "list" && words.size() >= 1) {
+        const perms::AppState app = changer.read(words.at(0));
+        if (!app.found) {
+            err << words.at(0) << " isn't installed on the phone.\n";
+            return 1;
+        }
+        QJsonArray list;
+        for (const perms::Control &c : perms::controls(app))
+            list.append(controlJson(c));
+        if (json) {
+            out << QJsonDocument(QJsonObject{{"package", app.package}, {"system", app.system}, {"controls", list}}).toJson();
+            return 0;
+        }
+        out << app.package << (app.system ? " (system app)" : "") << "\n";
+        for (const QJsonValue &v : list) {
+            const QJsonObject c = v.toObject();
+            out << "  " << c.value("id").toString().leftJustified(38) << c.value("state").toString().leftJustified(12)
+                << c.value("label").toString();
+            if (!c.value("changeable").toBool())
+                out << "  (" << c.value("reason").toString() << ")";
+            out << "\n";
+        }
+        return 0;
+    }
+    if (action == "set" && words.size() >= 3) {
+        const perms::Plan plan = perms::plan(changer.read(words.at(0)), words.at(1), words.at(2));
+        if (json && !yes) {
+            out << QJsonDocument(planJson(plan)).toJson();
+            return plan.blocked ? 1 : 0;
+        }
+        if (plan.blocked) {
+            err << plan.reason << "\n";
+            return 1;
+        }
+        if (plan.commands.isEmpty()) {
+            out << plan.reason << "\n";
+            return 0;
+        }
+        out << plan.detail << "\n";
+        for (const QStringList &command : plan.commands)
+            out << "  adb shell " << command.join(' ') << "\n";
+        if (!confirm(out, yes))
+            return 1;
+        const QJsonObject entry = changer.apply(plan);
+        printEntry(out, entry);
+        return entry.value("ok").toBool() && entry.value("verified").toBool() ? 0 : 1;
+    }
+    if (action == "preset" && words.size() >= 1) {
+        if (!perms::presetIds().contains(words.at(0))) {
+            err << "Presets: " << perms::presetIds().join(", ") << "\n";
+            return 1;
+        }
+        const Capture capture = collectSnapshot(adb);
+        const QString phone = hardwareSerial(adb);
+        const QJsonArray findings = WatchBaseline().apply(phone, watchFindings(capture, QDate::currentDate()),
+                                                          QDateTime::currentDateTime(), false);
+        const QList<perms::Step> steps = perms::preset(words.at(0), capture, findings);
+        out << perms::presetTitle(words.at(0)) << ": " << steps.size() << " steps\n";
+        for (const perms::Step &step : steps)
+            out << "  " << step.title << "  (" << step.reason << ")\n";
+        if (steps.isEmpty() || !yes)
+            return 0;
+        int failed = 0;
+        for (const perms::Step &step : steps) {
+            const perms::Plan plan = perms::plan(changer.read(step.package), step.control, step.to);
+            if (plan.blocked || plan.commands.isEmpty())
+                continue;
+            const QJsonObject entry = changer.apply(plan);
+            printEntry(out, entry);
+            failed += entry.value("verified").toBool() ? 0 : 1;
+        }
+        return failed == 0 ? 0 : 1;
+    }
+    if (action == "history") {
+        const QJsonArray journal = changer.journal();
+        if (json) {
+            out << QJsonDocument(journal).toJson();
+            return 0;
+        }
+        if (journal.isEmpty())
+            out << "Snoopy hasn't changed anything on this phone.\n";
+        for (const QJsonValue &value : journal)
+            printEntry(out, value.toObject());
+        return 0;
+    }
+    if (action == "undo" && words.size() >= 1) {
+        const QJsonObject entry = changer.undo(words.at(0).toInt());
+        printEntry(out, entry);
+        return entry.value("undone").toBool() ? 0 : 1;
+    }
+    err << "Usage: snoopy perm list PACKAGE | set PACKAGE CONTROL STATE [--yes] | preset NAME [--yes] | history | undo ID\n";
+    return 1;
+}
+
 int installSkill(QTextStream &out, QTextStream &err) {
     QFile source(":/skill/SKILL.md");
     if (!source.open(QIODevice::ReadOnly)) {
@@ -382,6 +535,14 @@ int runCli(const QStringList &arguments) {
             return desktopInstall(out, err);
         err << "Usage: snoopy desktop install\n";
         return 1;
+    }
+    if (command == "perm") {
+        try {
+            return perm(arguments, out, err);
+        } catch (const AdbError &error) {
+            err << "snoopy: " << error.message() << "\n";
+            return 1;
+        }
     }
     if (command == "skill") {
         if (arguments.size() > 2 && arguments.at(2) == "install")

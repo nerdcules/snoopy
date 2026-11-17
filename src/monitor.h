@@ -96,6 +96,10 @@ public:
     QStringList flagged() const { return m_flagged; }
     // Everything new on the Watch page becomes part of the phone's baseline.
     Q_INVOKABLE void acknowledgeFindings();
+    // The last good sample and the phone it came from, for the permission
+    // presets.
+    Capture lastCapture() const { return m_capture; }
+    QString phone() const { return m_phone; }
     // Where baselines are kept; tests pass a temporary directory.
     void setBaselineDirectory(const QString &directory);
     void setLink(const QString &link);
@@ -161,5 +165,6 @@ private:
     QStringList m_flagged;
     QString m_phone;
     QString m_baselineDirectory;
+    Capture m_capture;
     bool m_persistLink = false;
 };

@@ -13,6 +13,8 @@ HEADERS += \
     $$PWD/monitor.h \
     $$PWD/names.h \
     $$PWD/parsers.h \
+    $$PWD/perms.h \
+    $$PWD/permsmodel.h \
     $$PWD/qrimage.h \
     $$PWD/render.h \
     $$PWD/report.h \
@@ -35,6 +37,8 @@ SOURCES += \
     $$PWD/monitor.cpp \
     $$PWD/names.cpp \
     $$PWD/parsers.cpp \
+    $$PWD/perms.cpp \
+    $$PWD/permsmodel.cpp \
     $$PWD/qrimage.cpp \
     $$PWD/render.cpp \
     $$PWD/report.cpp \

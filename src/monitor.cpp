@@ -6,6 +6,7 @@
 #include "names.h"
 #include "report.h"
 #include "desktop.h"
+#include "perms.h"
 #include "watch.h"
 #include "wireless.h"
 
@@ -41,6 +42,15 @@ Sample takeSample(const QString &serial, const QString &link) {
         history.record(sample.phone, backgroundEvents(sample.capture), now);
         sample.findings = withHistory(watchFindings(sample.capture, QDate::currentDate()),
                                       history.since(sample.phone, now.toSecsSinceEpoch() - 8 * 86400), now);
+        // What fixes each finding, when Snoopy can (the Watch page's buttons).
+        for (int i = 0; i < sample.findings.size(); ++i) {
+            QJsonObject item = sample.findings.at(i).toObject();
+            const QJsonObject fix = perms::fixFor(item);
+            if (!fix.isEmpty()) {
+                item.insert("fix", fix);
+                sample.findings[i] = item;
+            }
+        }
     } catch (const AdbError &error) {
         sample.error = error.message();
     } catch (const std::exception &error) {
@@ -135,6 +145,7 @@ void Monitor::finished() {
             QMutexLocker lock(&m_serialMutex);
             m_serial = sample.serial;
         }
+        m_capture = sample.capture;
         relay(sample.report);
         applyFindings(sample.phone, sample.findings);
         // The window (not tests) keeps the bar widget's status current and

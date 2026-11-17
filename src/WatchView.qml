@@ -9,6 +9,8 @@ Item {
     id: view
 
     property bool showInfo: false
+    signal manage(string pkg, string control, string to)
+    signal tighten()
     readonly property real u: theme.fontScale
     readonly property var groups: [
         ["background", qsTr("Used while not on screen"),
@@ -50,6 +52,11 @@ Item {
                 visible: monitor.newFindings > 0
                 text: qsTr("Mark all seen (M)")
                 onClicked: monitor.acknowledgeFindings()
+            }
+            Button {
+                visible: monitor.samples > 0
+                text: qsTr("Tighten… (Shift+T)")
+                onClicked: view.tighten()
             }
             Button {
                 flat: true
@@ -192,6 +199,20 @@ Item {
                                             text: modelData.week ? qsTr("on %1 of the last 7 days, %n times", "", modelData.weekTimes).arg(modelData.weekDays) : ""
                                             color: theme.muted
                                             font.pixelSize: Math.round(11 * view.u)
+                                        }
+                                    }
+                                    RowLayout {
+                                        visible: !!modelData.package
+                                        spacing: 6
+                                        SmallButton {
+                                            visible: !!modelData.fix
+                                            primary: true
+                                            text: modelData.fix ? modelData.fix.label : ""
+                                            onClicked: view.manage(modelData.package, modelData.fix.control, modelData.fix.to)
+                                        }
+                                        SmallButton {
+                                            text: qsTr("Permissions…")
+                                            onClicked: view.manage(modelData.package, "", "")
                                         }
                                     }
                                     Label {

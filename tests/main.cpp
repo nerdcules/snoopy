@@ -9,5 +9,6 @@ int main(int argc, char **argv) {
     failed += runReportTests(argc, argv);
     failed += runIconTests(argc, argv);
     failed += runWatchTests(argc, argv);
+    failed += runPermsTests(argc, argv);
     return failed == 0 ? 0 : 1;
 }

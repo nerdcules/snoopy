@@ -50,5 +50,13 @@
   "Last on %1; on %n of the last 7 days.": {
     "one": "Last on %1; on %n of the last 7 days.",
     "other": "Last on %1; on %n of the last 7 days."
+  },
+  "Apply %n changes": {
+    "one": "Apply %n change",
+    "other": "Apply %n changes"
+  },
+  "%n apps' permissions": {
+    "one": "%n app's permissions",
+    "other": "%n apps' permissions"
   }
 }

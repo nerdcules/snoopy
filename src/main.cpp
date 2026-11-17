@@ -18,6 +18,7 @@
 #include "icons.h"
 #include "monitor.h"
 #include "names.h"
+#include "permsmodel.h"
 #include "qrimage.h"
 #include "theme.h"
 #include "translator.h"
@@ -85,6 +86,7 @@ int main(int argc, char *argv[]) {
     Monitor monitor(serial, {}, &names);
     IconSource icons;
     Pairing pairing;
+    PermissionsModel permissions(&monitor);
     // A phone that just paired is read over Wi-Fi from now on, at once.
     QObject::connect(&pairing, &Pairing::connected, &monitor, [&monitor] {
         monitor.setLink("wifi");
@@ -100,6 +102,7 @@ int main(int argc, char *argv[]) {
     engine.rootContext()->setContextProperty("monitor", &monitor);
     engine.rootContext()->setContextProperty("pairing", &pairing);
     engine.rootContext()->setContextProperty("remote", &remote);
+    engine.rootContext()->setContextProperty("perms", &permissions);
     engine.rootContext()->setContextProperty("initialPage", page == "watch" ? 1 : 0);
     engine.load(QUrl("qrc:/Main.qml"));
     if (engine.rootObjects().isEmpty())

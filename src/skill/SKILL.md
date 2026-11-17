@@ -32,6 +32,24 @@ problem on stderr (no adb, no phone, phone not authorized, two phones: pass
   notification access, device admin and similar; outside is apps not from
   Google Play. A finding is a reason to look, not proof.
 
+Changing things (always ask the user first; every change is logged and
+can be undone with `snoopy perm undo ID`):
+- `snoopy perm list PKG --json`: the app's controls (`id`, `state`,
+  `options`, `changeable`, `reason`). Ids: `perm:location` (always /
+  while_using / deny), `perm:microphone`, `perm:camera`, `perm:contacts`,
+  `perm:sms`, `perm:calllog`, `perm:phone`, `perm:calendar`, `perm:photos`,
+  ... (allow / deny), `op:clipboard`, `op:background`, `special:usage`,
+  `special:install`, `special:overlay`, `special:files`,
+  `listener:<component>`, `a11y:<component>` (on / off), `app:pause`
+  (active / paused), `app:disable`, `app:remove`.
+- `snoopy perm set PKG CONTROL STATE --json`: the plan only (commands,
+  what it does); add `--yes` to apply. The result says whether the phone
+  confirmed it (`verified`).
+- `snoopy perm preset NAME`: lists a preset's steps (background-location,
+  unused-mic-camera, unused-personal, watch); `--yes` applies them.
+- `snoopy check --json` findings carry `fix` (control and state) when
+  Snoopy can fix them.
+
 If `snoopy.service` runs, `~/.local/state/snoopy/status.json` holds the
 last sample's summary (connected, transport, model, alerts, warnings,
 newCount, updatedAt) without touching the phone.

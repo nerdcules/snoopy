@@ -20,6 +20,19 @@ ApplicationWindow {
 
     property bool helpVisible: false
     property bool wirelessVisible: false
+    property bool permsVisible: false
+    property bool presetsVisible: false
+
+    // An app's Permissions panel; with control and to, it asks about that
+    // change as soon as the app has been read (a Watch finding's fix).
+    function openPerms(pkg, control, to) {
+        if (!pkg)
+            return
+        permsPanel.askControl = control || ""
+        permsPanel.askTo = to || ""
+        perms.open(pkg)
+        permsVisible = true
+    }
     property int page: initialPage
 
     // `snoopy open --page P` from the bar widget or a notification.
@@ -47,7 +60,11 @@ ApplicationWindow {
     }
 
     function stepBack() {
-        if (wirelessVisible)
+        if (permsVisible)
+            permsVisible = false
+        else if (presetsVisible)
+            presetsVisible = false
+        else if (wirelessVisible)
             showWireless(false)
         else if (helpVisible)
             helpVisible = false
@@ -75,6 +92,16 @@ ApplicationWindow {
     Shortcut { sequence: "2"; context: Qt.ApplicationShortcut; onActivated: win.page = 1 }
     Shortcut { sequence: "Tab"; context: Qt.ApplicationShortcut; onActivated: win.page = 1 - win.page }
     Shortcut { sequence: "M"; context: Qt.ApplicationShortcut; onActivated: monitor.acknowledgeFindings() }
+    Shortcut {
+        sequence: "P"
+        context: Qt.ApplicationShortcut
+        onActivated: {
+            var node = G.find(graph.graph, graph.selectedId)
+            if (node && node.type === "app" && node.card.package)
+                win.openPerms(node.card.package)
+        }
+    }
+    Shortcut { sequence: "Shift+T"; context: Qt.ApplicationShortcut; onActivated: win.presetsVisible = !win.presetsVisible }
     Shortcut { sequence: "I"; context: Qt.ApplicationShortcut; onActivated: watchView.showInfo = !watchView.showInfo }
     Shortcut { sequence: "T"; context: Qt.ApplicationShortcut; onActivated: monitor.link = monitor.link === "wifi" ? "usb" : "wifi" }
     Shortcut { sequence: "C"; context: Qt.ApplicationShortcut; onActivated: monitor.clearEvents() }
@@ -290,11 +317,14 @@ ApplicationWindow {
                         Layout.fillHeight: win.wide
                         Layout.preferredHeight: win.wide ? -1 : 220 * win.u
                         node: G.find(graph.graph, graph.focusId)
+                    onManage: (pkg) => win.openPerms(pkg)
                     }
                 }
 
                 WatchView {
                     id: watchView
+                    onManage: (pkg, control, to) => win.openPerms(pkg, control, to)
+                    onTighten: win.presetsVisible = true
                 }
             }
 
@@ -307,8 +337,8 @@ ApplicationWindow {
             Label {
                 Layout.fillWidth: true
                 text: win.page === 1
-                      ? qsTr("1/2 graph/watch · M mark seen · I info · R sample · T cable/Wi-Fi · ? help · Q quit")
-                      : qsTr("1/2 graph/watch · Space pause · R sample · / filter · J/K H/L select · T cable/Wi-Fi · W pair · ? help · Q quit")
+                      ? qsTr("1/2 graph/watch · M mark seen · I info · Shift+T tighten · T cable/Wi-Fi · ? help · Q quit")
+                      : qsTr("1/2 graph/watch · Space pause · / filter · J/K H/L select · P permissions · T cable/Wi-Fi · W pair · ? help · Q quit")
                 color: theme.muted
                 font.pixelSize: Math.round(12 * win.u)
                 elide: Text.ElideRight
@@ -325,6 +355,19 @@ ApplicationWindow {
             anchors.fill: parent
             visible: win.wirelessVisible
             onClosed: win.showWireless(false)
+        }
+
+        PermissionsPanel {
+            id: permsPanel
+            anchors.fill: parent
+            visible: win.permsVisible
+            onClosed: win.permsVisible = false
+        }
+
+        PresetsPanel {
+            anchors.fill: parent
+            visible: win.presetsVisible
+            onClosed: win.presetsVisible = false
         }
     }
 }

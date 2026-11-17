@@ -1,387 +1,603 @@
 {
-  "status": "live",
-  "message": "",
-  "device": {
-    "model": "Pixel 8",
-    "android": "15",
-    "sdk": "35",
-    "serial": "demo"
+ "status": "live",
+ "message": "",
+ "device": {
+  "model": "Pixel 8",
+  "android": "15",
+  "sdk": "35",
+  "serial": "demo"
+ },
+ "samples": 4,
+ "interval": 20,
+ "limits": [
+  "Network sockets belong to a Linux uid. On Android that uid is usually one app.",
+  "Transmission shown here is destination, size, and DNS name. HTTPS message bodies stay encrypted.",
+  "Tracker SDK rows are components shipped inside the app and the kind of data that SDK is built to collect."
+ ],
+ "errors": [],
+ "events": [
+  {
+   "at": "2026-11-16T09:41:20",
+   "change": "appeared",
+   "source": "com.example.chat",
+   "destination": "203.0.113.24:443",
+   "information": "TCP ESTABLISHED"
   },
-  "samples": 4,
-  "interval": 20,
-  "limits": [
-    "Network sockets belong to a Linux uid. On Android that uid is usually one app.",
-    "Transmission shown here is destination, size, and DNS name. HTTPS message bodies stay encrypted.",
-    "Tracker SDK rows are components shipped inside the app and the kind of data that SDK is built to collect."
-  ],
-  "errors": [],
-  "events": [
+  {
+   "at": "2026-11-16T09:41:20",
+   "change": "stopped",
+   "source": "com.example.maps",
+   "destination": "198.51.100.7:443",
+   "information": "QUIC"
+  },
+  {
+   "at": "2026-11-16T09:41:00",
+   "change": "appeared",
+   "source": "com.example.shop",
+   "destination": "graph.facebook.com",
+   "information": "DNS lookup"
+  }
+ ],
+ "graph": [
+  {
+   "package": "com.example.chat",
+   "name": "Chat",
+   "tx_bytes": 48211234,
+   "rx_bytes": 391220112,
+   "reads": [
     {
-      "at": "2026-11-16T09:41:20",
-      "change": "appeared",
-      "source": "com.example.chat",
-      "destination": "203.0.113.24:443",
-      "information": "TCP ESTABLISHED"
+     "label": "Microphone",
+     "detail": "Audio from the microphone or from playback. Record audio, 2 minutes ago."
     },
     {
-      "at": "2026-11-16T09:41:20",
-      "change": "stopped",
-      "source": "com.example.maps",
-      "destination": "198.51.100.7:443",
-      "information": "QUIC"
+     "label": "Contacts",
+     "detail": "Names and numbers from the address book. Read contacts, 1 hour ago."
     },
     {
-      "at": "2026-11-16T09:41:00",
-      "change": "appeared",
-      "source": "com.example.shop",
-      "destination": "graph.facebook.com",
-      "information": "DNS lookup"
+     "label": "Photos & files",
+     "detail": "Photos, videos, or shared files. Read media images, 3 hours ago."
     }
-  ],
-  "graph": [
+   ],
+   "destinations": [
     {
-      "package": "com.example.chat",
-      "name": "Chat",
-      "tx_bytes": 48211234,
-      "rx_bytes": 391220112,
-      "reads": [
-        {
-          "label": "Microphone",
-          "detail": "Audio from the microphone or from playback. Record audio, 2 minutes ago."
-        },
-        {
-          "label": "Contacts",
-          "detail": "Names and numbers from the address book. Read contacts, 1 hour ago."
-        },
-        {
-          "label": "Photos & files",
-          "detail": "Photos, videos, or shared files. Read media images, 3 hours ago."
-        }
-      ],
-      "destinations": [
-        {
-          "label": "203.0.113.24",
-          "kind": "Encrypted",
-          "endpoint": "203.0.113.24:443",
-          "count": 3,
-          "relation": "connects",
-          "host": "203.0.113.24",
-          "name": "edge-chat.example.net",
-          "detail": "Encrypted connection to edge-chat.example.net (203.0.113.24:443). 3 sockets. The address is visible. The contents are not."
-        },
-        {
-          "label": "[2001:db8:…:1f]",
-          "kind": "Encrypted",
-          "endpoint": "[2001:db8:4::1f]:443",
-          "count": 1,
-          "relation": "connects",
-          "host": "[2001:db8:4::1f]",
-          "name": "",
-          "detail": "Encrypted connection to [2001:db8:4::1f]:443. 1 socket. The address is visible. The contents are not."
-        }
-      ]
+     "label": "203.0.113.24",
+     "kind": "Encrypted",
+     "endpoint": "203.0.113.24:443",
+     "count": 3,
+     "relation": "connects",
+     "host": "203.0.113.24",
+     "name": "edge-chat.example.net",
+     "detail": "Encrypted connection to edge-chat.example.net (203.0.113.24:443). 3 sockets. The address is visible. The contents are not."
     },
     {
-      "package": "com.example.maps",
-      "name": "Maps",
-      "tx_bytes": 9123456,
-      "rx_bytes": 77123456,
-      "reads": [
-        {
-          "label": "Location",
-          "detail": "Where the phone is. Precise location, 30 seconds ago. Approximate location, 30 seconds ago."
-        },
-        {
-          "label": "Motion",
-          "detail": "Motion sensor readings. accelerometer, in this sample."
-        }
-      ],
-      "destinations": [
-        {
-          "label": "198.51.100.7",
-          "kind": "Encrypted",
-          "endpoint": "198.51.100.7:443",
-          "count": 2,
-          "relation": "connects",
-          "host": "198.51.100.7",
-          "name": "tiles.maps.example.com",
-          "detail": "Encrypted connection to tiles.maps.example.com (198.51.100.7:443). 2 sockets. The address is visible. The contents are not."
-        },
-        {
-          "label": "203.0.113.24",
-          "kind": "Encrypted",
-          "endpoint": "203.0.113.24:443",
-          "count": 1,
-          "relation": "connects",
-          "host": "203.0.113.24",
-          "name": "edge-chat.example.net",
-          "detail": "Encrypted connection to edge-chat.example.net (203.0.113.24:443). 1 socket. The address is visible. The contents are not."
-        }
-      ]
-    },
-    {
-      "package": "com.example.shop",
-      "name": "Shop",
-      "tx_bytes": 1523456,
-      "rx_bytes": 22123456,
-      "reads": [
-        {
-          "label": "Identity",
-          "detail": "Phone, account, or advertising identifiers. Advertising identifier, 5 minutes ago."
-        },
-        {
-          "label": "Clipboard",
-          "detail": "Text or images copied on the phone. Clipboard, in this sample."
-        }
-      ],
-      "destinations": [
-        {
-          "label": "192.0.2.80",
-          "kind": "TCP · port 80",
-          "endpoint": "192.0.2.80:80",
-          "count": 1,
-          "relation": "connects",
-          "host": "192.0.2.80",
-          "name": "",
-          "detail": "TCP · port 80 to 192.0.2.80:80. 1 socket."
-        },
-        {
-          "label": "graph.facebook.com",
-          "kind": "Facebook",
-          "endpoint": "graph.facebook.com",
-          "count": 1,
-          "relation": "lookup",
-          "host": "graph.facebook.com",
-          "name": "",
-          "detail": "DNS lookup for graph.facebook.com. Facebook is a known tracker in that name."
-        },
-        {
-          "label": "ads.example.org",
-          "kind": "DNS",
-          "endpoint": "ads.example.org",
-          "count": 1,
-          "relation": "lookup",
-          "host": "ads.example.org",
-          "name": "",
-          "detail": "DNS lookup for ads.example.org."
-        }
-      ]
-    },
-    {
-      "package": "com.example.camera",
-      "name": "Camera",
-      "tx_bytes": 0,
-      "rx_bytes": 0,
-      "reads": [
-        {
-          "label": "Camera",
-          "detail": "Images or video from the camera. Camera, 4 minutes ago."
-        },
-        {
-          "label": "Location",
-          "detail": "Where the phone is. Approximate location, 4 minutes ago."
-        }
-      ],
-      "destinations": []
+     "label": "[2001:db8:\u2026:1f]",
+     "kind": "Encrypted",
+     "endpoint": "[2001:db8:4::1f]:443",
+     "count": 1,
+     "relation": "connects",
+     "host": "[2001:db8:4::1f]",
+     "name": "",
+     "detail": "Encrypted connection to [2001:db8:4::1f]:443. 1 socket. The address is visible. The contents are not."
     }
-  ],
-  "findings": [
+   ]
+  },
+  {
+   "package": "com.example.maps",
+   "name": "Maps",
+   "tx_bytes": 9123456,
+   "rx_bytes": 77123456,
+   "reads": [
     {
-      "ago": 723,
-      "detail": "Last 12 minutes ago; 2 times in the last day. 43 s in all. The app was cached: not on screen and not running anything the user can see. Its own label for the use: recorder.",
-      "group": "background",
-      "key": "bg|com.example.spy|RECORD_AUDIO",
-      "level": "alert",
-      "package": "com.example.spy",
-      "title": "Spy accessed the microphone while not on screen",
-      "week": [
-        0,
-        0,
-        3,
-        0,
-        1,
-        0,
-        2
-      ],
-      "weekDays": 3,
-      "weekTimes": 6
+     "label": "Location",
+     "detail": "Where the phone is. Precise location, 30 seconds ago. Approximate location, 30 seconds ago."
     },
     {
-      "ago": 540,
-      "detail": "Last 9 minutes ago; once in the last day. The app was in the background: not on screen. It went through another app on its behalf.",
-      "group": "background",
-      "key": "bg|com.example.maps|FINE_LOCATION",
-      "level": "warn",
-      "package": "com.example.maps",
-      "title": "Maps accessed precise location while not on screen",
-      "week": [
-        1,
-        1,
-        0,
-        1,
-        0,
-        1,
-        1
-      ],
-      "weekDays": 5,
-      "weekTimes": 5
-    },
-    {
-      "detail": "An accessibility service is on: it sees everything on screen and can tap and type. Screen readers and password managers use this, and so does stalkerware. If you didn't turn it on, turn it off under Settings > Accessibility.",
-      "group": "control",
-      "key": "a11y|com.example.spy/.Watcher",
-      "level": "warn",
-      "package": "com.example.spy",
-      "title": "Spy can read and control the screen",
-      "new": true,
-      "since": "2026-11-16T09:10:00Z"
-    },
-    {
-      "detail": "Notification access shows the app the text of every notification, messages included. Watches and car apps use it. Turn it off under Settings > Notifications > Device & app notifications if you don't know why it's on.",
-      "group": "control",
-      "key": "listener|com.example.spy/.Listener",
-      "level": "warn",
-      "package": "com.example.spy",
-      "title": "Spy can read every notification"
-    },
-    {
-      "detail": "A device administrator can lock the phone, change the screen lock and sometimes wipe it, and can't be uninstalled until it is turned off under Settings > Security > Device admin apps.",
-      "group": "control",
-      "key": "admin|com.example.spy/.receiver.Admin",
-      "level": "warn",
-      "package": "com.example.spy",
-      "title": "Spy is a device administrator"
-    },
-    {
-      "detail": "Usage access. Battery and screen-time apps use it.",
-      "group": "control",
-      "key": "grant|com.example.spy|GET_USAGE_STATS",
-      "level": "warn",
-      "package": "com.example.spy",
-      "title": "Spy can see which apps you use and when"
-    },
-    {
-      "detail": "A VPN app carries every connection the phone makes. Expected if you chose one (a privacy VPN, a firewall, an ad blocker).",
-      "group": "network",
-      "key": "vpn|com.example.vpn",
-      "level": "warn",
-      "package": "com.example.vpn",
-      "title": "Vpn is the active VPN"
-    },
-    {
-      "detail": "Apps from outside an app store skip its checks. Fine if you installed it yourself.",
-      "group": "outside",
-      "key": "installed|com.example.spy|com.google.android.packageinstaller",
-      "level": "warn",
-      "package": "com.example.spy",
-      "title": "Spy was installed from an APK file opened on the phone"
-    },
-    {
-      "detail": "More than three months without security fixes. Check for a system update under Settings > System.",
-      "group": "device",
-      "key": "patch",
-      "level": "warn",
-      "package": "",
-      "title": "Security patch 2026-05-01, 199 days old"
-    },
-    {
-      "ago": 120,
-      "detail": "Last 2 minutes ago; once in the last day. 60 s in all. The app was running a foreground service, which shows a notification.",
-      "group": "background",
-      "key": "fgsvc|com.example.maps|FINE_LOCATION",
-      "level": "info",
-      "package": "com.example.maps",
-      "title": "Maps accessed precise location while not on screen"
-    },
-    {
-      "ago": 600,
-      "detail": "Last 10 minutes ago; once in the last day. The app was in the background: not on screen. Its own label for the use: sync. It is part of the phone's system software.",
-      "group": "background",
-      "key": "bg|com.android.contacts|READ_CONTACTS",
-      "level": "info",
-      "package": "com.android.contacts",
-      "title": "Contacts accessed contacts while not on screen"
-    },
-    {
-      "detail": "An accessibility service is on: it sees everything on screen and can tap and type. Screen readers and password managers use this, and so does stalkerware. If you didn't turn it on, turn it off under Settings > Accessibility. It is part of the phone's system software.",
-      "group": "control",
-      "key": "a11y|com.android.talkback/.TalkBack",
-      "level": "info",
-      "package": "com.android.talkback",
-      "title": "Talkback can read and control the screen"
-    },
-    {
-      "detail": "Listed so that a change of default app shows up as new.",
-      "group": "control",
-      "key": "role|android.app.role.SMS|com.example.sms",
-      "level": "info",
-      "package": "com.example.sms",
-      "title": "Sms is the default app for texts"
-    },
-    {
-      "detail": "Without lockdown.",
-      "group": "network",
-      "key": "vpn-always-on",
-      "level": "info",
-      "package": "",
-      "title": "A VPN is set to always on"
-    },
-    {
-      "detail": "Every name the phone looks up goes to this server, encrypted.",
-      "group": "network",
-      "key": "dns|dns.example.net",
-      "level": "info",
-      "package": "",
-      "title": "Private DNS: dns.example.net"
-    },
-    {
-      "detail": "Installed from an app store other than Google Play.",
-      "group": "outside",
-      "key": "store|com.example.free|org.fdroid.fdroid",
-      "level": "info",
-      "package": "com.example.free",
-      "title": "Free came from F-Droid"
-    },
-    {
-      "detail": "Plug-ins, keyboards and companion services often have none; an app that hides itself is worth a look.",
-      "group": "outside",
-      "key": "noicon|com.example.spy",
-      "level": "info",
-      "package": "com.example.spy",
-      "title": "Spy has no icon in the app list"
-    },
-    {
-      "detail": "Paired computers on this network can control the phone over adb. Turn it off under Developer options when you're done.",
-      "group": "device",
-      "key": "adb-wifi",
-      "level": "info",
-      "package": "",
-      "title": "Wireless debugging is on"
-    },
-    {
-      "key": "bg|com.example.old|CAMERA",
-      "level": "alert",
-      "group": "background",
-      "package": "com.example.old",
-      "title": "Old accessed the camera while not on screen",
-      "detail": "Last on 13/11/2026 22:14; on 1 of the last 7 days.",
-      "earlier": true,
-      "week": [
-        0,
-        0,
-        0,
-        1,
-        0,
-        0,
-        0
-      ],
-      "weekDays": 1,
-      "weekTimes": 1,
-      "ago": 250000
+     "label": "Motion",
+     "detail": "Motion sensor readings. accelerometer, in this sample."
     }
+   ],
+   "destinations": [
+    {
+     "label": "198.51.100.7",
+     "kind": "Encrypted",
+     "endpoint": "198.51.100.7:443",
+     "count": 2,
+     "relation": "connects",
+     "host": "198.51.100.7",
+     "name": "tiles.maps.example.com",
+     "detail": "Encrypted connection to tiles.maps.example.com (198.51.100.7:443). 2 sockets. The address is visible. The contents are not."
+    },
+    {
+     "label": "203.0.113.24",
+     "kind": "Encrypted",
+     "endpoint": "203.0.113.24:443",
+     "count": 1,
+     "relation": "connects",
+     "host": "203.0.113.24",
+     "name": "edge-chat.example.net",
+     "detail": "Encrypted connection to edge-chat.example.net (203.0.113.24:443). 1 socket. The address is visible. The contents are not."
+    }
+   ]
+  },
+  {
+   "package": "com.example.shop",
+   "name": "Shop",
+   "tx_bytes": 1523456,
+   "rx_bytes": 22123456,
+   "reads": [
+    {
+     "label": "Identity",
+     "detail": "Phone, account, or advertising identifiers. Advertising identifier, 5 minutes ago."
+    },
+    {
+     "label": "Clipboard",
+     "detail": "Text or images copied on the phone. Clipboard, in this sample."
+    }
+   ],
+   "destinations": [
+    {
+     "label": "192.0.2.80",
+     "kind": "TCP \u00b7 port 80",
+     "endpoint": "192.0.2.80:80",
+     "count": 1,
+     "relation": "connects",
+     "host": "192.0.2.80",
+     "name": "",
+     "detail": "TCP \u00b7 port 80 to 192.0.2.80:80. 1 socket."
+    },
+    {
+     "label": "graph.facebook.com",
+     "kind": "Facebook",
+     "endpoint": "graph.facebook.com",
+     "count": 1,
+     "relation": "lookup",
+     "host": "graph.facebook.com",
+     "name": "",
+     "detail": "DNS lookup for graph.facebook.com. Facebook is a known tracker in that name."
+    },
+    {
+     "label": "ads.example.org",
+     "kind": "DNS",
+     "endpoint": "ads.example.org",
+     "count": 1,
+     "relation": "lookup",
+     "host": "ads.example.org",
+     "name": "",
+     "detail": "DNS lookup for ads.example.org."
+    }
+   ]
+  },
+  {
+   "package": "com.example.camera",
+   "name": "Camera",
+   "tx_bytes": 0,
+   "rx_bytes": 0,
+   "reads": [
+    {
+     "label": "Camera",
+     "detail": "Images or video from the camera. Camera, 4 minutes ago."
+    },
+    {
+     "label": "Location",
+     "detail": "Where the phone is. Approximate location, 4 minutes ago."
+    }
+   ],
+   "destinations": []
+  }
+ ],
+ "findings": [
+  {
+   "ago": 723,
+   "detail": "Last 12 minutes ago; 2 times in the last day. 43 s in all. The app was cached: not on screen and not running anything the user can see. Its own label for the use: recorder.",
+   "group": "background",
+   "key": "bg|com.example.spy|RECORD_AUDIO",
+   "level": "alert",
+   "package": "com.example.spy",
+   "title": "Spy accessed the microphone while not on screen",
+   "week": [
+    0,
+    0,
+    3,
+    0,
+    1,
+    0,
+    2
+   ],
+   "weekDays": 3,
+   "weekTimes": 6,
+   "fix": {
+    "control": "perm:microphone",
+    "to": "deny",
+    "label": "Deny"
+   }
+  },
+  {
+   "ago": 540,
+   "detail": "Last 9 minutes ago; once in the last day. The app was in the background: not on screen. It went through another app on its behalf.",
+   "group": "background",
+   "key": "bg|com.example.maps|FINE_LOCATION",
+   "level": "warn",
+   "package": "com.example.maps",
+   "title": "Maps accessed precise location while not on screen",
+   "week": [
+    1,
+    1,
+    0,
+    1,
+    0,
+    1,
+    1
+   ],
+   "weekDays": 5,
+   "weekTimes": 5,
+   "fix": {
+    "control": "perm:location",
+    "to": "while_using",
+    "label": "Location only while using"
+   }
+  },
+  {
+   "detail": "An accessibility service is on: it sees everything on screen and can tap and type. Screen readers and password managers use this, and so does stalkerware. If you didn't turn it on, turn it off under Settings > Accessibility.",
+   "group": "control",
+   "key": "a11y|com.example.spy/.Watcher",
+   "level": "warn",
+   "package": "com.example.spy",
+   "title": "Spy can read and control the screen",
+   "new": true,
+   "since": "2026-11-16T09:10:00Z",
+   "fix": {
+    "control": "a11y:com.example.spy/.Watcher",
+    "to": "off",
+    "label": "Turn off the accessibility service"
+   }
+  },
+  {
+   "detail": "Notification access shows the app the text of every notification, messages included. Watches and car apps use it. Turn it off under Settings > Notifications > Device & app notifications if you don't know why it's on.",
+   "group": "control",
+   "key": "listener|com.example.spy/.Listener",
+   "level": "warn",
+   "package": "com.example.spy",
+   "title": "Spy can read every notification",
+   "fix": {
+    "control": "listener:com.example.spy/.Listener",
+    "to": "off",
+    "label": "Turn off notification access"
+   }
+  },
+  {
+   "detail": "A device administrator can lock the phone, change the screen lock and sometimes wipe it, and can't be uninstalled until it is turned off under Settings > Security > Device admin apps.",
+   "group": "control",
+   "key": "admin|com.example.spy/.receiver.Admin",
+   "level": "warn",
+   "package": "com.example.spy",
+   "title": "Spy is a device administrator"
+  },
+  {
+   "detail": "Usage access. Battery and screen-time apps use it.",
+   "group": "control",
+   "key": "grant|com.example.spy|GET_USAGE_STATS",
+   "level": "warn",
+   "package": "com.example.spy",
+   "title": "Spy can see which apps you use and when",
+   "fix": {
+    "control": "special:usage",
+    "to": "off",
+    "label": "Turn off"
+   }
+  },
+  {
+   "detail": "A VPN app carries every connection the phone makes. Expected if you chose one (a privacy VPN, a firewall, an ad blocker).",
+   "group": "network",
+   "key": "vpn|com.example.vpn",
+   "level": "warn",
+   "package": "com.example.vpn",
+   "title": "Vpn is the active VPN"
+  },
+  {
+   "detail": "Apps from outside an app store skip its checks. Fine if you installed it yourself.",
+   "group": "outside",
+   "key": "installed|com.example.spy|com.google.android.packageinstaller",
+   "level": "warn",
+   "package": "com.example.spy",
+   "title": "Spy was installed from an APK file opened on the phone"
+  },
+  {
+   "detail": "More than three months without security fixes. Check for a system update under Settings > System.",
+   "group": "device",
+   "key": "patch",
+   "level": "warn",
+   "package": "",
+   "title": "Security patch 2026-05-01, 199 days old"
+  },
+  {
+   "ago": 120,
+   "detail": "Last 2 minutes ago; once in the last day. 60 s in all. The app was running a foreground service, which shows a notification.",
+   "group": "background",
+   "key": "fgsvc|com.example.maps|FINE_LOCATION",
+   "level": "info",
+   "package": "com.example.maps",
+   "title": "Maps accessed precise location while not on screen"
+  },
+  {
+   "ago": 600,
+   "detail": "Last 10 minutes ago; once in the last day. The app was in the background: not on screen. Its own label for the use: sync. It is part of the phone's system software.",
+   "group": "background",
+   "key": "bg|com.android.contacts|READ_CONTACTS",
+   "level": "info",
+   "package": "com.android.contacts",
+   "title": "Contacts accessed contacts while not on screen"
+  },
+  {
+   "detail": "An accessibility service is on: it sees everything on screen and can tap and type. Screen readers and password managers use this, and so does stalkerware. If you didn't turn it on, turn it off under Settings > Accessibility. It is part of the phone's system software.",
+   "group": "control",
+   "key": "a11y|com.android.talkback/.TalkBack",
+   "level": "info",
+   "package": "com.android.talkback",
+   "title": "Talkback can read and control the screen"
+  },
+  {
+   "detail": "Listed so that a change of default app shows up as new.",
+   "group": "control",
+   "key": "role|android.app.role.SMS|com.example.sms",
+   "level": "info",
+   "package": "com.example.sms",
+   "title": "Sms is the default app for texts"
+  },
+  {
+   "detail": "Without lockdown.",
+   "group": "network",
+   "key": "vpn-always-on",
+   "level": "info",
+   "package": "",
+   "title": "A VPN is set to always on"
+  },
+  {
+   "detail": "Every name the phone looks up goes to this server, encrypted.",
+   "group": "network",
+   "key": "dns|dns.example.net",
+   "level": "info",
+   "package": "",
+   "title": "Private DNS: dns.example.net"
+  },
+  {
+   "detail": "Installed from an app store other than Google Play.",
+   "group": "outside",
+   "key": "store|com.example.free|org.fdroid.fdroid",
+   "level": "info",
+   "package": "com.example.free",
+   "title": "Free came from F-Droid"
+  },
+  {
+   "detail": "Plug-ins, keyboards and companion services often have none; an app that hides itself is worth a look.",
+   "group": "outside",
+   "key": "noicon|com.example.spy",
+   "level": "info",
+   "package": "com.example.spy",
+   "title": "Spy has no icon in the app list"
+  },
+  {
+   "detail": "Paired computers on this network can control the phone over adb. Turn it off under Developer options when you're done.",
+   "group": "device",
+   "key": "adb-wifi",
+   "level": "info",
+   "package": "",
+   "title": "Wireless debugging is on"
+  },
+  {
+   "key": "bg|com.example.old|CAMERA",
+   "level": "alert",
+   "group": "background",
+   "package": "com.example.old",
+   "title": "Old accessed the camera while not on screen",
+   "detail": "Last on 13/11/2026 22:14; on 1 of the last 7 days.",
+   "earlier": true,
+   "week": [
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    0
+   ],
+   "weekDays": 1,
+   "weekTimes": 1,
+   "ago": 250000
+  }
+ ],
+ "newFindings": 1,
+ "flagged": [
+  "com.example.spy"
+ ],
+ "perms": {
+  "controls": [
+   {
+    "id": "perm:location",
+    "group": "permission",
+    "label": "Location",
+    "state": "always",
+    "options": [
+     "always",
+     "while_using",
+     "deny"
+    ],
+    "changeable": true,
+    "reason": ""
+   },
+   {
+    "id": "perm:microphone",
+    "group": "permission",
+    "label": "Microphone",
+    "state": "allow",
+    "options": [
+     "allow",
+     "deny"
+    ],
+    "changeable": true,
+    "reason": ""
+   },
+   {
+    "id": "perm:camera",
+    "group": "permission",
+    "label": "Camera",
+    "state": "deny",
+    "options": [
+     "allow",
+     "deny"
+    ],
+    "changeable": true,
+    "reason": ""
+   },
+   {
+    "id": "perm:contacts",
+    "group": "permission",
+    "label": "Contacts",
+    "state": "allow",
+    "options": [
+     "allow",
+     "deny"
+    ],
+    "changeable": true,
+    "reason": ""
+   },
+   {
+    "id": "op:clipboard",
+    "group": "permission",
+    "label": "Read the clipboard",
+    "state": "allow",
+    "options": [
+     "allow",
+     "deny"
+    ],
+    "changeable": true,
+    "reason": ""
+   },
+   {
+    "id": "op:background",
+    "group": "permission",
+    "label": "Run in the background",
+    "state": "allow",
+    "options": [
+     "allow",
+     "deny"
+    ],
+    "changeable": true,
+    "reason": ""
+   },
+   {
+    "id": "listener:com.example.chat/.Listener",
+    "group": "special",
+    "label": "Notification access",
+    "state": "on",
+    "options": [
+     "on",
+     "off"
+    ],
+    "changeable": true,
+    "reason": ""
+   },
+   {
+    "id": "admin:com.example.chat/.Admin",
+    "group": "special",
+    "label": "Device administrator",
+    "state": "on",
+    "options": [
+     "on"
+    ],
+    "changeable": false,
+    "reason": "Android only lets you turn this off on the phone: Settings > Security > Device admin apps."
+   },
+   {
+    "id": "app:pause",
+    "group": "app",
+    "label": "Pause the app",
+    "state": "active",
+    "options": [
+     "active",
+     "paused"
+    ],
+    "changeable": true,
+    "reason": ""
+   },
+   {
+    "id": "app:disable",
+    "group": "app",
+    "label": "Disable the app",
+    "state": "enabled",
+    "options": [
+     "enabled",
+     "disabled"
+    ],
+    "changeable": true,
+    "reason": ""
+   },
+   {
+    "id": "app:remove",
+    "group": "app",
+    "label": "Remove for this user (it can be put back)",
+    "state": "installed",
+    "options": [
+     "installed",
+     "removed"
+    ],
+    "changeable": true,
+    "reason": ""
+   }
   ],
-  "newFindings": 1,
-  "flagged": [
-    "com.example.spy"
+  "journal": [
+   {
+    "id": 1,
+    "package": "com.example.chat",
+    "control": "op:clipboard",
+    "label": "Read the clipboard",
+    "from": "allow",
+    "to": "deny",
+    "at": "2026-11-17T09:12:00Z",
+    "ok": true,
+    "verified": true,
+    "undone": true
+   }
+  ],
+  "lastResult": {
+   "control": "perm:camera",
+   "label": "Camera",
+   "verified": true,
+   "now": "deny"
+  },
+  "presets": [
+   {
+    "id": "background-location",
+    "title": "Location only while using, for apps that have it all the time"
+   },
+   {
+    "id": "unused-mic-camera",
+    "title": "Microphone and camera off for apps that haven't used them in 30 days"
+   },
+   {
+    "id": "unused-personal",
+    "title": "Contacts, texts, call history and calendar off for apps that haven't used them in 30 days"
+   },
+   {
+    "id": "watch",
+    "title": "Fix what the Watch page warns about"
+   }
+  ],
+  "presetId": "unused-mic-camera",
+  "presetSteps": [
+   {
+    "package": "com.example.spy",
+    "control": "perm:microphone",
+    "to": "deny",
+    "title": "Spy: microphone off",
+    "reason": "Allowed, and no use recorded in 30 days."
+   },
+   {
+    "package": "com.example.shop",
+    "control": "perm:camera",
+    "to": "deny",
+    "title": "Shop: camera off",
+    "reason": "Allowed, and no use recorded in 30 days."
+   }
   ]
+ }
 }
