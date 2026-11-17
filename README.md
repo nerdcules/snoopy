@@ -1,3 +1,5 @@
+<img src="pkgbuild/snoopy.svg" width="72" alt="">
+
 # Snoopy
 
 ![Snoopy showing which apps read what, and where they connect (made-up data)](docs/screenshot.png)
