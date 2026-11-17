@@ -26,6 +26,8 @@ class PermissionsModel : public QObject {
     Q_PROPERTY(QVariantList presets READ presets CONSTANT)
     Q_PROPERTY(QString presetId READ presetId NOTIFY presetChanged)
     Q_PROPERTY(QVariantList presetSteps READ presetSteps NOTIFY presetChanged)
+    // The guided review's questions, from the monitor's last sample.
+    Q_PROPERTY(QVariantList questions READ questions NOTIFY questionsChanged)
 
 public:
     explicit PermissionsModel(Monitor *monitor, QObject *parent = nullptr);
@@ -42,6 +44,14 @@ public:
     QVariantList presets() const;
     QString presetId() const { return m_presetId; }
     QVariantList presetSteps() const { return m_presetSteps; }
+    QVariantList questions() const { return m_questions; }
+
+    // Builds the review's questions; askAll forgets what was kept before.
+    Q_INVOKABLE void loadReview(bool askAll);
+    // Answers question index: "keep" is remembered and changes nothing;
+    // any other state is applied and checked on the phone. answered()
+    // reports the outcome.
+    Q_INVOKABLE void answer(int index, const QString &state);
 
     // Reads package's state from the phone into the panel.
     Q_INVOKABLE void open(const QString &package);
@@ -62,6 +72,8 @@ signals:
     void resultChanged();
     void journalChanged();
     void presetChanged();
+    void questionsChanged();
+    void answered(int index, const QVariantMap &result);
 
 private:
     struct Job {
@@ -83,4 +95,6 @@ private:
     QString m_presetId;
     QVariantList m_presetSteps;
     QList<perms::Step> m_steps;
+    QVariantList m_questions;
+    int m_answering = -1;
 };

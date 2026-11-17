@@ -693,4 +693,153 @@ QList<Step> preset(const QString &id, const Capture &capture, const QJsonArray &
     return steps;
 }
 
+QString questionKey(const QString &package, const QString &control) {
+    return package + '|' + control;
+}
+
+namespace {
+
+// The words and choices for one control.
+Question question(const QString &package, const QString &control, const QString &title, const QString &why) {
+    Question q{package, control, title, why, QString(), {}};
+    if (control == "perm:location") {
+        q.options = {{"keep", QObject::tr("Keep all the time")}, {"while_using", QObject::tr("Only while using")},
+                     {"deny", QObject::tr("Turn off")}};
+        q.suggested = "while_using";
+    } else {
+        const bool onOff = control.startsWith("special:") || control.startsWith("listener:") || control.startsWith("a11y:");
+        q.options = {{"keep", QObject::tr("Keep")}, {onOff ? "off" : "deny", QObject::tr("Turn off")}};
+        q.suggested = onOff ? "off" : "deny";
+    }
+    return q;
+}
+
+QString whyFor(const QString &control) {
+    if (control.startsWith("listener:"))
+        return QObject::tr("It can read the text of every notification, messages included.");
+    if (control.startsWith("a11y:"))
+        return QObject::tr("It can see everything on screen and tap and type for you.");
+    if (control == "special:usage")
+        return QObject::tr("It can see which apps you use, and when.");
+    if (control == "special:install")
+        return QObject::tr("It can install other apps.");
+    if (control == "special:overlay")
+        return QObject::tr("It can draw on top of other apps.");
+    if (control == "special:files")
+        return QObject::tr("It can read every file on the phone.");
+    if (control == "perm:location")
+        return QObject::tr("Most apps only need your location while you use them.");
+    return QObject::tr("It did this while you weren't using it. If you can't think why, turn it off; it will ask again if it needs it.");
+}
+
+} // namespace
+
+QList<Question> review(const Capture &capture, const QJsonArray &findings, const QSet<QString> &kept) {
+    QList<Question> out;
+    QSet<QString> asked;
+    const QHash<QString, QString> installers = parseInstallers(capture.text("installers"));
+    const auto details = parsePackageDump(capture.text("package_dump"));
+    auto grantedBackground = [&](const QString &package) {
+        const PackageDetails *detail = details.find(package);
+        return detail && detail->granted.contains(P + "ACCESS_BACKGROUND_LOCATION");
+    };
+    auto add = [&](const Question &q) {
+        const QString key = questionKey(q.package, q.control);
+        if (asked.contains(key) || kept.contains(key) || !installers.contains(q.package))
+            return;
+        // Location can only be narrowed when the app has it all the time.
+        if (q.control == "perm:location" && !grantedBackground(q.package))
+            return;
+        asked.insert(key);
+        out.append(q);
+    };
+    // Watch first: alerts, then warnings, in the page's order.
+    for (const QString level : {QStringLiteral("alert"), QStringLiteral("warn")}) {
+        for (const QJsonValue &value : findings) {
+            const QJsonObject item = value.toObject();
+            if (item.value("level").toString() != level)
+                continue;
+            const QJsonObject fix = fixFor(item);
+            if (fix.isEmpty())
+                continue;
+            const QString control = fix.value("control").toString();
+            add(question(item.value("package").toString(), control, item.value("title").toString(), whyFor(control)));
+        }
+    }
+    for (const QString &id : {QStringLiteral("background-location"), QStringLiteral("unused-mic-camera"), QStringLiteral("unused-personal")}) {
+        for (const Step &step : preset(id, capture, findings)) {
+            const QString name = friendlyName(step.package);
+            QString title;
+            QString why = QObject::tr("No use in 30 days. Turning it off costs nothing; it will ask again if it needs it.");
+            if (step.control == "perm:location") {
+                title = QObject::tr("%1 can use your location all the time").arg(name);
+                why = whyFor(step.control);
+            } else if (step.control == "perm:microphone")
+                title = QObject::tr("%1 can use the microphone").arg(name);
+            else if (step.control == "perm:camera")
+                title = QObject::tr("%1 can use the camera").arg(name);
+            else if (step.control == "perm:contacts")
+                title = QObject::tr("%1 can read your contacts").arg(name);
+            else if (step.control == "perm:sms")
+                title = QObject::tr("%1 can read your text messages").arg(name);
+            else if (step.control == "perm:calllog")
+                title = QObject::tr("%1 can read your call history").arg(name);
+            else if (step.control == "perm:calendar")
+                title = QObject::tr("%1 can read your calendar").arg(name);
+            else
+                title = step.title;
+            Question q = question(step.package, step.control, title, why);
+            q.round = id == "background-location" ? 1 : 2;
+            add(q);
+        }
+    }
+    // Round 1 before round 2, each in the order found.
+    std::stable_sort(out.begin(), out.end(), [](const Question &a, const Question &b) { return a.round < b.round; });
+    return out;
+}
+
+Decisions::Decisions(const QString &phone, const QString &directory)
+    : m_phone(phone),
+      m_directory(directory.isEmpty()
+                      ? QStandardPaths::writableLocation(QStandardPaths::GenericStateLocation) + "/snoopy/review"
+                      : directory) {}
+
+QString Decisions::path() const {
+    QString safe = m_phone;
+    safe.replace(QRegularExpression("[^A-Za-z0-9._-]"), "_");
+    return m_directory + "/" + (safe.isEmpty() ? QStringLiteral("phone") : safe) + ".json";
+}
+
+QSet<QString> Decisions::kept() const {
+    QSet<QString> keys;
+    QFile file(path());
+    if (file.open(QIODevice::ReadOnly)) {
+        const QJsonObject object = QJsonDocument::fromJson(file.readAll()).object().value("kept").toObject();
+        for (auto it = object.begin(); it != object.end(); ++it)
+            keys.insert(it.key());
+    }
+    return keys;
+}
+
+void Decisions::keep(const QString &key) {
+    QJsonObject root;
+    QFile file(path());
+    if (file.open(QIODevice::ReadOnly))
+        root = QJsonDocument::fromJson(file.readAll()).object();
+    file.close();
+    QJsonObject kept = root.value("kept").toObject();
+    kept.insert(key, QDateTime::currentDateTimeUtc().toString(Qt::ISODate));
+    root.insert("kept", kept);
+    QDir().mkpath(m_directory);
+    QSaveFile out(path());
+    if (out.open(QIODevice::WriteOnly)) {
+        out.write(QJsonDocument(root).toJson(QJsonDocument::Indented));
+        out.commit();
+    }
+}
+
+void Decisions::forget() {
+    QFile::remove(path());
+}
+
 } // namespace perms

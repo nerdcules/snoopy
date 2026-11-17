@@ -598,6 +598,66 @@
     "title": "Shop: camera off",
     "reason": "Allowed, and no use recorded in 30 days."
    }
+  ],
+  "questions": [
+   {
+    "package": "com.example.spy",
+    "name": "Spy",
+    "control": "perm:microphone",
+    "title": "Spy accessed the microphone while not on screen",
+    "why": "It did this while you weren't using it. If you can't think why, turn it off; it will ask again if it needs it.",
+    "suggested": "deny",
+    "options": [
+     {
+      "state": "keep",
+      "label": "Keep"
+     },
+     {
+      "state": "deny",
+      "label": "Turn off"
+     }
+    ]
+   },
+   {
+    "package": "com.example.maps",
+    "name": "Maps",
+    "control": "perm:location",
+    "title": "Maps can use your location all the time",
+    "why": "Most apps only need your location while you use them.",
+    "suggested": "while_using",
+    "options": [
+     {
+      "state": "keep",
+      "label": "Keep all the time"
+     },
+     {
+      "state": "while_using",
+      "label": "Only while using"
+     },
+     {
+      "state": "deny",
+      "label": "Turn off"
+     }
+    ]
+   },
+   {
+    "package": "com.example.shop",
+    "name": "Shop",
+    "control": "perm:camera",
+    "title": "Shop can use the camera",
+    "why": "No use in 30 days. Turning it off costs nothing; it will ask again if it needs it.",
+    "suggested": "deny",
+    "options": [
+     {
+      "state": "keep",
+      "label": "Keep"
+     },
+     {
+      "state": "deny",
+      "label": "Turn off"
+     }
+    ]
+   }
   ]
  }
 }

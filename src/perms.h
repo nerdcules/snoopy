@@ -126,4 +126,42 @@ QStringList presetIds();
 QString presetTitle(const QString &id);
 QList<Step> preset(const QString &id, const Capture &capture, const QJsonArray &findings);
 
+// The guided review: one question per app and control, in plain words, with
+// a suggested answer. Alerts and warnings from the Watch page first, then
+// apps with location all the time, then microphone or camera, then
+// contacts, texts, call history or calendar unused for 30 days. Only what
+// Snoopy can change, each app and control once, third-party apps only, and
+// not what the user chose to keep.
+struct Option {
+    QString state; // the control's state, or "keep"
+    QString label;
+};
+struct Question {
+    QString package;
+    QString control;
+    QString title;
+    QString why;
+    QString suggested;
+    QList<Option> options;
+    // 1: what the Watch page flags and location all the time; 2: what apps
+    // can use but haven't in 30 days (offered after round 1).
+    int round = 1;
+};
+QString questionKey(const QString &package, const QString &control);
+QList<Question> review(const Capture &capture, const QJsonArray &findings, const QSet<QString> &kept);
+
+// What the user chose to keep, per phone, so the review doesn't ask again.
+class Decisions {
+public:
+    Decisions(const QString &phone, const QString &directory = {});
+    QSet<QString> kept() const;
+    void keep(const QString &key);
+    void forget();
+
+private:
+    QString path() const;
+    QString m_phone;
+    QString m_directory;
+};
+
 } // namespace perms

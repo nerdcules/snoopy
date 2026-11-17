@@ -275,6 +275,58 @@ private slots:
         QVERIFY(perms::fixFor({{"key", "patch"}}).isEmpty());
     }
 
+    void reviewAsksEachThingOnceInOrder() {
+        Capture capture;
+        capture.texts["installers"] = "package:com.example.chat  installer=com.android.vending uid:10305\n"
+                                      "package:com.example.maps  installer=com.android.vending uid:10410\n";
+        capture.texts["package_dump"] =
+            "Packages:\n"
+            "  Package [com.example.chat] (1):\n"
+            "    appId=10305\n"
+            "    install permissions:\n"
+            "      android.permission.ACCESS_BACKGROUND_LOCATION: granted=true\n"
+            "      android.permission.RECORD_AUDIO: granted=true\n"
+            "  Package [com.example.maps] (2):\n"
+            "    appId=10410\n"
+            "    install permissions:\n"
+            "      android.permission.ACCESS_FINE_LOCATION: granted=true\n";
+        const QJsonArray findings{
+            QJsonObject{{"key", "bg|com.example.maps|FINE_LOCATION"}, {"level", "warn"}, {"package", "com.example.maps"},
+                        {"title", "Maps accessed precise location while not on screen"}},
+            QJsonObject{{"key", "bg|com.example.chat|RECORD_AUDIO"}, {"level", "alert"}, {"package", "com.example.chat"},
+                        {"title", "Chat accessed the microphone while not on screen"}},
+        };
+        const QList<perms::Question> questions = perms::review(capture, findings, {});
+        // The alert first; Maps' location isn't asked (it isn't "all the
+        // time", so there is nothing to narrow); Chat's microphone isn't
+        // asked twice (Watch and the unused-microphone preset).
+        QCOMPARE(questions.size(), 2);
+        QCOMPARE(questions.at(0).control, QString("perm:microphone"));
+        QCOMPARE(questions.at(0).title, QString("Chat accessed the microphone while not on screen"));
+        QCOMPARE(questions.at(0).suggested, QString("deny"));
+        QCOMPARE(questions.at(0).options.first().state, QString("keep"));
+        QCOMPARE(questions.at(1).control, QString("perm:location"));
+        QCOMPARE(questions.at(1).package, QString("com.example.chat"));
+        QCOMPARE(questions.at(1).suggested, QString("while_using"));
+        QCOMPARE(questions.at(1).options.size(), 3);
+        QCOMPARE(questions.at(0).round, 1); // from Watch
+        QCOMPARE(questions.at(1).round, 1); // location all the time
+        // What was kept isn't asked again.
+        const auto fewer = perms::review(capture, findings, {perms::questionKey("com.example.chat", "perm:microphone")});
+        QCOMPARE(fewer.size(), 1);
+        QCOMPARE(fewer.first().control, QString("perm:location"));
+    }
+
+    void keptAnswersAreRemembered() {
+        perms::Decisions decisions("PHONE1", m_journal->path());
+        QVERIFY(decisions.kept().isEmpty());
+        decisions.keep("com.example.chat|perm:camera");
+        QVERIFY(perms::Decisions("PHONE1", m_journal->path()).kept().contains("com.example.chat|perm:camera"));
+        QVERIFY(perms::Decisions("PHONE2", m_journal->path()).kept().isEmpty());
+        decisions.forget();
+        QVERIFY(decisions.kept().isEmpty());
+    }
+
     void presetsListOnlyWhatApplies() {
         Capture capture;
         capture.texts["installers"] = "package:com.example.chat  installer=com.android.vending uid:10305\n"

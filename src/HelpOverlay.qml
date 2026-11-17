@@ -49,6 +49,7 @@ Rectangle {
                     ["Esc", qsTr("Clear the selection")],
                     ["E", qsTr("Show or hide the changes")],
                     ["C", qsTr("Clear the changes")],
+                    ["G", qsTr("Review my phone: a few questions, one at a time")],
                     ["P", qsTr("Permissions of the selected app: tighten or loosen")],
                     ["Shift + T", qsTr("Tighten presets, and undo recent changes")],
                     ["T", qsTr("Read the phone over the cable or over Wi-Fi")],

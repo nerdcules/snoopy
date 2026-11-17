@@ -58,5 +58,9 @@
   "%n apps' permissions": {
     "one": "%n app's permissions",
     "other": "%n apps' permissions"
+  },
+  "%n more: permissions apps have but haven't used in 30 days (the camera, the microphone, contacts…). Worth a look when you have a few minutes.": {
+    "one": "%n more: a permission an app has but hasn't used in 30 days (the camera, the microphone, contacts…). Worth a look when you have a few minutes.",
+    "other": "%n more: permissions apps have but haven't used in 30 days (the camera, the microphone, contacts…). Worth a look when you have a few minutes."
   }
 }

@@ -51,6 +51,7 @@ void usage(QTextStream &out) {
            "                               change one (shows the plan; --yes applies it without asking)\n"
            "  snoopy perm preset NAME [--yes]        a tightening preset: lists its steps; --yes applies them\n"
            "                               (background-location, unused-mic-camera, unused-personal, watch)\n"
+           "  snoopy perm review                     the questions the window's review would ask, with suggestions\n"
            "  snoopy perm history [--json]           changes made by Snoopy on this phone\n"
            "  snoopy perm undo ID                    put one back\n"
            "  snoopy daemon [--interval 300]\n"
@@ -475,6 +476,23 @@ int perm(const QStringList &arguments, QTextStream &out, QTextStream &err) {
             failed += entry.value("verified").toBool() ? 0 : 1;
         }
         return failed == 0 ? 0 : 1;
+    }
+    if (action == "review") {
+        // The guided review's questions, read-only (the window asks them).
+        const Capture capture = collectSnapshot(adb);
+        const QString phone = hardwareSerial(adb);
+        const QJsonArray findings = WatchBaseline().apply(phone, watchFindings(capture, QDate::currentDate()),
+                                                          QDateTime::currentDateTime(), false);
+        const QList<perms::Question> questions = perms::review(capture, findings, perms::Decisions(phone).kept());
+        out << questions.size() << " questions\n";
+        for (const perms::Question &q : questions) {
+            QString suggested;
+            for (const perms::Option &option : q.options)
+                if (option.state == q.suggested)
+                    suggested = option.label;
+            out << "  " << q.round << "  " << q.title << "  ->  " << suggested << "\n";
+        }
+        return 0;
     }
     if (action == "history") {
         const QJsonArray journal = changer.journal();

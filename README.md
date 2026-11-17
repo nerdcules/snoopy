@@ -117,7 +117,20 @@ alerts, 16 warnings and 44 info lines.
 
 ## Tighten and loosen
 
-Snoopy can change what an app may do, over the same adb connection:
+The easy way: **Review my phone** (G, or the button on the Watch page).
+It asks one question at a time in plain words ("Spy accessed the
+microphone while not on screen", "Maps can use your location all the
+time"), with a suggested answer; Enter takes it, 1 to 3 choose, S skips,
+Backspace goes back, Esc stops. A change is made and checked on the phone
+straight away; Keep is remembered so it isn't asked again. Round one is
+what the Watch page flags plus location all the time; at the end it offers
+a second round of permissions apps have but haven't used in 30 days. The
+summary lists every change with Undo. On the Pixel 8 Pro (2026-11-17):
+13 questions in round one, 29 in round two (`snoopy perm review` lists
+them without changing anything).
+
+Everything the review does can also be done by hand. Snoopy can change
+what an app may do, over the same adb connection:
 
 - **Permissions** (P on an app in the graph, or Permissions… on a Watch
   finding): location all the time, only while using, or not at all;
@@ -187,6 +200,7 @@ snoopy check [--json] [--all] [--serial S | --capture DIR]
 snoopy perm list PACKAGE [--json]
 snoopy perm set PACKAGE CONTROL STATE [--yes]
 snoopy perm preset NAME [--yes]
+snoopy perm review
 snoopy perm history [--json]
 snoopy perm undo ID
 snoopy daemon [--interval 300]

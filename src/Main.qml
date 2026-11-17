@@ -22,6 +22,7 @@ ApplicationWindow {
     property bool wirelessVisible: false
     property bool permsVisible: false
     property bool presetsVisible: false
+    property bool reviewVisible: false
 
     // An app's Permissions panel; with control and to, it asks about that
     // change as soon as the app has been read (a Watch finding's fix).
@@ -60,7 +61,9 @@ ApplicationWindow {
     }
 
     function stepBack() {
-        if (permsVisible)
+        if (reviewVisible)
+            reviewVisible = false
+        else if (permsVisible)
             permsVisible = false
         else if (presetsVisible)
             presetsVisible = false
@@ -102,6 +105,7 @@ ApplicationWindow {
         }
     }
     Shortcut { sequence: "Shift+T"; context: Qt.ApplicationShortcut; onActivated: win.presetsVisible = !win.presetsVisible }
+    Shortcut { sequence: "G"; context: Qt.ApplicationShortcut; onActivated: win.reviewVisible = true }
     Shortcut { sequence: "I"; context: Qt.ApplicationShortcut; onActivated: watchView.showInfo = !watchView.showInfo }
     Shortcut { sequence: "T"; context: Qt.ApplicationShortcut; onActivated: monitor.link = monitor.link === "wifi" ? "usb" : "wifi" }
     Shortcut { sequence: "C"; context: Qt.ApplicationShortcut; onActivated: monitor.clearEvents() }
@@ -325,6 +329,7 @@ ApplicationWindow {
                     id: watchView
                     onManage: (pkg, control, to) => win.openPerms(pkg, control, to)
                     onTighten: win.presetsVisible = true
+                    onReview: win.reviewVisible = true
                 }
             }
 
@@ -337,8 +342,8 @@ ApplicationWindow {
             Label {
                 Layout.fillWidth: true
                 text: win.page === 1
-                      ? qsTr("1/2 graph/watch · M mark seen · I info · Shift+T tighten · T cable/Wi-Fi · ? help · Q quit")
-                      : qsTr("1/2 graph/watch · Space pause · / filter · J/K H/L select · P permissions · T cable/Wi-Fi · W pair · ? help · Q quit")
+                      ? qsTr("1/2 graph/watch · G review my phone · M mark seen · I info · Shift+T tighten · T cable/Wi-Fi · ? help · Q quit")
+                      : qsTr("1/2 graph/watch · G review my phone · Space pause · / filter · J/K H/L select · P permissions · T cable/Wi-Fi · W pair · ? help · Q quit")
                 color: theme.muted
                 font.pixelSize: Math.round(12 * win.u)
                 elide: Text.ElideRight
@@ -368,6 +373,12 @@ ApplicationWindow {
             anchors.fill: parent
             visible: win.presetsVisible
             onClosed: win.presetsVisible = false
+        }
+
+        ReviewWizard {
+            anchors.fill: parent
+            visible: win.reviewVisible
+            onClosed: win.reviewVisible = false
         }
     }
 }

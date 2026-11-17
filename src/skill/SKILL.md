@@ -47,6 +47,9 @@ can be undone with `snoopy perm undo ID`):
   confirmed it (`verified`).
 - `snoopy perm preset NAME`: lists a preset's steps (background-location,
   unused-mic-camera, unused-personal, watch); `--yes` applies them.
+- `snoopy perm review`: the guided review's questions and suggested
+  answers (round 1: Watch findings and location all the time; round 2:
+  permissions unused for 30 days). Read-only; the window asks them.
 - `snoopy check --json` findings carry `fix` (control and state) when
   Snoopy can fix them.
 

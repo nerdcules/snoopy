@@ -11,6 +11,7 @@ Item {
     property bool showInfo: false
     signal manage(string pkg, string control, string to)
     signal tighten()
+    signal review()
     readonly property real u: theme.fontScale
     readonly property var groups: [
         ["background", qsTr("Used while not on screen"),
@@ -55,6 +56,13 @@ Item {
             }
             Button {
                 visible: monitor.samples > 0
+                highlighted: true
+                text: qsTr("Review my phone (G)")
+                onClicked: view.review()
+            }
+            Button {
+                visible: monitor.samples > 0
+                flat: true
                 text: qsTr("Tighten… (Shift+T)")
                 onClicked: view.tighten()
             }

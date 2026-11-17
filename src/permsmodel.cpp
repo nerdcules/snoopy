@@ -185,6 +185,53 @@ void PermissionsModel::applyPreset(const QVariantList &indexes) {
     });
 }
 
+void PermissionsModel::loadReview(bool askAll) {
+    m_questions.clear();
+    if (m_monitor && !m_monitor->phone().isEmpty()) {
+        perms::Decisions decisions(m_monitor->phone());
+        if (askAll)
+            decisions.forget();
+        for (const perms::Question &q : perms::review(m_monitor->lastCapture(),
+                                                      QJsonArray::fromVariantList(m_monitor->findings()), decisions.kept())) {
+            QVariantList options;
+            for (const perms::Option &option : q.options)
+                options.append(QVariantMap{{"state", option.state}, {"label", option.label}});
+            m_questions.append(QVariantMap{{"package", q.package}, {"name", friendlyName(q.package)}, {"control", q.control},
+                                           {"title", q.title}, {"why", q.why}, {"suggested", q.suggested},
+                                           {"options", options}, {"round", q.round}});
+        }
+    }
+    emit questionsChanged();
+}
+
+void PermissionsModel::answer(int index, const QString &state) {
+    if (index < 0 || index >= m_questions.size() || m_watcher.isRunning())
+        return;
+    const QVariantMap q = m_questions.at(index).toMap();
+    if (state == "keep") {
+        if (m_monitor)
+            perms::Decisions(m_monitor->phone()).keep(perms::questionKey(q.value("package").toString(), q.value("control").toString()));
+        emit answered(index, QVariantMap{{"kept", true}});
+        return;
+    }
+    m_answering = index;
+    const QString serial = m_monitor ? m_monitor->serial() : QString();
+    const QString package = q.value("package").toString(), control = q.value("control").toString();
+    start([serial, package, control, state] {
+        Job job;
+        try {
+            Adb adb(serial);
+            adb.resolveSerial();
+            perms::Changer changer(adb, hardwareSerial(adb));
+            job.results.append(changer.apply(perms::plan(changer.read(package), control, state)));
+            job.journal = changer.journal();
+        } catch (const AdbError &error) {
+            job.error = error.message();
+        }
+        return job;
+    });
+}
+
 void PermissionsModel::finished() {
     const Job job = m_watcher.result();
     if (job.hasApp)
@@ -204,4 +251,12 @@ void PermissionsModel::finished() {
     emit journalChanged();
     emit resultChanged();
     emit busyChanged();
+    if (m_answering >= 0) {
+        const int index = m_answering;
+        m_answering = -1;
+        QVariantMap result = job.results.isEmpty() ? QVariantMap() : job.results.first().toObject().toVariantMap();
+        if (!job.error.isEmpty())
+            result.insert("output", job.error);
+        emit answered(index, result);
+    }
 }
