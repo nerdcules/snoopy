@@ -2,6 +2,8 @@
 
 # Snoopy
 
+*Idea: [nerdcules](https://github.com/nerdcules) · Written by: Claude, in [Claude Code](https://claude.com/claude-code)*
+
 ![Snoopy showing which apps read what, and where they connect (made-up data)](docs/screenshot.png)
 
 Snoopy shows, for an Android phone plugged into this computer, what each app
