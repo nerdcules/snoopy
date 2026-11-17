@@ -19,6 +19,7 @@ ApplicationWindow {
     Material.roundedScale: theme.radius
 
     property bool helpVisible: false
+    property bool aboutVisible: false
     property bool wirelessVisible: false
     property bool permsVisible: false
     property bool presetsVisible: false
@@ -61,7 +62,9 @@ ApplicationWindow {
     }
 
     function stepBack() {
-        if (reviewVisible)
+        if (aboutVisible)
+            aboutVisible = false
+        else if (reviewVisible)
             reviewVisible = false
         else if (permsVisible)
             permsVisible = false
@@ -79,6 +82,7 @@ ApplicationWindow {
             graph.selectedId = ""
     }
 
+    Shortcut { sequence: "Ctrl+I"; context: Qt.ApplicationShortcut; onActivated: win.aboutVisible = !win.aboutVisible }
     Shortcut { sequence: "?"; context: Qt.ApplicationShortcut; onActivated: win.helpVisible = !win.helpVisible }
     Shortcut { sequence: "Escape"; context: Qt.ApplicationShortcut; onActivated: win.stepBack() }
     Shortcut { sequence: "Q"; context: Qt.ApplicationShortcut; onActivated: Qt.quit() }
@@ -380,5 +384,13 @@ ApplicationWindow {
             visible: win.reviewVisible
             onClosed: win.reviewVisible = false
         }
+    }
+
+    AboutOverlay {
+        visible: win.aboutVisible
+        appName: "snoopy"
+        purpose: qsTr("See what apps on a connected Android phone read, and where they connect")
+        repository: "github.com/nerdcules/snoopy"
+        onDismissed: win.aboutVisible = false
     }
 }

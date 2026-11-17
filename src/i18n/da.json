@@ -397,5 +397,10 @@
     "other": "%n mere: tilladelser, apps har, men ikke har brugt i 30 dage (kameraet, mikrofonen, kontakter…). Værd at se på, når du har et par minutter."
   },
   "Review those too (M)": "Gennemgå dem også (M)",
-  "Unused permissions": "Ubrugte tilladelser"
+  "Unused permissions": "Ubrugte tilladelser",
+  "Version %1": "Version %1",
+  "An idea by Alan Seunarayan, developed with AI": "En idé af Alan Seunarayan, udviklet med AI",
+  "MIT licence": "MIT-licens",
+  "About this app": "Om programmet",
+  "See what apps on a connected Android phone read, and where they connect": "Se, hvad apps på en tilsluttet Android-telefon læser, og hvor de forbinder til"
 }

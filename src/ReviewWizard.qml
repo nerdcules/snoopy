@@ -343,7 +343,7 @@ Rectangle {
                 }
                 Label {
                     readonly property var a: wizard.answers[wizard.index]
-                    visible: wizard.waiting === null && a && a !== "skip" && a.result !== undefined
+                    visible: !!(wizard.waiting === null && a && a !== "skip" && a.result !== undefined)
                     color: theme.good
                     font.pixelSize: Math.round(13 * wizard.u)
                     text: a && a.result ? (a.result.kept ? qsTr("Kept.") : qsTr("Done, checked on the phone.")) : ""

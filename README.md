@@ -72,6 +72,7 @@ phone goes away, the last sample stays on screen with a note.
 | + / - | Sample more or less often (5 to 300 seconds) |
 | Ctrl + / - / 0 | Text larger, smaller, default |
 | ? | Every shortcut |
+| Ctrl + I | About Snoopy |
 | Q | Quit |
 
 `snoopy open --serial S` picks one phone when several are connected.

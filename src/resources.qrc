@@ -23,5 +23,7 @@
         <file alias="plugin/snoopy.phone/i18n/da.json">../plugin/snoopy.phone/i18n/da.json</file>
         <file alias="plugin/snoopy.phone/i18n/en.json">../plugin/snoopy.phone/i18n/en.json</file>
         <file alias="plugin/snoopy.phone/manifest.json">../plugin/snoopy.phone/manifest.json</file>
+        <file alias="AboutOverlay.qml">AboutOverlay.qml</file>
+        <file alias="icon.svg">../pkgbuild/snoopy.svg</file>
     </qresource>
 </RCC>

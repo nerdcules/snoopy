@@ -57,6 +57,7 @@ Rectangle {
                     ["+ / -", qsTr("Sample more or less often")],
                     ["Ctrl + / -", qsTr("Make the text larger or smaller")],
                     ["?", qsTr("Show this help")],
+                    ["Ctrl + I", qsTr("About this app")],
                     ["Q", qsTr("Quit")]
                 ]
                 delegate: RowLayout {
