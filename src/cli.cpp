@@ -33,7 +33,8 @@ const QStringList kCommands{"scan", "watch", "report", "check", "icon", "daemon"
 
 void usage(QTextStream &out) {
     out << "snoopy - what each app on a connected Android phone reads, and where it is connected\n\n"
-           "  snoopy [open] [--serial S]   open the window\n"
+           "  snoopy [open] [--page watch|graph] [--serial S]\n"
+           "                               open the window (a running one, on that page)\n"
            "  snoopy scan [--json] [--all] [--package P]... [--out DIR] [--serial S]\n"
            "                               one sample of the phone, as a report\n"
            "  snoopy watch [--interval 5] [--count 12] [--package P]... [--serial S]\n"

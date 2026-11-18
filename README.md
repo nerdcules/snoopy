@@ -52,6 +52,20 @@ builds the package with `makepkg -fsi`, so Snoopy appears in the app launcher
 (Super + Space). It follows the Omarchy accent, window rounding and language
 as they change.
 
+**The AUR has another `snoopy`**, a tool for Petri nets (2022.08.27), and
+pacman and yay match packages by name alone. So `yay -Sua`, which Omarchy's
+update runs, takes it for a newer version of this one and tries to replace
+it: on 18 November 2026 `yay -Qua` listed `snoopy 0.1.0-1 -> 2022.08.27-1`.
+Keep it out of AUR updates with this line in the `[options]` section of
+`/etc/pacman.conf`:
+
+```ini
+IgnorePkg = snoopy
+```
+
+It only skips system upgrades (`pacman.conf(5)`), so `bin/install` still
+installs a new build. Afterwards `yay -Qua` should no longer list `snoopy`.
+
 ## The window
 
 The graph runs left to right: information read (amber), apps (by bytes),
@@ -210,7 +224,7 @@ snoopy perm history [--json]
 snoopy perm undo ID
 snoopy daemon [--interval 300]
 snoopy desktop install
-snoopy open [--page watch|graph]
+snoopy open [--page watch|graph] [--serial S]
 snoopy icon PACKAGE [--out FILE] [--fresh] [--json] [--serial S]
 snoopy skill install
 ```
