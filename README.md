@@ -61,6 +61,20 @@ that one for a newer version of it: on 18 November 2026 `yay -Qua` listed
 conflict. If you installed Snoopy before the rename, `bin/install` offers to
 remove the old `snoopy` package in the same step: answer yes.
 
+### Updating
+
+[`nerdcules-update`](https://github.com/nerdcules/nerdcules#updates) builds
+Snoopy from this repository's release tags and installs it, and goes back:
+
+```sh
+nerdcules-update apply snoopy                 # the newest release
+nerdcules-update channel snoopy prerelease    # also pre-releases (v1.2.0-rc.1); or main
+nerdcules-update rollback snoopy              # the version before
+```
+
+No release is tagged yet, so the stable channel has nothing to offer; until
+one is, `nerdcules-update channel snoopy main` follows every commit.
+
 ## The window
 
 The graph runs left to right: information read (amber), apps (by bytes),
